@@ -38,7 +38,7 @@ class FeedbackService {
                 dictationFeedbackBody: body.body,
                 dictationFeedbackStatus: true
             })
-            .into("flashcardFeedback");
+            .into("dictationFeedback");
         }
         else {
             return "card type not recognised"
