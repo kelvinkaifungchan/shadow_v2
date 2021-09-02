@@ -5,14 +5,10 @@ class Set {
 
     //Add a set
     async add(title, desc, user){
-        //get id of user
         const email = await this.knex("user")
-        .where({
-            email: user
-        })
+        .where("email", user)
         .select("id");
 
-        //insert param
         return this.knex("set")
         .insert({
             setTitle: title,
@@ -56,21 +52,25 @@ class Set {
         return this.knex("set")
         .join("user", "set.user_id", "user.id")
         .where("set.id", index)
+        .where("set.setStatus", true)
         .then((set) => {
             setData.id = set[0].id,
+            setData.title = set[0].setTitle,
             setData.description = set[0].setDesc,
-            setData.owner = set[0].username,
-            setData.title = set[0].setTitle
+            setData.owner = set[0].displayName
         })
         .then(()=>{
             return this.knex("tag_set")
+            .where("set_id", index)
             .join("tag", "tag_set.tag_id", "tag.id")
-            .where("tag_set.set_id", index)
             .select("tag.tagBody", "tag.id")
-            .then((tag) => {
-                tag.map((tag)=>{
-                    setData.tag = [...tag]
-                })
+            .then((tags) => {
+                setData.tags = tags.map((tag)=>{
+                    return {
+                        id: tag.id,
+                        body:tag.body
+                    };
+                });
             })
             .then(()=>{
                 return setData
@@ -88,13 +88,14 @@ class Set {
         .join("classroom", "classroom_set.classroom_id", "classroom.id")
         .where({
             classroom_id: classroomIndex,
+            classroomStatus: true
         })
         .then((sets)=>{
             return sets.map((set) => {
                 return ({
-                    id: set[0].id,
-                    title: set[0].setTitle,
-                    description: set[0].setDesc,
+                    id: set.id,
+                    title: set.setTitle,
+                    description: set.setDesc,
                 });
             });
         })

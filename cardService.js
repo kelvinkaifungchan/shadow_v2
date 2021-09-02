@@ -127,7 +127,8 @@ class Card {
         if(type === "flashcard"){
             return this.knex("flashcard")
             .where({
-                id: cardId
+                id: cardId,
+                flashcardStatus: true,
             })
             .then((flashcard)=>{
                 return ({
@@ -140,21 +141,39 @@ class Card {
         }
         if(type === "quizcard"){
             return this.knex("quizcard")
+            .join("multipleChoice", "quizcard.id", "multipleChoice.quizcard_id")
+            .join("trueFalse", "quzicard.id", "trueFalse.quzicard_id")
             .where({
-                id: cardId
+                id: cardId,
+                quizcardStatus: true,
+                multipleChoiceStatus: true
+            })
+            .orWhere({
+                id: cardId,
+                quizcardStatus: true,
+                trueFalseStatus: true
             })
             .then((quizcard)=>{
                 return ({
                     id: quizcard.id,
                     title: quizcard.quizcardTitle,
                     recording: quizcard.quizcardRecording,
+                    mcBody: quizcard.multipleChoiceBody,
+                    tfBody: quizcard.trueFalseBody,
+                    mcAnswer: quizcard.multipleChoiceAnswer,
+                    tfAnswer: quizcard.trueFalseAnswer,
+                    mcTime: quizcard.multipleChoiceTime,
+                    tfTime: quizcard.trueFalseTime,
                 })
             })
         }
         if(type === "dictationcard"){
             return this.knex("dictationcard")
+            .join("dictation", "dicataioncard.id", "dictation.dictationcard_id")
             .where({
-                id: cardId
+                id: cardId,
+                dictationcardStatus: true,
+                dictationStatus: true
             })
             .then((dictationcard)=>{
                 return ({
@@ -167,6 +186,117 @@ class Card {
     }
 
     list(setId){
+        //master cache
+        let allCard = {}
+
+        //query for flashcard
         return this.knex("set")
+        .where({
+            id: setId,
+            set_status: true,
+        })
+        .join("set_flsahcard", "set.id", "set_flashcard.set_id")
+        .join("flashcard", "set_flashcard.flashcard_id", "flashcard.id")
+        .then((flashcards)=>{
+            allCard.flashcard = flashcards.map((flashcard) => {
+                return {
+                    id: flashcard.flashcard_id,
+                    title: flashcard.flashcardTitle,
+                    body: flashcard.flashcardBody
+                }
+            })
+        })
+
+        //query for quizcard
+        .then(() => {
+            return this.knex("set")
+            .where({
+                id: setId,
+                set_status: true,
+            })
+            .join("set_quizcard", "set.id", "set_quizcard.set_id")
+            .join("quizcard", "set_quizcard.quizcard_id", "quizcard.id")
+            .then((quizcards)=>{
+                allCard.quizcard = quizcards.map((quizcard) => {
+                    return {
+                        id: quizcard.quizcard_id,
+                        title: quizcard.quizcardTitle,
+                    }
+                })
+            })
+        })
+
+        //query for dictationcard
+        .then(() => {
+            return this.knex("set")
+            .where({
+                id: setId,
+                set_status: true,
+            })
+            .join("set_dictationcard", "set.id", "set_dictationcard.set_id")
+            .join("dictationcard", "set_dictationcard.dictationcard_id", "dictationcard.id")
+            .then((dictationcards)=>{
+                allCard.dictationcard = dictationcards.map((dictationcard) => {
+                    return {
+                        id: dictationcard.dictationcard_id,
+                        title: dictationcard.dictationcardTitle,
+                    }
+                })
+            })
+        })
+        .then(() => {
+            return allCard
+        })
+    }
+
+    user(user){
+        const email = await this.knex("user")
+        .where({
+            email: user
+        })
+        .select("id")
+
+        let allCard = {}
+
+        return this.knex("flashcard")
+        .where("user_id", email)
+        .select("id", "flashcardTitle")
+        .then((flashcards)=>{
+            allCard.flashcard = flashcards.map((flashcard)=>{
+                return ({
+                    id: flashcard.id,
+                    title: flashcard.flashcardTitle
+                })
+            })
+        })
+        .then(() => {
+            return this.knex("quizcard")
+            .where("user_id", email)
+            .select("id", "quizcardTitle")
+            .then((quizcards)=>{
+                allCard.quizcard = quizcards.map((quizcard)=>{
+                    return ({
+                        id: quizcard.id,
+                        title: quizcard.quizcardTitle
+                    })
+                })
+            })
+        })
+        .then(() => {
+            return this.knex("dictationcard")
+            .where("user_id", email)
+            .select("id", "dictationcardTitle")
+            .then((dictationcards)=>{
+                allCard.dictationcard = dictationcards.map((dictationcard)=>{
+                    return ({
+                        id: dictationcard.id,
+                        title: dictationcard.dictationcardTitle
+                    })
+                })
+            })
+        })
+        .then(() => {
+            return allCard
+        })
     }
 }
