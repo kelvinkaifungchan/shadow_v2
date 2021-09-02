@@ -4,10 +4,15 @@ class Card {
     }
 
     //add a card of flashcard, quizcard, dictation card
-    async add(body, setId){
+    async add(body, user){
+        const userId = await this.knex("user")
+        .where("email", user)
+        .select("id")
+
         if(body.type === "flashcard"){
             return this.knex("flashcard")
             .insert({
+                user_id: userId,
                 flashcardTitle: body.flashcardTitle,
                 flashcardBody: body.flashcardBody,
                 flashcardRecording: body.flashcardRecording,
@@ -20,6 +25,7 @@ class Card {
         if(body.type === "quizcard"){
             return this.knex("quizcard")
             .insert({
+                user_id: userId,
                 quizcardTitle: body.quizcardTitle,
                 quizcardRecording: body.quizcardRecording,
                 quizcardStatus: true,
@@ -31,6 +37,7 @@ class Card {
         if(body.type === "dictationcard"){
             return this.knex("dictationcard")
             .insert({
+                user_id: userId,
                 dictationcardTitle: body.dictationcardTitle,
                 dictationcardRecording: body.dictationcardRecording,
                 dictationcardStatus: true,
