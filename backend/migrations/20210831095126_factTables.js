@@ -6,6 +6,7 @@ exports.up = function(knex) {
         user.string("gmail_id");
         user.string("facebook_id");
         user.string("passwordHash");
+        user.string("picture");
         user.string("role");
         user.string("tier");
         user.boolean("userStatus");
