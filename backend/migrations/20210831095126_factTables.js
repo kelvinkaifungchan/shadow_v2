@@ -53,7 +53,7 @@ exports.up = function(knex) {
     .createTable("flashcardFeedback", (flashcardFeedback) => {
         flashcardFeedback.increments().primary();
         flashcardFeedback.integer("user_id").references("id").inTable("user");
-        flashcardFeedback.integer("flashcardSubmission_id").references("id").inTable("user");
+        flashcardFeedback.integer("flashcardSubmission_id").references("id").inTable("flashcardSubmission");
         flashcardFeedback.string("flashcardFeedbackBody");
         flashcardFeedback.string("flashcardFeedbackTime");
         flashcardFeedback.boolean("flashcardFeedbackStatus");
