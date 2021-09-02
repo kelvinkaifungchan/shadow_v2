@@ -55,7 +55,10 @@ class ClassroomService {
     .then(() => {
         return this.knex("tag_classroom")
         .where("classroom_id", index)
-        .innerjoin("")
+        .innerjoin("tag", "tag_classroom.tag_id", "tag.id")
+    })
+    .then((tags) => {
+      
     })
   }
 
