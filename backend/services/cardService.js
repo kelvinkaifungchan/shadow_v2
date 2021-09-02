@@ -12,7 +12,7 @@ class Card {
         if(body.type === "flashcard"){
             return this.knex("flashcard")
             .insert({
-                user_id: userId,
+                user_id: userId[0].id,
                 flashcardTitle: body.flashcardTitle,
                 flashcardBody: body.flashcardBody,
                 flashcardRecording: body.flashcardRecording,
@@ -132,21 +132,36 @@ class Card {
 
     card(type, cardId){
         if(type === "flashcard"){
+            let flashcardData = {}
             return this.knex("flashcard")
             .where({
                 id: cardId,
                 flashcardStatus: true,
             })
             .then((flashcard)=>{
-                return ({
-                    id: flashcard.id,
-                    title: flashcard.flashcardTitle,
-                    body: flashcard.flashcardBody,
-                    recording: flashcard.flashcardRecording,
-                })
+                flashcardData.user_id = flashcard.user_id
+                flashcardData.id = flashcard.id
+                flashcardData.title = flashcard.flashcardTitle
+                flashcardData.body = flashcard.flashcardBody
+                flashcardData.recording = flashcard.flashcardRecording
+            })
+            .then(()=>{
+                return this.knex("tag_flashcard")
+                .where("flashcard_id", cardId)
+                .join("tag", "tag_flashcard.tag_id", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                flashcardData.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body,
+                    };
+                });
             })
         }
         if(type === "quizcard"){
+            let quizcardData = {}
             return this.knex("quizcard")
             .join("multipleChoice", "quizcard.id", "multipleChoice.quizcard_id")
             .join("trueFalse", "quzicard.id", "trueFalse.quzicard_id")
@@ -161,20 +176,42 @@ class Card {
                 trueFalseStatus: true
             })
             .then((quizcard)=>{
-                return ({
-                    id: quizcard.id,
-                    title: quizcard.quizcardTitle,
-                    recording: quizcard.quizcardRecording,
-                    mcBody: quizcard.multipleChoiceBody,
-                    tfBody: quizcard.trueFalseBody,
-                    mcAnswer: quizcard.multipleChoiceAnswer,
-                    tfAnswer: quizcard.trueFalseAnswer,
-                    mcTime: quizcard.multipleChoiceTime,
-                    tfTime: quizcard.trueFalseTime,
+                quizcardData.id = quizcard.id,
+                quizcardData.user_id = quizcard.user_id,
+                quizcardData.title = quizcard.quizcardTitle,
+                quizcardData.recording = quizcard.quizcardRecording,
+                quizcardData.multipleChoice = quizcard.map((mc)=>{
+                    return ({
+                        body: mc.multipleChoiceBody,
+                        answer: mc.multipleChoiceAnswer,
+                        time: mc.multipleChoiceTime
+                    })
                 })
+                quizcardData.trueFalse = quizcard.map((tf)=>{
+                    return ({
+                        body: tf.trueFalseBody,
+                        answer: tf.trueFalseAnswer,
+                        time: tf.trueFalseTime
+                    })
+                })
+            })
+            .then(()=>{
+                return this.knex("quizcard")
+                .where("quizcard_id", cardId)
+                .join("tag", "tag_quizcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                quizcardData.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body,
+                    };
+                });
             })
         }
         if(type === "dictationcard"){
+            let dictationcardData = {}
             return this.knex("dictationcard")
             .join("dictation", "dicataioncard.id", "dictation.dictationcard_id")
             .where({
@@ -189,6 +226,20 @@ class Card {
                     recording: dictationcard.dictationcardRecording,
                 })
             })
+            .then(()=>{
+                return this.knex("dictationcard")
+                .where("dictationcard_id", cardId)
+                .join("tag", "tag_dictationcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                dictationcardData.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body,
+                    };
+                });
+            })
         }
     }
 
@@ -202,15 +253,32 @@ class Card {
             id: setId,
             set_status: true,
         })
-        .join("set_flsahcard", "set.id", "set_flashcard.set_id")
+        .join("set_flashcard", "set.id", "set_flashcard.set_id")
         .join("flashcard", "set_flashcard.flashcard_id", "flashcard.id")
         .then((flashcards)=>{
             allCard.flashcard = flashcards.map((flashcard) => {
                 return {
                     id: flashcard.flashcard_id,
+                    user_id: flashcard.user_id,
                     title: flashcard.flashcardTitle,
                     body: flashcard.flashcardBody
                 }
+            })
+        })
+        .then(()=>{
+            allCard.flashcard.map((flashcard)=>{
+                return this.knex("tag_flashcard")
+                .where("flashcard_id", flashcard.id)
+                .join("tag", "tag_flashcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.flashcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
             })
         })
 
@@ -227,9 +295,26 @@ class Card {
                 allCard.quizcard = quizcards.map((quizcard) => {
                     return {
                         id: quizcard.quizcard_id,
+                        user_id: quizcard.user_id,
                         title: quizcard.quizcardTitle,
                     }
                 })
+            })
+        })
+        .then(()=>{
+            allCard.quizcard.map((quizcard)=>{
+                return this.knex("tag_quizcard")
+                .where("quizcard_id", quizcard.id)
+                .join("tag", "tag_quizcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.quizcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
             })
         })
 
@@ -246,11 +331,29 @@ class Card {
                 allCard.dictationcard = dictationcards.map((dictationcard) => {
                     return {
                         id: dictationcard.dictationcard_id,
+                        user_id: dictationcard.user_id,
                         title: dictationcard.dictationcardTitle,
                     }
                 })
             })
         })
+        .then(()=>{
+            allCard.dictationcard.map((dictationcard)=>{
+                return this.knex("tag_dictationcard")
+                .where("dictationcard_id", dictationcard.id)
+                .join("tag", "tag_dictationcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.quizcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
+            })
+        })
+
         .then(() => {
             return allCard
         })
@@ -266,16 +369,34 @@ class Card {
         let allCard = {}
 
         return this.knex("flashcard")
-        .where("user_id", email)
+        .where("user_id", email[0].id)
         .select("id", "flashcardTitle")
         .then((flashcards)=>{
             allCard.flashcard = flashcards.map((flashcard)=>{
                 return ({
                     id: flashcard.id,
+                    user_id: flashcard.user_id,
                     title: flashcard.flashcardTitle
                 })
             })
         })
+        .then(()=>{
+            allCard.flashcard.map((flashcard)=>{
+                return this.knex("tag_flashcard")
+                .where("flashcard_id", flashcard.id)
+                .join("tag", "tag_flashcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.flashcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
+            })
+        })
+
         .then(() => {
             return this.knex("quizcard")
             .where("user_id", email)
@@ -289,6 +410,22 @@ class Card {
                 })
             })
         })
+        .then(()=>{
+            allCard.quizcard.map((quizcard)=>{
+                return this.knex("tag_quizcard")
+                .where("quizcard_id", quizcard.id)
+                .join("tag", "tag_quizcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.quizcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
+            })
+        })
         .then(() => {
             return this.knex("dictationcard")
             .where("user_id", email)
@@ -300,6 +437,22 @@ class Card {
                         title: dictationcard.dictationcardTitle
                     })
                 })
+            })
+        })
+        .then(()=>{
+            allCard.dictationcard.map((dictationcard)=>{
+                return this.knex("tag_dictationcard")
+                .where("dictationcard_id", dictationcard.id)
+                .join("tag", "tag_dictationcard", "tag.id")
+                .select("tag.id", "tag.tagBody")
+            })
+            .then((tags) => {
+                allCard.quizcard.tags = tags.map((tag) => {
+                    return {
+                        id: tag.id,
+                        body: tag.body
+                    };
+                });
             })
         })
         .then(() => {

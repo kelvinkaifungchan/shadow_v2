@@ -112,19 +112,33 @@ class Set {
         })
         .select("id");
 
+        let setData = {}
+
         return this.knex("set")
         .where({
-            user_id: email,
+            user_id: email[0].id,
             setStatus: true
         })
         .then((sets)=>{
             return sets.map((set) => {
-                return ({
-                    id: set.id,
-                    title: set.setTitle,
-                    description: set.setDesc,
-                })
+                setData.id = set.id
+                setData.title = set.setTitle
+                setData.description = set.setDesc
             })
+        })
+        .then(()=>{
+            return this.knex("tag_set")
+            .where("set_id", setData.id)
+            .join("tag", "tag_id", "tag.id")
+            .select("tag.id", "tag.tagBody")
+        })
+        .then((tags) => {
+            setData.tags = tags.map((tag)=>{
+                return {
+                    id: tag.id,
+                    body: tag.body
+                };
+            });
         })
         .catch((err) => {
             console.log(err)
