@@ -25,7 +25,7 @@ class Card {
         if(body.type === "quizcard"){
             return this.knex("quizcard")
             .insert({
-                user_id: userId,
+                user_id: userId[0].id,
                 quizcardTitle: body.quizcardTitle,
                 quizcardRecording: body.quizcardRecording,
                 quizcardStatus: true,
@@ -37,7 +37,7 @@ class Card {
         if(body.type === "dictationcard"){
             return this.knex("dictationcard")
             .insert({
-                user_id: userId,
+                user_id: userId[0].id,
                 dictationcardTitle: body.dictationcardTitle,
                 dictationcardRecording: body.dictationcardRecording,
                 dictationcardStatus: true,
