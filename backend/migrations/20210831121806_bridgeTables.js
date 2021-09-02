@@ -5,7 +5,7 @@ exports.up = function(knex) {
   .createTable("classroom_user", (classroom_user) => {
       classroom_user.increments().primary();
       classroom_user.integer("classroom_id").references("id").inTable("classroom");
-      classroom_user.integer("user_id").references("id").inTable("user");
+      classroom_user.integer("sharedUser_id").references("id").inTable("user");
   })
   .createTable("classroom_set", (classroom_set) => {
       classroom_set.increments().primary();

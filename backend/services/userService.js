@@ -24,7 +24,7 @@ class UserService {
     }
 
     //Method to update user picture
-    async updatePicture(picture, user_id) {
+    async updatePicture(picture, email) {
         console.log("Uploading user picture to AWS")
         let fileName = `user/${user_id}/picture.jpeg`
         let fileData = picture.data
@@ -37,7 +37,9 @@ class UserService {
         try {
             let data = await s3.upload(params).promise()
             await this.knex("user")
-            .where({id: user_id})
+            .where({
+                email: email
+            })
             .update({
                 picture: data.Location
             })
@@ -52,7 +54,9 @@ class UserService {
         return this.knex("user")
             .where({
                 email: email
-            }).del();
+            }).update({
+                userStatus: false
+            })
     }
 
     //Method to return a users details
@@ -65,7 +69,6 @@ class UserService {
             .then((user) => {
                 return ({
                     id: user[0].id,
-                    username: user[0].username,
                     displayName: user[0].displayName,
                     email: user[0].email,
                     picture: user[0].picture

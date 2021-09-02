@@ -107,7 +107,6 @@ exports.up = function(knex) {
         dictationcard.increments().primary();
         dictationcard.integer("user_id").references("id").inTable("user");
         dictationcard.string("dictationcardTitle");
-        dictationcard.string("dictationcardRecording");
         dictationcard.boolean("dictationcardStatus");
         dictationcard.timestamps(false, true);
     })
@@ -116,7 +115,7 @@ exports.up = function(knex) {
         dictation.integer("user_id").references("id").inTable("user");
         dictation.integer("dictationcard_id").references("id").inTable("dictationcard");
         dictation.string("dictationBody");
-        dictation.string("dictationTime");
+        dictation.string("dictationRecording");
         dictation.boolean("dictationStatus");
         dictation.timestamps(false, true);
     })
@@ -128,19 +127,19 @@ exports.up = function(knex) {
         dictationSubmission.boolean("dictationSubmissionStatus");
         dictationSubmission.timestamps(false, true);
     })
-    .createTable("dictationMarking", (dictationMarking) => {
-        dictationMarking.increments().primary();
-        dictationMarking.integer("user_id").references("id").inTable("user");
-        dictationMarking.integer("dictationSubmission_id").references("id").inTable("dictationSubmission");
-        dictationMarking.string("dictationMarkingBody");
-        dictationMarking.boolean("dictationMarkingStatus");
-        dictationMarking.timestamps(false, true);
+    .createTable("dictationFeedback", (dictationFeedback) => {
+        dictationFeedback.increments().primary();
+        dictationFeedback.integer("user_id").references("id").inTable("user");
+        dictationFeedback.integer("dictationSubmission_id").references("id").inTable("dictationSubmission");
+        dictationFeedback.string("dictationFeedbackBody");
+        dictationFeedback.boolean("dictationFeedbackStatus");
+        dictationFeedback.timestamps(false, true);
     })
 };
 
 exports.down = function(knex) {
   return knex.schema
-  .dropTable("dictationMarking")
+  .dropTable("dictationFeedback")
   .dropTable("dictationSubmission")
   .dropTable("dictation")
   .dropTable("dictationcard")
