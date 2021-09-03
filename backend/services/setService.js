@@ -24,7 +24,7 @@ class Set {
     //Edit a specific set title, desc, accord to index
     edit(body){
         return this.knex("set")
-        .where("id", body.index)
+        .where("id", body.setId)
         .update({
             setTitle: body.title,
             setDesc: body.desc,
@@ -37,7 +37,7 @@ class Set {
     //Make a specific set inactive
     delete(body){
         return this.knex("set")
-        .where("id", body.index)
+        .where("id", body.setId)
         .update({
             setStatus: false,
         })
@@ -51,7 +51,7 @@ class Set {
         let setData = {}
         return this.knex("set")
         .join("user", "set.user_id", "user.id")
-        .where("set.id", body.index)
+        .where("set.id", body.setId)
         .where("set.setStatus", true)
         .select("set.id", "set.setTitle", "set.setDesc", "user.displayName")
         .then((set) => {
@@ -62,7 +62,7 @@ class Set {
         })
         .then(()=>{
             return this.knex("tag_set")
-            .where("set_id", index)
+            .where("set_id", body.setId)
             .join("tag", "tag_set.tag_id", "tag.id")
             .select("tag.tagBody", "tag.id")
             .then((tags) => {
@@ -88,7 +88,7 @@ class Set {
         .join("classroom_set", "set.id", "classroom_set.set_id")
         .join("classroom", "classroom_set.classroom_id", "classroom.id")
         .where({
-            classroom_id: body.classroomIndex,
+            classroom_id: body.classroomId,
             classroomStatus: true
         })
         .select("set.id", "set.setTitle", "set.setDesc")
@@ -114,7 +114,7 @@ class Set {
         })
         .select("id");
 
-        let setData = {}
+        let setData = {};
 
         return this.knex("set")
         .where({
@@ -126,22 +126,23 @@ class Set {
                 setData.id = set.id
                 setData.title = set.setTitle
                 setData.description = set.setDesc
+                setData.tags = function () {
+                    return this.knex("tag_set")
+                    .where("set_id", set.id)
+                    .join("tag", "tag_id", "tag.id")
+                    .select("tag.id", "tag.tagBody")
+                    .then((tags) => {
+                        return tags.map((tag)=>{
+                            return {
+                                id: tag.id,
+                                body: tag.body
+                            };
+                        });
+                    })
+                }
             })
         })
-        .then(()=>{
-            return this.knex("tag_set")
-            .where("set_id", setData.id)
-            .join("tag", "tag_id", "tag.id")
-            .select("tag.id", "tag.tagBody")
-        })
-        .then((tags) => {
-            setData.tags = tags.map((tag)=>{
-                return {
-                    id: tag.id,
-                    body: tag.body
-                };
-            });
-        })
+
         .catch((err) => {
             console.log(err)
         });
