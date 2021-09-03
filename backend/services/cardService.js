@@ -222,6 +222,7 @@ class Card {
             .then((dictationcard)=>{
                 return ({
                     id: dictationcard.id,
+                    user_id: dictationcard.user_id,
                     title: dictationcard.dictationcardTitle,
                     recording: dictationcard.dictationcardRecording,
                 })
@@ -291,12 +292,15 @@ class Card {
             })
             .join("set_quizcard", "set.id", "set_quizcard.set_id")
             .join("quizcard", "set_quizcard.quizcard_id", "quizcard.id")
+            //.join("tag_quizcard", "quizcard.id", "tag_quizcard.quizcard_id")
+            //.join("tag", "tag_quizcard.tag_id", "tag.id")
             .then((quizcards)=>{
                 allCard.quizcard = quizcards.map((quizcard) => {
                     return {
                         id: quizcard.quizcard_id,
                         user_id: quizcard.user_id,
                         title: quizcard.quizcardTitle,
+                        //tag: [...{id:quizcard.tag.id, body:quizcard.tag.body}]
                     }
                 })
             })
