@@ -349,7 +349,7 @@ class Card {
         })
     }
 
-    user(body){
+    async user(body){
         const email = await this.knex("user")
         .where({
             email: body.email
@@ -399,5 +399,10 @@ class Card {
         .then(() => {
             return allCard
         })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 }
+
+module.exports = Card
