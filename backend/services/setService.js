@@ -35,9 +35,9 @@ class Set {
     };
 
     //Make a specific set inactive
-    delete(index){
+    delete(body){
         return this.knex("set")
-        .where("id", index)
+        .where("id", body.index)
         .update({
             setStatus: false,
         })
@@ -47,11 +47,11 @@ class Set {
     };
 
     //list all details of a specific set
-    set(index){
+    set(body){
         let setData = {}
         return this.knex("set")
         .join("user", "set.user_id", "user.id")
-        .where("set.id", index)
+        .where("set.id", body.index)
         .where("set.setStatus", true)
         .select("set.id", "set.setTitle", "set.setDesc", "user.displayName")
         .then((set) => {
@@ -83,12 +83,12 @@ class Set {
     };
 
     //list all sets of a classroom
-    list(classroomIndex){
+    list(body){
         return this.knex("set")
         .join("classroom_set", "set.id", "classroom_set.set_id")
         .join("classroom", "classroom_set.classroom_id", "classroom.id")
         .where({
-            classroom_id: classroomIndex,
+            classroom_id: body.classroomIndex,
             classroomStatus: true
         })
         .select("set.id", "set.setTitle", "set.setDesc")
