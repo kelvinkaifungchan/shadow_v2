@@ -7,16 +7,13 @@ class FeedbackService {
     async add(body) {
         if (body.type === "flashcard") {
             console.log("Adding feedback to flashcard")
-            let submission_id = await this.knex("flashcardSubmission").where({
-                id: body.submission
-            }).select("id");
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
             return this.knex
             .insert({
                 user_id: user_id[0].id,
-                flashcardSubmission_id: submission_id[0].id,
+                flashcardSubmission_id: body.submissionId,
                 flashcardFeedbackBody: body.body,
                 flashcardFeedbackTime: body.timestamp,
                 flashcardFeedbackStatus: true
@@ -25,16 +22,13 @@ class FeedbackService {
         }
         else if (body.type === "dictationcard") {
             console.log("Adding feedback to dictationcard")
-            let submission_id = await this.knex("dictationSubmission").where({
-                id: body.submission
-            }).select("id");
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
             return this.knex
             .insert({
                 user_id: user_id[0].id,
-                dictationSubmission_id: submission_id[0].id,
+                dictationSubmission_id: body.submissionId,
                 dictationFeedbackBody: body.body,
                 dictationFeedbackStatus: true
             })
@@ -90,7 +84,7 @@ class FeedbackService {
             })
         }
         else if (body.type === "dictationcard") {
-            console.log("Deleting feedback to dictationcard")
+            console.log("Listing feedback to dictationcard")
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
             .join("dictationSubmission", "dictationFeedback.dictationSubmission_id", "=", "dictationSubmission.id")

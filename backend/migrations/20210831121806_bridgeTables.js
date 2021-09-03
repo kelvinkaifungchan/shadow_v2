@@ -37,28 +37,10 @@ exports.up = function(knex) {
       tag_set.integer("tag_id").references("id").inTable("tag");
       tag_set.integer("set_id").references("id").inTable("set");
   })
-  .createTable("tag_flashcard", (tag_flashcard) => {
-      tag_flashcard.increments().primary();
-      tag_flashcard.integer("tag_id").references("id").inTable("tag");
-      tag_flashcard.integer("flashcard_id").references("id").inTable("flashcard");
-  })
-  .createTable("tag_quizcard", (tag_quizcard) => {
-      tag_quizcard.increments().primary();
-      tag_quizcard.integer("tag_id").references("id").inTable("tag");
-      tag_quizcard.integer("quizcard_id").references("id").inTable("quizcard");
-  })
-  .createTable("tag_dictationcard", (tag_dictationcard) => {
-      tag_dictationcard.increments().primary();
-      tag_dictationcard.integer("tag_id").references("id").inTable("tag");
-      tag_dictationcard.integer("dictationcard_id").references("id").inTable("dictationcard");
-  })
 };
 
 exports.down = function(knex) {
   return knex.schema
-  .dropTable("tag_dictationcard")
-  .dropTable("tag_quizcard")
-  .dropTable("tag_flashcard")
   .dropTable("tag_set")
   .dropTable("tag_classroom")
   .dropTable("set_dictationcard")

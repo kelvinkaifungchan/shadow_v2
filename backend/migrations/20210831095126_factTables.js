@@ -14,7 +14,7 @@ exports.up = function(knex) {
     })
     .createTable("tag", (tag) => {
         tag.increments().primary();
-        tag.string("body").unique();
+        tag.string("tagBody").unique();
         tag.timestamps(false, true);
     })
     .createTable("classroom", (classroom) => {
@@ -53,7 +53,7 @@ exports.up = function(knex) {
     .createTable("flashcardFeedback", (flashcardFeedback) => {
         flashcardFeedback.increments().primary();
         flashcardFeedback.integer("user_id").references("id").inTable("user");
-        flashcardFeedback.integer("flashcardSubmission_id").references("id").inTable("user");
+        flashcardFeedback.integer("flashcardSubmission_id").references("id").inTable("flashcardSubmission");
         flashcardFeedback.string("flashcardFeedbackBody");
         flashcardFeedback.string("flashcardFeedbackTime");
         flashcardFeedback.boolean("flashcardFeedbackStatus");
@@ -71,6 +71,10 @@ exports.up = function(knex) {
         multipleChoice.increments().primary();
         multipleChoice.integer("quizcard_id").references("id").inTable("quizcard");
         multipleChoice.string("multipleChoiceBody");
+        multipleChoice.string("multipleChoiceA");
+        multipleChoice.string("multipleChoiceB");
+        multipleChoice.string("multipleChoiceC");
+        multipleChoice.string("multipleChoiceD");
         multipleChoice.string("multipleChoiceAnswer");
         multipleChoice.string("multipleChoiceTime");
         multipleChoice.boolean("multipleChoiceStatus");
