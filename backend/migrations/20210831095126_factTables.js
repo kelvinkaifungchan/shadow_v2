@@ -14,7 +14,7 @@ exports.up = function(knex) {
     })
     .createTable("tag", (tag) => {
         tag.increments().primary();
-        tag.string("body").unique();
+        tag.string("tagBody").unique();
         tag.timestamps(false, true);
     })
     .createTable("classroom", (classroom) => {

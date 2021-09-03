@@ -20,6 +20,8 @@ const UserService = require("./services/userService")
 const userService = new UserService(knex)
 const RecordingService = require("./services/recordingService")
 const recordingService = new RecordingService(knex)
+const SharingService = require("./services/sharingService")
+const sharingService = new SharingService(knex)
 
 //Setup Server
 app.listen(8080, () => {
