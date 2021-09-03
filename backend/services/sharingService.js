@@ -37,7 +37,7 @@ class SharingService {
         let user_id = await this.knex("user").where({
             email: body.email
         }).select("id");
-        return this.knex("classroo_user")
+        return this.knex("classroom_user")
             .where("classroom_user.classroom_id", body.classroomId)
             .where("classroom_user.sharedUser_id", user_id[0].id)
             .del()
