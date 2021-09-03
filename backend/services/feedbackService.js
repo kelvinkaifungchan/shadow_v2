@@ -84,7 +84,7 @@ class FeedbackService {
             })
         }
         else if (body.type === "dictationcard") {
-            console.log("Deleting feedback to dictationcard")
+            console.log("Listing feedback to dictationcard")
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
             .join("dictationSubmission", "dictationFeedback.dictationSubmission_id", "=", "dictationSubmission.id")

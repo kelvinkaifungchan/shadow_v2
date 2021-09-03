@@ -71,6 +71,10 @@ exports.up = function(knex) {
         multipleChoice.increments().primary();
         multipleChoice.integer("quizcard_id").references("id").inTable("quizcard");
         multipleChoice.string("multipleChoiceBody");
+        multipleChoice.string("multipleChoiceA");
+        multipleChoice.string("multipleChoiceB");
+        multipleChoice.string("multipleChoiceC");
+        multipleChoice.string("multipleChoiceD");
         multipleChoice.string("multipleChoiceAnswer");
         multipleChoice.string("multipleChoiceTime");
         multipleChoice.boolean("multipleChoiceStatus");

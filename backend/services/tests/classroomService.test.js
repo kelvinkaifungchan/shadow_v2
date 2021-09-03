@@ -1,16 +1,6 @@
 const ClassroomService = require("../classroomService")
-const knex = require("knex")({
-  client: 'postgresql',
-  connection: {
-    database: 'shadowtest',
-    user: 'postgres',
-    password: 'password'
-  },
-  pool: {
-    min: 2,
-    max: 10
-  }
-})
+const knexConfig = require("./knexfile").staging
+const knex = require("knex")(knexConfig)
 
 describe("Classroom service tests", () => {
 
