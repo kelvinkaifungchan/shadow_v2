@@ -39,32 +39,32 @@ class TagService{
                     .into("tag_classroom")
                 return query
             }
-            else if(body.type == "flashcard"){
-                console.log("Tag exists, adding to flashcard")
-                let tag_id = await this.knex("tag").where({
-                    body: body.tagId
-                }).select("id");
-                const query = await this.knex
-                    .insert({
-                        flashcard_id: body.location,
-                        tag_id: tag_id[0].id
-                    })
-                    .into("tag_flashcard")
-                return query
-            }
-            else if(body.type == "quizcard"){
-                console.log("Tag exists, adding to quizcard")
-                let tag_id = await this.knex("tag").where({
-                    body: body.tagId
-                }).select("id");
-                const query = await this.knex
-                    .insert({
-                        quizcard_id: body.location,
-                        tag_id: tag_id[0].id
-                    })
-                    .into("tag_quizcard")
-                return query
-            }
+            // else if(body.type == "flashcard"){
+            //     console.log("Tag exists, adding to flashcard")
+            //     let tag_id = await this.knex("tag").where({
+            //         body: body.tagId
+            //     }).select("id");
+            //     const query = await this.knex
+            //         .insert({
+            //             flashcard_id: body.location,
+            //             tag_id: tag_id[0].id
+            //         })
+            //         .into("tag_flashcard")
+            //     return query
+            // }
+            // else if(body.type == "quizcard"){
+            //     console.log("Tag exists, adding to quizcard")
+            //     let tag_id = await this.knex("tag").where({
+            //         body: body.tagId
+            //     }).select("id");
+            //     const query = await this.knex
+            //         .insert({
+            //             quizcard_id: body.location,
+            //             tag_id: tag_id[0].id
+            //         })
+            //         .into("tag_quizcard")
+            //     return query
+            // }
         }
         else {
             console.log("Tag does not exist, adding to set")
@@ -100,32 +100,32 @@ class TagService{
                             .into("tag_classroom")
                         return query
                     }
-                    else if(body.type == "flashcard"){
-                        console.log("Tag exists, adding to flashcard")
-                        let tag_id = await this.knex("tag").where({
-                            body: body.tagId
-                        }).select("id");
-                        const query = await this.knex
-                            .insert({
-                                flashcard_id: body.location,
-                                tag_id: tag_id[0].id
-                            })
-                            .into("tag_flashcard")
-                        return query
-                    }
-                    else if(body.type == "quizcard"){
-                        console.log("Tag exists, adding to quizcard")
-                        let tag_id = await this.knex("tag").where({
-                            body: body.tagId
-                        }).select("id");
-                        const query = await this.knex
-                            .insert({
-                                quizcard_id: body.location,
-                                tag_id: tag_id[0].id
-                            })
-                            .into("tag_quizcard")
-                        return query
-                    }
+                    // else if(body.type == "flashcard"){
+                    //     console.log("Tag exists, adding to flashcard")
+                    //     let tag_id = await this.knex("tag").where({
+                    //         body: body.tagId
+                    //     }).select("id");
+                    //     const query = await this.knex
+                    //         .insert({
+                    //             flashcard_id: body.location,
+                    //             tag_id: tag_id[0].id
+                    //         })
+                    //         .into("tag_flashcard")
+                    //     return query
+                    // }
+                    // else if(body.type == "quizcard"){
+                    //     console.log("Tag exists, adding to quizcard")
+                    //     let tag_id = await this.knex("tag").where({
+                    //         body: body.tagId
+                    //     }).select("id");
+                    //     const query = await this.knex
+                    //         .insert({
+                    //             quizcard_id: body.location,
+                    //             tag_id: tag_id[0].id
+                    //         })
+                    //         .into("tag_quizcard")
+                    //     return query
+                    // }
             })
 
         }
@@ -146,18 +146,18 @@ class TagService{
                 .where("tag_classroom.classroom_id", body.location)
                 .del()
         }
-        else if(body.type == "flashcard"){
-            return this.knex("tag_flashcard")
-                .where("tag_flashcard.tag_id", body.tagId)
-                .where("tag_flashcard.flashcard_id", body.location)
-                .del()
-        }
-        else if(body.type == "quizcard"){
-            return this.knex("tag_quizcard")
-                .where("tag_quizcard.tag_id", body.tagId)
-                .where("tag_quizcard.quizcard_id", body.location)
-                .del()
-        }
+        // else if(body.type == "flashcard"){
+        //     return this.knex("tag_flashcard")
+        //         .where("tag_flashcard.tag_id", body.tagId)
+        //         .where("tag_flashcard.flashcard_id", body.location)
+        //         .del()
+        // }
+        // else if(body.type == "quizcard"){
+        //     return this.knex("tag_quizcard")
+        //         .where("tag_quizcard.tag_id", body.tagId)
+        //         .where("tag_quizcard.quizcard_id", body.location)
+        //         .del()
+        // }
     }
 
     //List out all the tags a user has
