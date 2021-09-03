@@ -53,6 +53,7 @@ class Set {
         .join("user", "set.user_id", "user.id")
         .where("set.id", index)
         .where("set.setStatus", true)
+        .select("set.id", "set.setTitle", "set.setDesc", "user.displayName")
         .then((set) => {
             setData.id = set[0].id,
             setData.title = set[0].setTitle,
@@ -90,6 +91,7 @@ class Set {
             classroom_id: classroomIndex,
             classroomStatus: true
         })
+        .select("set.id", "set.setTitle", "set.setDesc")
         .then((sets)=>{
             return sets.map((set) => {
                 return ({
