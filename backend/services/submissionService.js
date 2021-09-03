@@ -117,15 +117,13 @@ class SubmissionService {
             .join("user", "flashcardSubmission.user_id", "=", "user.id")
             .where("flashcardSubmission.id", body.flashcardSubmissionId)
             .select("user.displayName", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
-            .then((submissions) => {
-                return submissions.map((submission) => {
+            .then((submission) => {
                     return ({
-                        displayName: submission.displayName,
-                        flashcardId: submission.flashcard_id,
-                        flashcardSubmissionId: submission.id,
-                        flashcardSubmissionRecording: submission.flashcardSubmissionRecording
+                        displayName: submission[0].displayName,
+                        flashcardId: submission[0].flashcard_id,
+                        flashcardSubmissionId: submission[0].id,
+                        flashcardSubmissionRecording: submission[0].flashcardSubmissionRecording
                     });
-                })
             })
         
         } 
@@ -135,15 +133,14 @@ class SubmissionService {
             .join("user", "dictationSubmission.user_id", "=", "user.id")
             .where("dictationSubmission.id", body.dictationSubmissionId)
             .select("user.displayName", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
-            .then((submissions) => {
-                return submissions.map((submission) => {
+            .then((submission) => {
                     return ({
-                        displayName: submission.displayName,
-                        dictationId: submission.dictation_id,
-                        dictationSubmissionId: submission.id,
-                        dictationSubmissionPath: submission.dictationSubmissionPath
+                        displayName: submission[0].displayName,
+                        dictationId: submission[0].dictation_id,
+                        dictationSubmissionId: submission[0].id,
+                        dictationSubmissionPath: submission[0].dictationSubmissionPath
                     });
-                })
+                
             })
         
         } 
@@ -154,16 +151,14 @@ class SubmissionService {
             .join("user", "multipleChoiceSubmission.user_id", "=", "user.id")
             .where("multipleChoiceSubmission.id", body.multipleChoiceSubmissionId)
             .select("user.displayName", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
-            .then((submissions) => {
-                return submissions.map((submission) => {
+            .then((submission) => {
                     return ({
-                        displayName: submission.displayName,
-                        multipleChoiceId: submission.multipleChoice_id,
-                        multipleChoiceSubmissionId: submission.id,
-                        multipleChoiceSubmission: submission.multipleChoiceSubmission,
-                        multipleChoiceSubmissionMarking: submission.multipleChoiceMarking
+                        displayName: submission[0].displayName,
+                        multipleChoiceId: submission[0].multipleChoice_id,
+                        multipleChoiceSubmissionId: submission[0].id,
+                        multipleChoiceSubmission: submission[0].multipleChoiceSubmission,
+                        multipleChoiceSubmissionMarking: submission[0].multipleChoiceMarking
                     });
-                })
             })
         }
         else if (body.type === "trueFalse") {
@@ -173,15 +168,13 @@ class SubmissionService {
             .where("trueFalseSubmission.id", body.trueFalseSubmissionId)
             .select("user.displayName", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
             .then((submissions) => {
-                return submissions.map((submission) => {
                     return ({
-                        displayName: submission.displayName,
-                        trueFalseId: submission.trueFalse_id,
-                        trueFalseSubmissionId: submission.id,
-                        trueFalseSubmission: submission.trueFalseSubmission,
-                        trueFalseSubmissionMarking: submission.trueFalseMarking
+                        displayName: submission[0].displayName,
+                        trueFalseId: submission[0].trueFalse_id,
+                        trueFalseSubmissionId: submission[0].id,
+                        trueFalseSubmission: submission[0].trueFalseSubmission,
+                        trueFalseSubmissionMarking: submission[0].trueFalseMarking
                     });
-                })
             })
         }
         else {

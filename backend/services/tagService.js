@@ -7,33 +7,27 @@ class TagService{
     async add(body){
         console.log("Checking if tag exists")
         const tag = await this.knex("tag").where({
-            body: body.tagId
+            tagBody: body.tagBody
         })
         if (tag.length > 0) {
+            let tag_id = await this.knex("tag").where({
+                tagBody: body.tagBody
+            }).select("id")
             if(body.type == "set"){
                 console.log("Tag exists, adding to set")
-                let tag_id = await this.knex("tag").where({
-                    body: body.tagId
-                }).select("id");
-                // let set_id = await this.knex("set").where({
-                //     id: body.location
-                // }).select("id");
                 const query = await this.knex
                     .insert({
-                        set_id: body.location,
+                        set_id: body.setId,
                         tag_id: tag_id[0].id
                     })
                     .into("tag_set")
                 return query
             }
             else if(body.type == "classroom"){
-                console.log("Tag exists, adding to classroom")
-                let tag_id = await this.knex("tag").where({
-                    body: body.tagId
-                }).select("id");           
+                console.log("Tag exists, adding to classroom")           
                 const query = await this.knex
                     .insert({
-                        classroom_id: body.location,
+                        classroom_id: body.classroomId,
                         tag_id: tag_id[0].id
                     })
                     .into("tag_classroom")
@@ -70,18 +64,19 @@ class TagService{
             console.log("Tag does not exist, adding to set")
             return this.knex
                 .insert({
-                    body: body
+                    tagBody: body.tagBody
                 })
                 .into("tag")
                 .then(async () => {
+                    let tag_id = await this.knex("tag").where({
+                        tagBody: body.tagBody
+                    }).select("id");
                     if(body.type == "set"){
                         console.log("Tag exists, adding to set")
-                        let tag_id = await this.knex("tag").where({
-                            body: body.tagId
-                        }).select("id");
+                        
                         const query = await this.knex
                             .insert({
-                                set_id: body.location,
+                                set_id: body.setId,
                                 tag_id: tag_id[0].id
                             })
                             .into("tag_set")
@@ -89,12 +84,10 @@ class TagService{
                     }
                     else if(body.type == "classroom"){
                         console.log("Tag exists, adding to classroom")
-                        let tag_id = await this.knex("tag").where({
-                            body: body.tagId
-                        }).select("id");
+                        
                         const query = await this.knex
                             .insert({
-                                classroom_id: body.location,
+                                classroom_id: body.classroomId,
                                 tag_id: tag_id[0].id
                             })
                             .into("tag_classroom")
@@ -137,13 +130,13 @@ class TagService{
         if(body.type == "set"){
             return this.knex("tag_set")
                 .where("tag_set.tag_id", body.tagId)
-                .where("tag_set.set_id", body.location)
+                .where("tag_set.set_id", body.setId)
                 .del()
         }
         else if(body.type == "classroom"){
             return this.knex("tag_classroom")
                 .where("tag_classroom.tag_id", body.tagId)
-                .where("tag_classroom.classroom_id", body.location)
+                .where("tag_classroom.classroom_id", body.classroomId)
                 .del()
         }
         // else if(body.type == "flashcard"){
@@ -200,9 +193,16 @@ class TagService{
 
         //concatenate the two arrays above to return all the tags of the user
         var tags = queryClassroom.concat(querySet);
-        return tags;
+        var uniqueTags = [];
 
-        
+        //remove duplicity
+        for(i=0; i<tags.length; i++){
+            if(uniqueTags.indexOf(tags[i]) < 0){
+                uniqueTags.push(tags[i]);
+            }
+        }
+
+        return uniqueTags;
     }
 
 }
