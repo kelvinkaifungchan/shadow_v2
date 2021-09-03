@@ -4,9 +4,9 @@ class Card {
     }
 
     //add a card of flashcard, quizcard, dictation card
-    async add(body, user){
+    async add(body){
         const userId = await this.knex("user")
-        .where("email", user)
+        .where("email", body.email)
         .select("id")
 
         if(body.type === "flashcard"){
@@ -48,11 +48,11 @@ class Card {
         }
     };
 
-    edit(body, cardId){
+    edit(body){
         if(body.type === "flashcard"){
             return this.knex("flashcard")
             .where({
-                id: cardId,
+                id: body.cardId,
             })
             .update({
                 flashcardTitle: body.flashcardTitle,
@@ -66,7 +66,7 @@ class Card {
         if(body.type === "quizcard"){
             return this.knex("quizcard")
             .where({
-                id: cardId,
+                id: body.cardId,
             })
             .update({
                 quizcardTitle: body.quizcardTitle,
@@ -79,7 +79,7 @@ class Card {
         if(body.type === "dictationcard"){
             return this.knex("dictationcard")
             .where({
-                id: cardId,
+                id: body.cardId,
             })
             .update({
                 dictationcardTitle: body.dictationcardTitle,
@@ -91,11 +91,11 @@ class Card {
         }
     };
 
-    delete(type, cardId){
-        if(type === "flashcard"){
+    delete(body){
+        if(body.type === "flashcard"){
             return this.knex("flashcard")
             .where({
-                id: cardId
+                id: body.cardId
             })
             .update({
                 flashcardStatus: false
@@ -104,10 +104,10 @@ class Card {
                 console.log(err)
             });
         }
-        if(type === "quizcard"){
+        if(body.type === "quizcard"){
             return this.knex("quizcard")
             .where({
-                id: cardId
+                id: body.cardId
             })
             .update({
                 quizcardStatus: false
@@ -116,10 +116,10 @@ class Card {
                 console.log(err)
             });
         }
-        if(type === "dictationcard"){
+        if(body.type === "dictationcard"){
             return this.knex("dictationcard")
             .where({
-                id: cardId
+                id: body.cardId
             })
             .update({
                 dictationcardStatus: false
@@ -130,12 +130,12 @@ class Card {
         }
     };
 
-    card(type, cardId){
-        if(type === "flashcard"){
+    card(body){
+        if(body.type === "flashcard"){
             let flashcardData = {}
             return this.knex("flashcard")
             .where({
-                id: cardId,
+                id: body.cardId,
                 flashcardStatus: true,
             })
             .then((flashcard)=>{
@@ -147,7 +147,7 @@ class Card {
             })
             .then(()=>{
                 return this.knex("tag_flashcard")
-                .where("flashcard_id", cardId)
+                .where("flashcard_id", body.cardId)
                 .join("tag", "tag_flashcard.tag_id", "tag.id")
                 .select("tag.id", "tag.tagBody")
             })
@@ -160,18 +160,18 @@ class Card {
                 });
             })
         }
-        if(type === "quizcard"){
+        if(body.type === "quizcard"){
             let quizcardData = {}
             return this.knex("quizcard")
             .join("multipleChoice", "quizcard.id", "multipleChoice.quizcard_id")
             .join("trueFalse", "quzicard.id", "trueFalse.quzicard_id")
             .where({
-                id: cardId,
+                id: body.cardId,
                 quizcardStatus: true,
                 multipleChoiceStatus: true
             })
             .orWhere({
-                id: cardId,
+                id: body.cardId,
                 quizcardStatus: true,
                 trueFalseStatus: true
             })
@@ -198,7 +198,7 @@ class Card {
             })
             .then(()=>{
                 return this.knex("quizcard")
-                .where("quizcard_id", cardId)
+                .where("quizcard_id", body.cardId)
                 .join("tag", "tag_quizcard", "tag.id")
                 .select("tag.id", "tag.tagBody")
             })
@@ -211,12 +211,12 @@ class Card {
                 });
             })
         }
-        if(type === "dictationcard"){
+        if(body.type === "dictationcard"){
             let dictationcardData = {}
             return this.knex("dictationcard")
             .join("dictation", "dicataioncard.id", "dictation.dictationcard_id")
             .where({
-                id: cardId,
+                id: body.cardId,
                 dictationcardStatus: true,
                 dictationStatus: true
             })
@@ -231,7 +231,7 @@ class Card {
             })
             .then(()=>{
                 return this.knex("dictationcard")
-                .where("dictationcard_id", cardId)
+                .where("dictationcard_id", body.cardId)
                 .join("tag", "tag_dictationcard", "tag.id")
                 .select("tag.id", "tag.tagBody")
             })
@@ -246,14 +246,14 @@ class Card {
         }
     }
 
-    list(setId){
+    list(body){
         //master cache
         let allCard = {}
 
         //query for flashcard
         return this.knex("set")
         .where({
-            id: setId,
+            id: body.setId,
             set_status: true,
         })
         .join("set_flashcard", "set.id", "set_flashcard.set_id")
@@ -290,7 +290,7 @@ class Card {
         .then(() => {
             return this.knex("set")
             .where({
-                id: setId,
+                id: body.setId,
                 set_status: true,
             })
             .join("set_quizcard", "set.id", "set_quizcard.set_id")
@@ -330,7 +330,7 @@ class Card {
         .then(() => {
             return this.knex("set")
             .where({
-                id: setId,
+                id: body.setId,
                 set_status: true,
             })
             .join("set_dictationcard", "set.id", "set_dictationcard.set_id")
@@ -364,7 +364,7 @@ class Card {
         })
         .then(()=>{
             return this.knex("tag_set")
-            .where("set_id", index)
+            .where("set_id", body.setId)
             .join("tag", "tag_set.tag_id", "tag.id")
             .select("tag.tagBody", "tag.id")
             .then((tags) => {
@@ -381,10 +381,10 @@ class Card {
         })
     }
 
-    user(user){
+    user(body){
         const email = await this.knex("user")
         .where({
-            email: user
+            email: body.email
         })
         .select("id")
 

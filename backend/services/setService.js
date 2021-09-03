@@ -3,16 +3,16 @@ class Set {
         this.knex = knex
     };
 
-    //Add a set
-    async add(title, desc, user){
+    //Add a set title, desc according to user
+    async add(body){
         const email = await this.knex("user")
-        .where("email", user)
+        .where("email", body.email)
         .select("id");
 
         return this.knex("set")
         .insert({
-            setTitle: title,
-            setDesc: desc,
+            setTitle: body.title,
+            setDesc: body.desc,
             user_id: email[0].id,
             setStatus: true
         })
@@ -21,13 +21,13 @@ class Set {
         })
     };
 
-    //Edit a specific set
-    edit(title, desc, index){
+    //Edit a specific set title, desc, accord to index
+    edit(body){
         return this.knex("set")
-        .where("id", index)
+        .where("id", body.index)
         .update({
-            setTitle: title,
-            setDesc: desc,
+            setTitle: body.title,
+            setDesc: body.desc,
         })
         .catch((err) => {
             console.log(err)
@@ -107,10 +107,10 @@ class Set {
     };
 
     //list all set a user has access to
-    async user(user){
+    async user(body){
         const email = await this.knex("user")
         .where({
-            email: user,
+            email: body.email,
         })
         .select("id");
 
