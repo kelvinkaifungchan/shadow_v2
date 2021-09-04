@@ -33,6 +33,12 @@ const tagService = new TagService(knex)
 const UserService = require("./services/userService")
 const userService = new UserService(knex)
 
+//Routers
+const BridgeRouter = require("./router/bridgeRouter");
+app.use("/api/bridge", new BridgeRouter(bridgeService).router());
+const UserRouter = require("./router/userRouter");
+app.use("/api/user", new UserRouter(userService).router());
+
 //Setup Server
 app.listen(8080, () => {
   console.log("app listening on port 8080");
