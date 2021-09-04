@@ -95,6 +95,7 @@ class Card {
         }
     };
 
+     //edit a card of flashcard, quizcard, dictation card
     edit(body){
         if(body.type === "flashcard"){
             return this.knex("flashcard")
@@ -138,6 +139,7 @@ class Card {
         }
     };
 
+     //delete a card of flashcard, quizcard, dictation card
     delete(body){
         if(body.type === "flashcard"){
             return this.knex("flashcard")
@@ -177,6 +179,7 @@ class Card {
         }
     };
 
+ //list details of a card of flashcard, quizcard, dictation card
     card(body){
         if(body.type === "flashcard"){
             let flashcardData = {}
@@ -260,6 +263,7 @@ class Card {
         }
     }
 
+     //list all cards of a set
     list(body){
         //master cache
         let allCard = {}
