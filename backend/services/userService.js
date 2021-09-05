@@ -45,10 +45,10 @@ class UserService {
   }
 
   //Method to delete a user
-  delete(email) {
+  delete(body) {
     return this.knex("user")
       .where({
-        email: email,
+        email: body.email,
       })
       .update({
         userStatus: false,
@@ -56,11 +56,11 @@ class UserService {
   }
 
   //Method to return a users details
-  user(email) {
+  user(body) {
     console.log("returning data of a user");
     return this.knex("user")
       .where({
-        email: email,
+        email: body.email,
       })
       .then((user) => {
         return {
