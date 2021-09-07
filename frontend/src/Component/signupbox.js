@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { loginUserThunk } from '../Redux/loginbox/action'
-import { loginFacebookThunk } from '../Redux/loginbox/action'
 
 
-class PureSignup extends React.Component {
+class PureSignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,10 +63,8 @@ const mapDispatchToProps = dispatch => {
     return {
         loginMDP: (email, password) => {
             dispatch(loginUserThunk(email, password))
-        },
-        loginFacebookMDP: (accessToken) => {
-            dispatch(loginFacebookThunk(accessToken))
         }
+     
     }
 }
-export const Login = connect(mapStateToProps, mapDispatchToProps)(PureLogin)
+export const SignUp = connect(mapStateToProps, mapDispatchToProps)(PureSignUp)
