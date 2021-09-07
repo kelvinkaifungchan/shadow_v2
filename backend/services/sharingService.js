@@ -32,7 +32,7 @@ class SharingService {
     }
 
     //Delete user permission to set
-    delete(body) {
+    async delete(body) {
         console.log("removing classroom sharing with user")
         let user_id = await this.knex("user").where({
             email: body.email

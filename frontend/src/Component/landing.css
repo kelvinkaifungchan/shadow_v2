@@ -1,0 +1,24 @@
+h1 {
+    font-size: 150px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 20px;
+    text-align: justify;
+}
+
+#landing {
+    height: 100vh;
+    background-color: #F8DF4F;
+}
+
+.btnFacebook{
+        width: 100%;
+        height: 40px;
+        border-radius: 4px;
+        background: #f4f4f4;
+        color: black;
+        border:1px solid black;
+        
+}
