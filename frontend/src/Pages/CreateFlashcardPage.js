@@ -1,46 +1,49 @@
 import React from 'react';
 import {connect} from 'react-redux'
+
+import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/action'
-import NavBar from '../Component/navbar';
-import HeadingInput from '../Component/headingInput';
-import FormSubmit from '../Component/formSubmit';
-import VideoRecorder from '../Component/videoRecorder';
-import Transcript from '../Component/Transcript';
+import {Account} from './Account';
+import PrivateRoute from '../Component/PrivateRoute'
+import { BrowserRouter , Switch} from "react-router-dom";
+// import NavBar from '../Component/navbar';
+
 
 class CreateFlashcard extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            video:[],
-            questions:[]
-        }
+    
+
+    logout = (e) => {
+        e.preventDefault();
+        this.props.logout()
     }
-    render(){
+    render() {
+        console.log("i want to see the props",this.props);
+
         return (
             <div>
-                <div>
-                    <NavBar/>
-                </div>
                 <div className="row">
-                    <div className="col col-8">
-                        <HeadingInput/>
-                    </div>
-                    <div className="col col-4">
-                        <FormSubmit/>
-                    </div>
+                    {/* <NavBar/> */}
                 </div>
-                <div className="row">
-                    <div className="col col-6">
-                        <VideoRecorder/>
-                    </div>
-                    <div className="col col-6">
-                        <Transcript/>
-                    </div>
+                <div className="col-md-6 col-md-offset-3">
+                    <h1>Hi </h1>
+                    <p>You're logged in with React & JWT!!</p>
+                    <h3>Users from secure api end point:</h3>
+                    <Link to="/account">Account</Link>
+            
+                    <p onClick={this.logout}> 
+                    <Link to="/login">Logout</Link>
+                    </p>
+                    <BrowserRouter>
+                        <Switch>
+                    <PrivateRoute path="/account" component={Account} />
+                    </Switch>
+                    </BrowserRouter>
                 </div>
             </div>
-        )
+        );
     }
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -56,6 +59,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedCreateFlashcard = connect(mapStateToProps, mapDispatchToProps)(CreateFlashcard)
-
-export {connectedCreateFlashcard as CreateFlashcard};
+const connectedCreateFlashcard= connect(mapStateToProps, mapDispatchToProps)(CreateFlashcard)
+export { connectedCreateFlashcard as CreateFlashcard };
