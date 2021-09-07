@@ -106,7 +106,7 @@ class Set {
         });
     };
 
-    //list all set a user has access to
+    //list all sets a user has access to
     async user(body){
         const email = await this.knex("user")
         .where({
@@ -114,7 +114,7 @@ class Set {
         })
         .select("id");
 
-        let setData = {};
+        
 
         return this.knex("set")
         .where({
@@ -122,7 +122,8 @@ class Set {
             setStatus: true
         })
         .then((sets)=>{
-            return sets.map((set) => {
+            return sets.map(async (set) => {
+                let setData = {};
                 setData.id = set.id
                 setData.title = set.setTitle
                 setData.description = set.setDesc
@@ -140,6 +141,25 @@ class Set {
                         });
                     })
                 }
+                var queryFlashcard = await this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id");
+                setData.bridge_flashcard = queryFlashcard.map((flashcard) => {
+                    return{
+                        flashcard_id:flashcard.id
+                    }
+                })
+                var queryQuizcard = await this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
+                setData.bridge_quizcard = queryQuizcard.map((quizcard) => {
+                    return{
+                        quizcard_id:quizcard.id
+                    }
+                })
+                var queryDictationcard = await this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
+                setData.bridge_dictationcard = queryDictationcard.map((dictationcard) => {
+                    return{
+                        dictationcard_id:dictationcard.id
+                    }
+                })
+                return setData
             })
         })
 

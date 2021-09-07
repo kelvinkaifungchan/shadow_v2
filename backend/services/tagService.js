@@ -160,7 +160,7 @@ class TagService{
             email: body.email
         }).select("id");
 
-        //This query returns all the tags (in the form of an array) of the user has in his/her classrooms
+        //This query returns all the tags (in the form of an array) the user has in his/her classrooms
         var queryClassroom = this.knex("classroom_user")
         .join("tag_classroom", "classroom_user.classroom_id", "=", "tag_classroom.classroom_id")
         .join("tag", "tag_classroom.tag_id", "=", "tag.id")
@@ -176,11 +176,12 @@ class TagService{
 
         })
 
-        //This query returns all the tags (in form of an array) of the user has in his/her sets
+        //This query returns all the tags (in form of an array) the user has in his/her sets
         var querySet = this.knex("classroom_user")
         .join("classroom_set", "classroom_user.classroom_id", "=", "classroom_set.classroom_id")
         .join("tag_set", "classroom_set.set_id", "=", "tag_set.set_id")
         .join("tag", "tag_set.tag_id", "=", "tag.id")
+        .where("class_user.sharedUser_id", user_id[0].id)
         .select("tag.id", "tag.body")
         .then((tags) => {
             return tags.map((tag) => {
@@ -195,7 +196,7 @@ class TagService{
         var tags = queryClassroom.concat(querySet);
         var uniqueTags = [];
 
-        //remove duplicity
+        //remove tag duplicity
         for(i=0; i<tags.length; i++){
             if(uniqueTags.indexOf(tags[i]) < 0){
                 uniqueTags.push(tags[i]);
