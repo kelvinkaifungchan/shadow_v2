@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import './landing.css'
 import {Login}  from "./login";
-import {HomePage} from './HomePage';
 import Dashboard from './dashboard'
 
 import { BrowserRouter , Route, Switch, Redirect } from "react-router-dom";
@@ -42,7 +41,7 @@ class Landing extends React.Component {
             <BrowserRouter>
                 <div className="row d-flex align-items-center" id="landing">
                     <Switch>
-                        <PrivateRoute exact path="/" component={HomePage} />
+                        <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/dashboard" component={Dashboard} />
 
                         <Route path="/login" component={Login} />
