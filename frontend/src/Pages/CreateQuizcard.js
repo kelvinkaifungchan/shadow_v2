@@ -3,11 +3,13 @@ import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/action'
+import {Account} from './Account';
+import PrivateRoute from '../Component/PrivateRoute'
+import { BrowserRouter , Switch} from "react-router-dom";
 
 
 
-
-class ViewSetPage extends React.Component {
+class CreateQuizcard extends React.Component {
     
 
     logout = (e) => {
@@ -20,14 +22,18 @@ class ViewSetPage extends React.Component {
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h1>Hi </h1>
-                <p>You're logged in ViewSetPage</p>
+                <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>
                 <Link to="/account">Account</Link>
          
                 <p onClick={this.logout}> 
                 <Link to="/login">Logout</Link>
                 </p>
-                
+                <BrowserRouter>
+                    <Switch>
+                <PrivateRoute path="/account" component={Account} />
+                </Switch>
+                </BrowserRouter>
             </div>
         );
     }
@@ -48,5 +54,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedViewSetPage= connect(mapStateToProps, mapDispatchToProps)(ViewSetPage)
-export { connectedViewSetPage as ViewSetPage };
+const connectedCreateQuizcard = connect(mapStateToProps, mapDispatchToProps)(CreateQuizcard)
+export { connectedCreateQuizcard as CreateQuizcard };

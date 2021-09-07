@@ -7,7 +7,7 @@ import {logoutNowThunk} from '../Redux/action'
 
 
 
-class ViewClassroomPage extends React.Component {
+class CreateSet extends React.Component {
     
 
     logout = (e) => {
@@ -20,7 +20,7 @@ class ViewClassroomPage extends React.Component {
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h1>Hi </h1>
-                <p>You're logged in ViewClassroomPage</p>
+                <p>You're logged in CreateSet</p>
                 <h3>Users from secure api end point:</h3>
                 <Link to="/account">Account</Link>
          
@@ -48,5 +48,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedViewClassroomPage= connect(mapStateToProps, mapDispatchToProps)(ViewClassroomPage)
-export { connectedViewClassroomPage as ViewClassroomPage };
+const connectedCreateSet= connect(mapStateToProps, mapDispatchToProps)(CreateSet)
+export { connectedCreateSet as CreateSet };

@@ -3,11 +3,13 @@ import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/action'
+import {Account} from './Account';
+import PrivateRoute from '../Component/PrivateRoute'
+import { BrowserRouter , Switch} from "react-router-dom";
 
 
 
-
-class Dashboard extends React.Component {
+class CreateDictationcard extends React.Component {
     
 
     logout = (e) => {
@@ -23,20 +25,15 @@ class Dashboard extends React.Component {
                 <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>
                 <Link to="/account">Account</Link>
-                <Link to="/createclassroom">CreateClassroom</Link>
-                <Link to="/viewclassroom">ViewClassroom</Link>
-                <Link to="/createset">Createset</Link>
-                <Link to="/viewset">Viewset</Link>
-                <Link to="/viewdictationcardsubmission">ViewDictationCardSubmission</Link>
-
-
-
-
          
                 <p onClick={this.logout}> 
                 <Link to="/login">Logout</Link>
                 </p>
-                
+                <BrowserRouter>
+                    <Switch>
+                <PrivateRoute path="/account" component={Account} />
+                </Switch>
+                </BrowserRouter>
             </div>
         );
     }
@@ -57,5 +54,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedDashboard= connect(mapStateToProps, mapDispatchToProps)(Dashboard)
-export { connectedDashboard as Dashboard };
+const connectedCreateDictationcard = connect(mapStateToProps, mapDispatchToProps)(CreateDictationcard)
+export { connectedCreateDictationcard as CreateDictationcard };
