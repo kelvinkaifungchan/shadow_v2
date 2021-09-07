@@ -2,36 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './landing.css'
-import {Login}  from "./login";
-import Dashboard from './dashboard'
+import { Login } from "./login";
 
-import { BrowserRouter , Route, Switch, Redirect } from "react-router-dom";
+import { Dashboard } from '../Pages/Dashboard';
+import { Account} from '../Pages/Account';
 
-const PurePrivateRoute = ({ component, isAuthenticated, ...rest }) => {
-    const Component = component;
-    console.log("component",component);
-    console.log("Component != null",Component != null);
-    if (Component != null) {
-        return (
-            <Route {...rest} render={(props) => (
-                isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to={{
-                        pathname: '/login',
-                        state: { from: props.location }
-                    }} />
-                )
-            )} />
-        )
-    } else {
-        return null;
-    }
-};
 
-const PrivateRoute = connect((state) => ({
-    isAuthenticated: state.authStore.isAuthenticated
-}))(PurePrivateRoute);
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import PrivateRoute from './PrivateRoute'
 
 class Landing extends React.Component {
 
@@ -42,7 +21,7 @@ class Landing extends React.Component {
                 <div className="row d-flex align-items-center" id="landing">
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
-                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute path="/account" component={Account} />
 
                         <Route path="/login" component={Login} />
                     </Switch>
@@ -56,7 +35,7 @@ class Landing extends React.Component {
                 </div> */}
                     {/* <div className="col-8 p-3"> */}
                     {/*this is login */}
-                    
+
                     {/*this is login */}
 
                     {/*this is signup */}
@@ -79,8 +58,8 @@ class Landing extends React.Component {
 
                     {/*this is signup */}
 
-                
-            </div>
+
+                </div>
             </BrowserRouter >
         )
     }

@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
-
 import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/action'
 
 
-class HomePage extends React.Component {
+
+class Account extends React.Component {
     
 
     logout = (e) => {
@@ -13,14 +13,12 @@ class HomePage extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log("i want to see the props",this.props);
+       
 
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>Hi </h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
-         
+                <h1>Account </h1>
+               
                 <p onClick={this.logout}> 
                     <Link to="/login">Logout</Link>
                 </p>
@@ -44,5 +42,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedHomePage = connect(mapStateToProps, mapDispatchToProps)(HomePage)
-export { connectedHomePage as HomePage };
+const connectedAccount= connect(mapStateToProps, mapDispatchToProps)(Account)
+export { connectedAccount as Account };
