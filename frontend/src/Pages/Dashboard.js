@@ -2,7 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/action'
+import {logoutNowThunk} from '../Redux/loginbox/action'
+import '../Component/main.css'
 
 
 
@@ -29,10 +30,6 @@ class Dashboard extends React.Component {
                 <Link to="/viewset">Viewset</Link>
                 <Link to="/viewdictationcardsubmission">ViewDictationCardSubmission</Link>
 
-
-
-
-         
                 <p onClick={this.logout}> 
                 <Link to="/login">Logout</Link>
                 </p>

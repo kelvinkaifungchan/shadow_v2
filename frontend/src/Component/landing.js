@@ -1,6 +1,5 @@
 import React from 'react'
 
-import './landing.css'
 import { Login } from '../Pages/Login';
 import { Dashboard } from '../Pages/Dashboard';
 import { Account } from '../Pages/Account';

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loginUserThunk } from '../Redux/action'
-import { loginFacebookThunk } from '../Redux/action'
+import { loginUserThunk } from '../Redux/loginbox/action'
+import { loginFacebookThunk } from '../Redux/loginbox/action'
 
 import FacebookLogin from 'react-facebook-login';
 
@@ -13,12 +13,7 @@ class PureLoginBox extends React.Component {
             password: ""
         };
     }
-    componentDidUpdate() {
-        console.log("this.props", this.props);
-        if (this.props.isAuthenticatedMSP === true) {
-            this.props.history.push('/')
-        }
-    }
+   
     onChangeField = (field, e) => {
         const state = {};
         state[field] = e.currentTarget.value;

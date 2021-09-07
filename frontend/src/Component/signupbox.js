@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loginUserThunk } from '../Redux/action'
-import { loginFacebookThunk } from '../Redux/action'
+import { loginUserThunk } from '../Redux/loginbox/action'
+import { loginFacebookThunk } from '../Redux/loginbox/action'
 
-import FacebookLogin from 'react-facebook-login';
 
 class PureSignup extends React.Component {
     constructor(props) {
@@ -31,27 +30,17 @@ class PureSignup extends React.Component {
         this.props.loginMDP(this.state.email, this.state.password)
     };
 
-    componentClicked() {
-        return null;
-    }
-
-    responseFacebook = (userInfo) => {
-        if (userInfo.accessToken) {
-            this.props.loginFacebookMDP(userInfo.accessToken);
-        }
-        return null;
-    }
     render() {
         return (
 
             <div>
-                 <div class="p-5">
-                        <div class="card bg-light rounded-lg border-0 p-3">
+                 <div className="p-5">
+                        <div className="card bg-light rounded-lg border-0 p-3">
                             <div className="card-body bg-transparent border-0">
                                 <form className="text-center" action="/signup" method="post">
                                     <input type="text" name="username" className="form-control mb-4" placeholder="Email" />
                                     <input type="text" name="displayName" className="form-control mb-4" placeholder="Username (for display only)" />
-                                    <hr class="pt-2" />
+                                    <hr className="pt-2" />
                                     <button type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Signup</button>
                                 </form>
                                 <a href="/login" className="d-flex justify-content-center">
