@@ -1,11 +1,21 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import './landing.css'
 import { Login } from "./login";
 
 import { Dashboard } from '../Pages/Dashboard';
 import { Account} from '../Pages/Account';
+import { CreateClassroomPage } from '../Pages/CreateClassroomPage';
+import { ViewClassroomPage } from '../Pages/ViewClassroomPage';
+import { CreateSetPage } from '../Pages/CreateSetPage';
+import { ViewSetPage } from '../Pages/ViewSetPage';
+import { ViewDictationCardSubmission } from '../Pages/ViewDictationCardSubmission';
+import { EditDictationCard } from '../Pages/EditDictationCard';
+
+
+
+
+
 
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -22,6 +32,19 @@ class Landing extends React.Component {
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
+                        <PrivateRoute path="/createclassroompage" component={CreateClassroomPage} />
+                        <PrivateRoute path="/viewclassroompage" component={ViewClassroomPage} />
+                        <PrivateRoute path="/CreateSetPage" component={CreateSetPage} />
+                        <PrivateRoute path="/ViewSetPage" component={ViewSetPage} />
+                        <PrivateRoute path="/ViewDictationCardSubmission" component={ViewDictationCardSubmission} />
+                        <PrivateRoute path="/EditDictationCard" component={EditDictationCard} />
+
+
+
+
+
+
+
 
                         <Route path="/login" component={Login} />
                     </Switch>
