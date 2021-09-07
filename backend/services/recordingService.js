@@ -20,6 +20,7 @@ class RecordingService {
         };
         try {
             let submission = await s3.upload(params).promise()
+            console.log("Uploaded Data", submission)
             console.log("Video upload successful")
             return
         } catch (err) {
@@ -37,6 +38,7 @@ class RecordingService {
         };
         try {
             let submission = await s3.upload(params).promise()
+            console.log("Uploaded Data", submission)
             console.log("Audio upload successful")
             return
         } catch (err) {

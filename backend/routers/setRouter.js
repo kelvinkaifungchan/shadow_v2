@@ -1,7 +1,73 @@
 const express = require("express");
 
 class SetRouter {
+<<<<<<< HEAD
     constructor(setService){
         this.setService = setService
     }
 }
+=======
+    constructor(setService) {
+        this.setService = setService
+    }
+
+    router() {
+        let router = express.Router();
+        router.post("/", this.post.bind(this))
+        router.put("/", this.put.bind(this))
+        router.delete("/", this.delete.bind(this))
+
+        return router
+    }
+
+    post(req, res) {
+        console.log("Requesting adding set")
+        return this.setService
+            .add(req.body)
+            .then(() => {
+                return this.setService
+                .set(req.body)
+            })
+            .then((data) => {
+                return res.json(data)
+            })
+            .catch((err) => {
+                return res.status(500).json(err)
+            })
+    }
+
+    put(req, res) {
+        console.log("Requesting editing set")
+        return this.setService
+            .edit(req.body)
+            .then(() => {
+                return this.setService
+                .set(req.body)
+            })
+            .then((data) => {
+                return res.json(data)
+            })
+            .catch((err) => {
+                return res.status(500).json(err)
+            })
+    }
+
+    delete(req, res) {
+        console.log("Requesting deleting set")
+        return this.setService
+            .delete(req.body)
+            .then(() => {
+                return this.setService
+                .set(req.body)
+            })
+            .then((data) => {
+                return res.json(data)
+            })
+            .catch((err) => {
+                return res.status(500).json(err)
+            })
+    }
+}
+
+module.exports = SetRouter;
+>>>>>>> cd01faa44247c1f419eb19a7e0a316b5cca61254
