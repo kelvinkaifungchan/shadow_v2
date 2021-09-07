@@ -60,3 +60,5 @@ class ShadowRouter {
         })
     }
 }
+
+module.exports = ShadowRouter

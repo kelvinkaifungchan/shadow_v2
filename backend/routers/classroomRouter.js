@@ -10,6 +10,8 @@ class ClassroomRouter {
         router.post("/", this.post.bind(this));
         router.put("/", this.put.bind(this));
         router.delete("/", this.delete.bind(this));
+
+        return router
     }
 
     post(req, res){
