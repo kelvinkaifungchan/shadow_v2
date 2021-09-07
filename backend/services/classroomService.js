@@ -4,18 +4,18 @@ class ClassroomService {
   }
 
   //Method to add classroom
-  add(title, desc, user) {
+  add(body) {
     console.log("Adding Classroom");
     return this.knex("user")
       .where({
-        email: user,
+        email: body.email,
       })
       .then((email) => {
         return this.knex
           .insert({
             user_id: email[0].id,
-            classroomTitle: title,
-            classroomDesc: desc,
+            classroomTitle: body.title,
+            classroomDesc: body.desc,
             classroomStatus: true
           })
           .into("classroom");
@@ -23,24 +23,24 @@ class ClassroomService {
   }
 
   //Method to edit classroom
-  edit(title, desc, index) {
+  edit(body) {
     console.log("Editing a classroom");
-    return this.knex("classroom").where("id", index).update({
-      classroomTitle: title,
-      classroomDesc: desc,
+    return this.knex("classroom").where("id", body.classroomId).update({
+      classroomTitle: body.title,
+      classroomDesc: body.desc,
     });
   }
 
   //Method to delete classroom
-  delete(index) {
+  delete(body) {
     console.log("Deleting a classroom");
-    return this.knex("classroom").where("id", index).update({
+    return this.knex("classroom").where("id", body.classroomId).update({
       classroomStatus: false,
     });
   }
 
   //Method to list all data of a specific classroom
-  classroom(index) {
+  classroom(body) {
     console.log("Listing data of a specific classroom");
     let data = {};
     return this.knex("classroom")
@@ -49,7 +49,7 @@ class ClassroomService {
         "classroom.classroomTitle",
         "classroom.classroomDesc"
       )
-      .where("id", index)
+      .where("id", body.classroomId)
       .then((classroom) => {
           data.id = classroom[0].id
           data.title = classroom[0].classroomTitle
@@ -57,7 +57,7 @@ class ClassroomService {
       })
       .then(() => {
         return this.knex("tag_classroom")
-          .where("classroom_id", index)
+          .where("classroom_id", body.classroomId)
           .innerjoin("tag", "tag_classroom.tag_id", "tag.id")
           .select("tag.tagBody", "tag.id")
       })
@@ -71,7 +71,7 @@ class ClassroomService {
       })
       .then(() => {
         return this.knex("classroom_user")
-          .where("classroom_id", index)
+          .where("classroom_id", body.classroomId)
           .innerjoin("user", "classroom_user.user_id", "user.id")
           .select("user.id", "user.email", "user.displayName")
       })
@@ -90,10 +90,10 @@ class ClassroomService {
   }
 
   //Method to list all classrooms of a user
-  async list (user) {
+  async list (body) {
     console.log("Listing all classrooms of a user");
     let user_id = await this.knex("user").where({
-      email: user
+      email: body.email
   }).select("id");
     return this.knex("classroom")
     .innerjoin("classroom_user", "classroom.id", "classroom_user.classroom_id")
@@ -111,7 +111,7 @@ class ClassroomService {
             "classroom.classroomTitle",
             "classroom.classroomDesc"
           )
-          .where("id", classroom)
+          .where("id", classroom.id)
           .then((classroom) => {
               data.id = classroom[0].id
               data.title = classroom[0].classroomTitle
