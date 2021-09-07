@@ -1,12 +1,6 @@
 const express = require("express");
 
 class SetRouter {
-<<<<<<< HEAD
-    constructor(setService){
-        this.setService = setService
-    }
-}
-=======
     constructor(setService) {
         this.setService = setService
     }
@@ -70,4 +64,3 @@ class SetRouter {
 }
 
 module.exports = SetRouter;
->>>>>>> cd01faa44247c1f419eb19a7e0a316b5cca61254

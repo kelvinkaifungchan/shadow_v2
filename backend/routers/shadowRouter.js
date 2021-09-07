@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-const express = require("express");
-
-class Shadow {
-    constructor(){
-        
-=======
 const express = require ('express')
 
 class ShadowRouter {
@@ -65,6 +58,5 @@ class ShadowRouter {
         .catch((err) => {
             return res.status(500).json(err)
         })
->>>>>>> cd01faa44247c1f419eb19a7e0a316b5cca61254
     }
 }
