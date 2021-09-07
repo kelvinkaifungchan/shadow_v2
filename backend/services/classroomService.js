@@ -96,7 +96,7 @@ class ClassroomService {
       email: body.email
   }).select("id");
     return this.knex("classroom")
-    .innerjoin("classroom_user", "classroom.id", "classroom_user.classroo_id")
+    .innerjoin("classroom_user", "classroom.id", "classroom_user.classroom_id")
     .where("classroom.classroomStatus", true)
     .andWhere(function () {
       this.where("classroom.user_id", "=", user_id).orWhere("classroom_user.user_id", user_id)
@@ -145,6 +145,17 @@ class ClassroomService {
                 displayName: user.displayName
               };
             }));
+          })
+          .then(() => {
+            return this.knex("classroom_set")
+            .where("classroom_set.class_id", classroom[0].id)
+            .select("classroom_set.set_id")
+          }).then((sets) => {
+            data.bridge = set_ids.map((set) => {
+              return{
+                set_id: set.id
+              }
+            })
           })
           .then(() => {
             return data
