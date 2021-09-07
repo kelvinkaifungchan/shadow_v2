@@ -5,7 +5,7 @@ import { loginFacebookThunk } from '../Redux/action'
 
 import FacebookLogin from 'react-facebook-login';
 
-class PureLogin extends React.Component {
+class PureLoginBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +16,8 @@ class PureLogin extends React.Component {
     componentDidUpdate() {
         console.log("this.props", this.props);
         if (this.props.isAuthenticatedMSP === true) {
-
             this.props.history.push('/')
-
         }
-
     }
     onChangeField = (field, e) => {
         const state = {};
@@ -47,10 +44,9 @@ class PureLogin extends React.Component {
     render() {
         return (
 
-            <div>
-
-                <div className="p-5">
-                    <div className="card bg-light rounded-lg border-0 p-3">
+            
+            <div className="col-3 offset-1 d-flex align-items-center">
+                    <div className="card  bg-light rounded-lg border-0 p-3">
                         <div className="card-body bg-transparent border-0 align-middle">
                             <a href="/auth/gmail">
                                 <button type="button" className="btn btn-outline-dark waves-effect w-100 mb-4">
@@ -70,14 +66,6 @@ class PureLogin extends React.Component {
                                 icon={<i className="fa fa-facebook" ></i>}
                                 textButton="&nbsp;&nbsp;Login With Facebook"
                             />
-                            {/* <a href="/auth/facebook">
-                                <button type="button" className="btn btn-outline-dark waves-effect w-100 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        className="bi bi-facebook" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                                    </svg> &nbsp; Login With Facebook </button>
-                            </a> */}
                             <hr className="pt-2" />
                             <form className="text-center" >
                                 <input onChange={this.onChangeField.bind(this, 'email')} value={this.state.email} type="text" name="username" className="form-control mb-4" placeholder="Email" />
@@ -98,8 +86,7 @@ class PureLogin extends React.Component {
                         </div>
                     </div>
                 </div>
-
-            </div>
+            
         );
     }
 }
@@ -120,4 +107,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-export const Login = connect(mapStateToProps, mapDispatchToProps)(PureLogin)
+export const LoginBox = connect(mapStateToProps, mapDispatchToProps)(PureLoginBox)
