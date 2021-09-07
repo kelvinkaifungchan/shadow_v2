@@ -22,7 +22,7 @@ class UserRouter {
         return this.userService.updatePicture(req.files.icon, req.body)
         .then(() => {
             return this.userService
-            .user(req.body.email)
+            .user(req.body)
         })
         .then((data) => {
             console.log(data)
@@ -40,7 +40,7 @@ class UserRouter {
         .edit(req.body)
         .then(() => {
             return this.userService
-            .user(req.body.email)
+            .user(req.body)
         })
         .then((data) => {
             console.log(data)
@@ -55,10 +55,10 @@ class UserRouter {
     delete(req, res) {
         console.log("Deleting a user")
         return this.userService
-            .delete(req.params.email)
+            .delete(req.body)
             .then(() => {
                 return this.userService
-                .user(req.params.email)
+                .user(req.body)
             })
             .then((data) => {
                 console.log(data)
