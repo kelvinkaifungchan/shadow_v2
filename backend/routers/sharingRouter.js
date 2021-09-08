@@ -10,6 +10,7 @@ class SharingRouter {
 
         router.post("/", this.post.bind(this));
         router.delete("/", this.delete.bind(this));
+        return router
     }
 
     post(req, res){
@@ -31,3 +32,6 @@ class SharingRouter {
     }
 
 }
+
+
+module.exports = SharingRouter
