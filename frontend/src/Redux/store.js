@@ -1,5 +1,5 @@
 import {applyMiddleware, createStore, combineReducers, compose} from 'redux'
-import {authReducer} from "./reducer"
+import {authReducer} from "./loginbox/reducer"
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 

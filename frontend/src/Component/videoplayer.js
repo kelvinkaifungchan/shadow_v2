@@ -1,3 +1,8 @@
+import React from 'react';
+import {connect} from 'react-redux'
+
+import {loginUserThunk} from '../Redux/loginbox/action'
+
 class PureVideoPlayer extends React.Component {
     
     render() {

@@ -9,9 +9,9 @@ p {
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100vh;
-    background-color: #F8DF4F;
+    background-color: #FFF;
 }
 
 .btnFacebook{
