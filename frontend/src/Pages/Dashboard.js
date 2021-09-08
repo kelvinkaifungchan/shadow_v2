@@ -2,10 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/action'
+import {logoutNowThunk} from '../Redux/loginbox/action'
+import '../Component/main.css'
 
 
-class HomePage extends React.Component {
+
+
+class Dashboard extends React.Component {
     
 
     logout = (e) => {
@@ -20,10 +23,17 @@ class HomePage extends React.Component {
                 <h1>Hi </h1>
                 <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>
-         
+                <Link to="/account">Account</Link>
+                <Link to="/createclassroom">CreateClassroom</Link>
+                <Link to="/viewclassroom">ViewClassroom</Link>
+                <Link to="/createset">Createset</Link>
+                <Link to="/viewset">Viewset</Link>
+                <Link to="/viewdictationcardsubmission">ViewDictationCardSubmission</Link>
+
                 <p onClick={this.logout}> 
-                    <Link to="/login">Logout</Link>
+                <Link to="/login">Logout</Link>
                 </p>
+                
             </div>
         );
     }
@@ -44,5 +54,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedHomePage = connect(mapStateToProps, mapDispatchToProps)(HomePage)
-export { connectedHomePage as HomePage };
+const connectedDashboard= connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export { connectedDashboard as Dashboard };
