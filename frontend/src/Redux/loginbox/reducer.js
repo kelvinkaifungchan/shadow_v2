@@ -1,21 +1,46 @@
-import { LOGIN_SUCCESS_ACTION, LOGIN_FAILURE_ACTION, LOGOUT_NOW_ACTION } from "./action";
+import {
+  LOGIN_SUCCESS_ACTION,
+  LOGIN_FAILURE_ACTION,
+  SIGN_UP_FAILURE,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  LOGOUT_NOW_ACTION
+} from "./action";
 
 const initialState = {
+  error: "",
+  loading: false,
   isAuthenticated: false || (localStorage.getItem('token') != null)
 };
 
 export function authReducer(state = initialState, action) {
   switch (action.type) {
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        isAuthenticated: false,
+      };
     case LOGIN_SUCCESS_ACTION:
-      return Object.assign({}, state, {
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         isAuthenticated: true
-      });
+      };
     case LOGIN_FAILURE_ACTION:
-      return state;
-    case LOGOUT_NOW_ACTION:
-      return Object.assign({}, state, {
+    case SIGN_UP_FAILURE:
+      return {
+        ...state,
+        loading: false,
         isAuthenticated: false
-      });
+      };
+    case LOGOUT_NOW_ACTION:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false
+      };
     default:
       return state;
   }

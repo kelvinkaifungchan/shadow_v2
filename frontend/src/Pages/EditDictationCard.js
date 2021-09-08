@@ -48,5 +48,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedEditDictationCard= connect(mapStateToProps, mapDispatchToProps)(EditDictationCard)
+const connectedEditDictationCard = connect(mapStateToProps, mapDispatchToProps)(EditDictationCard)
 export { connectedEditDictationCard as EditDictationCard };

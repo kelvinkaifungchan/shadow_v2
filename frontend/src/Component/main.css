@@ -3,12 +3,17 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
 p {
     font-size: 20px;
     text-align: justify;
 }
 
-body {
+#login {
     height: 100vh;
     background-color: #F8DF4F;
 }
@@ -22,3 +27,4 @@ body {
         border:1px solid black;
         
 }
+
