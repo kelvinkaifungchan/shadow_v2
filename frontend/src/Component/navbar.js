@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getdataThunk} from "../Redux/getdata/action"
 
 
 class PureNavBar extends React.Component {
-    componentDidMount() {
-        this.props.listDataMDP("test@test.com")
-      }
+
     render() {
         console.log("this.props>>>>>>>>>>>",this.props);
         return (
@@ -28,17 +25,5 @@ class PureNavBar extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log("this is state;", state);
-    return {
-        data: state.dataStore.data
-    }
-}
 
-const mapDispatchToProps = (dispatch) =>{
-    return {
-      listDataMDP: (email)=> dispatch(getdataThunk(email))
-    }
-}
-
-export const NavBar = connect(mapStateToProps, mapDispatchToProps)(PureNavBar)
+export const NavBar = connect(null, null)(PureNavBar)

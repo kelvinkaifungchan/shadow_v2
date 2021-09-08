@@ -10,7 +10,7 @@ import {NavBar} from '../Component/navbar'
 
 class Dashboard extends React.Component {
     
-
+    
     logout = (e) => {
         e.preventDefault();
         this.props.logout()

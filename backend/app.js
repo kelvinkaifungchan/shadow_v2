@@ -2,6 +2,7 @@ require("dotenv").config();
 
 //FS
 const fs = require("fs");
+const axios =  require("axios") 
 
 //Express
 const express = require("express");
@@ -44,6 +45,7 @@ app.post("/api/login", async function (req, res) {
           res.json({
               token: token,
           });
+         
       } else {
           res.sendStatus(401);
       }
@@ -51,7 +53,6 @@ app.post("/api/login", async function (req, res) {
       res.sendStatus(401);
   }
 })
-
 // Services
 const BridgeService = require("./services/bridgeService")
 const bridgeService = new BridgeService(knex)
@@ -90,6 +91,7 @@ app.use("/api/shadow", new ShadowRouter(userService, tagService, classroomServic
 const SharingRouter = require("./routers/sharingRouter");
 app.use("/api/sharing", new SharingRouter(sharingService).router());
 const UserRouter = require("./routers/userRouter");
+const { nextTick } = require("process");
 app.use("/api/user", new UserRouter(userService).router());
 
 //Setup Server
