@@ -11,6 +11,45 @@ const app = express();
 require("dotenv").config();
 const knexConfig = require("./knexfile").development
 const knex = require("knex")(knexConfig)
+const authClass = require("./auth")(knex);
+
+// Set up JWT
+const config = require("./config");
+const jwt = require("jwt-simple");
+const cors = require("cors");
+
+// Authenticate requests
+app.use(cors());
+app.use(authClass.initialize());
+app.use(express.json());
+app.use(express.urlencoded());
+const users = require("./users");
+
+
+app.post("/api/login", async function (req, res) {
+  console.log(req.body);
+  if (req.body.email && req.body.password) {
+      console.log(req.body.email, req.body.password);
+      var email = req.body.email;
+      var password = req.body.password;
+      var user = users.find((u) => {
+          return u.email === email && u.password === password;
+      });
+      if (user) {
+          var payload = {
+              id: user.id,
+          };
+          var token = jwt.encode(payload, config.jwtSecret);
+          res.json({
+              token: token,
+          });
+      } else {
+          res.sendStatus(401);
+      }
+  } else {
+      res.sendStatus(401);
+  }
+})
 
 // Services
 const BridgeService = require("./services/bridgeService")
