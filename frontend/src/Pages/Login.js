@@ -24,7 +24,7 @@ class Login extends React.Component {
        
 
         return (
-            <div className="row d-flex align-items-center" id="landing">
+            <div className="row d-flex align-items-center">
                 <div className="col-6  p-5 d-flex align-items-center">
                         <div className="p-5 mx-5">
                             <div>
