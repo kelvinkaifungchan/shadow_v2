@@ -20,7 +20,7 @@ class SharingService {
         if (share.length > 0) {
             return "already shared"
         } else if (owner.length > 0) {
-            return
+            return "owner"
         } else {
             return this.knex
                 .insert({

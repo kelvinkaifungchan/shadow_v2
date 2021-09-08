@@ -9,6 +9,7 @@ class ClassroomService {
     return this.knex("user")
       .where({
         email: body.email,
+        
       })
       .then((email) => {
         return this.knex
@@ -58,7 +59,7 @@ class ClassroomService {
       .then(() => {
         return this.knex("tag_classroom")
           .where("classroom_id", body.classroomId)
-          .innerjoin("tag", "tag_classroom.tag_id", "tag.id")
+          .join("tag", "tag_classroom.tag_id", "tag.id")
           .select("tag.tagBody", "tag.id")
       })
       .then((tags) => {
@@ -71,8 +72,8 @@ class ClassroomService {
       })
       .then(() => {
         return this.knex("classroom_user")
-          .where("classroom_id", body.classroomId)
-          .innerjoin("user", "classroom_user.user_id", "user.id")
+          .where("classroom_user.classroom_id", body.classroomId)
+          .join("user", "classroom_user.sharedUser_id", "user.id")
           .select("user.id", "user.email", "user.displayName")
       })
       .then((shared) => {
@@ -85,6 +86,17 @@ class ClassroomService {
         }));
       })
       .then(() => {
+        return this.knex("classroom_set")
+        .where("classroom_set.classroom_id", body.classroomId)
+        .select("classroom_set.set_id")
+      }).then((sets) => {
+        data.bridge = sets.map((set) => {
+          return{
+            set_id: set.set_id
+          }
+        })
+      })
+      .then(() => {
         return data
       })
   }
@@ -95,12 +107,13 @@ class ClassroomService {
     let user_id = await this.knex("user").where({
       email: body.email
   }).select("id");
+
     return this.knex("classroom")
-    .innerjoin("classroom_user", "classroom.id", "classroom_user.classroom_id")
+    .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
     .where("classroom.classroomStatus", true)
     .andWhere(function () {
-      this.where("classroom.user_id", "=", user_id).orWhere("classroom_user.user_id", user_id)
-    })
+      this.where("classroom.user_id", "=", user_id[0].id).orWhere("classroom_user.sharedUser_id", user_id[0].id)
+    }) 
     .select("classroom.id")
     .then((classrooms) => {
       return classrooms.map((classroom) => {
@@ -119,8 +132,8 @@ class ClassroomService {
           })
           .then(() => {
             return this.knex("tag_classroom")
-              .where("classroom_id", index)
-              .innerjoin("tag", "tag_classroom.tag_id", "tag.id")
+              .where("classroom_id", body.classroomId)
+              .join("tag", "tag_classroom.tag_id", "tag.id")
               .select("tag.tagBody", "tag.id")
           })
           .then((tags) => {
@@ -133,8 +146,8 @@ class ClassroomService {
           })
           .then(() => {
             return this.knex("classroom_user")
-              .where("classroom_id", index)
-              .innerjoin("user", "classroom_user.user_id", "user.id")
+              .where("classroom_user.classroom_id", body.classroomId)
+              .join("user", "classroom_user.user_id", "user.id")
               .select("user.id", "user.email", "user.displayName")
           })
           .then((shared) => {
@@ -148,12 +161,12 @@ class ClassroomService {
           })
           .then(() => {
             return this.knex("classroom_set")
-            .where("classroom_set.class_id", classroom[0].id)
+            .where("classroom_set.classroom_id", body.classroomId)
             .select("classroom_set.set_id")
           }).then((sets) => {
-            data.bridge = set_ids.map((set) => {
+            data.bridge = sets.map((set) => {
               return{
-                set_id: set.id
+                set_id: set.set_id
               }
             })
           })
@@ -165,4 +178,7 @@ class ClassroomService {
   }
 }
 
+
+
 module.exports = ClassroomService;
+
