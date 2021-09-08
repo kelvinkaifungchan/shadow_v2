@@ -62,4 +62,6 @@ class ShadowRouter {
     }
 }
 
-module.exports = ShadowRouter
+
+module.exports = ShadowRouter;
+

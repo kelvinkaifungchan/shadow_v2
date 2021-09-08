@@ -65,7 +65,7 @@ class BridgeService {
                 return this.knex
                     .insert({
                         set_id: body.setId,
-                        flashcard_id: body.dictationcardId
+                        dictation_id: body.dictationcardId
                     })
                     .into("set_dictationcard")
             }
