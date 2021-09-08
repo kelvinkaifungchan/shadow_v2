@@ -6,7 +6,6 @@ const fs = require("fs");
 //Express
 const express = require("express");
 const app = express();
-
 //Setup Database
 const knexConfig = require("./knexfile").development
 const knex = require("knex")(knexConfig)
@@ -22,6 +21,8 @@ app.use(cors());
 app.use(authClass.initialize());
 app.use(express.json());
 app.use(express.urlencoded());
+
+
 const users = require("./users");
 
 

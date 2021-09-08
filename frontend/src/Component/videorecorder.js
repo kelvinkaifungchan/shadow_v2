@@ -1,4 +1,29 @@
+import React from 'react';
+import {connect} from 'react-redux';
+import ReactPlayer from 'react-player';
+import {loginUserThunk} from '../Redux/loginbox/action';
+
 class PureVideoRecorder extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            show: Boolean(),
+            res: [],
+            recording: false,
+            videos: [],
+        };
+        this.handleshow = this.handleshow.bind(this);
+    }
+
+    handleshow() {
+        this.setState((prevState) => {
+            return {
+                show: !prevState.show
+            }
+        });
+    }
+
     async start() {
         console.log("ready for record..");
         this.stream = await navigator.mediaDevices.getUserMedia({
@@ -82,6 +107,7 @@ class PureVideoRecorder extends React.Component {
  
 
     render() {
+        const { show, recording, videos } = this.state;
         return (
 
             <div className="col">

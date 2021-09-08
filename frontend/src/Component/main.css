@@ -12,10 +12,13 @@ p {
     font-size: 20px;
     text-align: justify;
 }
+body {
+    overflow-x: hidden;
+}
 
 #login {
     height: 100vh;
-    background-color: #F8DF4F;
+    background-color: #FFF;
 }
 
 .btnFacebook{
