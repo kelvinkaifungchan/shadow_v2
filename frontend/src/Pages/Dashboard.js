@@ -35,6 +35,8 @@ class Dashboard extends React.Component {
                 <Link to="/viewQuizcard">ViewQuizcard </Link>
                 <Link to="/viewQuizcardSubmission">ViewQuizcardSubmission </Link>
                 <Link to="/createDictationcard">CreateDictationcard </Link>
+                <Link to="/viewDictationcard">ViewDictationcard </Link>
+                <Link to="/viewDictationCardSubmission">ViewDictationCardSubmission </Link>
 
                 <p onClick={this.logout}> 
                 <Link to="/login">Logout</Link>
