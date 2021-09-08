@@ -18,7 +18,12 @@ body {
 
 #login {
     height: 100vh;
-    background-color: #FFF;
+    background-color: #F8DF4F;
+}
+
+#navbar{
+    height: 10vh;
+    background-color: #F8DF4F;
 }
 
 .btnFacebook{
