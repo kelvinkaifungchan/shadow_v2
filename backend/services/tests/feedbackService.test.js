@@ -1,5 +1,5 @@
 const FeedbackService = require("../feedbackService")
-const knexConfig = require("./knexfile").staging
+const knexConfig = require("../../knexfile").development
 const knex = require("knex")(knexConfig)
 
 describe("Feedback service tests", () => {

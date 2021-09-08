@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 
 //Setup Database
+require("dotenv").config();
 const knexConfig = require("./knexfile").development
 const knex = require("knex")(knexConfig)
 
@@ -34,21 +35,21 @@ const UserService = require("./services/userService")
 const userService = new UserService(knex)
 
 //Routers
-const BridgeRouter = require("./router/bridgeRouter");
+const BridgeRouter = require("./routers/bridgeRouter");
 app.use("/api/bridge", new BridgeRouter(bridgeService).router());
-const CardRouter = require("./router/cardRouter");
+const CardRouter = require("./routers/cardRouter");
 app.use("/api/card", new CardRouter(cardService, submissionService, feedbackService).router());
-const ClassroomRouter = require("./router/classroomRouter");
+const ClassroomRouter = require("./routers/classroomRouter");
 app.use("/api/classroom", new ClassroomRouter(classroomService).router());
-const RecordingRouter = require("./router/recordingRouter");
+const RecordingRouter = require("./routers/recordingRouter");
 app.use("/api/recording", new RecordingRouter(recordingService).router());
-const SetRouter = require("./router/setRouter");
+const SetRouter = require("./routers/setRouter");
 app.use("/api/set", new SetRouter(setService).router());
-const ShadowRouter = require("./router/shadowRouter");
+const ShadowRouter = require("./routers/shadowRouter");
 app.use("/api/shadow", new ShadowRouter(userService, tagService, classroomService, setService, cardService).router());
-const SharingRouter = require("./router/sharingRouter");
+const SharingRouter = require("./routers/sharingRouter");
 app.use("/api/sharing", new SharingRouter(sharingService).router());
-const UserRouter = require("./router/userRouter");
+const UserRouter = require("./routers/userRouter");
 app.use("/api/user", new UserRouter(userService).router());
 
 //Setup Server

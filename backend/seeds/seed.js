@@ -2,7 +2,7 @@
 exports.seed = function (knex) {
     // Deletes ALL existing entries
     return knex('user').del()
-      .then(async function () {
+      .then(() => {
         // Inserts seed entries
         return knex('user').insert([{
           displayName: 'Test Wong',
@@ -31,13 +31,13 @@ exports.seed = function (knex) {
       })
       .then(() => {
         return knex('tag').insert([{
-          body: "difficult",
+          tagBody: "difficult",
         }, {
-          body: "easy"
+          tagBody: "easy"
         }, {
-          body: "veryeasy"
+          tagBody: "veryeasy"
         }, {
-          body: "mediuma"
+          tagBody: "mediuma"
         }])
       })
       .then(() => {
@@ -560,69 +560,6 @@ exports.seed = function (knex) {
         }, {
           tag_id: 1,
           set_id: 3,
-        }])
-      })
-      .then(() => {
-        return knex('tag_flashcard').del();
-      })
-      .then(() => {
-        return knex('tag_flashcard').insert([{
-          tag_id: 1,
-          flashcard_id: 1,
-        }, {
-          tag_id: 2,
-          flashcard_id: 1,
-        }, {
-          tag_id: 1,
-          flashcard_id: 2,
-        }, {
-          tag_id: 2,
-          flashcard_id: 2,
-        }, {
-          tag_id: 1,
-          flashcard_id: 3,
-        }])
-      })
-      .then(() => {
-        return knex('tag_quizcard').del();
-      })
-      .then(() => {
-        return knex('tag_quizcard').insert([{
-          tag_id: 1,
-          quizcard_id: 1,
-        }, {
-          tag_id: 2,
-          quizcard_id: 1,
-        }, {
-          tag_id: 1,
-          quizcard_id: 2,
-        }, {
-          tag_id: 2,
-          quizcard_id: 2,
-        }, {
-          tag_id: 1,
-          quizcard_id: 3,
-        }])
-      })
-      .then(() => {
-        return knex('tag_dictationcard').del();
-      })
-      .then(() => {
-        return knex('tag_dictationcard').insert([{
-          tag_id: 1,
-          dictationcard_id: 1,
-        }, {
-          tag_id: 2,
-          dictationcard_id: 1,
-        }, {
-          tag_id: 1,
-          dictationcard_id: 2,
-        }, {
-          tag_id: 2,
-          dictationcard_id: 2,
-        }, {
-          tag_id: 1,
-          dictationcard_id: 3,
         }])
       })
   };

@@ -54,11 +54,29 @@ class Set {
         .where("set.id", body.setId)
         .where("set.setStatus", true)
         .select("set.id", "set.setTitle", "set.setDesc", "user.displayName")
-        .then((set) => {
+        .then(async (set) => {
             setData.id = set[0].id,
             setData.title = set[0].setTitle,
             setData.description = set[0].setDesc,
             setData.owner = set[0].displayName
+            var queryFlashcard = await this.knex("set_flashcard").where("set_flashcard.set_id", set[0].id).select("set_flashcard.flashcard_id");
+                setData.bridge_flashcard = queryFlashcard.map((flashcard) => {
+                    return{
+                        flashcard_id:flashcard.flashcard_id
+                    }
+                })
+            var queryQuizcard = await this.knex("set_quizcard").where("set_quizcard.set_id", set[0].id).select("set_quizcard.quizcard_id");
+                setData.bridge_quizcard = queryQuizcard.map((quizcard) => {
+                    return{
+                        quizcard_id:quizcard.quizcard_id
+                    }
+                })
+            var queryDictationcard = await this.knex("set_dictationcard").where("set_dictationcard.set_id", set[0].id).select("set_dictationcard.dictationcard_id");
+                setData.bridge_dictationcard = queryDictationcard.map((dictationcard) => {
+                    return{
+                        dictationcard_id: dictationcard_dictationcard.id
+                    }
+                })
         })
         .then(()=>{
             return this.knex("tag_set")
@@ -87,10 +105,8 @@ class Set {
         return this.knex("set")
         .join("classroom_set", "set.id", "classroom_set.set_id")
         .join("classroom", "classroom_set.classroom_id", "classroom.id")
-        .where({
-            classroom_id: body.classroomId,
-            classroomStatus: true
-        })
+        .where("classroom_set.classroom_id", body.classroomId)
+        .andWhere("classroom.classroomStatus", true)
         .select("set.id", "set.setTitle", "set.setDesc")
         .then((sets)=>{
             return sets.map((set) => {
@@ -122,44 +138,63 @@ class Set {
             setStatus: true
         })
         .then((sets)=>{
-            return sets.map(async (set) => {
-                let setData = {};
-                setData.id = set.id
-                setData.title = set.setTitle
-                setData.description = set.setDesc
-                setData.tags = function () {
-                    return this.knex("tag_set")
-                    .where("set_id", set.id)
-                    .join("tag", "tag_id", "tag.id")
-                    .select("tag.id", "tag.tagBody")
-                    .then((tags) => {
-                        return tags.map((tag)=>{
-                            return {
-                                id: tag.id,
-                                body: tag.body
-                            };
+            return sets.map((set) => {
+                let setData = {};               
+                return this.knex("tag_set")
+                .where("set_id", set.id)
+                .join("tag", "tag_id", "tag.id")
+                .select("tag.id", "tag.tagBody")
+                .then((tags) => {
+                    return tags.map((tag)=>{
+                        return {
+                            id: tag.id,
+                            body: tag.body
+                        };
                         });
                     })
-                }
-                var queryFlashcard = await this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id");
-                setData.bridge_flashcard = queryFlashcard.map((flashcard) => {
-                    return{
-                        flashcard_id:flashcard.id
-                    }
-                })
-                var queryQuizcard = await this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
-                setData.bridge_quizcard = queryQuizcard.map((quizcard) => {
-                    return{
-                        quizcard_id:quizcard.id
-                    }
-                })
-                var queryDictationcard = await this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
-                setData.bridge_dictationcard = queryDictationcard.map((dictationcard) => {
-                    return{
-                        dictationcard_id:dictationcard.id
-                    }
-                })
-                return setData
+                    .then((tags) => {
+                        setData.tags = tags
+                    })
+                    .then(() => {
+                        setData.id = set.id
+                        setData.title = set.setTitle
+                        setData.description = set.setDesc
+                       
+                    })
+                    .then(() => {
+                        return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
+                    })
+                    .then((flashcards) => {
+                        setData.bridge_flashcard = flashcards.map((flashcard) => {
+                            return{
+                                flashcard_id:flashcard_flashcard.id
+                            }
+                        })
+                        
+                    })
+                    .then(() => {
+                        return this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
+                    })
+                    .then((quizcards) => {
+                        setData.bridge_quizcard = quizcards.map((quizcard) => {
+                            return{
+                                quizcard_id:quizcard_quizcard.id
+                            }
+                        })
+                    })
+                    .then(() => {
+                        return this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
+                    })
+                    .then((dictationcards) => {
+                        setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
+                            return{
+                                dictationcard_id:dicationcard_dictationcard.id
+                            }
+                        })
+                    })
+                    .then(() => {
+                        return setData
+                    })
             })
         })
 
