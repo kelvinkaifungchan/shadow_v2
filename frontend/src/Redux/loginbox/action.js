@@ -24,17 +24,17 @@ function loginFailureActionCreator(message) {
 
 export function loginUserThunk(email, password) {
   return (dispatch) => {
-    return axios.post(`http://localhost:8080/api/login`, {
+    return axios.post(`http://localhost:8080/api/auth/login`, {
       email: email,
       password: password
     }).then(response => {
       console.log(response);
       if (response.data == null) {
         dispatch(loginFailureActionCreator('Unknown Error'));
-      } else if (!response.data.token) {
+      } else if (!response.data) {
         dispatch(loginFailureActionCreator(response.data.message || ''));
       } else {
-        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('token', response.data)
         // Dispatch the success action
         dispatch(loginSuccessActionCreator());
       }
@@ -90,7 +90,7 @@ export const signUpThunk = (email, password, displayName, role) => {
   return function (dispatch) {
     dispatch(signUpRequest());
     console.log("email, password, displayName, role",email, password, displayName, role);
-    return axios.post(`${process.env.REACT_APP_API_SERVER}/api/login`, {
+    return axios.post(`${process.env.REACT_APP_API_SERVER}/api/auth/signup`, {
       email: email,
       password: password,
       displayName: displayName,

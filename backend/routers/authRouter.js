@@ -27,6 +27,7 @@ class AuthRouter {
                 email: req.body.email
             })
             if (user) {
+                console.log(user)
                 let result = await hashFunction.checkPassword(req.body.password, user[0].passwordHash)
                 if (result) {
                     let payload = {
