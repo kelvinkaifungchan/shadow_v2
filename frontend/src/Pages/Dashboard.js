@@ -11,13 +11,18 @@ import { DisplaySetModule} from '../Component/displaysetmodule'
 
 
 class Dashboard extends React.Component {
-
+    componentDidMount(){
+        this.props.getdata({email:"test@test.com"})
+        
+    }
     render() {
         return (
             <div>
-            <NavBar/>
+            <NavBar data={this.props.data}/>
             <DisplayClassModule/>
             <DisplaySetModule/> 
+            {this.props.loading && <div> Loading...</div>}
+            {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
             </div>
         );
     }
@@ -28,7 +33,9 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard",state);
 
     return {
-        data: state.dataStore.data
+        loading:state.dataStore.loading,
+        error:state.dataStore.error,
+        data: state.dataStore.data,
     }
 }
 const mapDispatchToProps  = dispatch => {
