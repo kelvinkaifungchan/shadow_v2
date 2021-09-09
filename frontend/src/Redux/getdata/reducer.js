@@ -7,7 +7,10 @@ import {
 const initialState = {
   error: "",
   loading: false,
-  data: [],
+  user: [],
+  classrooms: [],
+  sets: [],
+  cards: []
 };
 
 export function dataReducer(state = initialState, action) {
@@ -18,7 +21,11 @@ export function dataReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        user: action.payload.user,
+        classrooms: action.payload.classrooms,
+        sets: action.payload.sets,
+        cards: action.payload.cards,
+        tags: action.payload.tags,
       };
     case GETDATA_FAILURE:
       return {
