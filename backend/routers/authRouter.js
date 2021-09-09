@@ -2,7 +2,7 @@ const express = require("express");
 require('dotenv').config();
 
 //Bcrypt Hashing
-const hashFunction = require("../auth/hashFunction")
+const hashFunction = require("../passport/hashFunction")
 
 //JWT
 const jwt = require("jsonwebtoken");
@@ -23,22 +23,23 @@ class AuthRouter {
     async postLocal(req, res) {
         console.log("Requesting local login")
         if (req.body.email && req.body.password) {
-            let hashedPassword = await hashFunction.hashPassword(req.body.password)
-            return this.knex("user").where({
-                    email: req.body.email,
-                    passwordHash: hashedPassword
-                })
-                .then((data) => {
-                    if (data) {
-                        let payload = {
-                            email: data[0].email
-                        }
-                        let token = jwt.sign(payload, process.env.JWT_SECRET)
-                        return res.json(token);
-                    } else {
-                        res.sendStatus(401)
+            let user = await this.knex("user").where({
+                email: req.body.email
+            })
+            if (user) {
+                let result = await hashFunction.checkPassword(req.body.password, user[0].passwordHash)
+                if (result) {
+                    let payload = {
+                        email: user[0].email
                     }
-                })
+                    let token = jwt.sign(payload, process.env.JWT_SECRET)
+                    return res.json(token);
+                } else {
+                    res.sendStatus(401)
+                }
+            } else {
+                res.send("User does not exist")
+            }
         } else {
             res.sendStatus(401)
         }
