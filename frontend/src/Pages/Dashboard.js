@@ -4,13 +4,13 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/loginbox/action'
 import '../Component/main.css'
-
+import {NavBar} from '../Component/navbar'
 
 
 
 class Dashboard extends React.Component {
     
-
+    
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -19,7 +19,9 @@ class Dashboard extends React.Component {
         console.log("i want to see the props",this.props);
 
         return (
-            <div className="col-md-6 col-md-offset-3">
+            <div>
+            <NavBar/>
+
                 <h1>Hi </h1>
                 <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>

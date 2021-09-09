@@ -4,8 +4,7 @@ import {connect} from 'react-redux'
 
 const PurePrivateRoute = ({ component, isAuthenticated, ...rest }) => {
     const Component = component;
-    console.log("component",component);
-    console.log("Component != null",Component != null);
+
     if (Component != null) {
         return (
             <Route {...rest} render={(props) => (

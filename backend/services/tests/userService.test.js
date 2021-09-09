@@ -1,6 +1,6 @@
 const { TestWatcher } = require("jest")
 const UserService = require("../userService")
-const knexConfig = require("./knexfile").staging
+const knexConfig = require("../../knexfile").development
 const knex = require("knex")(knexConfig)
 
 describe("User service tests", () => {
@@ -33,10 +33,10 @@ describe("User service tests", () => {
     test("Editing a user", () => {
         const userService = new UserService(knex)
         return userService
-        .edit(1, "Edit Wong", "edit@test.com")
+        .edit({id: 1, displayName: "Edit Wong", email: "edit@test.com"})
         .then(() => {
             return userService
-            .user("edit@test.com")
+            .user({email: "edit@test.com"})
         })
         .then((data) => {
             expect(data).toEqual(
@@ -53,7 +53,7 @@ describe("User service tests", () => {
     test("Deleting a user", () => {
         const userService = new UserService(knex)
         return userService
-        .delete("edit@test.com")
+        .delete({email: "edit@test.com"})
         .then(() => {
             return userService
             .list("edit@test.com")

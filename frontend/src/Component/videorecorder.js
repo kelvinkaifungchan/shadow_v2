@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import {loginUserThunk} from '../Redux/loginbox/action';
 
 class PureVideoRecorder extends React.Component {
@@ -69,7 +69,7 @@ class PureVideoRecorder extends React.Component {
         // save the video to memory
         this.upload()
         this.stream.getTracks().forEach(function (track) {
-            if (track.readyState === 'live' && track.kind === 'audio' || track.readyState === 'live' && track.kind === 'video') {
+            if ((track.readyState === 'live' && track.kind === 'audio') || (track.readyState === 'live' && track.kind === 'video')) {
                 track.stop()
             }
         })
@@ -107,7 +107,7 @@ class PureVideoRecorder extends React.Component {
  
 
     render() {
-        const { show, recording, videos } = this.state;
+        const { show } = this.state;
         return (
 
             <div className="col">
