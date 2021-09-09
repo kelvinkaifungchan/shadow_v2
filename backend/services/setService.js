@@ -131,15 +131,13 @@ class Set {
         })
         .select("id");
 
-        
-
         return this.knex("set")
         .where({
             user_id: email[0].id,
             setStatus: true
         })
-        .then((sets)=>{
-            return sets.map((set) => {
+        .then(async (sets)=>{
+            let big = await Promise.all(sets.map((set) => {
                 let setData = {};               
                 return this.knex("tag_set")
                 .where("set_id", set.id)
@@ -149,7 +147,7 @@ class Set {
                     return tags.map((tag)=>{
                         return {
                             id: tag.id,
-                            body: tag.body
+                            body: tag.tagBody
                         };
                         });
                     })
@@ -160,7 +158,6 @@ class Set {
                         setData.id = set.id
                         setData.title = set.setTitle
                         setData.description = set.setDesc
-                       
                     })
                     .then(() => {
                         return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
@@ -168,7 +165,7 @@ class Set {
                     .then((flashcards) => {
                         setData.bridge_flashcard = flashcards.map((flashcard) => {
                             return{
-                                flashcard_id:flashcard.id
+                                flashcard_id:flashcard.flashcard_id
                             }
                         })
                         
@@ -179,7 +176,7 @@ class Set {
                     .then((quizcards) => {
                         setData.bridge_quizcard = quizcards.map((quizcard) => {
                             return{
-                                quizcard_id:quizcard.id
+                                quizcard_id:quizcard.quizcard_id
                             }
                         })
                     })
@@ -189,16 +186,17 @@ class Set {
                     .then((dictationcards) => {
                         setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
                             return{
-                                dictationcard_id:dictationcard.id
+                                dictationcard_id:dictationcard.dictationcard_id
                             }
                         })
                     })
                     .then(() => {
+                        console.log('setdata',setData)
                         return setData
                     })
+                }))
+                return big
             })
-        })
-
         .catch((err) => {
             console.log(err)
         });

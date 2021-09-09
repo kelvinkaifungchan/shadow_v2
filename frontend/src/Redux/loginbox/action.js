@@ -37,6 +37,7 @@ export function loginUserThunk(email, password) {
         localStorage.setItem('token', response.data)
         // Dispatch the success action
         dispatch(loginSuccessActionCreator());
+        
       }
     }).catch(err => console.log("Error: ", err))
   }

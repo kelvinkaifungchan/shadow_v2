@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import {getdataThunk} from '../Redux/getdata/action'
 
-
 class PureNavBar extends React.Component {
     componentDidMount(){
         this.props.getdata({email:"test@test.com"})

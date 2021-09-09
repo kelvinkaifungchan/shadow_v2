@@ -38,7 +38,7 @@ class ShadowRouter {
             .list(req.body)
         })
         .then((classrooms) => {
-            console.log("clsrm from router",classrooms);
+            console.log("clsrm from router");
             return data.classrooms = classrooms
         })
         .then(() => {
@@ -47,7 +47,7 @@ class ShadowRouter {
             .user(req.body)
         })
         .then((sets) => {
-            console.log('setsvc.user done')
+            console.log('sets.sets', sets)
             return data.sets = sets
         })
         .then(() => {
