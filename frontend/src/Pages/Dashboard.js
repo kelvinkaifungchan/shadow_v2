@@ -51,6 +51,7 @@ const mapDispatchToProps = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         }
+        
     }
 }
 

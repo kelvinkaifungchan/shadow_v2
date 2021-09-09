@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
+
 import {getdataThunk} from '../Redux/getdata/action'
+import {logoutNowThunk} from '../Redux/loginbox/action'
 
 class PureNavBar extends React.Component {
 
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
     }
-    
+    logout = (e) => {
+        e.preventDefault();
+        this.props.logout()
+    }
     render() {
         console.log("this.props in navbar >>>>>>>>>>>", )
 
@@ -23,6 +29,8 @@ class PureNavBar extends React.Component {
                     <span><i className="m-2 fas fa-search"></i></span>
                     <span ><img id="picture" src={this.props.user.picture} alt="Avatar" className="avatar-sm"></img></span>
                 </div>
+                <Link onClick={this.logout} to="/login">Logout</Link>
+                
 
             </div>
 
@@ -48,6 +56,9 @@ const mapDispatchToProps = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
+        },
+        logout: () => {
+            dispatch(logoutNowThunk())
         }
     }
 }
