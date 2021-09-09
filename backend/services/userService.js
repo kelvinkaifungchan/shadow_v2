@@ -56,11 +56,11 @@ class UserService {
   }
 
   //Method to return a users details
-  user(body) {
+  user(email) {
     console.log("returning data of a user");
     return this.knex("user")
       .where({
-        email: body.email,
+        email: email,
       })
       .then((user) => {
         return {

@@ -43,6 +43,7 @@ class ClassroomService {
   //Method to list all data of a specific classroom
   classroom(body) {
     console.log("Listing data of a specific classroom");
+    console.log('body',body)
     let data = {};
     return this.knex("classroom")
       .select(
@@ -106,7 +107,9 @@ class ClassroomService {
     console.log("Listing all classrooms of a user");
     let user_id = await this.knex("user").where({
       email: body.email
-  }).select("id");
+    }).select("id");
+    
+    const data = {};
 
     return this.knex("classroom")
     .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
@@ -116,8 +119,8 @@ class ClassroomService {
     }) 
     .select("classroom.id")
     .then((classrooms) => {
-      return classrooms.map((classroom) => {
-        let data = {};
+      console.log('csrm list', classrooms)
+      data.classroom = classrooms.map((classroom) => {
         return this.knex("classroom")
           .select(
             "classroom.id",
@@ -132,7 +135,7 @@ class ClassroomService {
           })
           .then(() => {
             return this.knex("tag_classroom")
-              .where("classroom_id", body.classroomId)
+              .where("classroom_id", data.id)
               .join("tag", "tag_classroom.tag_id", "tag.id")
               .select("tag.tagBody", "tag.id")
           })
@@ -140,14 +143,14 @@ class ClassroomService {
             data.tags = tags.map((tag) => {
               return {
                 id: tag.id,
-                body: tag.body,
+                body: tag.tagBody,
               };
             });
           })
           .then(() => {
             return this.knex("classroom_user")
-              .where("classroom_user.classroom_id", body.classroomId)
-              .join("user", "classroom_user.user_id", "user.id")
+              .join("user", "classroom_user.sharedUser_id", "user.id")
+              .where("classroom_user.classroom_id", data.id)
               .select("user.id", "user.email", "user.displayName")
           })
           .then((shared) => {
@@ -161,7 +164,7 @@ class ClassroomService {
           })
           .then(() => {
             return this.knex("classroom_set")
-            .where("classroom_set.classroom_id", body.classroomId)
+            .where("classroom_set.classroom_id", data.id)
             .select("classroom_set.set_id")
           }).then((sets) => {
             data.bridge = sets.map((set) => {
@@ -170,11 +173,9 @@ class ClassroomService {
               }
             })
           })
-          .then(() => {
-            return data
-          })
+        })
+        console.log("data.classroom",data.classroom);
       })
-    })
   }
 }
 
