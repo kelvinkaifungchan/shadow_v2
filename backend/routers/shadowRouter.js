@@ -17,8 +17,6 @@ class ShadowRouter {
 
     //Router to get all data for a user
     post (req, res) {
-        console.log("req.body",req.body);
-        console.log("req.body.em", req.body.email)
         console.log("Requesting getting all data for a user")
         let data = {}
         return this.userService
@@ -36,7 +34,6 @@ class ShadowRouter {
             return data.tags = tags
         })
         .then(() => {
-            console.log('classvc.list')
             return this.classroomService
             .list(req.body)
         })
