@@ -59,7 +59,6 @@ app.use("/api/shadow", new ShadowRouter(userService, tagService, classroomServic
 const SharingRouter = require("./routers/sharingRouter");
 app.use("/api/sharing", new SharingRouter(sharingService).router());
 const UserRouter = require("./routers/userRouter");
-const { nextTick } = require("process");
 app.use("/api/user", new UserRouter(userService).router());
 
 //Setup Server
