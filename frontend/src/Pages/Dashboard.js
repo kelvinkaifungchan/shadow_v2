@@ -11,12 +11,8 @@ import { DisplaySetModule} from '../Component/displaysetmodule'
 
 
 class Dashboard extends React.Component {
-    componentDidMount(){
-        this.props.getdata({email:"test@test.com"})
-    }
-    render() {
-        console.log("i want to see the props",this.props);
 
+    render() {
         return (
             <div>
             <NavBar/>
@@ -29,9 +25,10 @@ class Dashboard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return {
-        stateMSP: state.dataStore.data
+    console.log("state in dashboard",state);
 
+    return {
+        data: state.dataStore.data
     }
 }
 const mapDispatchToProps  = dispatch => {

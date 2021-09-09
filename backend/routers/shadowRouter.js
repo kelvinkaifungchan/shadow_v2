@@ -22,7 +22,7 @@ class ShadowRouter {
         console.log("Requesting getting all data for a user")
         let data = {}
         return this.userService
-        .user(req.body.email)
+        .user(req.body)
         .then((user) => {
             console.log("user",user);
             return data.user = user
