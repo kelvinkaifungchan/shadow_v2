@@ -123,14 +123,6 @@ class Set {
         });
     };
 
-    async user(body){
-        const email = await this.knex("user")
-        .where({
-            email:body.email,
-        })
-        .select("id");
-    }
-
     //list all sets a user has access to
     async user(body){
         const email = await this.knex("user")
@@ -145,7 +137,7 @@ class Set {
             setStatus: true
         })
         .then(async (sets)=>{
-            return sets.map((set) => {
+            let big = await Promise.all(sets.map((set) => {
                 let setData = {};               
                 return this.knex("tag_set")
                 .where("set_id", set.id)
@@ -200,19 +192,11 @@ class Set {
                     })
                     .then(() => {
                         console.log('setdata',setData)
-                        // Promise.all(setData)
                         return setData
                     })
-                })
+                }))
+                return big
             })
-            // .then((promise)=>{
-                //     console.log(promise)
-                // Promise.all(promise)
-                // .then((data) => {
-                //     console.log(data)
-                //     return data
-                // })
-        // })
         .catch((err) => {
             console.log(err)
         });
