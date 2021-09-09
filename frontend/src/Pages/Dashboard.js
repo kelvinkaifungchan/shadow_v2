@@ -28,7 +28,6 @@ class Dashboard extends React.Component {
                 <Link to="/viewclassroom">ViewClassroom </Link>
                 <Link to="/createset">Createset </Link>
                 <Link to="/viewset">Viewset </Link>
-                <Link to="/viewdictationcardsubmission">ViewDictationCardSubmission </Link>
                 <Link to="/createFlashcard">CreateFlashcard </Link>
                 <Link to="/viewFlashcard">ViewFlashcard </Link>
                 <Link to="/createQuizcard">CreateQuizcard </Link>
@@ -37,6 +36,7 @@ class Dashboard extends React.Component {
                 <Link to="/createDictationcard">CreateDictationcard </Link>
                 <Link to="/viewDictationcard">ViewDictationcard </Link>
                 <Link to="/viewDictationCardSubmission">ViewDictationCardSubmission </Link>
+                <Link to="/ViewDictationQuestion">ViewDictationQuestion </Link>
 
                 <p onClick={this.logout}> 
                 <Link to="/login">Logout</Link>

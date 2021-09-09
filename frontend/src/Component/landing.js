@@ -16,7 +16,7 @@ import { ViewQuizcardSubmission } from '../Pages/ViewQuizcardSubmission';
 import { CreateDictationcard } from '../Pages/CreateDictationcard';
 import { ViewDictationcard } from '../Pages/ViewDictationcard';
 import { ViewDictationcardSubmission } from '../Pages/ViewDictationCardSubmission';
-import { EditDictationCard } from '../Pages/EditDictationCard';
+import { ViewDictationQuestion } from '../Pages/ViewDictationQuestion';
 
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -44,7 +44,7 @@ class Landing extends React.Component {
                         <PrivateRoute path="/createDictationcard" component={CreateDictationcard} />
                         <PrivateRoute path="/viewDictationcard" component={ViewDictationcard} />
                         <PrivateRoute path="/viewDictationCardSubmission" component={ViewDictationcardSubmission} />
-                        <PrivateRoute path="/editDictationCard" component={EditDictationCard} />
+                        <PrivateRoute path="/editDictationCard" component={ViewDictationQuestion} />
 
                         <Route path="/login" component={Login} />
                     </Switch>
