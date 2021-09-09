@@ -9,17 +9,13 @@ import { BrowserRouter , Switch} from "react-router-dom";
 
 // import NavBar from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
-// import FormSubmit from '../Component/formSubmit';
-// import StartDictation from '../Component/startDictation';
+// import QuestionProgress from '../Component/questionProgress';
+// import AudioPlayer from '../Component/audioPlayer';
+// import Canvas from '../Component/canvas';
 
-class ViewDictationcard extends React.Component {
+class ViewDictationQuestion extends React.Component {
     
-    constructor(props){
-        super(props)
-        this.bg = {
-            backgroundColor: "#F8DF4F"
-        }
-    }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -30,7 +26,7 @@ class ViewDictationcard extends React.Component {
         return (
             <div>
             <div className="row" style={this.bg}>
-                <div className="col col-8">
+            <div className="col col-8">
                 {/* <NavBar/> */}
                 <p>Navbar</p>
                 </div>
@@ -40,22 +36,26 @@ class ViewDictationcard extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <div className="col col-8">
-                {/* <HeadingInput/> */}
-                <p>HeadingInput</p>
-                </div>
-                <div className="col col-4">
-                {/* <FormSubmit/> */}
-                <p>FormSubmit</p>
+                <div className="col col-12">
+                    {/* <HeadingInput/> */}
+                    <p>HeadingInput</p>
                 </div>
             </div>
             <div className="row">
-                <div className="col col-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
-                    {/* <StartDictation/> */}
-                    <p>StartDictation</p>
+                <div className="col col-12">
+                    {/* <QuestionProgress/> */}
+                    <p>QuestionProgress</p>
+                    {/* <AudioPlayer/> */}
+                    <p>AudioPlayer</p>
                 </div>
             </div>
-                <BrowserRouter>
+            <div className="row">
+                <div className="col col-12">
+                    {/* <Canvas/> */}
+                    <p>Canvas</p>
+                </div>
+            </div>
+            <BrowserRouter>
                     <Switch>
                 <PrivateRoute path="/account" component={Account} />
                 </Switch>
@@ -80,5 +80,5 @@ const mapDispatchToProps  = dispatch => {
 }
 
 
-const connectedViewDictationcard= connect(mapStateToProps, mapDispatchToProps)(ViewDictationcard)
-export { connectedViewDictationcard as ViewDictationcard };
+const connectedViewDictationQuestion= connect(mapStateToProps, mapDispatchToProps)(ViewDictationQuestion)
+export { connectedViewDictationQuestion as ViewDictationQuestion };

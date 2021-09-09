@@ -43,7 +43,6 @@ class ClassroomService {
   //Method to list all data of a specific classroom
   classroom(body) {
     console.log("Listing data of a specific classroom");
-    console.log('body',body)
     let data = {};
     return this.knex("classroom")
       .select(
@@ -102,7 +101,6 @@ class ClassroomService {
       })
   }
 
-  //Method to list all classrooms of a user
   async list (body) {
     console.log("Listing all classrooms of a user");
     let user_id = await this.knex("user").where({
@@ -112,14 +110,15 @@ class ClassroomService {
     const data = {};
 
     return this.knex("classroom")
-    .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
+    // .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
     .where("classroom.classroomStatus", true)
-    .andWhere(function () {
-      this.where("classroom.user_id", "=", user_id[0].id).orWhere("classroom_user.sharedUser_id", user_id[0].id)
-    }) 
+    .where("classroom.user_id", user_id[0].id)
+    // .andWhere(function () {
+      // this.where("classroom.user_id", "=", user_id[0].id).orWhere("classroom_user.sharedUser_id", user_id[0].id)
+    // }) 
     .select("classroom.id")
-    .then((classrooms) => {
-      return classrooms.map((classroom) => {
+    .then(async (classrooms) => {
+      let allClass = await Promise.all(classrooms.map((classroom) => {
         let data = {}
         return this.knex("classroom")
           .select(
@@ -173,8 +172,11 @@ class ClassroomService {
               }
             })
           })
-        })
-        console.log("data.classroom",data.classroom);
+          .then(()=>{
+            return data
+          })
+        }))
+        return allClass
       })
   }
 }
