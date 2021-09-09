@@ -15,16 +15,28 @@ class Dashboard extends React.Component {
         this.props.getdata({ email: "test@test.com" })
     }
 
-    
+
     render() {
-        console.log(">>>>>>>setttttt",this.props.sets);
+        console.log(">>>>>>>setttttt", this.props.sets);
         return (
             <div>
-                <NavBar user={this.props.user} />
+            <NavBar user={this.props.user} />
+            <div className="p-3">
+                <div className="row d-flex p-4">
+                    <div className="col ">
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span class="btn rounded-pill border border-warning p-2"><i class="fas fa-plus"></i></span></span> 
+                    </div>
+                </div>
                 <DisplayClassModule classrooms={this.props.classrooms} />
+                <div className="row d-flex p-4">
+                    <div className="col ">
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span class="btn rounded-pill border border-warning p-2"><i class="fas fa-plus"></i></span></span> 
+                    </div>
+                </div>
                 <DisplaySetModule sets={this.props.sets} />
                 {this.props.loading && <div> Loading...</div>}
                 {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
+            </div>
             </div>
         );
     }
@@ -51,7 +63,7 @@ const mapDispatchToProps = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         }
-        
+
     }
 }
 
