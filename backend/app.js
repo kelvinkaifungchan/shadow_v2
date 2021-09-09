@@ -3,7 +3,6 @@ require("dotenv").config();
 //Express
 const express = require("express");
 const app = express();
-
 //Setup Database
 require("dotenv").config();
 const knexConfig = require("./knexfile").development

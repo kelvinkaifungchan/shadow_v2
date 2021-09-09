@@ -2,7 +2,7 @@ const express = require("express");
 require('dotenv').config();
 
 //Bcrypt Hashing
-const hashFunction = require("../passport/hashFunction")
+const hashFunction = require("../auth/hashFunction")
 
 //JWT
 const jwt = require("jsonwebtoken");
