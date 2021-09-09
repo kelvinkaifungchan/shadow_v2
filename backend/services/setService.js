@@ -167,8 +167,9 @@ class Set {
                     })
                     .then((flashcards) => {
                         setData.bridge_flashcard = flashcards.map((flashcard) => {
+                            console.log('flashcard:', flashcard)
                             return{
-                                flashcard_id:flashcard.id
+                                flashcard_id:flashcard.flashcard_id
                             }
                         })
                         
@@ -179,7 +180,7 @@ class Set {
                     .then((quizcards) => {
                         setData.bridge_quizcard = quizcards.map((quizcard) => {
                             return{
-                                quizcard_id:quizcard.id
+                                quizcard_id:quizcard.quizcard_id
                             }
                         })
                     })
@@ -189,11 +190,12 @@ class Set {
                     .then((dictationcards) => {
                         setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
                             return{
-                                dictationcard_id:dictationcard.id
+                                dictationcard_id:dictationcard.dictationcard_id
                             }
                         })
                     })
                     .then(() => {
+                        console.log('setdata',setData)
                         return setData
                     })
             })

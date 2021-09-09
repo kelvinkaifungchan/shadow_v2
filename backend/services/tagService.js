@@ -197,7 +197,6 @@ class TagService{
         })
 
         //concatenate the two arrays above to return all the tags of the user
-        console.log("queryClassroom",queryClassroom)
         var tags = queryClassroom.concat(querySet);
         var uniqueTags = [];
 
