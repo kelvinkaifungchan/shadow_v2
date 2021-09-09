@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import {getdataThunk} from '../Redux/getdata/action'
 
 class PureNavBar extends React.Component {
-
+    componentDidMount(){
+        this.props.getdata({email:"test@test.com"})
+        
+    }
     render() {
-        console.log("this.props>>>>>>>>>>>",this.props);
+        console.log("this.props in navbar >>>>>>>>>>>",this.props);
         return (
             <div className=" p-3 d-flex  justify-content-between" id="navbar">
                 <div className=" p-3 d-inline-flex">
@@ -15,7 +19,7 @@ class PureNavBar extends React.Component {
                 </div>
                 <div className=" p-3 d-inline-flex">
                     <span><i className="m-2 fas fa-search"></i></span>
-                    <span ><img id="picture" src="https://static-s.aa-cdn.net/img/gp/20600014424487/UTpd6qixaabJJIKkkMixyqTq26NMnWoFJvgXXXEMf7aJGsR0lyYFYaLU9_TTP7kLGqI=s300?v=1" alt="Avatar" className="avatar-sm"></img></span>
+                    <span ><img id="picture" src={this.props} alt="Avatar" className="avatar-sm"></img></span>
                 </div>
 
             </div>
@@ -25,4 +29,20 @@ class PureNavBar extends React.Component {
 }
 
 
-export const NavBar = connect(null, null)(PureNavBar)
+const mapStateToProps = (state) => {
+    console.log("state in dashboard",state);
+
+    return {
+        dataMSP: state.dataStore.data
+    }
+}
+const mapDispatchToProps  = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        }
+    }
+}
+
+
+export const NavBar = connect(mapStateToProps, mapDispatchToProps)(PureNavBar)

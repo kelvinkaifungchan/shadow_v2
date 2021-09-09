@@ -117,7 +117,8 @@ class ClassroomService {
     // }) 
     .select("classroom.id")
     .then((classrooms) => {
-      data.classroom = classrooms.map((classroom) => {
+      return classrooms.map((classroom) => {
+        let data = {}
         return this.knex("classroom")
           .select(
             "classroom.id",

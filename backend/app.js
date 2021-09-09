@@ -1,9 +1,5 @@
 require("dotenv").config();
 
-//FS
-const fs = require("fs");
-const axios =  require("axios") 
-
 //Express
 const express = require("express");
 const app = express();
@@ -11,11 +7,10 @@ const app = express();
 require("dotenv").config();
 const knexConfig = require("./knexfile").development
 const knex = require("knex")(knexConfig)
-const authClass = require("./auth")(knex);
+const authClass = require("./auth/auth")(knex);
 
 // Set up JWT
-const config = require("./config");
-const jwt = require("jwt-simple");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 // Authenticate requests
@@ -24,35 +19,6 @@ app.use(authClass.initialize());
 app.use(express.json());
 app.use(express.urlencoded());
 
-
-const users = require("./users");
-
-
-app.post("/api/login", async function (req, res) {
-  console.log(req.body);
-  if (req.body.email && req.body.password) {
-      console.log(req.body.email, req.body.password);
-      var email = req.body.email;
-      var password = req.body.password;
-      var user = users.find((u) => {
-          return u.email === email && u.password === password;
-      });
-      if (user) {
-          var payload = {
-              id: user.id,
-          };
-          var token = jwt.encode(payload, config.jwtSecret);
-          res.json({
-              token: token,
-          });
-         
-      } else {
-          res.sendStatus(401);
-      }
-  } else {
-      res.sendStatus(401);
-  }
-})
 // Services
 const BridgeService = require("./services/bridgeService")
 const bridgeService = new BridgeService(knex)
@@ -76,6 +42,8 @@ const UserService = require("./services/userService")
 const userService = new UserService(knex)
 
 //Routers
+const AuthRouter = require("./routers/authRouter");
+app.use("/api/auth", new AuthRouter(knex).router());
 const BridgeRouter = require("./routers/bridgeRouter");
 app.use("/api/bridge", new BridgeRouter(bridgeService).router());
 const CardRouter = require("./routers/cardRouter");
@@ -91,7 +59,6 @@ app.use("/api/shadow", new ShadowRouter(userService, tagService, classroomServic
 const SharingRouter = require("./routers/sharingRouter");
 app.use("/api/sharing", new SharingRouter(sharingService).router());
 const UserRouter = require("./routers/userRouter");
-const { nextTick } = require("process");
 app.use("/api/user", new UserRouter(userService).router());
 
 //Setup Server

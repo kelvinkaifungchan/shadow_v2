@@ -11,7 +11,6 @@ const initialState = {
 
 export function dataReducer(state = initialState, action) {
   switch (action.type) {
-  
     case GETDATA_SUCCESS:
       return {
         ...state,
