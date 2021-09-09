@@ -411,7 +411,7 @@ class Card {
                 allCard.dictationcard = dictationcards.map((dictationcard)=>{
                     return ({
                         id: dictationcard.id,
-                        user_id: dictation.user_id,
+                        user_id: dictationcard.user_id,
                         title: dictationcard.dictationcardTitle
                     })
                 })

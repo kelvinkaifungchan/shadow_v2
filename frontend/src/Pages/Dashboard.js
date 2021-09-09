@@ -1,19 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
+// import { Link } from 'react-router-dom';
+import {getdataThunk} from '../Redux/getdata/action'
 import '../Component/main.css'
 import {NavBar} from '../Component/navbar'
+import { DisplayClassModule} from '../Component/displayclassmodule'
+import { DisplaySetModule} from '../Component/displaysetmodule'
 
 
 
 class Dashboard extends React.Component {
-    
-    
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
+    componentDidMount(){
+        this.props.getdata({email:"test@test.com"})
     }
     render() {
         console.log("i want to see the props",this.props);
@@ -21,27 +20,8 @@ class Dashboard extends React.Component {
         return (
             <div>
             <NavBar/>
-
-                <h1>Hi </h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
-                <Link to="/account">Account </Link>
-                <Link to="/viewclassroom">ViewClassroom </Link>
-                <Link to="/viewset">Viewset </Link>
-                <Link to="/createFlashcard">CreateFlashcard </Link>
-                <Link to="/viewFlashcard">ViewFlashcard </Link>
-                <Link to="/createQuizcard">CreateQuizcard </Link>
-                <Link to="/viewQuizcard">ViewQuizcard </Link>
-                <Link to="/viewQuizcardSubmission">ViewQuizcardSubmission </Link>
-                <Link to="/createDictationcard">CreateDictationcard </Link>
-                <Link to="/viewDictationcard">ViewDictationcard </Link>
-                <Link to="/viewDictationCardSubmission">ViewDictationCardSubmission </Link>
-                <Link to="/ViewDictationQuestion">ViewDictationQuestion </Link>
-
-                <p onClick={this.logout}> 
-                <Link to="/login">Logout</Link>
-                </p>
-                
+            <DisplayClassModule/>
+            <DisplaySetModule/> 
             </div>
         );
     }
@@ -50,13 +30,14 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        stateMSP: state.dataStore.data
+
     }
 }
 const mapDispatchToProps  = dispatch => {
     return {
-        logout: () => {
-            dispatch(logoutNowThunk())
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }

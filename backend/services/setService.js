@@ -102,6 +102,7 @@ class Set {
 
     //list all sets of a classroom
     list(body){
+        console.log("body from set Service",body);
         return this.knex("set")
         .join("classroom_set", "set.id", "classroom_set.set_id")
         .join("classroom", "classroom_set.classroom_id", "classroom.id")
@@ -167,7 +168,7 @@ class Set {
                     .then((flashcards) => {
                         setData.bridge_flashcard = flashcards.map((flashcard) => {
                             return{
-                                flashcard_id:flashcard_flashcard.id
+                                flashcard_id:flashcard.id
                             }
                         })
                         
@@ -178,7 +179,7 @@ class Set {
                     .then((quizcards) => {
                         setData.bridge_quizcard = quizcards.map((quizcard) => {
                             return{
-                                quizcard_id:quizcard_quizcard.id
+                                quizcard_id:quizcard.id
                             }
                         })
                     })
@@ -188,7 +189,7 @@ class Set {
                     .then((dictationcards) => {
                         setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
                             return{
-                                dictationcard_id:dicationcard_dictationcard.id
+                                dictationcard_id:dictationcard.id
                             }
                         })
                     })
