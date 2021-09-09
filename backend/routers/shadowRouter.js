@@ -51,6 +51,8 @@ class ShadowRouter {
         })
         .then((sets) => {
             console.log('setsvc.user done', sets)
+            Promise.all(sets)
+            console.log('setsvc.user promise done', sets)
             return data.sets = sets
         })
         .then(() => {

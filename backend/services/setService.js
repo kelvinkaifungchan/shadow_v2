@@ -123,6 +123,14 @@ class Set {
         });
     };
 
+    async user(body){
+        const email = await this.knex("user")
+        .where({
+            email:body.email,
+        })
+        .select("id");
+    }
+
     //list all sets a user has access to
     async user(body){
         const email = await this.knex("user")
@@ -131,14 +139,12 @@ class Set {
         })
         .select("id");
 
-        
-
         return this.knex("set")
         .where({
             user_id: email[0].id,
             setStatus: true
         })
-        .then((sets)=>{
+        .then(async (sets)=>{
             return sets.map((set) => {
                 let setData = {};               
                 return this.knex("tag_set")
@@ -149,7 +155,7 @@ class Set {
                     return tags.map((tag)=>{
                         return {
                             id: tag.id,
-                            body: tag.body
+                            body: tag.tagBody
                         };
                         });
                     })
@@ -160,14 +166,12 @@ class Set {
                         setData.id = set.id
                         setData.title = set.setTitle
                         setData.description = set.setDesc
-                       
                     })
                     .then(() => {
                         return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
                     })
                     .then((flashcards) => {
                         setData.bridge_flashcard = flashcards.map((flashcard) => {
-                            console.log('flashcard:', flashcard)
                             return{
                                 flashcard_id:flashcard.flashcard_id
                             }
@@ -196,11 +200,19 @@ class Set {
                     })
                     .then(() => {
                         console.log('setdata',setData)
+                        // Promise.all(setData)
                         return setData
                     })
+                })
             })
-        })
-
+            // .then((promise)=>{
+                //     console.log(promise)
+                // Promise.all(promise)
+                // .then((data) => {
+                //     console.log(data)
+                //     return data
+                // })
+        // })
         .catch((err) => {
             console.log(err)
         });
