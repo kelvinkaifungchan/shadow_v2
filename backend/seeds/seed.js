@@ -1,28 +1,29 @@
+const hashFunction = require("../auth/hashFunction")
 
 exports.seed = function (knex) {
     // Deletes ALL existing entries
     return knex('user').del()
-      .then(() => {
+      .then(async () => {
         // Inserts seed entries
         return knex('user').insert([{
           displayName: 'Test Wong',
           email: "test@test.com",
-          passwordHash: "thisisatest",
+          passwordHash: await hashFunction.hashPassword("thisisatest"),
           picture: "https://static-s.aa-cdn.net/img/gp/20600014424487/UTpd6qixaabJJIKkkMixyqTq26NMnWoFJvgXXXEMf7aJGsR0lyYFYaLU9_TTP7kLGqI=s300?v=1"
         }, {
           displayName: 'User Philip',
           email: "user@user.com",
-          passwordHash: "thisisauser",
+          passwordHash: await hashFunction.hashPassword("thisisauser"),
           picture: "https://uploads.dailydot.com/2018/10/olli-the-polite-cat.jpg?auto=compress%2Cformat&ixlib=php-3.3.0"
         }, {
           displayName: 'John Cheng',
           email: "john@john.com",
-          passwordHash: "thisisajohn",
+          passwordHash: await hashFunction.hashPassword("thisisajohn"),
           picture: "https://i1.sndcdn.com/artworks-RJG4jIrv6lZwWkQH-cWi6nA-t500x500.jpg"
         }, {
           displayName: 'Jack Wynn',
           email: "jack@jack.com",
-          passwordHash: "thisisajack",
+          passwordHash: await hashFunction.hashPassword("thisisajack"),
           picture: "https://s3.getstickerpack.com/storage/uploads/sticker-pack/cat-memes/sticker_3.png?c6e3e2eb120b5c81fe616d90bfbea285&d=200x200"
         }]);
       })
