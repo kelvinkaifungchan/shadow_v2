@@ -6,11 +6,18 @@ import {logoutNowThunk} from '../Redux/loginbox/action'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
-
+// import NavBar from '../Component/navbar';
+// import HeadingInput from '../Component/headingInput';
+// import Table from '../Component/Table';
 
 
 class ViewQuizcardSubmission extends React.Component {
-    
+    constructor(props){
+        super(props)
+        this.bg = {
+            backgroundColor: '#F8DF4F'
+        }
+    }
 
     logout = (e) => {
         e.preventDefault();
@@ -20,20 +27,34 @@ class ViewQuizcardSubmission extends React.Component {
         console.log("i want to see the props",this.props);
 
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h1>Hi </h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
-                <Link to="/account">Account</Link>
-         
-                <p onClick={this.logout}> 
-                <Link to="/login">Logout</Link>
-                </p>
-                <BrowserRouter>
-                    <Switch>
-                <PrivateRoute path="/account" component={Account} />
-                </Switch>
-                </BrowserRouter>
+            <div>
+                <div className="row" style={this.bg}>
+                    <div className="col col-8">
+                    {/* <NavBar/> */}
+                    <p>Navbar</p>
+                    </div>
+                    <div className="col col-4">
+                    <Link to="/account">Account</Link>
+                    <Link onClick={this.logout} to="/login">Logout</Link>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col-8">
+                    {/* <HeadingInput/> */}
+                    <p>HeadingInput</p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col-12">
+                        {/* <Table/> */}
+                        <p>Table</p>
+                    </div>
+                </div>
+                    <BrowserRouter>
+                        <Switch>
+                    <PrivateRoute path="/account" component={Account} />
+                    </Switch>
+                    </BrowserRouter>
             </div>
         );
     }

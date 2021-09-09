@@ -3,14 +3,37 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
 p {
     font-size: 20px;
     text-align: justify;
 }
-
 body {
+    overflow-x: hidden;
+}
+
+#login {
     height: 100vh;
     background-color: #F8DF4F;
+}
+
+#navbar{
+    height: 10vh;
+    background-color: #F8DF4F;
+}
+
+#picture{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
 
 .btnFacebook{
@@ -22,3 +45,4 @@ body {
         border:1px solid black;
         
 }
+

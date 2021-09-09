@@ -1,39 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
+// import { Link } from 'react-router-dom';
+import {getdataThunk} from '../Redux/getdata/action'
 import '../Component/main.css'
-
+import {NavBar} from '../Component/navbar'
+import { DisplayClassModule} from '../Component/displayclassmodule'
+import { DisplaySetModule} from '../Component/displaysetmodule'
 
 
 
 class Dashboard extends React.Component {
-    
 
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
-    }
     render() {
-        console.log("i want to see the props",this.props);
-
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h1>Hi </h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
-                <Link to="/account">Account</Link>
-                <Link to="/createclassroom">CreateClassroom</Link>
-                <Link to="/viewclassroom">ViewClassroom</Link>
-                <Link to="/createset">Createset</Link>
-                <Link to="/viewset">Viewset</Link>
-                <Link to="/viewdictationcardsubmission">ViewDictationCardSubmission</Link>
-
-                <p onClick={this.logout}> 
-                <Link to="/login">Logout</Link>
-                </p>
-                
+            <div>
+            <NavBar/>
+            <DisplayClassModule/>
+            <DisplaySetModule/> 
             </div>
         );
     }
@@ -41,14 +25,16 @@ class Dashboard extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log("state in dashboard",state);
+
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        data: state.dataStore.data
     }
 }
 const mapDispatchToProps  = dispatch => {
     return {
-        logout: () => {
-            dispatch(logoutNowThunk())
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }

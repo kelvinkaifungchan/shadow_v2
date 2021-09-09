@@ -101,7 +101,10 @@ class Set {
     };
 
     //list all sets of a classroom
-    list(body) {
+
+    list(body){
+        console.log("body from set Service",body);
+
         return this.knex("set")
             .join("classroom_set", "set.id", "classroom_set.set_id")
             .join("classroom", "classroom_set.classroom_id", "classroom.id")
@@ -129,78 +132,76 @@ class Set {
                 email: body.email,
             })
             .select("id");
-            console.log("EMAIL >>", email)
+      
         return this.knex("set")
-            .where({
-                user_id: email[0].id,
-                setStatus: true
+        .where({
+            user_id: email[0].id,
+            setStatus: true
+        })
+        .then(async (sets)=>{
+            let big = await Promise.all(sets.map((set) => {
+                let setData = {};               
+                return this.knex("tag_set")
+                .where("set_id", set.id)
+                .join("tag", "tag_id", "tag.id")
+                .select("tag.id", "tag.tagBody")
+                .then((tags) => {
+                    return tags.map((tag)=>{
+                        return {
+                            id: tag.id,
+                            body: tag.tagBody
+                        };
+                        });
+                    })
+                    .then((tags) => {
+                        setData.tags = tags
+                    })
+                    .then(() => {
+                        setData.id = set.id
+                        setData.title = set.setTitle
+                        setData.description = set.setDesc
+                    })
+                    .then(() => {
+                        return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
+                    })
+                    .then((flashcards) => {
+                        setData.bridge_flashcard = flashcards.map((flashcard) => {
+                            return{
+                                flashcard_id:flashcard.flashcard_id
+                            }
+                        })
+                        
+                    })
+                    .then(() => {
+                        return this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
+                    })
+                    .then((quizcards) => {
+                        setData.bridge_quizcard = quizcards.map((quizcard) => {
+                            return{
+                                quizcard_id:quizcard.quizcard_id
+                            }
+                        })
+                    })
+                    .then(() => {
+                        return this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
+                    })
+                    .then((dictationcards) => {
+                        setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
+                            return{
+                                dictationcard_id:dictationcard.dictationcard_id
+                            }
+                        })
+                    })
+                    .then(() => {
+                        console.log('setdata',setData)
+                        return setData
+                    })
+                }))
+                return big
             })
-            .then((sets) => {
-                return sets.map((set) => {
-                    let setData = {};
-                    console.log("SET.ID >>", set.id)
-                    return this.knex("tag_set")
-                        .where("set_id", set.id)
-                        .join("tag", "tag_set.tag_id", "tag.id")
-                        .select("tag.id", "tag.tagBody")
-                        .then((tags) => {
-                            return tags.map((tag) => {
-                                return {
-                                    id: tag.id,
-                                    body: tag.tagbody
-                                };
-                            });
-                        })
-                        .then((tags) => {
-                            setData.tags = tags
-                            
-                        })
-                        .then(() => {
-                            setData.id = set.id
-                            setData.title = set.setTitle
-                            setData.description = set.setDesc
-
-                        })
-                        .then(() => {
-                            return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
-                        })
-                        .then((flashcards) => {
-                            setData.bridge_flashcard = flashcards.map((flashcard) => {
-                                return {
-                                    flashcard_id: flashcard_flashcard.id
-                                }
-                            })
-
-                        })
-                        .then(() => {
-                            return this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
-                        })
-                        .then((quizcards) => {
-                            setData.bridge_quizcard = quizcards.map((quizcard) => {
-                                return {
-                                    quizcard_id: quizcard_quizcard.id
-                                }
-                            })
-                        })
-                        .then(() => {
-                            return this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
-                        })
-                        .then((dictationcards) => {
-                            setData.bridge_dictationcard = dictationcards.map((dictationcard) => {
-                                return {
-                                    dictationcard_id: dicationcard_dictationcard.id
-                                }
-                            })
-                        })
-                        .then(() => {
-                            return setData
-                        })
-                })
-            })
-
-            .catch((err) => {
-                console.log(err)
-            });
+        .catch((err) => {
+            console.log(err)
+        });
     };
 }
 

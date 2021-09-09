@@ -6,12 +6,20 @@ import {logoutNowThunk} from '../Redux/loginbox/action'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
-// import NavBar from '../Component/navbar';
+import { NavBar } from '../Component/navbar';
+// import HeadingInput from '../Component/headingInput';
+// import FormSubmit from '../Component/formSubmit';
+import {VideoRecorder} from '../Component/videorecorder';
+// import Transcript from '../Component/transcript';
 
 
 class CreateFlashcard extends React.Component {
-    
-
+    constructor(props){
+        super(props)
+        this.bg = {
+            backgroundColor: '#F8DF4F'
+        }
+    }
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -21,24 +29,35 @@ class CreateFlashcard extends React.Component {
 
         return (
             <div>
+                <div className="row" style={this.bg}>
+                    <div className="col">
+                    <NavBar/>
+                    </div>
+                </div> 
                 <div className="row">
-                    {/* <NavBar/> */}
+                    <div className="col col-8">
+                    {/* <HeadingInput/> */}
+                    <p>HeadingInput</p>
+                    </div>
+                    <div className="col col-4">
+                    {/* <FormSubmit/> */}
+                    <p>FormSubmit</p>
+                    </div>
                 </div>
-                <div className="col-md-6 col-md-offset-3">
-                    <h1>Hi </h1>
-                    <p>You're logged in with React & JWT!!</p>
-                    <h3>Users from secure api end point:</h3>
-                    <Link to="/account">Account</Link>
-            
-                    <p onClick={this.logout}> 
-                    <Link to="/login">Logout</Link>
-                    </p>
+                <div className="row">
+                    <div className="col col-6">
+                        <VideoRecorder/>
+                    </div>
+                    <div className="col col-6">
+                        {/* <Transcript/> */}
+                        <p>Transcript</p>
+                    </div>
+                </div>
                     <BrowserRouter>
                         <Switch>
                     <PrivateRoute path="/account" component={Account} />
                     </Switch>
                     </BrowserRouter>
-                </div>
             </div>
         );
     }

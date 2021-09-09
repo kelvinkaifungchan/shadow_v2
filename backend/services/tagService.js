@@ -158,52 +158,57 @@ class TagService{
         console.log("Listing tags")
         let user_id = await this.knex("user").where({
             email: body.email
-        }).select("id");
-
+        }).select("id")
         //This query returns all the tags (in the form of an array) the user has in his/her classrooms
-        var queryClassroom = this.knex("classroom_user")
+        var queryClassroom = await this.knex("classroom_user")
         .join("tag_classroom", "classroom_user.classroom_id", "=", "tag_classroom.classroom_id")
         .join("tag", "tag_classroom.tag_id", "=", "tag.id")
-        .where("class_user.sharedUser_id", user_id[0].id)
-        .select("tag.id", "tag.body")
+        .where("classroom_user.sharedUser_id", user_id[0].id)
+        .select("tag.id", "tag.tagBody")
         .then((tags) => {
             return tags.map((tag) => {
                 return({
                     tagId: tag.id,
-                    tagBody: tag.body
+                    tagBody: tag.tagBody
                 })
             })
 
         })
 
         //This query returns all the tags (in form of an array) the user has in his/her sets
-        var querySet = this.knex("classroom_user")
+        var querySet = await this.knex("classroom_user")
         .join("classroom_set", "classroom_user.classroom_id", "=", "classroom_set.classroom_id")
         .join("tag_set", "classroom_set.set_id", "=", "tag_set.set_id")
         .join("tag", "tag_set.tag_id", "=", "tag.id")
-        .where("class_user.sharedUser_id", user_id[0].id)
-        .select("tag.id", "tag.body")
+        .where("classroom_user.sharedUser_id", user_id[0].id)
+        .select("tag.id", "tag.tagBody")
         .then((tags) => {
             return tags.map((tag) => {
-                return({
+                return(
+                    {
                     tagId: tag.id,
-                    tagBody: tag.body
-                })
+                    tagBody: tag.tagBody
+                }
+                )
             })
         })
 
         //concatenate the two arrays above to return all the tags of the user
-        var tags = queryClassroom.concat(querySet);
-        var uniqueTags = [];
-
-        //remove tag duplicity
-        for(i=0; i<tags.length; i++){
-            if(uniqueTags.indexOf(tags[i]) < 0){
-                uniqueTags.push(tags[i]);
+        var tags = await queryClassroom.concat(querySet);
+        let unique = [...new Set(tags.map(tag => tag.tagId))]
+        return unique.map((tag)=>{
+            let tagBody;
+            for(let i = 0; i < tags.length; i++){
+                if(tags[i].tagId === tag){
+                    tagBody = tags[i].tagBody
+                    break;
+                }
             }
-        }
-
-        return uniqueTags;
+            return ({
+                tagId: tag,
+                tagBody: tagBody
+            })
+        })
     }
 
 }
