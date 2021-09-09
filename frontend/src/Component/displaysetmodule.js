@@ -5,12 +5,18 @@ import { connect } from 'react-redux'
 class PureDisplaySetModule extends React.Component {
 
     render() {
+        console.log("this.props.sets",this.props.sets);
         return (
-            <div className="col m-1 p-5 border border-4 rounded-lg highlight ">
-                <h4><strong>Study Set 1</strong></h4>
-                <p>Do you want to start a career in UX Design?  Check the top courses that will help you learn the skills.</p>
-            </div>
-        );
+            this.props.sets.map((sets, i) => {
+                return (
+                    <div className="col m-1 p-5 border border-4 rounded-lg highlight ">
+                        <h4><strong>{sets.title}</strong></h4>
+                        <p>{sets.description}</p>
+                    </div>
+                )
+            })
+
+        )
     }
 }
 

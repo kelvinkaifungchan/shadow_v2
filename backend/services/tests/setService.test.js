@@ -17,7 +17,7 @@ describe("Classroom service tests", () => {
     //       }])
     // })
     
-    xtest("Listing for user with no classrooms", () => {
+    test("Listing for user with no classrooms", () => {
         const setService = new SetService(knex)
         return setService
           .user({email: "test@test.com"})
