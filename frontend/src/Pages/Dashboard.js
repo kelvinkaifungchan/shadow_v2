@@ -26,9 +26,7 @@ class Dashboard extends React.Component {
                 <p>You're logged in with React & JWT!!</p>
                 <h3>Users from secure api end point:</h3>
                 <Link to="/account">Account </Link>
-                <Link to="/createclassroom">CreateClassroom </Link>
                 <Link to="/viewclassroom">ViewClassroom </Link>
-                <Link to="/createset">Createset </Link>
                 <Link to="/viewset">Viewset </Link>
                 <Link to="/createFlashcard">CreateFlashcard </Link>
                 <Link to="/viewFlashcard">ViewFlashcard </Link>

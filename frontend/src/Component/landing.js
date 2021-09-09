@@ -3,9 +3,7 @@ import React from 'react'
 import { Login } from '../Pages/Login';
 import { Dashboard } from '../Pages/Dashboard';
 import { Account } from '../Pages/Account';
-import { CreateClassroom } from '../Pages/CreateClassroom';
 import { ViewClassroom } from '../Pages/ViewClassroom';
-import { CreateSet } from '../Pages/CreateSet';
 import { ViewSet } from '../Pages/ViewSet';
 import { CreateFlashcard } from '../Pages/CreateFlashcard';
 import { ViewFlashCard } from '../Pages/ViewFlashCard';
@@ -32,9 +30,7 @@ class Landing extends React.Component {
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
-                        <PrivateRoute path="/createclassroom" component={CreateClassroom} />
                         <PrivateRoute path="/viewclassroom" component={ViewClassroom} />
-                        <PrivateRoute path="/createset" component={CreateSet} />
                         <PrivateRoute path="/viewset" component={ViewSet} />
                         <PrivateRoute path="/createFlashcard" component={CreateFlashcard} />
                         <PrivateRoute path="/viewflashcard" component={ViewFlashCard} />

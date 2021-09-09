@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-
 class PureNavBar extends React.Component {
 
     render() {
@@ -16,7 +15,7 @@ class PureNavBar extends React.Component {
                 </div>
                 <div>
                     <i className="fas fa-search"></i>
-                    <img src="" alt="Avatar" className="avatar-sm"></img>
+                    <img src='' alt="Avatar" className="avatar-sm"></img>
                 </div>
 
             </div>
