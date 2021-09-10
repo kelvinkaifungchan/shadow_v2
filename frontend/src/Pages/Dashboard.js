@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/getdata/action'
 import '../Component/main.css'
 import { NavBar } from '../Component/navbar'
-import { CreateClassPopUp } from '../Component/createclassmodal'
+import { CreateClassPopUp } from '../Component/createmodal'
 import { CreateSetPopUp } from '../Component/createsetmodal'
 
 import { DisplayClassModule } from '../Component/displayclassmodule'

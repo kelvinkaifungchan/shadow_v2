@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/getdata/action'
+import {addClassroom} from '../Redux/classroom/classroomAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 
@@ -8,6 +8,7 @@ class PureModel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            email:"",
             title: "",
             description: ""
         };
@@ -19,7 +20,7 @@ class PureModel extends React.Component {
     }
     submit = (e) => {
         e.preventDefault();
-        this.props.createClassMDP(this.state.title, this.state.description)
+        this.props.createClassMDP(this.state.email, this.state.title, this.state.description)
     }
 
     render() {
@@ -29,8 +30,9 @@ class PureModel extends React.Component {
                     <ModalHeader toggle={this.toggle}>Create Classroom</ModalHeader>
                     <ModalBody>
                         <Form>
+                            <input onChange={this.onChangeField.bind(this, 'email')} value={this.state.email} type="text" name="username" className="form-control mb-4" placeholder="Email" />
                             <input onChange={this.onChangeField.bind(this, 'title')} value={this.state.title} type="text" className="form-control mb-4" placeholder="Classroom Title" />
-                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{resize:"none"}}className="form-control" placeholder="Classroom Description" />
+                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{ resize: "none" }} className="form-control" placeholder="Classroom Description" />
                         </Form>
                     </ModalBody>
                     <ModalFooter>
@@ -41,14 +43,25 @@ class PureModel extends React.Component {
         )
     }
 }
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         createClassMDP: (title, description) => {
-//             dispatch(createClassThunk(title, description))
-//         },
+const mapStateToProps = (state) => {
+    console.log("state in dashboard", state);
 
-//     }
-// }
+    return {
+
+        user: state.dataStore.user,
 
 
-export const CreateClassPopUp = connect(null, null)(PureModel)
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createClassMDP: (email, title, description) => {
+            dispatch(addClassroom(email, title, description))
+        },
+
+    }
+}
+
+
+export const CreateClassPopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)
