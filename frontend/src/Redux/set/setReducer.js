@@ -8,7 +8,7 @@ export function setReducer(state = initialState, action){
     switch(action.type){
         case ADD_SET:
             return {
-                set: [...state.set, action.set]
+                set: [...state.set, action.payload]
             };
         default:
             return state;
