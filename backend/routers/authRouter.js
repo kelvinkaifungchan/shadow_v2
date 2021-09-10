@@ -25,7 +25,7 @@ class AuthRouter {
         if (req.body.email && req.body.password) {
             let user = await this.knex("user").where({
                 email: req.body.email
-            })
+            }) 
             if (user) {
                 console.log(user)
                 let result = await hashFunction.checkPassword(req.body.password, user[0].passwordHash)

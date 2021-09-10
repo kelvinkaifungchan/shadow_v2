@@ -1,6 +1,7 @@
-import { ADD_SET } from "./setAction";
-import { EDIT_SET } from "./setAction";
-import { DELETE_SET } from "./setAction";
+import { ADD_SET } from "../actions/setAction";
+import { EDIT_SET } from "../actions/setAction";
+import { DELETE_SET } from "../actions/setAction";
+import { GETDATASETS_SUCCESS, GETDATASETS_FAILURE } from "../actions/action";
 
 const initialState = {
     set: []
@@ -8,6 +9,18 @@ const initialState = {
 
 export function setReducer(state = initialState, action){
     switch(action.type){
+        case GETDATASETS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                set: action.payload
+              };
+        case GETDATASETS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false
+              };
         case ADD_SET:
             return {
                 set: [...state.set, action.payload]

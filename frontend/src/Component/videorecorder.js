@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import ReactPlayer from 'react-player';
 import {loginUserThunk} from '../Redux/loginbox/action';
 
 class PureVideoRecorder extends React.Component {

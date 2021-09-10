@@ -9,7 +9,7 @@ export const addClassroom = (classroom) => async (dispatch) => {
 
    const { data } = await axios.post("http://localhost:8080/api/classroom", classroom)
    
-    dispatch({type: ADD_CLASSROOM, payload: classroom});
+    dispatch({type: ADD_CLASSROOM, payload: {id: classroom.classroomId, description: classroom.description, title: classroom.title}});
 }
 
 export const editClassroom = (classroom) => async (dispatch) => {
@@ -17,7 +17,7 @@ export const editClassroom = (classroom) => async (dispatch) => {
 
    const { data } = await axios.put("http://localhost:8080/api/classroom", classroom)
    
-    dispatch({type: EDIT_CLASSROOM, payload: classroom});
+    dispatch({type: EDIT_CLASSROOM, payload: {id: classroom.classroomId, description: classroom.description, title: classroom.title}});
 }
 
 export const deleteClassroom = (classroom) => async (dispatch) => {
@@ -25,5 +25,5 @@ export const deleteClassroom = (classroom) => async (dispatch) => {
 
    const { data } = await axios.delete("http://localhost:8080/api/classroom", classroom)
    
-    dispatch({type: DELETE_CLASSROOM, payload: classroom});
+    dispatch({type: DELETE_CLASSROOM, payload: {id: classroom.classroomId, description: classroom.description, title: classroom.title}});
 }
