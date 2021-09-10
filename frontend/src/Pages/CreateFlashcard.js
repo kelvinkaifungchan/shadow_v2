@@ -11,13 +11,16 @@ import { NavBar } from '../Component/navbar';
 // import FormSubmit from '../Component/formSubmit';
 import {VideoRecorder} from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
-
+import { Button } from "reactstrap";
 
 class CreateFlashcard extends React.Component {
     constructor(props){
         super(props)
         this.bg = {
             backgroundColor: '#F8DF4F'
+        }
+        this.state = {
+            title: "classroomTitle"
         }
     }
     logout = (e) => {
@@ -48,9 +51,9 @@ class CreateFlashcard extends React.Component {
                     <div className="col col-6">
                         <VideoRecorder/>
                     </div>
-                    <div className="col col-5">
+                    <div className="col col-5" >
                         <div className="p-3 h-100 border rounded-lg">
-                            <Transcript />
+                            <Transcript title={this.state}/>
                         </div>
                     </div>
                 </div>

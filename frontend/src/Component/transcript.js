@@ -7,7 +7,7 @@ class PureTranscript extends React.Component {
     render(){
         return (
             <>
-                <Form  className="p-3 w-100 h-100" as="textarea" placeholder="lmao wat?"  >
+                <Form  className="p-3 w-100 h-100" as="textarea" placeholder="lmao wat?" name={this.props.title.title} >
                 </Form>
             </>
         )
