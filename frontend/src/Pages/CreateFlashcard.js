@@ -10,7 +10,7 @@ import { NavBar } from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import FormSubmit from '../Component/formSubmit';
 import {VideoRecorder} from '../Component/videorecorder';
-// import Transcript from '../Component/transcript';
+import { Transcript } from '../Component/transcript';
 
 
 class CreateFlashcard extends React.Component {
@@ -48,9 +48,10 @@ class CreateFlashcard extends React.Component {
                     <div className="col col-6">
                         <VideoRecorder/>
                     </div>
-                    <div className="col col-6">
-                        {/* <Transcript/> */}
-                        <p>Transcript</p>
+                    <div className="col col-5">
+                        <div className="p-3 h-100 border rounded-lg">
+                            <Transcript />
+                        </div>
                     </div>
                 </div>
                     <BrowserRouter>

@@ -28,8 +28,8 @@ class PureNavBar extends React.Component {
                 <div className=" p-3 d-inline-flex">
                     <span><i className="m-2 fas fa-search"></i></span>
                     <span ><img id="picture" src={this.props.user.picture} alt="Avatar" className="avatar-sm"></img></span>
+                    <Link onClick={this.logout} to="/login">Logout</Link>
                 </div>
-                <Link onClick={this.logout} to="/login">Logout</Link>
                 
 
             </div>

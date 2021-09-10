@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import {getdataThunk} from '../Redux/getdata/action'
+import { getdataThunk } from '../Redux/getdata/action'
+import { Form } from 'react-bootstrap'
 
 class PureTranscript extends React.Component {
     render(){
         return (
-            <div>
-                <input>
-                </input>
-            </div>
+            <>
+                <Form  className="p-3 w-100 h-100" as="textarea" placeholder="lmao wat?"  >
+                </Form>
+            </>
         )
     }
 }
