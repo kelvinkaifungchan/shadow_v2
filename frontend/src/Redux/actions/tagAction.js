@@ -7,8 +7,10 @@ export const addTag = (tag) => async (dispatch) => {
     console.log("adding tag")
 
    const { data } = await axios.post(`http://localhost:8080/api/tag/${tag.type}` , tag)
+   if (tag.type === "classroom") {
+    dispatch({type: ADD_TAG, payload: {...tag, classroom_id: tag.classroomId}});
+   }
    
-    dispatch({type: ADD_TAG, payload: {...tag, classroom_id: tag.classroomId, set_id: tag.setId}});
 }
 
 

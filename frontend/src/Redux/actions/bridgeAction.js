@@ -17,22 +17,22 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
         if (bridge.type === "classroom_set") {
             dispatch({
                 type: ADD_BRIDGE_CLASSROOM_SET,
-                payload: bridge
+                payload: {set_id: bridge.setId}
             })
         } else if (bridge.type === "set_dictationcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_DICTATIONCARD,
-                payload: bridge
+                payload: {dictationcard_id: bridge.dictationcardId}
             })
         } else if (bridge.type === "set_flashcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_FLASHCARD,
-                payload: bridge
+                payload: {flashcard_id: bridge.flashcardId}
             })
         } else if (bridge.type === "set_quizcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_QUIZCARD,
-                payload: bridge
+                payload: {quizcard_id: bridge.quizcardId}
             })
         }
     })
