@@ -24,11 +24,11 @@ class PureModel extends React.Component {
 
     render() {
         return (
-            <div>
                 <Modal isOpen={this.props.set.setModal} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Add New Set</ModalHeader>
                     <ModalBody>
 
+                    <div>
                         <div className="col-6 m-1 p-1 border border-4 rounded-lg d-flex justify-content-between">
                             <div className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
                             <i className="fas fa-plus" />
@@ -42,10 +42,23 @@ class PureModel extends React.Component {
                                 </span>
                             </div>
                         </div>
+                        <div className="col-6 m-1 p-1 border border-4 rounded-lg d-flex justify-content-between">
+                            <div className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+                            <i className="fas fa-plus" />
+                            </div>
+                            <div className=" ">
+                                <span>
+                                    Existing set
+                            </span>
+                                <span>
+                                    Click to add a existing set.
+                                </span>
+                            </div>
+                        </div>
+                        </div>
 
                     </ModalBody>
                 </Modal>
-            </div>
         )
     }
 }

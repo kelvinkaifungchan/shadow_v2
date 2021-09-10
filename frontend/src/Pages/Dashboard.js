@@ -33,14 +33,13 @@ class Dashboard extends React.Component {
     classToggle() {
         console.log('clsto')
         this.setState({
-            classModal: !this.state.classModal
+            classModal: !this.state.modal
         });
-        console.log(this.state)
     }
     setToggle() {
         console.log('setto')
         this.setState({
-            setModal: !this.state.setModal
+            setModal: !this.state.modal
         });
     }
     render() {
