@@ -1,6 +1,7 @@
-import { ADD_CLASSROOM } from "./classroomAction";
-import { EDIT_CLASSROOM } from "./classroomAction";
-import { DELETE_CLASSROOM } from "./classroomAction";
+import { ADD_CLASSROOM } from "../actions/classroomAction";
+import { EDIT_CLASSROOM } from "../actions/classroomAction";
+import { DELETE_CLASSROOM } from "../actions/classroomAction";
+import { GETDATACLASSROOMS_SUCCESS, GETDATACLASSROOMS_FAILURE } from "../actions/action";
 
 const initialState = {
     classroom: []
@@ -8,6 +9,18 @@ const initialState = {
 
 export function classroomReducer(state = initialState, action){
     switch(action.type){
+        case GETDATACLASSROOMS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                classroom: action.payload
+              };
+        case GETDATACLASSROOMS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false
+              };
         case ADD_CLASSROOM:
             return {
                 classroom: [...state.classroom, action.payload]
