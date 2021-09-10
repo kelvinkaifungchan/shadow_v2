@@ -30,6 +30,7 @@ class PureModel extends React.Component {
         } else {
 
         }
+
     }
 
     render() {
@@ -70,4 +71,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const CreateClassPopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)
+export const CreatePopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)
