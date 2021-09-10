@@ -26,11 +26,11 @@ class PureModel extends React.Component {
         return (
             <div>
                 <Modal isOpen={this.props.classroom.classModal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}>Create Classroom</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Create {this.props.classroom.type === "class" ? "Classroom" : "Set"}</ModalHeader>
                     <ModalBody>
                         <Form>
-                            <input onChange={this.onChangeField.bind(this, 'title')} value={this.state.title} type="text" className="form-control mb-4" placeholder="Classroom Title" />
-                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{resize:"none"}}className="form-control" placeholder="Classroom Description" />
+                            <input onChange={this.onChangeField.bind(this, 'title')} value={this.state.title} type="text" className="form-control mb-4" placeholder={this.props.classroom.type ==="class" ? "Classroom Title" : "Set Title"} name={this.props.classroom.type ==="class" ? "classroomTitle" : "setTitle"}/>
+                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{resize:"none"}}className="form-control" placeholder={this.props.classroom.type ==="class" ? "Classroom Description" : "Set Description"} name={this.props.classroom.type ==="class" ? "classroomDesc" : "setDesc"} />
                         </Form>
                     </ModalBody>
                     <ModalFooter>

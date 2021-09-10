@@ -19,29 +19,33 @@ class Dashboard extends React.Component {
         this.state = {
             classModal: false,
             setModal: false,
-
+            type: ""
         };
     }
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
     }
 
-    handleshow = () => {
-        this.child.current.toggle()
-    }
-
     classToggle() {
-        console.log('clsto')
         this.setState({
             classModal: !this.state.classModal
         });
         console.log(this.state)
     }
     setToggle() {
-        console.log('setto')
         this.setState({
             setModal: !this.state.setModal
         });
+    }
+    changeTypeClass(){
+        this.setState({
+            type: "class"
+        })
+    }
+    changeTypeSet(){
+        this.setState({
+            type: "set"
+        })
     }
     render() {
         return (
@@ -52,14 +56,14 @@ class Dashboard extends React.Component {
                     <div className="row d-flex p-4">
                         <div className="col ">
                             <CreateClassPopUp classroom={this.state} toggle={() => this.classToggle()} />
-                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateSetPopUp set={this.state} toggle={() => this.setToggle()} />
-                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.setToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                            <CreateClassPopUp classroom={this.state} toggle={() => {this.changeTypeSet();this.classToggle()}} />
+                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplaySetModule sets={this.props.sets} />
