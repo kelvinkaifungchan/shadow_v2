@@ -19,9 +19,9 @@ import classes from './CreateFlashcard.module.css'
 class CreateFlashcard extends React.Component {
     constructor(props){
         super(props)
-        this.bg = {
-            backgroundColor: '#F8DF4F'
-        }
+        // this.bg = {
+        //     backgroundColor: '#F8DF4F'
+        // }
         this.state = {
             title: "classroomTitle"
         }
@@ -36,14 +36,10 @@ class CreateFlashcard extends React.Component {
         return (
             <div>
                 {/* Navbar */}
-                <div className="row" style={this.bg}>
-                    <div className="col">
                     <NavBar/>
-                    </div>
-                </div> 
 
                 {/* Page Container */}
-                <div className="container" className={classes.createflashcard}>
+                <div className={classes.createflashcard}>
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
@@ -60,6 +56,7 @@ class CreateFlashcard extends React.Component {
                         <VideoRecorder/>
                             <Transcript title={this.state}/>
                 </div>
+
                     <BrowserRouter>
                         <Switch>
                     <PrivateRoute path="/account" component={Account} />

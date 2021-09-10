@@ -20,24 +20,18 @@ class PureNavBar extends React.Component {
 
         return (
             <div className={classes.header}>
-                <Link to='/' className={classes.logo}>Shadow</Link>
-                <nav>
-                    <ul>
-                        <li>
-                    <button><i className="fas fa-bars"></i></button>
-                        </li>
-                        <li>
-                        <button><i className="fas fa-search"></i></button>
-                        </li>
-                        <li>
-                        <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
-                        </li>
-                        <li>
-                        <Link to="/login" onClick={this.logout} >Logout</Link>
-                        </li>
-                    </ul>
-                    </nav>
+                    <div className="col-2">
+                    <Link to='/' className={classes.logo}>Shadow</Link>
+                    </div>
 
+                    <div className="col-8">
+                    <button><i className="fas fa-bars"></i></button>
+                        </div>
+
+                        <div className={classes.right}>
+                        <button><i className="fas fa-search"></i></button>
+                        <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
+                        </div>
             </div>
 
         );
