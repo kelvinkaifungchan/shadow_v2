@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
+import classes from './navbar.module.css'
 import { getdataThunk } from '../Redux/getdata/action'
 import { logoutNowThunk } from '../Redux/loginbox/action'
 
@@ -18,19 +19,24 @@ class PureNavBar extends React.Component {
         console.log("this.props in navbar >>>>>>>>>>>",)
 
         return (
-            <div className=" p-3 d-flex  justify-content-between" id="navbar">
-                <div className=" p-3 d-inline-flex">
-                    <h2>shadow</h2>
-                </div>
-                <div className=" p-3 d-inline-flex">
-                    <span><i className="fas fa-bars"></i></span>
-                </div>
-                <div className=" p-3 d-inline-flex">
-                    <span><i className="m-2 fas fa-search"></i></span>
-                    <span ><img id="picture" src={this.props.user.picture} alt="Avatar" className="avatar-sm"></img></span>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                </div>
-
+            <div className={classes.header}>
+                <Link to='/' className={classes.logo}>Shadow</Link>
+                <nav>
+                    <ul>
+                        <li>
+                    <button><i className="fas fa-bars"></i></button>
+                        </li>
+                        <li>
+                        <button><i className="fas fa-search"></i></button>
+                        </li>
+                        <li>
+                        <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
+                        </li>
+                        <li>
+                        <Link to="/login" onClick={this.logout} >Logout</Link>
+                        </li>
+                    </ul>
+                    </nav>
             </div>
 
         );

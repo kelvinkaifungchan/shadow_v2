@@ -7,6 +7,9 @@ import '../Component/main.css'
 import { NavBar } from '../Component/navbar'
 import { CreatePopUp } from '../Component/createmodal'
 
+// import { CreateClassBtn } from '../Component/createclassbtn'
+// import { CreateSetBtn } from '../Component/createsetbtn'
+
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 
@@ -17,7 +20,6 @@ class Dashboard extends React.Component {
         this.state = {
             modal: false,
             type: "",
-            test: false
         };
     }
     componentDidMount() {
@@ -58,12 +60,17 @@ class Dashboard extends React.Component {
                             <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
+                        <h2>My Classroom</h2>
+                    {/* <CreateClassBtn /> */}
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
+                    
                     <div className="row d-flex p-4">
                         <div className="col ">
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
+                        <h2>My Set</h2>
+                    {/* <CreateSetBtn /> */}
                     </div>
                     <DisplaySetModule sets={this.props.sets} />
                     {this.props.loading && <div> Loading...</div>}
