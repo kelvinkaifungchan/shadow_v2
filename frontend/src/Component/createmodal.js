@@ -35,7 +35,7 @@ class PureModel extends React.Component {
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.create.classModal} toggle={this.props.toggle} onHide={this.props.hide}>
+                <Modal isOpen={this.props.create.modal} toggle={this.props.toggle} >
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : "Set"}</ModalHeader>
                     <ModalBody>
                         <Form>

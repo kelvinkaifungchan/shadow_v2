@@ -11,7 +11,7 @@ import { NavBar } from '../Component/navbar';
 // import FormSubmit from '../Component/formSubmit';
 import {VideoRecorder} from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
-import { Button } from "reactstrap";
+// import { Button } from "reactstrap";
 
 class CreateFlashcard extends React.Component {
     constructor(props){

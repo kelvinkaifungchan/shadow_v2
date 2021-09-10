@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/getdata/action'
-import { Form } from 'react-bootstrap'
+import { Form } from 'reactstrap';
+
 
 class PureTranscript extends React.Component {
     render(){
