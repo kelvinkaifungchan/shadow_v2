@@ -2,9 +2,10 @@ import { ADD_SET } from "../actions/setAction";
 import { EDIT_SET } from "../actions/setAction";
 import { DELETE_SET } from "../actions/setAction";
 import { GETDATASETS_SUCCESS, GETDATASETS_FAILURE } from "../actions/action";
+import { ADD_TAG_SET, DELETE_TAG_SET } from "../actions/tagAction";
 
 const initialState = {
-    set: []
+    sets: []
 };
 
 export function setReducer(state = initialState, action){
@@ -13,7 +14,7 @@ export function setReducer(state = initialState, action){
             return {
                 ...state,
                 loading: false,
-                set: action.payload
+                sets: action.payload
               };
         case GETDATASETS_FAILURE:
             return {
@@ -23,18 +24,40 @@ export function setReducer(state = initialState, action){
               };
         case ADD_SET:
             return {
-                set: [...state.set, action.payload]
+                sets: [...state.sets, action.payload]
             };
         case EDIT_SET:
             var newSet = action.payload;
-            var newArray = state.set.filter((set) => set.id !== newSet.id);
+            var newArray = state.sets.filter((set) => set.id !== newSet.set_id);
             return {
-                set: newArray
+                sets: newArray
             };
         case DELETE_SET:
             return {
-                set: state.set.filter((classroom) => {
-                    return set.id !== action.payload.id;
+                sets: state.sets.filter((set) => {
+                    return set.id !== action.payload.set_id;
+                })
+            }
+        case ADD_TAG_SET:
+            return {
+                sets: state.sets.map((set) => {
+                    if(action.payload.id.setId == set.set_id){
+                        return {
+                            ...set, tags:[...set.tags, action.payload.content]
+                        }
+                    }
+                    return set
+                })
+            }
+        case DELETE_TAG_SET:
+            return{
+                sets: state.sets.map((set) => {
+                    if(action.payload.id.setId == set.set_id){
+                        return {
+                            ...set, tags:set.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
+                        }
+                    }
+                    return set
                 })
             }
         default:
