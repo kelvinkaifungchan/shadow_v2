@@ -10,7 +10,7 @@ class PureDisplaySetModule extends React.Component {
 
             {this.props.sets.map((sets, i) => {
                 return (
-                    <div className="col-4 m-1 p-5 border border-4 rounded-lg highlight ">
+                    <div key={i} className="col-4 m-1 p-5 border border-4 rounded-lg highlight ">
                         <h4><strong>{sets.title}</strong></h4>
                         <p>{sets.description}</p>
                     </div>
