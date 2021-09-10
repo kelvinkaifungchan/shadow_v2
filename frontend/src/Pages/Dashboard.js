@@ -17,37 +17,28 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rerender: false,
-            classModal: false,
-            setModal: false,
+            modal: false,
             type: ""
         };
     }
     componentDidMount() {
         this.props.getdata({ email: this.props.user.email })
     }
-    hide(){
+
+    toggle() {
+        console.log('t')
         this.setState({
-            setModal: !this.state.rerender
-        })
-    }
-    classToggle() {
-        this.setState({
-            classModal: !this.state.classModal
-        });
-        console.log(this.state)
-    }
-    setToggle() {
-        this.setState({
-            setModal: !this.state.setModal
+            modal: !this.state.modal,
         });
     }
     changeTypeClass(){
+        console.log('ctc')
         this.setState({
             type: "class"
         })
     }
     changeTypeSet(){
+        console.log('cts')
         this.setState({
             type: "set"
         })
@@ -60,15 +51,15 @@ class Dashboard extends React.Component {
                 <div className="p-3">
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => this.classToggle()} hide={()=>this.hide}/>
-                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                            <CreateClassPopUp create={this.state} toggle={() => this.toggle()}/>
+                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => {this.changeTypeSet();this.classToggle()}} hide={()=>this.hide} />
-                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                            <CreateClassPopUp create={this.state} toggle={() => this.toggle()} />
+                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplaySetModule sets={this.props.sets} />
