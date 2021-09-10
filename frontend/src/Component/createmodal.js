@@ -35,8 +35,8 @@ class PureModel extends React.Component {
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.create.modal} toggle={this.props.toggle} >
-                    <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : "Set"}</ModalHeader>
+                <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
+                    <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
                             {/* <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4"/> */}
