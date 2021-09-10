@@ -13,12 +13,12 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: ADD_FEEDBACK_DICTATIONCARD,
-                payload: feedback
+                payload: {user_id: feedback.userEmail, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
             })
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: ADD_FEEDBACK_FLASHCARD,
-                payload: feedback
+                payload: {user_id: feedback.userEmail, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
             })
         }
     })
@@ -32,12 +32,12 @@ export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: DELETE_FEEDBACK_DICTATIONCARD,
-                payload: feedback
+                payload: {dictationcardFeedback_id: feedback.dictationcardFeedbackId}
             })
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: DELETE_FEEDBACK_FLASHCARD,
-                payload: feedback
+                payload: {flashcardFeedback_id: feedback.flashcardFeedbackId}
             })
         }
     })

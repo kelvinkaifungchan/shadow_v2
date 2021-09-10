@@ -17,22 +17,22 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
         if (bridge.type === "classroom_set") {
             dispatch({
                 type: ADD_BRIDGE_CLASSROOM_SET,
-                payload: {set_id: bridge.setId}
+                payload: {id:{classroom_id: bridge.classroomId}, content:{set_id: bridge.setId}}
             })
         } else if (bridge.type === "set_dictationcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_DICTATIONCARD,
-                payload: {dictationcard_id: bridge.dictationcardId}
+                payload: {id:{set_id: bridge.setId}, content:{dictationcard_id: bridge.dictationcardId}}
             })
         } else if (bridge.type === "set_flashcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_FLASHCARD,
-                payload: {flashcard_id: bridge.flashcardId}
+                payload: {id:{set_id: bridge.setId}, content:{flashcard_id: bridge.flashcardId}}
             })
         } else if (bridge.type === "set_quizcard") {
             dispatch({
                 type: ADD_BRIDGE_SET_QUIZCARD,
-                payload: {quizcard_id: bridge.quizcardId}
+                payload: {id:{set_id: bridge.setId}, content:{quizcard_id: bridge.quizcardId}}
             })
         }
     })
@@ -46,22 +46,22 @@ export const deleteBridgeThunk = (bridge) => async (dispatch) => {
         if (bridge.type === "classroom_set") {
             dispatch({
                 type: DELETE_BRIDGE_CLASSROOM_SET,
-                payload: bridge
+                payload: {classroom_id: bridge.classroomId, set_id: bridge.setId}
             })
         } else if (bridge.type === "set_dictationcard") {
             dispatch({
                 type: DELETE_BRIDGE_SET_DICTATIONCARD,
-                payload: bridge
+                payload: {set_id: bridge.setId, dictationcard_id: bridge.dictationcardId}
             })
         } else if (bridge.type === "set_flashcard") {
             dispatch({
                 type: DELETE_BRIDGE_SET_FLASHCARD,
-                payload: bridge
+                payload: {set_id: bridge.setId, flashcard_id: bridge.flashcardId}
             })
         } else if (bridge.type === "set_quizcard") {
             dispatch({
                 type: DELETE_BRIDGE_SET_QUIZCARD,
-                payload: bridge
+                payload: {set_id: bridge.setId, quizcard_id: bridge.quizcardId}
             })
         }
     })
