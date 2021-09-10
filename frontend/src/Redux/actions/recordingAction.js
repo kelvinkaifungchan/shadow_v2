@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const addVideoRecordingThunk = (recording) => async (dispatch) => {
-    return axios.post("http://localhost:8080/api/recording/video")
+    return axios.post("http://localhost:8080/api/recording/video", recording)
     .then(response => {
         console.log(response)
     })
@@ -9,7 +9,7 @@ export const addVideoRecordingThunk = (recording) => async (dispatch) => {
 }
 
 export const addAudioRecordingThunk = (recording) => async (dispatch) => {
-    return axios.post("http://localhost:8080/api/recording/audio")
+    return axios.post("http://localhost:8080/api/recording/audio", recording)
     .then(response => {
         console.log(response)
     })
