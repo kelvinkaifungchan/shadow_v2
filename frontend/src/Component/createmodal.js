@@ -39,13 +39,13 @@ class PureModel extends React.Component {
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
-                            {/* <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4"/> */}
                             <input onChange={this.onChangeField.bind(this, this.props.create.type ==="class" ? "classroomTitle" : "setTitle")} value={this.state.title} type="text" className="form-control mb-4" placeholder={this.props.create.type ==="class" ? "Classroom Title" : "Set Title"} />
                             <textarea onChange={this.onChangeField.bind(this, this.props.create.type ==="class" ? "classroomDesc" : "setDesc")} value={this.state.description} type="text" style={{resize:"none"}} className="form-control" placeholder={this.props.create.type ==="class" ? "Classroom Description" : "Set Description"}/>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
                         <button onClick={(e)=>{this.submit(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
+                        <button onClick={()=>{ this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -70,4 +70,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const CreateClassPopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)
+export const CreatePopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)

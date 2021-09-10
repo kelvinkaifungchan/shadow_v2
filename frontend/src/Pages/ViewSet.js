@@ -10,6 +10,7 @@ import { BrowserRouter , Switch} from "react-router-dom";
 // import NavBar from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Tags from '../Component/tags';
+import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 // import DisplayModule from '../Component/displayModule';
 
@@ -17,14 +18,25 @@ class ViewSet extends React.Component {
     
     constructor(props){
         super(props)
+        this.state = {
+            modal: false,
+        }
         this.bg = {
             backgroundColor: "#F8DF4F"
         }
     }
+
+    toggle(){
+        this.setState({
+            modal: !this.state.modal
+        })
+    }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
+
     render() {
         console.log("i want to see the props",this.props);
 
@@ -46,6 +58,10 @@ class ViewSet extends React.Component {
                         <p>HeadingInput</p>
                         {/* <Tags/> */}
                         <p>Tags</p>
+
+                        <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        
                         {/* <Users/> */}
                         <p>Users</p>
                     </div>

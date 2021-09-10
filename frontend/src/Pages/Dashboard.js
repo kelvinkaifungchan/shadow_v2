@@ -5,12 +5,10 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/getdata/action'
 import '../Component/main.css'
 import { NavBar } from '../Component/navbar'
-import { CreateClassPopUp } from '../Component/createclassmodal'
-import { CreateSetPopUp } from '../Component/createsetmodal'
+import { CreatePopUp } from '../Component/createmodal'
 
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
-
 
 
 class Dashboard extends React.Component {
@@ -18,7 +16,8 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            type: ""
+            type: "",
+            test: false
         };
     }
     componentDidMount() {
@@ -43,6 +42,11 @@ class Dashboard extends React.Component {
             type: "set"
         })
     }
+    testToggle(){
+        this.setState({
+            test: !this.state.test,
+        })
+    }
     render() {
         return (
             <div>
@@ -51,14 +55,13 @@ class Dashboard extends React.Component {
                 <div className="p-3">
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => this.toggle()}/>
+                            <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => this.toggle()} />
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>

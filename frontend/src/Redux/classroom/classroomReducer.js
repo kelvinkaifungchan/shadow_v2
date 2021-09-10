@@ -5,11 +5,10 @@ const initialState = {
 };
 
 export function classroomReducer(state = initialState, action){
-    console.log(action, '<<<<<<<action clas')
     switch(action.type){
         case ADD_CLASSROOM:
             return {
-                classroom: [...state.classroom, action.classroom]
+                classroom: state.classroom.concat([action.payload])
             };
         default:
             return state;
