@@ -27,7 +27,7 @@ export function classroomReducer(state = initialState, action){
             };
         case EDIT_CLASSROOM:
             var newClassroom = action.payload;
-            var newArray = state.classroom.filter((classroom) => classroom.classroomId !== newClassroom.id);
+            var newArray = state.classroom.filter((classroom) => classroom.id !== newClassroom.id);
             newArray.push(newClassroom);
             return{
                 classroom: newArray
