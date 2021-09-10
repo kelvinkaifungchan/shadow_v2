@@ -17,15 +17,20 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            rerender: false,
             classModal: false,
             setModal: false,
             type: ""
         };
     }
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        this.props.getdata({ email: this.props.user.email })
     }
-
+    hide(){
+        this.setState({
+            setModal: !this.state.rerender
+        })
+    }
     classToggle() {
         this.setState({
             classModal: !this.state.modal
@@ -54,14 +59,14 @@ class Dashboard extends React.Component {
                 <div className="p-3">
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => this.classToggle()} />
+                            <CreateClassPopUp create={this.state} toggle={() => this.classToggle()} hide={()=>this.hide}/>
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreateClassPopUp create={this.state} toggle={() => {this.changeTypeSet();this.classToggle()}} />
+                            <CreateClassPopUp create={this.state} toggle={() => {this.changeTypeSet();this.classToggle()}} hide={()=>this.hide} />
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.classToggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>
@@ -87,8 +92,6 @@ const mapStateToProps = (state) => {
         sets: state.dataStore.sets,
         cards: state.dataStore.cards,
         tags: state.dataStore.tags,
-
-
     }
 }
 const mapDispatchToProps = dispatch => {
@@ -96,7 +99,6 @@ const mapDispatchToProps = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         }
-
     }
 }
 

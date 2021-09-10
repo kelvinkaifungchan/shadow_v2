@@ -6,12 +6,14 @@ class ClassroomService {
   //Method to add classroom
   add(body) {
     console.log("Adding Classroom");
+    console.log(body)
     return this.knex("user")
       .where({
         email: body.email,
         
       })
       .then((email) => {
+        console.log(email)
         return this.knex
           .insert({
             user_id: email[0].id,
