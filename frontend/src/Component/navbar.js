@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
-import {getdataThunk} from '../Redux/getdata/action'
-import {logoutNowThunk} from '../Redux/loginbox/action'
+import { getdataThunk } from '../Redux/getdata/action'
+import { logoutNowThunk } from '../Redux/loginbox/action'
 
 class PureNavBar extends React.Component {
 
@@ -15,11 +15,11 @@ class PureNavBar extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log("this.props in navbar >>>>>>>>>>>", )
+        console.log("this.props in navbar >>>>>>>>>>>",)
 
         return (
             <div className=" p-3 d-flex  justify-content-between" id="navbar">
-                 <div className=" p-3 d-inline-flex">
+                <div className=" p-3 d-inline-flex">
                     <h2>shadow</h2>
                 </div>
                 <div className=" p-3 d-inline-flex">
@@ -30,7 +30,6 @@ class PureNavBar extends React.Component {
                     <span ><img id="picture" src={this.props.user.picture} alt="Avatar" className="avatar-sm"></img></span>
                     <Link onClick={this.logout} to="/login">Logout</Link>
                 </div>
-                
 
             </div>
 
