@@ -20,19 +20,23 @@ class PureModel extends React.Component {
     }
     submit = (e) => {
         e.preventDefault();
-        this.props.createClassMDP(this.state.email, this.state.title, this.state.description)
+        if(this.props.create.type === "class"){
+            
+        } else {
+
+        }
+        this.props.createClassMDP(this.state.title, this.state.description)
     }
 
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.classroom.modal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}>Create Classroom</ModalHeader>
+                <Modal isOpen={this.props.create.classModal} toggle={this.props.toggle}>
+                    <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : "Set"}</ModalHeader>
                     <ModalBody>
                         <Form>
-                            <input onChange={this.onChangeField.bind(this, 'email')} value={this.state.email} type="text" name="username" className="form-control mb-4" placeholder="Email" />
-                            <input onChange={this.onChangeField.bind(this, 'title')} value={this.state.title} type="text" className="form-control mb-4" placeholder="Classroom Title" />
-                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{ resize: "none" }} className="form-control" placeholder="Classroom Description" />
+                            <input onChange={this.onChangeField.bind(this, 'title')} value={this.state.title} type="text" className="form-control mb-4" placeholder={this.props.create.type ==="class" ? "Classroom Title" : "Set Title"} name={this.props.create.type ==="class" ? "classroomTitle" : "setTitle"}/>
+                            <textarea onChange={this.onChangeField.bind(this, 'description')} value={this.state.description} type="text" style={{resize:"none"}} className="form-control" placeholder={this.props.create.type ==="class" ? "Classroom Description" : "Set Description"} name={this.props.create.type ==="class" ? "classroomDesc" : "setDesc"} />
                         </Form>
                     </ModalBody>
                     <ModalFooter>

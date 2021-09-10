@@ -31,7 +31,6 @@ class PureNavBar extends React.Component {
                     <Link onClick={this.logout} to="/login">Logout</Link>
                 </div>
 
-
             </div>
 
         );
