@@ -60,6 +60,7 @@ class ShadowRouter {
             return data.cards = cards
         })
         .then(() => {
+            console.log("Data in shadow router", data)
             return res.json(data)
         })
         .catch((err) => {
