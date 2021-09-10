@@ -20,8 +20,8 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            classModal: false,
-            setModal: false,
+            // classModal: false,
+            // setModal: false,
         };
     }
     componentDidMount() {
@@ -42,6 +42,7 @@ class Dashboard extends React.Component {
                     <div className="row d-flex p-4">
                         <h2>My Classroom</h2>
                     <CreateClassBtn />
+
                     </div>
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     

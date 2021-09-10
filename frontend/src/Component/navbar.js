@@ -37,6 +37,7 @@ class PureNavBar extends React.Component {
                         </li>
                     </ul>
                     </nav>
+
             </div>
 
         );

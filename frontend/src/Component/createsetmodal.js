@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 
-class PureModel extends React.Component {
+class PureSetClassModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,4 +59,4 @@ class PureModel extends React.Component {
 // }
 
 
-export const CreateSetPopUp = connect(null, null)(PureModel)
+export const CreateSetModal = connect(null, null)(PureSetClassModal)

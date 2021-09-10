@@ -5,13 +5,13 @@ import { connect } from 'react-redux'
 import '../Component/main.css'
 import classes from './createsetbtn.module.css'
 
-import { CreateSetPopUp } from '../Component/createsetmodal'
+import { CreateSetModal } from '../Component/createsetmodal'
 
 class PureCreateSetBtn extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            classModal: false,
+            setModal: false
     }
 }
 
@@ -20,12 +20,13 @@ setToggle() {
     this.setState({
         setModal: !this.state.setModal
     });
+    console.log(this.state)
 }
 
     render(){
         return(
             <div className={classes.createset}>
-                <CreateSetPopUp set={this.state} toggle={() => this.setToggle()}/>
+                <CreateSetModal set={this.state} toggle={() => this.setToggle()}/>
                 <button onClick={() => { this.setToggle(); }}><i className="fas fa-plus"></i></button>
             </div>
         )
