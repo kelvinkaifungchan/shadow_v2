@@ -11,81 +11,59 @@ export const DELETE_BRIDGE_SET_FLASHCARD = "DELETE_BRIDGE_SET_FLASHCARD";
 export const DELETE_BRIDGE_SET_QUIZCARD = "DELETE_BRIDGE_SET_QUIZCARD";
 
 export const addBridgeThunk = (bridge) => async (dispatch) => {
-    if (bridge.type === "classroom_set") {
-        return axios.post(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: ADD_BRIDGE_CLASSROOM_SET,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_dictationcard") {
-        return axios.post(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: ADD_BRIDGE_SET_DICTATIONCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_flashcard") {
-        return axios.post(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: ADD_BRIDGE_SET_FLASHCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_quizcard") {
-        return axios.post(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: ADD_BRIDGE_SET_QUIZCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    }
+    return axios.post("http://localhost:8080/api/bridge", bridge)
+    .then(response => {
+        console.log(response)
+        if (bridge.type === "classroom_set") {
+            dispatch({
+                type: ADD_BRIDGE_CLASSROOM_SET,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_dictationcard") {
+            dispatch({
+                type: ADD_BRIDGE_SET_DICTATIONCARD,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_flashcard") {
+            dispatch({
+                type: ADD_BRIDGE_SET_FLASHCARD,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_quizcard") {
+            dispatch({
+                type: ADD_BRIDGE_SET_QUIZCARD,
+                payload: bridge
+            })
+        }
+    })
+    .catch(err => console.log("Error: ", err))
 }
 
 export const deleteBridgeThunk = (bridge) => async (dispatch) => {
-    if (bridge.type === "classroom_set") {
-        return axios.delete(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: DELETE_BRIDGE_CLASSROOM_SET,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_dictationcard") {
-        return axios.delete(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: DELETE_BRIDGE_SET_DICTATIONCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_flashcard") {
-        return axios.delete(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: DELETE_BRIDGE_SET_FLASHCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    } else if (bridge.type === "set_quizcard") {
-        return axios.delete(`http://localhost:8080/api/bridge`)
-            .then(response => {
-                console.log(response);
-                dispatch({
-                    type: DELETE_BRIDGE_SET_QUIZCARD,
-                    payload: bridge
-                })
-            }).catch(err => console.log("Error: ", err))
-    }
+    return axios.delete("http://localhost:8080/api/bridge", bridge)
+    .then(response => {
+        console.log(response)
+        if (bridge.type === "classroom_set") {
+            dispatch({
+                type: DELETE_BRIDGE_CLASSROOM_SET,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_dictationcard") {
+            dispatch({
+                type: DELETE_BRIDGE_SET_DICTATIONCARD,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_flashcard") {
+            dispatch({
+                type: DELETE_BRIDGE_SET_FLASHCARD,
+                payload: bridge
+            })
+        } else if (bridge.type === "set_quizcard") {
+            dispatch({
+                type: DELETE_BRIDGE_SET_QUIZCARD,
+                payload: bridge
+            })
+        }
+    })
+    .catch(err => console.log("Error: ", err))
 }
