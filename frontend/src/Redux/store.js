@@ -1,15 +1,21 @@
 import {applyMiddleware, createStore, combineReducers, compose} from 'redux'
-import {authReducer} from "./loginbox/reducer"
-import {dataReducer} from "./getdata/reducer"
-import {classroomReducer} from './classroom/classroomReducer'
+import {authReducer} from "./reducers/authReducer"
+import { cardReducer } from './reducers/cardReducer';
+import { classroomReducer } from './reducers/classroomReducer';
+import { setReducer } from './reducers/setReducer';
+import { tagReducer } from './reducers/tagReducer';
+import { userReducer } from './reducers/userReducer';
 
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
     authStore: authReducer,
-    dataStore: dataReducer,
+    cardStore: cardReducer,
     classroomStore: classroomReducer,
+    setStore: setReducer,
+    tagStore: tagReducer,
+    userStore: userReducer
 })
 
 

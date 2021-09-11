@@ -5,7 +5,7 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   LOGOUT_NOW_ACTION
-} from "./action";
+} from "../actions/loginboxAction";
 
 const initialState = {
   error: "",

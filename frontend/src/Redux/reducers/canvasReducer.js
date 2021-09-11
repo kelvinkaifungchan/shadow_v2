@@ -1,6 +1,6 @@
 //DO WE NEED TO SEND CANVAS DATA TO REDUX THO??
 
-import { SUBMIT_CANVAS } from "./canvasAction";
+import { SUBMIT_CANVAS } from "../actions/canvasAction";
 
 const initialState = {
     canvasData: []
