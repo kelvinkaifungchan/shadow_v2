@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
+import {HeadingInput} from '../Component/headinginput';
 // import Tags from '../Component/tags';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
@@ -43,8 +43,7 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        {/* <HeadingInput/> */}
-                        <p>HeadingInput</p>
+                        <HeadingInput/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
@@ -77,13 +76,19 @@ class ViewSet extends React.Component {
         );
     }
 }
-
-
 const mapStateToProps = (state) => {
+    console.log("state in dashboard", state);
+
     return {
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
+
+
 const mapDispatchToProps = dispatch => {
     return {
         logout: () => {

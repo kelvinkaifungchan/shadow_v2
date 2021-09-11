@@ -8,7 +8,7 @@ class PureSelectCardModal extends React.Component{
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.selectCard.modal} toggle={this.props.toggle} >
+                <Modal isOpen={this.props.selectCard.selectModal} toggle={this.props.toggle} >
                     <ModalHeader toggle={this.toggle}> Select a card type </ModalHeader>
                     <ModalBody>
                         <div className="row">

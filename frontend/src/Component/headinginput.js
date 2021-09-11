@@ -25,13 +25,7 @@ class PureHeadingInput extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log("state in dashboard",state);
 
-    return {
-        dataMSP: state.dataStore.data
-    }
-}
 const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
@@ -40,4 +34,4 @@ const mapDispatchToProps  = dispatch => {
     }
 }
 
-export const HeadingInput = connect (mapStateToProps, mapDispatchToProps)(PureHeadingInput)
+export const HeadingInput = connect (null, mapDispatchToProps)(PureHeadingInput)
