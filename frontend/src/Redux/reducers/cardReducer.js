@@ -1,93 +1,133 @@
-import { ADD_FLASHCARD } from "./cardAction";
-import { ADD_QUIZCARD } from "./cardAction";
-import { ADD_DICTATIONCARD } from "./cardAction";
 
-import { EDIT_FLASHCARD } from "./cardAction";
-import { EDIT_QUIZCARD } from "./cardAction";
-import { EDIT_DICTATIONCARD } from "./cardAction";
-
-import { DELETE_FLASHCARD } from "./cardAction";
-import { DELETE_QUIZCARD } from "./cardAction";
-import { DELETE_DICTATIONCARD } from "./cardAction";
-
-
-import { GETDATACARDS_SUCCESS, GETDATACARDS_FAILURE } from "../actions/action"
+import {
+    ADD_DICTATIONCARD,
+    ADD_FLASHCARD,
+    ADD_QUIZCARD
+} from "../actions/cardAction";
+import {
+    EDIT_DICTATIONCARD,
+    EDIT_FLASHCARD,
+    EDIT_QUIZCARD
+} from "../actions/cardAction";
+import {
+    DELETE_DICTATIONCARD,
+    DELETE_FLASHCARD,
+    DELETE_QUIZCARD
+} from "../actions/cardAction";
+import {
+    GETDATACARDS_SUCCESS,
+    GETDATACARDS_FAILURE
+} from "../actions/action"
 
 const initialState = {
     loading: false,
-    cards: {flashcard:[], quizcard:[], dictationcard:[]}
+    card: {
+        flashcard: [],
+        quizcard: [],
+        dictationcard: []
+    }
+
 };
 
-export function cardReducer(state = initialState, action){
-    switch(action.type){
-        case GETDATACARDS_SUCCESS:  
+export function cardReducer(state = initialState, action) {
+    switch (action.type) {
+        case GETDATACARDS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                cards: action.payload
-              };
+
+                    card: action.payload
+            };
+
         case GETDATACARDS_FAILURE:
             return {
                 ...state,
                 loading: false,
-                isAuthenticated: false
-              };
+
+                    isAuthenticated: false
+            };
+        case ADD_DICTATIONCARD:
+            return {
+                card: {
+                    ...state.card,
+                    dictationcard: [...state.card.dictationcard, action.payload]
+                }
+            };
+
         case ADD_FLASHCARD:
-                return {
-                    cards: {...state.cards, flashcard:[...state.cards.flashcard, action.payload]}
-                };
+            return {
+                card: {
+                    ...state.card,
+                    flashcard: [...state.card.flashcard, action.payload]
+                }
+            };
 
         case ADD_QUIZCARD:
-                return {
-                    cards: {...state.cards, quizcard:[...state.cards.quizcard, action.payload]}
-                };
-        case ADD_DICTATIONCARD:
-                return {
-                    cards: {...state.cards, dictationcard:[...state.cards.dictationcard, action.payload]}
-                };
-            
+            return {
+                card: {
+                    ...state.card,
+                    quizcard: [...state.card.quizcard, action.payload]
+                }
+            };
 
-        case EDIT_FLASHCARD:
-            var newCard = action.payload;
-            var newArray = state.cards.flashcard.filter((flashcard) => flashcard.flashcardId !== newCard.flashcardId);
-            newArray.push(newCard)
-            return {
-                cards: {...state.cards, flashcard: newArray}
-            }
-            
-        case EDIT_QUIZCARD:
-            var newCard = action.payload;
-            var newArray = state.cards.quizcard.filter((quizcard) => quizcard.quizcardId !== newCard.quizcardId);
-            newArray.push(newCard)
-            return {
-                cards: {...state.cards, quizcard: newArray}
-            }
-            
         case EDIT_DICTATIONCARD:
             var newCard = action.payload;
-            var newArray = state.cards.dictationcard.filter((dictationcard) => dictationcard.dictationcardId !== newCard.dictationcardId);
+            var newArray = state.card.dictationcard.filter((dictationcard) => dictationcard.dictationcardId !== newCard.dictationcardId);
             newArray.push(newCard)
             return {
-                cards: {...state.cards, dictationcard: newArray}
+                card: {
+                    ...state.card,
+                    dictationcard: newArray
+                }
             }
-            
 
-        case DELETE_FLASHCARD:
-            return {
-                cards: {...state.cards, flashcard:state.cards.flashcard.filter((flashcard) => flashcard.flashcardId !== action.payload.flashcardId)}
-            };
-            
-        case DELETE_QUIZCARD:
-            return {
-                cards: {...state.cards, quizcard:state.cards.quizcard.filter((quizcard) => quizcard.quizcardId !== action.payload.quizcardId)}
-            };
-            
-        case DELETE_DICTATIONCARD:
-            return {
-                cards: {...state.cards, dictationcard:state.cards.dictationcard.filter((dictationcard) => dictationcard.dictationcardId !== action.payload.dictationcardId)}
-            };
-            
-        default:
-            return state;
-        }
+            case EDIT_FLASHCARD:
+                var newCard = action.payload;
+                var newArray = state.card.flashcard.filter((flashcard) => flashcard.flashcardId !== newCard.flashcardId);
+                newArray.push(newCard)
+                return {
+                    card: {
+                        ...state.card,
+                        flashcard: newArray
+                    }
+                }
+
+                case EDIT_QUIZCARD:
+                    var newCard = action.payload;
+                    var newArray = state.card.quizcard.filter((quizcard) => quizcard.quizcardId !== newCard.quizcardId);
+                    newArray.push(newCard)
+                    return {
+                        card: {
+                            ...state.card,
+                            quizcard: newArray
+                        }
+                    }
+
+
+                    case DELETE_DICTATIONCARD:
+                        return {
+                            card: {
+                                ...state.card,
+                                dictationcard: state.card.dictationcard.filter((dictationcard) => dictationcard.dictationcardId !== action.payload.dictationcardId)
+                            }
+                        };
+                    case DELETE_FLASHCARD:
+                        return {
+                            card: {
+                                ...state.card,
+                                flashcard: state.card.flashcard.filter((flashcard) => flashcard.flashcardId !== action.payload.flashcardId)
+                            }
+                        };
+                    case DELETE_QUIZCARD:
+                        return {
+                            card: {
+                                ...state.card,
+                                quizcard: state.card.quizcard.filter((quizcard) => quizcard.quizcardId !== action.payload.quizcardId)
+                            }
+                        };
+
+                    default:
+                        return state;
+    }
+
 }

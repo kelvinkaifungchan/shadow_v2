@@ -1,5 +1,5 @@
 import {applyMiddleware, createStore, combineReducers, compose} from 'redux'
-import {authReducer} from "./loginbox/reducer"
+import {authReducer} from "./reducers/authReducer"
 import { cardReducer } from './reducers/cardReducer';
 import { classroomReducer } from './reducers/classroomReducer';
 import { setReducer } from './reducers/setReducer';
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     classroomStore: classroomReducer,
     setStore: setReducer,
     tagStore: tagReducer,
-    userStore: userReducer,
+    userStore: userReducer
 })
 
 

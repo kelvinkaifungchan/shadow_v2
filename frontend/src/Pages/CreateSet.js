@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux'
+
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 
 
 
-class Account extends React.Component {
+
+class CreateSet extends React.Component {
     
 
     logout = (e) => {
@@ -13,15 +14,19 @@ class Account extends React.Component {
         this.props.logout()
     }
     render() {
-       
+        console.log("i want to see the props",this.props);
 
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>Account </h1>
-               
+                <h1>Hi </h1>
+                <p>You're logged in CreateSet</p>
+                <h3>Users from secure api end point:</h3>
+                <Link to="/account">Account</Link>
+         
                 <p onClick={this.logout}> 
-                    <Link to="/login">Logout</Link>
+                <Link to="/login">Logout</Link>
                 </p>
+                
             </div>
         );
     }
@@ -33,14 +38,7 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedAccount= connect(mapStateToProps, mapDispatchToProps)(Account)
-export { connectedAccount as Account };
+const connectedCreateSet= connect(mapStateToProps, null)(CreateSet)
+export { connectedCreateSet as CreateSet };

@@ -16,10 +16,10 @@ export const addTag = (tag) => async (dispatch) => {
     dispatch({type: ADD_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
     
     if (tag.type === "classroom"){
-        dispatch({type: ADD_TAG_CLASSROOM, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
+        dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
     }
     if(tag.type === "set"){
-        dispatch({type: ADD_TAG_SET, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
+        dispatch({type: ADD_TAG_SET, payload: {id:{set_id: tag.setId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
     }
 
 }
@@ -33,10 +33,10 @@ export const deleteTag = (tag) => async (dispatch) => {
    dispatch({type: DELETE_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
     
    if (tag.type === "classroom"){
-       dispatch({type: DELETE_TAG_CLASSROOM, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
+       dispatch({type: DELETE_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
    }
    if(tag.type === "set"){
-       dispatch({type: DELETE_TAG_SET, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
+       dispatch({type: DELETE_TAG_SET, payload: {id:{set_id: tag.setId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
    }
 
 }

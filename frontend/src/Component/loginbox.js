@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loginUserThunk } from '../Redux/loginbox/action'
-import { loginFacebookThunk } from '../Redux/loginbox/action'
+import { loginUserThunk , loginFacebookThunk } from '../Redux/actions/loginboxAction'
 
 import FacebookLogin from 'react-facebook-login';
 
