@@ -1,3 +1,4 @@
+
 import {
     ADD_DICTATIONCARD,
     ADD_FLASHCARD,
@@ -25,6 +26,7 @@ const initialState = {
         quizcard: [],
         dictationcard: []
     }
+
 };
 
 export function cardReducer(state = initialState, action) {
@@ -33,12 +35,15 @@ export function cardReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+
                     card: action.payload
             };
+
         case GETDATACARDS_FAILURE:
             return {
                 ...state,
                 loading: false,
+
                     isAuthenticated: false
             };
         case ADD_DICTATIONCARD:
@@ -124,4 +129,5 @@ export function cardReducer(state = initialState, action) {
                     default:
                         return state;
     }
+
 }
