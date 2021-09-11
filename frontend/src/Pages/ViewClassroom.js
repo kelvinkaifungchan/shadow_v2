@@ -84,9 +84,8 @@ class ViewClassroom extends React.Component {
 
 
 const mapStateToProps = (state) => {
-
     return {
-        sets: state.setStore.set,
+        sets: state.setStore.sets,
     }
 }
 

@@ -24,7 +24,6 @@ class ViewSet extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
