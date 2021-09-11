@@ -111,9 +111,9 @@ class PureVideoRecorder extends React.Component {
 
             <div className="col">
             <div className="pt-3 flex-col d-flex justify-content-center" id="videoSubmission">
-                {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" width="560" height="315" autoPlay={true} muted="muted" ></video> : null}
+                {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" width="860" height="615" autoPlay={true} muted="muted" ></video> : null}
 
-                {!show ? <video ref={b => { this.player = b }} controls id="preview" width="560" height="315" src="" autoPlay={true} muted="muted"  ></video> : null}
+                {!show ? <video ref={b => { this.player = b }} controls id="preview" width="860" height="615" src="" autoPlay={true} muted="muted"  ></video> : null}
             </div>
             <div className="row flex-row flex-nowrap">
                 <div className="p-3 ml-auto mr-auto ">
