@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
-import { getdataThunk } from '../Redux/getdata/action'
+import { getdataThunk } from '../Redux/actions/action'
 import '../Component/main.css'
 import { NavBar } from '../Component/navbar'
 import { CreatePopUp } from '../Component/createmodal'
@@ -73,13 +73,11 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classroom,
+        sets: state.setStore.set,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps = dispatch => {

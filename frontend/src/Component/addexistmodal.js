@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/getdata/action'
+// import {createClassThunk } from '../Redux/actions/classroomAction'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { DisplaySetModule } from '../Component/displaysetmodule'
-import { getdataThunk } from '../Redux/getdata/action'
+import { getdataThunk } from "../Redux/actions/action"
 
 
 
@@ -39,7 +39,7 @@ class PureModel extends React.Component {
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
-                <ModalHeader >Add Exist {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
+                <ModalHeader >Add Exist {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : "Classroom"}</ModalHeader>
                 <ModalBody>
                     <div className="">
                         {this.props.create.type === "class" ? <DisplaySetModule sets={this.props.sets} /> : this.props.create.type === "set" ? "Set" : <DisplaySetModule cards={this.props.cards} />}
@@ -54,13 +54,11 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classroom,
+        sets: state.setStore.set,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps = dispatch => {

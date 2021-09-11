@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
-import { logoutNowThunk } from '../Redux/loginbox/action'
+import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Tags from '../Component/tags';
 // import Users from '../Component/users';
-// import { DisplaySetModule } from '../Component/displaysetmodule'
 
 import { DisplayCardModule } from '../Component/displaycardmodule'
 import { AddnewPopUp } from '../Component/addnewmodal'
@@ -64,7 +63,7 @@ class ViewSet extends React.Component {
                                 <span>Add new or exist card</span>
                             </div>
                         </div>
-                        <DisplayCardModule sets={this.props.cards} />
+                        <DisplayCardModule cards={this.props.cards} />
                     </div>
                 </div>
 
@@ -76,7 +75,7 @@ class ViewSet extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.dataStore.cards,
+        cards: state.cardStore.card,
     }
 }
 const mapDispatchToProps = dispatch => {

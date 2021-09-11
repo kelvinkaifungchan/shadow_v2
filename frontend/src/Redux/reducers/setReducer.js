@@ -33,7 +33,7 @@ export function setReducer(state = initialState, action){
             };
         case DELETE_SET:
             return {
-                set: state.set.filter((classroom) => {
+                set: state.set.filter((set) => {
                     return set.id !== action.payload.id;
                 })
             }

@@ -1,4 +1,5 @@
 import { GETDATAUSER_SUCCESS, GETDATAUSER_FAILURE } from "../actions/action";
+import { ADD_TAG, DELETE_TAG } from "../actions/tagAction"
 
 const initialState = {
     user: [],

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import { logoutNowThunk } from '../Redux/loginbox/action'
 
 import { NavBar } from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
@@ -34,10 +33,7 @@ class ViewClassroom extends React.Component {
             type: "class"
         })
     }
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
-    }
+
     render() {
         console.log("i want to see the props", this.props);
 
@@ -83,17 +79,10 @@ class ViewClassroom extends React.Component {
 const mapStateToProps = (state) => {
 
     return {
-        sets: state.dataStore.sets,
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
+        sets: state.setStore.set,
     }
 }
 
 
-const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
+const connectedViewClassroom = connect(mapStateToProps, null)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };

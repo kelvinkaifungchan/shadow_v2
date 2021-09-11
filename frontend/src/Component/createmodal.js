@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addClassroom } from '../Redux/classroom/classroomAction'
+import { addClassroom } from '../Redux/actions/classroomAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 
@@ -61,7 +61,7 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
-        user: state.dataStore.user,
+        user: state.userStore.user,
     }
 }
 

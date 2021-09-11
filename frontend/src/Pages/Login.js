@@ -4,7 +4,6 @@ import '../Component/main.css'
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
-import { logoutNowThunk } from '../Redux/loginbox/action'
 import { LoginBox } from '../Component/loginbox'
 import { SignUp } from '../Component/signupbox';
 
@@ -34,10 +33,7 @@ class Login extends React.Component {
         });
     }
 
-    logout (e){
-        e.preventDefault();
-        this.props.logout()
-    }
+
     render() {
         const { show } = this.state;
         return (
@@ -62,14 +58,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
+
+const connectedLogin = connect(mapStateToProps, null)(Login)
 export { connectedLogin as Login };

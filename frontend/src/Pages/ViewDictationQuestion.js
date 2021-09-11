@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
@@ -16,10 +15,6 @@ import { BrowserRouter , Switch} from "react-router-dom";
 class ViewDictationQuestion extends React.Component {
     
 
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
-    }
     render() {
         console.log("i want to see the props",this.props);
 
@@ -71,14 +66,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedViewDictationQuestion= connect(mapStateToProps, mapDispatchToProps)(ViewDictationQuestion)
+
+const connectedViewDictationQuestion= connect(mapStateToProps, null)(ViewDictationQuestion)
 export { connectedViewDictationQuestion as ViewDictationQuestion };
