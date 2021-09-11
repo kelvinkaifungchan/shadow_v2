@@ -3,6 +3,7 @@ import { EDIT_CLASSROOM } from "../actions/classroomAction";
 import { DELETE_CLASSROOM } from "../actions/classroomAction";
 import { GETDATACLASSROOMS_SUCCESS, GETDATACLASSROOMS_FAILURE } from "../actions/action";
 import { ADD_TAG_CLASSROOM, DELETE_TAG_CLASSROOM } from "../actions/tagAction";
+import { ADD_SHARING, DELETE_SHARING } from "../actions/sharingAction";
 
 const initialState = {
     classrooms: []
@@ -42,7 +43,7 @@ export function classroomReducer(state = initialState, action){
         case ADD_TAG_CLASSROOM:
             return {
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroomId == classroom.classroom_id){
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
                         return {
                             ...classroom, tags:[...classroom.tags, action.payload.content]
                         }
@@ -54,7 +55,7 @@ export function classroomReducer(state = initialState, action){
         case DELETE_TAG_CLASSROOM:
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroomId == classroom.classroom_id){
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
                         return {
                             ...classroom, tags:classroom.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
                         }
@@ -62,6 +63,30 @@ export function classroomReducer(state = initialState, action){
                     return classroom
                 })
             }
+        case ADD_SHARING:
+            return {
+                classrooms: state.classrooms.map((classroom) => {
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                        return {
+                            ...classroom, shared:[...classroom.shared, action.payload.content]
+                        }
+                    }
+                    return classroom
+                })
+            }
+
+        case DELETE_SHARING:
+            return{
+                classrooms: state.classrooms.map((classroom) => {
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                        return {
+                            ...classroom, shared:classroom.shared.filter((tag) => shared.id !== action.payload.content.id)
+                        }
+                    }
+                    return classroom
+                })
+            }
+            
 
         default:
             return state;
