@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import '../Component/main.css'
 import classes from './createsetbtn.module.css'
 
-import { CreatePopUp } from '../Component/createmodal'
+import { CreateSetModal } from '../Component/createsetmodal'
 
 class PureCreateSetBtn extends React.Component {
     constructor(props){
@@ -26,7 +26,7 @@ setToggle() {
     render(){
         return(
             <div className={classes.createset}>
-                <CreatePopUp set={this.state} toggle={() => this.setToggle()}/>
+                <CreateSetModal set={this.state} toggle={() => this.setToggle()}/>
                 <button onClick={() => { this.setToggle(); }}><i className="fas fa-plus"></i></button>
             </div>
         )
@@ -35,4 +35,3 @@ setToggle() {
 
 
 export const CreateSetBtn = connect(null, null)(PureCreateSetBtn)
-

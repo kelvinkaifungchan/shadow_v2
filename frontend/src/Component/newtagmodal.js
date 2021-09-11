@@ -7,7 +7,7 @@ class PureTagModal extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            tagBody: "",
+            tag: "",
         }
     }
 
@@ -15,19 +15,20 @@ class PureTagModal extends React.Component{
         const state = {};
         state[field] = e.currentTarget.value;
         this.setState({
-            tagBody: state
+            tag: state
         });
     }
 
     submit = (e) => {
         e.preventDefault();
-        this.props.createTagMDP(this.state.tagBody)
+
+        this.props.createClassMDP(this.state.title, this.state.description)
     }
 
     render() {
         return (
             <div>
-                <Modal isOpen={this.props.addTag.tagModal} toggle={this.props.toggle}>
+                <Modal isOpen={this.props.addTag.modal} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}> New Tag </ModalHeader>
                     <ModalBody>
                         <Form>
@@ -35,8 +36,7 @@ class PureTagModal extends React.Component{
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <button onClick={(e)=>{this.submit(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
-                        <button onClick={()=>{this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                        <button onClick={this.submit} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
                     </ModalFooter>
                 </Modal>
             </div>

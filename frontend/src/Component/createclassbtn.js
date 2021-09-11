@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import '../Component/main.css'
 import classes from './createclassbtn.module.css'
 
-import { CreatePopUp } from '../Component/createmodal'
-
+import { CreateClassModal } from '../Component/createclassmodal'
 
 class PureCreateClassBtn extends React.Component {
     constructor(props){
@@ -27,7 +26,7 @@ class PureCreateClassBtn extends React.Component {
     render(){
         return(
             <div className={classes.createclass}>
-                <CreatePopUp classroom={this.state} toggle={() => this.classToggle()}/>
+                <CreateClassModal classroom={this.state} toggle={() => this.classToggle()}/>
                 <button onClick={() => { this.classToggle(); }}><i className="fas fa-plus"></i></button>
             </div>
         )
@@ -36,4 +35,3 @@ class PureCreateClassBtn extends React.Component {
 
 
 export const CreateClassBtn = connect(null, null)(PureCreateClassBtn)
-
