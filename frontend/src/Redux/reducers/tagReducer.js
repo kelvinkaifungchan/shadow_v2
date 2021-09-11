@@ -30,8 +30,8 @@ export function tagReducer(state = initialState, action){
             
         case DELETE_TAG:
             var newTags = state.tags;
-            for (i=0; i<newTags.length; i++){
-                if(action.payload.tagId == newTags[i].tagId){
+            for (let i=0; i<newTags.length; i++){
+                if(action.payload.tagId === newTags[i].tagId){
                     newTags.splice(i, 1);
                     break;
                 }

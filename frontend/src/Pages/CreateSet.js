@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
 
 
 
@@ -39,14 +38,7 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedCreateSet= connect(mapStateToProps, mapDispatchToProps)(CreateSet)
+const connectedCreateSet= connect(mapStateToProps, null)(CreateSet)
 export { connectedCreateSet as CreateSet };

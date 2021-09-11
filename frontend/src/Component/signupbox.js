@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { signUpThunk } from '../Redux/loginbox/action'
+import { signUpThunk } from '../Redux/actions/loginboxAction'
 
 
 class PureSignUp extends React.Component {

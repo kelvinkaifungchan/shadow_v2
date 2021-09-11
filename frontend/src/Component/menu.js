@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/getdata/action'
+// import {createClassThunk } from '../Redux/actions/classroomAction'
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import { getdataThunk } from '../Redux/getdata/action'
+import { getdataThunk } from '../Redux/actions/action'
 import "./menu.css"
 
 
@@ -34,13 +34,12 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classroom,
+        sets: state.setStore.set,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps = dispatch => {

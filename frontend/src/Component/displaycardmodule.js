@@ -9,7 +9,7 @@ class PureDisplayCardModule extends React.Component {
 
         return (
             <>
-                {this.props.cards.dictationcard.map((card, i) => {
+                {this.props.cards.flashcard.map((card, i) => {
                     return (
                         <div key={i} className="col  m-1 p-3 border border-4 rounded-lg highlight ">
                             <h4 className="p-3"><strong>{card.title}</strong></h4>
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
-        cards: state.dataStore.cards,
+        cards: state.cardStore.card,
     }
 }
 
