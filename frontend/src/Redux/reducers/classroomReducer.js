@@ -5,6 +5,8 @@ import { GETDATACLASSROOMS_SUCCESS, GETDATACLASSROOMS_FAILURE } from "../actions
 import { ADD_TAG_CLASSROOM, DELETE_TAG_CLASSROOM } from "../actions/tagAction";
 import { ADD_SHARING, DELETE_SHARING } from "../actions/sharingAction";
 
+import { ADD_BRIDGE_CLASSROOM_SET, DELETE_BRIDGE_CLASSROOM_SET } from "../actions/bridgeAction";
+
 const initialState = {
     classrooms: []
 };
@@ -85,6 +87,29 @@ export function classroomReducer(state = initialState, action){
                     }
                     return classroom
                 })
+            }
+        case ADD_BRIDGE_CLASSROOM_SET:
+            return {
+                classrooms: state.classrooms.map((classroom) => {
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                        return {
+                            ...classroom, bridge:[...classroom.bridge, action.payload.content]
+                        }
+                    }
+                    return classroom
+                })
+            }
+        case DELETE_BRIDGE_CLASSROOM_SET:
+            return{
+                classrooms: state.classrooms.map((classroom) => {
+                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                        return {
+                            ...classroom, bridge:classroom.bridge.filter((tag) => bridge.set_id !== action.payload.content.set_id)
+                        }
+                    }
+                    return classroom
+                })
+
             }
             
 
