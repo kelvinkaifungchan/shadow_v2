@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
+// import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
@@ -10,14 +9,17 @@ import { NavBar } from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import FormSubmit from '../Component/formSubmit';
 import {VideoRecorder} from '../Component/videorecorder';
-// import Transcript from '../Component/transcript';
-
+import { Transcript } from '../Component/transcript';
+// import { Button } from "reactstrap";
 
 class CreateFlashcard extends React.Component {
     constructor(props){
         super(props)
         this.bg = {
             backgroundColor: '#F8DF4F'
+        }
+        this.state = {
+            title: "classroomTitle"
         }
     }
     logout = (e) => {
@@ -48,9 +50,10 @@ class CreateFlashcard extends React.Component {
                     <div className="col col-6">
                         <VideoRecorder/>
                     </div>
-                    <div className="col col-6">
-                        {/* <Transcript/> */}
-                        <p>Transcript</p>
+                    <div className="col col-5" >
+                        <div className="p-3 h-100 border rounded-lg">
+                            <Transcript title={this.state}/>
+                        </div>
                     </div>
                 </div>
                     <BrowserRouter>
@@ -69,14 +72,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedCreateFlashcard= connect(mapStateToProps, mapDispatchToProps)(CreateFlashcard)
+
+const connectedCreateFlashcard= connect(mapStateToProps, null)(CreateFlashcard)
 export { connectedCreateFlashcard as CreateFlashcard };

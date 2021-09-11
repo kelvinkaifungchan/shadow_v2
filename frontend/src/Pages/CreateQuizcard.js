@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
@@ -75,14 +74,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedCreateQuizcard = connect(mapStateToProps, mapDispatchToProps)(CreateQuizcard)
+
+const connectedCreateQuizcard = connect(mapStateToProps, null)(CreateQuizcard)
 export { connectedCreateQuizcard as CreateQuizcard };

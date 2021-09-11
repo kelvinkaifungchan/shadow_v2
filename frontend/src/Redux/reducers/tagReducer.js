@@ -14,7 +14,7 @@ export function tagReducer(state = initialState, action){
             return {
               ...state,
               loading: false,
-              tags: action.payload
+              tags: action.payload.content
             };
         case GETDATATAGS_FAILURE:
             return {
@@ -25,13 +25,15 @@ export function tagReducer(state = initialState, action){
         
         case ADD_TAG:
                 return {
-                    tags: [...state.tag, action.payload]
+                    tags: [...state.tag, action.payload.content]
                 };
             
         case DELETE_TAG:
             var newTags = state.tags;
-            for (i=0; i<newTags.length; i++){
-                if(action.payload.tagId == newTags[i].tagId){
+
+            for (let i=0; i<newTags.length; i++){
+                if(action.payload.tagId === newTags[i].tagId){
+
                     newTags.splice(i, 1);
                     break;
                 }
