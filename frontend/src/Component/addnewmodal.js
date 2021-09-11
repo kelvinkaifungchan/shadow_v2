@@ -36,8 +36,8 @@ class PureModel extends React.Component {
     render() {
         return (
 
-            <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
-                <ModalHeader >Add New Set</ModalHeader>
+            <Modal  isOpen={this.props.create.modal} toggle={this.props.toggle}>
+                <ModalHeader >Add New {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card":null}</ModalHeader>
                 <ModalBody>
                     <AddExistPopUp create={this.state} toggle={() => this.toggle()} />
 
@@ -48,10 +48,10 @@ class PureModel extends React.Component {
                             </div>
                             <div >
                                 <div className="col">
-                                    Create set
+                                    Create {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card":null}
                                 </div>
                                 <div className="col">
-                                    Click to add a new set.
+                                    Click to add a new {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card":null}.
                                 </div>
                             </div>
                         </div>
@@ -61,10 +61,10 @@ class PureModel extends React.Component {
                             </div>
                             <div >
                                 <div className="col">
-                                    Existing set
+                                    Existing {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card":null}
                                 </div>
                                 <div className="col">
-                                    Click to add a existing set.
+                                    Click to add a existing {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card":null}.
                                 </div>
                             </div>
                         </div>

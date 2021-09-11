@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addClassroom } from '../Redux/classroom/classroomAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
+
 class PureModel extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,8 @@ class PureModel extends React.Component {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
             this.props.history.push('/viewclassroom')
         } else {
-
+            // this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
+            this.props.history.push('/viewset')
         }
 
     }

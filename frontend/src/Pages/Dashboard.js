@@ -12,7 +12,7 @@ import { DisplaySetModule } from '../Component/displaysetmodule'
 
 
 
-class Dashboard extends React.Component {
+class PureDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +22,6 @@ class Dashboard extends React.Component {
     }
     componentDidMount() {
         this.props.getdata({ email: this.props.user.email })
-        console.log("this.props  in dashboard",this.props);
     }
 
     toggle() {
@@ -45,7 +44,6 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <NavBar user={this.props.user} />
-
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 <div className="p-3">
                     <div className="row d-flex p-4">
@@ -93,5 +91,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-const connectedDashboard = connect(mapStateToProps, mapDispatchToProps)(Dashboard)
-export { connectedDashboard as Dashboard };
+export const Dashboard = connect(mapStateToProps, mapDispatchToProps)(PureDashboard)
