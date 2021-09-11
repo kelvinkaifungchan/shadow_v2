@@ -27,7 +27,7 @@ class PureDashboard extends React.Component {
     }
 }
     componentDidMount() {
-        this.props.getdata({ email: this.props.user.email })
+        this.props.getdata({ email: "test@test.com" })
     }
 
 
@@ -89,8 +89,8 @@ const mapStateToProps = (state) => {
 
     return {
         user: state.userStore.user,
-        classrooms: state.classroomStore.classroom,
-        sets: state.setStore.set,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
         tags: state.tagStore.tags,
     }

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/getdata/action'
 
-import { Form } from 'react-bootstrap'
 import classes from './headinginput.module.css'
 
 class PureHeadingInput extends React.Component {

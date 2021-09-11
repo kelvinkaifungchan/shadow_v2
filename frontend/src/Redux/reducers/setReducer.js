@@ -41,7 +41,7 @@ export function setReducer(state = initialState, action){
         case ADD_TAG_SET:
             return {
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.setId == set.set_id){
+                    if(action.payload.id.setId === set.set_id){
                         return {
                             ...set, tags:[...set.tags, action.payload.content]
                         }
@@ -52,7 +52,7 @@ export function setReducer(state = initialState, action){
         case DELETE_TAG_SET:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.setId == set.set_id){
+                    if(action.payload.id.setId === set.set_id){
                         return {
                             ...set, tags:set.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
                         }
