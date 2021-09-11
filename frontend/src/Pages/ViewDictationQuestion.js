@@ -7,7 +7,7 @@ import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
 
-// import NavBar from '../Component/navbar';
+import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
@@ -27,8 +27,7 @@ class ViewDictationQuestion extends React.Component {
             <div>
             <div className="row" style={this.bg}>
             <div className="col col-8">
-                {/* <NavBar/> */}
-                <p>Navbar</p>
+                <NavBar/>
                 </div>
                 <div className="col col-4">
                 <Link to="/account">Account</Link>
