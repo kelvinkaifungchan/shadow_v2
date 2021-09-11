@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
     }
     componentDidMount() {
         this.props.getdata({ email: this.props.user.email })
+        console.log("this.props  in dashboard",this.props);
     }
 
     toggle() {
@@ -31,13 +32,11 @@ class Dashboard extends React.Component {
         });
     }
     changeTypeClass(){
-        console.log('ctc')
         this.setState({
             type: "class"
         })
     }
     changeTypeSet(){
-        console.log('cts')
         this.setState({
             type: "set"
         })
@@ -57,7 +56,7 @@ class Dashboard extends React.Component {
                     <DisplayClassModule classrooms={this.props.classrooms} />
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <CreatePopUp create={this.state} toggle={() => this.toggle()} />
+                            <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/>
                             <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         </div>
                     </div>

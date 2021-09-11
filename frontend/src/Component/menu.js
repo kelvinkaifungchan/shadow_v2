@@ -12,14 +12,14 @@ class PureMenu extends React.Component {
         return (
             <div id="menu">
             <ListGroup variant="flush" >
-                <ListGroupItem tag="a" href="#" action><strong><i class="fas fa-archive"></i> Classroom</strong></ListGroupItem>
+                <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
                 {this.props.classrooms.map((classroom, i) => {
                     console.log(">>>>>>>>", classroom);
                     return (
                 <ListGroupItem tag="a" href="#" action>{classroom.title}</ListGroupItem>
                     )
                 })}
-                <ListGroupItem tag="a" href="#" action><strong><i class="fas fa-layer-group"></i> Set</strong></ListGroupItem>
+                <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
                 {this.props.sets.map((sets, i) => {
                     return (
                 <ListGroupItem tag="a" href="#" action>{sets.title}</ListGroupItem>

@@ -41,7 +41,6 @@ class Landing extends React.Component {
                         <PrivateRoute path="/viewDictationcard" component={ViewDictationcard} />
                         <PrivateRoute path="/viewDictationCardSubmission" component={ViewDictationcardSubmission} />
                         <PrivateRoute path="/editDictationCard" component={ViewDictationQuestion} />
-
                         <Route path="/login" component={Login} />
                     </Switch>
 
