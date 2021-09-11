@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getdataThunk } from '../Redux/getdata/action'
+import { getdataThunk } from '../Redux/actions/action'
 
 import classes from './headinginput.module.css'
 

@@ -191,7 +191,6 @@ class Set {
                         })
                     })
                     .then(() => {
-                        console.log('setdata',setData)
                         return setData
                     })
                 }))

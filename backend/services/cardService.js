@@ -431,7 +431,6 @@ class Card {
                     return data
                 })
             }))
-            console.log(allCard.flashcard, '<<<<<allfc')
             return allCard.flashcard
         })
         .then(() => {
