@@ -57,6 +57,7 @@ class PureModel extends React.Component {
                         </div>
                         <div className="col-6 m-2 p-3 border border-4 rounded-lg d-inline-flex">
                             <div onClick={() => { this.changeTypeClass(); this.toggle();  }} className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+                               
                                 <i className="fas fa-plus" />
                             </div>
                             <div >
@@ -75,14 +76,6 @@ class PureModel extends React.Component {
         )
     }
 }
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         createClassMDP: (title, description) => {
-//             dispatch(createClassThunk(title, description))
-//         },
-
-//     }
-// }
 
 
 export const AddnewPopUp = connect(null, null)(PureModel)
