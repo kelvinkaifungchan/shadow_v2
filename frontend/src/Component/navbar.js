@@ -35,7 +35,6 @@ class PureNavBar extends React.Component {
         console.log("this.props in navbar >>>>>>>>>>>",)
         const { modal } = this.state
         return (
-
             <div className={classes.header}>
                     <div className="col-2">
                         <Link to='/' className={classes.logo}>shadow</Link>

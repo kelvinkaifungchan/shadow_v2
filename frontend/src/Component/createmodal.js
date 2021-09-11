@@ -38,6 +38,7 @@ class PureModel extends React.Component {
     render() {
         return (
             <div>
+
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
@@ -49,9 +50,11 @@ class PureModel extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
+                        <button onClick={()=>{ this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                    
                     </ModalFooter>
                 </Modal>
-               
+
             </div>
         )
     }
@@ -75,3 +78,5 @@ const mapDispatchToProps = dispatch => {
 
 
 export const CreatePopUp = connect(mapStateToProps, mapDispatchToProps)(PureModel)
+
+

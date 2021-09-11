@@ -378,16 +378,52 @@ class Card {
         let allCard = {}
 
         return this.knex("flashcard")
-        .where("user_id", email[0].id)
-        .select("id", "user_id", "flashcardTitle")
-        .then((flashcards)=>{
-            allCard.flashcard = flashcards.map((flashcard)=>{
-                return ({
-                    id: flashcard.id,
-                    user_id: flashcard.user_id,
-                    title: flashcard.flashcardTitle
+        .where("flashcard.user_id", email[0].id)
+        .where("flashcardStatus", true)
+        .select("flashcard.id")
+        .then(async(fcId)=>{
+            let allfc = await Promise.all(fcId.map((id)=>{
+                let data = {}
+                return this.knex("flashcard")
+                .where("flashcard.id", id.id)
+                .select("id", "flashcardTitle","flashcardBody", "flashcardRecording")
+                .then((fcdata)=>{
+                    data.id = fcdata[0].id
+                    data.flashcardTitle = fcdata[0].flashcardTitle
+                    data.flashcardBody = fcdata[0].flashcardBody
+                    data.flashcardRecording = fcdata[0].flashcardRecording
                 })
-            })
+                .then(()=>{
+                    return this.knex("flashcardSubmission")
+                    .where("flashcard_id", id.id)
+                    .where("flashcardSubmissionStatus", true)
+                })
+                .then((subs)=>{
+                    data.submission = subs.map((fuck) =>{
+                        return {
+                            id: fuck.id,
+                            user_id:fuck.user_id,
+                            flashcardSubmissionRecording: fuck.flashcardSubmissionRecording
+                        }
+                    })
+                })
+                .then(async()=>{
+                    let allfb = await Promise.all(data.submission.map((sub)=>{
+                        let fb = {}
+                        return this.knex("flashcard")
+                        .where("flashcardSubmission_id", sub.id)
+                        .where("flashcardFeedbackStatus", true)
+                        .then((fcfb)=>{
+                            fb.user_id = fcfb.user_id
+                        })
+                    }))
+                })
+                .then(()=>{
+                    return data
+                })
+            }))
+            console.log(allfc, '<<<<<allfc')
+            allCard.flashcard = allfc
         })
         .then(() => {
             return this.knex("quizcard")

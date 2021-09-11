@@ -7,6 +7,7 @@ import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Tags from '../Component/tags';
+import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 
 import { DisplayCardModule } from '../Component/displaycardmodule'
@@ -33,6 +34,7 @@ class ViewSet extends React.Component {
             type: "set"
         })
     }
+
     render() {
         console.log("i want to see the props", this.props);
 
@@ -45,6 +47,10 @@ class ViewSet extends React.Component {
                         <p>HeadingInput</p>
                         {/* <Tags/> */}
                         <p>Tags</p>
+
+                        <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        
                         {/* <Users/> */}
                         <p>Users</p>
                     </div>

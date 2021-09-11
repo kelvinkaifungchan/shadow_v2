@@ -7,9 +7,8 @@ import '../Component/main.css'
 import { NavBar } from '../Component/navbar'
 import { CreatePopUp } from '../Component/createmodal'
 
-import { CreateClassBtn } from '../Component/createclassbtn'
-import { CreateSetBtn } from '../Component/createsetbtn'
-
+// import { CreateClassBtn } from '../Component/createclassbtn'
+// import { CreateSetBtn } from '../Component/createsetbtn'
 
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
@@ -22,14 +21,13 @@ class PureDashboard extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            type: ""
-
+            type: "",
+        };
     }
-}
+
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
     }
-
 
     toggle() {
         console.log('t')
