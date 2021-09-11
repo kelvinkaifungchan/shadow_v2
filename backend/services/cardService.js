@@ -382,7 +382,7 @@ class Card {
         .where("flashcardStatus", true)
         .select("flashcard.id")
         .then(async(fcId)=>{
-            let allfc = await Promise.all(fcId.map((id)=>{
+            allCard.flashcard = await Promise.all(fcId.map((id)=>{
                 let data = {}
                 return this.knex("flashcard")
                 .where("flashcard.id", id.id)
@@ -408,13 +408,22 @@ class Card {
                     })
                 })
                 .then(async()=>{
-                    let allfb = await Promise.all(data.submission.map((sub)=>{
-                        let fb = {}
-                        return this.knex("flashcard")
+                    data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
+                        let feedback = {}
+                        return this.knex("flashcardFeedback")
                         .where("flashcardSubmission_id", sub.id)
                         .where("flashcardFeedbackStatus", true)
                         .then((fcfb)=>{
-                            fb.user_id = fcfb.user_id
+                            sub.feedback = fcfb.map((fcfbs)=>{
+                                return {
+                                    user_id: fcfbs.user_id,
+                                    flashcardFeedbackBody: fcfbs.flashcardFeedbackBody,
+                                    flashcardFeedbackTime: fcfbs.flashcardFeedbackTime,
+                                }
+                            })
+                        })
+                        .then(()=>{
+                            return feedback
                         })
                     }))
                 })
@@ -422,8 +431,8 @@ class Card {
                     return data
                 })
             }))
-            console.log(allfc, '<<<<<allfc')
-            allCard.flashcard = allfc
+            console.log(allCard.flashcard, '<<<<<allfc')
+            return allCard.flashcard
         })
         .then(() => {
             return this.knex("quizcard")
