@@ -13,12 +13,12 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: ADD_FEEDBACK_DICTATIONCARD,
-                payload: {user_id: feedback.userEmail, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
+                payload: {user_id: feedback.userEmail, dictationcard_id: feedback.dictationcard_id, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedback_id: feedback.dictationcardFeedbackId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
             })
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: ADD_FEEDBACK_FLASHCARD,
-                payload: {user_id: feedback.userEmail, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
+                payload: {user_id: feedback.userEmail, flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: feedback.flashcardFeedbackId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
             })
         }
     })
@@ -32,12 +32,12 @@ export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: DELETE_FEEDBACK_DICTATIONCARD,
-                payload: {dictationcardFeedback_id: feedback.dictationcardFeedbackId}
+                payload: {dictationcard_id: feedback.dictationcard_id, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedback_id: feedback.dictationcardFeedbackId}
             })
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: DELETE_FEEDBACK_FLASHCARD,
-                payload: {flashcardFeedback_id: feedback.flashcardFeedbackId}
+                payload: {flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: feedback.flashcardFeedbackId}
             })
         }
     })
