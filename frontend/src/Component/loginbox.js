@@ -17,7 +17,6 @@ class PureLoginBox extends React.Component {
     onChangeField = (field, e) => {
         const state = {};
         state[field] = e.currentTarget.value;
-
         this.setState(state);
     }
 
@@ -27,6 +26,7 @@ class PureLoginBox extends React.Component {
 
     login = (e) => {
         e.preventDefault();
+        console.log(this.state.email, this.state.password)
         this.props.loginMDP(this.state.email, this.state.password)
 
     };
