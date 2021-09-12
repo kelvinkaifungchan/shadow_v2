@@ -41,13 +41,15 @@ class Login extends React.Component {
                 <div className="col-6  p-5 d-flex align-items-center">
                         <div className="p-5 mx-5">
                             <div>
-                                <h1>shadow.</h1>
-                                <h2 className="w-75">Simplifying the process of teaching students how to speak, listen and write second languages online.</h2>
+                                <p className="landingLogo">shadow.</p>
+                                <p className="w-75">Simplifying the process of teaching students how to speak, listen and write second languages online.</p>
                             </div>
                         </div>
                     </div>
+                <div className="col-6 p-2 d-flex align-items-center justify-content-center ">
                 {!show ? <LoginBox handleshow={()=>this.handleshow()}/> : null}
                 {show ? <SignUp handleshow={()=>this.handleshow()}/> : null}
+                </div>
             </div>
         );
     }
