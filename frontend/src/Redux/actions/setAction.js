@@ -9,7 +9,7 @@ export const addSet = (set) => async (dispatch) => {
 
    const { data } = await axios.post("http://localhost:8080/api/set", set)
    
-    dispatch({type: ADD_SET, payload: {id: set.setId, description: set.description, title: set.title, }});
+    dispatch({type: ADD_SET, payload: {id: set.setId, description: set.setDesc, title: set.setTitle, }});
 }
 
 export const editSet = (set) => async (dispatch) => {
