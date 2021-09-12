@@ -103,8 +103,6 @@ class Set {
     //list all sets of a classroom
 
     list(body){
-        console.log("body from set Service",body);
-
         return this.knex("set")
             .join("classroom_set", "set.id", "classroom_set.set_id")
             .join("classroom", "classroom_set.classroom_id", "classroom.id")
@@ -193,7 +191,6 @@ class Set {
                         })
                     })
                     .then(() => {
-                        console.log('setdata',setData)
                         return setData
                     })
                 }))

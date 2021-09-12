@@ -100,24 +100,24 @@ export function cardReducer(state = initialState, action) {
             }
 
         case EDIT_FLASHCARD:
-            var newCard = action.payload.content;
-            var newArray = state.card.flashcard.filter((flashcard) => flashcard.flashcard_id !== newCard.flashcard_id);
-            newArray.push(newCard)
+            var newFlashcard = action.payload.content;
+            var newFlashcardArray = state.card.flashcard.filter((flashcard) => flashcard.flashcard_id !== newFlashcard.flashcard_id);
+            newFlashcardArray.push(newFlashcard)
             return {
                 card: {
                     ...state.card,
-                    flashcard: newArray
+                    flashcard: newFlashcardArray
                 }
             }
 
         case EDIT_QUIZCARD:
-            var newCard = action.payload.content;
-            var newArray = state.card.quizcard.filter((quizcard) => quizcard.quizcard_id !== newCard.quizcard_id);
-            newArray.push(newCard)
+            var newQuizcard = action.payload.content;
+            var newQuizcardArray = state.card.quizcard.filter((quizcard) => quizcard.quizcard_id !== newQuizcard.quizcard_id);
+            newArray.push(newQuizcard)
             return {
                 card: {
                     ...state.card,
-                    quizcard: newArray
+                    quizcard: newQuizcardArray
                 }
             }
 
@@ -181,7 +181,7 @@ export function cardReducer(state = initialState, action) {
                     quizcard: state.card.quizcard.multipleChoice.map((multipleChoice) => {
                         if(multipleChoice.multipleChoice_id === action.payload.multipleChoice_id){
                             return {
-                                ...multiplChoice,
+                                ...multipleChoice,
                                 submission:[...multipleChoice.submission, action.payload]
                             }
                         }
@@ -214,12 +214,14 @@ export function cardReducer(state = initialState, action) {
                         if(flashcard.flashcard_id === action.payload.flashcard_id){
                             return{
                                 ...flashcard,
-                                submission: flashcard.submission.filter((submission) => submission.flashcardSubmission_id != action.payload.flashcardSubmission_id)
+                                submission: flashcard.submission.filter((submission) => submission.flashcardSubmission_id !== action.payload.flashcardSubmission_id)
                             }
                         }
+                        return flashcard
                     })
                 }
             }
+        
         case DELETE_SUBMISSION_DICTATIONCARD:
             return {
                 card:{
@@ -228,9 +230,10 @@ export function cardReducer(state = initialState, action) {
                         if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
                             return{
                                 ...dictationcard,
-                                submission: dictationcard.submission.filter((submission) => submission.dictationcardSubmission_id != action.payload.dictationcardSubmission_id)
+                                submission: dictationcard.submission.filter((submission) => submission.dictationcardSubmission_id !== action.payload.dictationcardSubmission_id)
                             }
                         }
+                        return dictationcard;
                     })
                 }
             }
@@ -243,9 +246,10 @@ export function cardReducer(state = initialState, action) {
                         if(multipleChoice.multipleChoice_id === action.payload.multipleChoice_id){
                             return {
                                 ...multipleChoice,
-                                submission: multipleChoice.submission.filter((submission) => submission.multipleChoiceSubmission_id != action.payload.multipleChoiceSubmission_id)
+                                submission: multipleChoice.submission.filter((submission) => submission.multipleChoiceSubmission_id !== action.payload.multipleChoiceSubmission_id)
                             }
                         }
+                        return multipleChoice
                     })
                 }
             }
@@ -258,9 +262,10 @@ export function cardReducer(state = initialState, action) {
                         if(trueFalse.trueFalse_id === action.payload.trueFalse_id){
                             return{
                                 ...trueFalse,
-                                submission: trueFalse.submission.filter((submission) => submission.trueFalseSubmission_id != action.payload.trueFalseSubmission_id)
+                                submission: trueFalse.submission.filter((submission) => submission.trueFalseSubmission_id !== action.payload.trueFalseSubmission_id)
                             }
                         }
+                        return trueFalse
                     })
                 }
             }
@@ -273,13 +278,14 @@ export function cardReducer(state = initialState, action) {
                         if(flashcard.flashcard_id === action.payload.flashcard_id){
                             return {
                                 ...flashcard,
-                                submission: submission.map((submission) => {
+                                submission: flashcard.submission.map((submission) => {
                                     if(submission.flashcardSubmission_id === action.payload.flashcardSubmission_id){
                                         return {
                                             ...submission, 
                                             feedback: action.payload
                                         }
                                     }
+                                    return flashcard
                                   
                                 })
                             }
@@ -297,14 +303,14 @@ export function cardReducer(state = initialState, action) {
                         if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
                             return {
                                 ...dictationcard,
-                                submission: submission.map((submission) => {
+                                submission: dictationcard.submission.map((submission) => {
                                     if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
                                         return {
                                             ...submission, 
                                             feedback: action.payload
                                         }
                                     }
-                                  
+                                  return submission
                                 })
                             }
                         }
@@ -321,13 +327,14 @@ export function cardReducer(state = initialState, action) {
                         if(flashcard.flashcard_id === action.payload.flashcard_id){
                             return {
                                 ...flashcard,
-                                submission: submission.map((submission) => {
+                                submission: flashcard.submission.map((submission) => {
                                     if(submission.flashcardSubmission_id === action.payload.flashcardSubmission_id){
                                         return {
                                             ...submission, 
-                                            feedback: submission.feedback.filter((feedback) => feedback.flashcardFeedback_id != action.payload.flashcardFeedback_id )
+                                            feedback: submission.feedback.filter((feedback) => feedback.flashcardFeedback_id !== action.payload.flashcardFeedback_id )
                                         }
                                     }
+                                    return submission
                                   
                                 })
                             }
@@ -345,13 +352,14 @@ export function cardReducer(state = initialState, action) {
                         if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
                             return {
                                 ...dictationcard,
-                                submission: submission.map((submission) => {
+                                submission: dictationcard.submission.map((submission) => {
                                     if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
                                         return {
                                             ...submission, 
-                                            feedback: submission.feedback.filter((feedback) => feedback.dictationcardFeedback_id != action.payload.dictationcardFeedback_id )
+                                            feedback: submission.feedback.filter((feedback) => feedback.dictationcardFeedback_id !== action.payload.dictationcardFeedback_id )
                                         }
                                     }
+                                    return submission
                                   
                                 })
                             }
