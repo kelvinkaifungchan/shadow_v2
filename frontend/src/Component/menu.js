@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/actions/classroomAction'
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { getdataThunk } from '../Redux/actions/action'
 import "./menu.css"
@@ -36,8 +35,8 @@ const mapStateToProps = (state) => {
     return {
 
         user: state.userStore.user,
-        classrooms: state.classroomStore.classroom,
-        sets: state.setStore.set,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
         tags: state.tagStore.tags,
     }

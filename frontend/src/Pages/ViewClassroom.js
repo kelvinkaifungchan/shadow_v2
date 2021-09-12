@@ -20,7 +20,9 @@ class ViewClassroom extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            type: ""
+            type: "",
+            tagModal: false,
+            shareModal: false,
         };
     }
     toggle() {
@@ -34,6 +36,25 @@ class ViewClassroom extends React.Component {
         this.setState({
             type: "class"
         })
+    }
+
+    tagToggle(){
+        console.log('tag tog')
+        this.setState({
+            tagModal: !this.state.tagModal
+        })
+    }
+
+    shareToggle(){
+        console.log('share tog')
+        this.setState({
+            shareModal: !this.state.shareModal
+        })
+    }
+
+    logout = (e) => {
+        e.preventDefault();
+        this.props.logout()
     }
 
     render() {
