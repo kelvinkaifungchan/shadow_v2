@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 
 import { NavBar } from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
+import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
 import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
@@ -66,7 +66,7 @@ class ViewClassroom extends React.Component {
 
                 <div className="row">
                     <div className="col col-12">
-                        {/* <HeadingInput/> */}
+                        <HeadingInput/>
                         <p>HeadingInput</p>
                         {/* <Tags/> */}
                         <p>Tags</p>
