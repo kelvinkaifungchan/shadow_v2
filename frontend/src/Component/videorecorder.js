@@ -85,6 +85,7 @@ class PureVideoRecorder extends React.Component {
         formData.append("file", blob, `${dt}.webm`);
 
         const videoURL = window.URL.createObjectURL(blob);
+        this.props.handleRecording(videoURL)
         // append videoURL to list of saved videos for rendering
         const videos = this.state.videos.concat([videoURL]);
         const preview = document.getElementById('preview');

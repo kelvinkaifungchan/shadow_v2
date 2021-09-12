@@ -9,8 +9,6 @@ class PureHeadingInput extends React.Component {
     super(props)
   }
   render() {
-    console.log("this is this.state in heading ip", this.state);
-    console.log("this is this.state in heading ip", this.props);
 
     return (
       <>
@@ -21,11 +19,11 @@ class PureHeadingInput extends React.Component {
             className={classes.title}
           />
         {
-          this.props.card.type ==="flashcard" ? null : this.props.card === "undefined"? <input
+          this.props.card ? null : <input
             type="text"
             placeholder="Insert a description"
             className={classes.description}
-          />: null
+          />
         }
 
         </form>
@@ -35,12 +33,4 @@ class PureHeadingInput extends React.Component {
 }
 
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getdata: (email) => {
-      dispatch(getdataThunk(email))
-    }
-  }
-}
-
-export const HeadingInput = connect(null, mapDispatchToProps)(PureHeadingInput)
+export const HeadingInput = connect(null, null)(PureHeadingInput)
