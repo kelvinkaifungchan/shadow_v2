@@ -14,7 +14,7 @@ import { DisplaySetModule } from '../Component/displaysetmodule'
 
 import { AddnewPopUp } from '../Component/addnewmodal'
 
-
+import classes from './ViewClassroom.module.css'
 
 class ViewClassroom extends React.Component {
     constructor(props) {
@@ -28,13 +28,13 @@ class ViewClassroom extends React.Component {
     }
 
     // componentDidMount() {
-    //     this.props.getdata({ email: this.props.email })
+    //     this.props.getdata({ email: this.props.user.email })
     // }
 
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
     }
-    
+
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -71,6 +71,7 @@ class ViewClassroom extends React.Component {
             <div>
                 <NavBar />
 
+            <div className={classes.viewclassroom}>
                 <div className="row">
                     <div className="col col-12">
 
@@ -92,7 +93,7 @@ class ViewClassroom extends React.Component {
                     <div className="row d-flex justify-content-between m-3">
 
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
-                        <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className="col-3 m-1 p-1 border border-4 rounded-lg d-inline-flex ">
+                        <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className="col m-1 p-1 border border-4 rounded-lg d-inline-flex ">
                             <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
                                 <i className="fas fa-plus" />
                             </div>
@@ -100,10 +101,13 @@ class ViewClassroom extends React.Component {
                                 <span>Add new or exist set</span>
                             </div>
                         </div>
+                        
+
                         <DisplaySetModule sets={this.props.sets} />
 
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

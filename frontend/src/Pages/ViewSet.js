@@ -33,11 +33,12 @@ class ViewSet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "classroomTitle",
             read: "readonly",
             selectModal:false,
             modal: false,
-            type: ""
+            type: "",
+            tagModal: false,
+            shareModal: false,
         }
     }
 
@@ -53,6 +54,19 @@ class ViewSet extends React.Component {
         this.setState({
             modal: !this.state.modal,
         });
+    }
+
+    tagToggle(){
+        this.setState({
+            tagModal: !this.state.tagModal
+        })
+    }
+
+    shareToggle(){
+        console.log('share tog')
+        this.setState({
+            shareModal: !this.state.shareModal
+        })
     }
 
     changeTypeSet(){
@@ -88,7 +102,6 @@ class ViewSet extends React.Component {
                         </div>
 
                 <div className="row">
-                    <div className="col col-12">
                     <AddnewPopUp create={this.state} toggle={() => this.toggle()} /> 
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className="col-3 m-1 p-1 border border-4 rounded-lg d-inline-flex ">
                             <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
@@ -98,10 +111,7 @@ class ViewSet extends React.Component {
                                 <span>Add new or exist card</span>
                             </div>
                         </div>
-                        <div className="row">
                         <DisplayCardModule cards={this.props.cards} />
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -113,7 +123,7 @@ const mapStateToProps = (state) => {
     console.log("state in VIEWSET", state);
 
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
+        email: state.authStore.email,
         user: state.userStore.user,
         classrooms: state.classroomStore.classrooms,
         sets: state.setStore.sets,
