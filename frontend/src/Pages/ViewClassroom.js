@@ -11,7 +11,7 @@ import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 import { DisplaySetModule } from '../Component/displaysetmodule'
-
+import { DisplayClassroomTag } from '../Component/displayclassroomtag';
 import { AddnewPopUp } from '../Component/addnewmodal'
 
 import classes from './ViewClassroom.module.css'
@@ -72,26 +72,42 @@ class ViewClassroom extends React.Component {
                 <NavBar />
 
             <div className={classes.viewclassroom}>
-                <div className="row">
-                    <div className="col col-12">
-
-                        {/* <Tags/> */}
-                        <p>Tags</p>
-                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
-
-                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">tags</h2><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
-                        
-                        {/* <Users/> */}
-                        <p>Users</p>
+                <div className="row d-flex p-4">
+                    <div className="col-8">
+                    <h1>Sample Classroom Title</h1>
+                    {/* <h1>{this.props.classrooms[0].title}</h1> */}
+                    <h6>Sample Classroom Description</h6>
+                        {/* <h6>{this.props.classrooms[0].description}</h6> */}
                     </div>
-                </div>
-                <div className="p-3">
+                    </div>
 
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
+
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
+
+                {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
+                        {/* <Tags/> */}
+                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                        </span>
+            </div>
+
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <button className={classes.tagbutton}>#sampletag</button>
+                {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        </span>
+                        </div>
                     {/* Add button */}
                     <div className="row d-flex justify-content-between m-3">
-
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
                         <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className="col m-1 p-1 border border-4 rounded-lg d-inline-flex ">
                             <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
@@ -107,8 +123,7 @@ class ViewClassroom extends React.Component {
 
                     </div>
                 </div>
-            </div>
-            </div>
+        </div>
         );
     }
 }
