@@ -5,33 +5,42 @@ import { getdataThunk } from '../Redux/actions/action'
 import classes from './headinginput.module.css'
 
 class PureHeadingInput extends React.Component {
-    render(){
-        return (
-            <>
-      <form className={classes.headingframe}>
-        <input
-          type="text" 
-          placeholder={this.props.heading.title}
-          className={classes.title}
-        />
-        <input
-          type="text" 
-          placeholder={this.props.heading.description}
-          className={classes.description}
-        />
-      </form>
-            </>
-        )
-    }
-}
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    console.log("this is this.state in heading ip", this.state);
+    console.log("this is this.state in heading ip", this.props);
 
-
-const mapDispatchToProps  = dispatch => {
-    return {
-        getdata: (email) => {
-            dispatch(getdataThunk(email))
+    return (
+      <>
+        <form className={classes.headingframe}>
+          <input onChange={(e) => this.props.handleHeading(e.currentTarget.value)}
+            type="text"
+            placeholder= {this.props.heading.title}
+            className={classes.title}
+          />
+        {
+          this.props.card.type ==="flashcard" ? null : this.props.card === "undefined"? <input
+            type="text"
+            placeholder= {this.props.heading.description}
+            className={classes.description}
+          />: null
         }
-    }
+
+        </form>
+      </>
+    )
+  }
 }
 
-export const HeadingInput = connect (null, mapDispatchToProps)(PureHeadingInput)
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getdata: (email) => {
+      dispatch(getdataThunk(email))
+    }
+  }
+}
+
+export const HeadingInput = connect(null, mapDispatchToProps)(PureHeadingInput)

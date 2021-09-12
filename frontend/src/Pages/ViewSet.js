@@ -19,6 +19,7 @@ class ViewSet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectModal:false,
             modal: false,
             type: "",
             set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
@@ -27,6 +28,11 @@ class ViewSet extends React.Component {
     toggle() {
         this.setState({
             modal: !this.state.modal,
+        });
+    }
+    selectToggle() {
+        this.setState({
+            selectModal: !this.state.selectModal,
         });
     }
     changeTypeSet(){
@@ -48,7 +54,7 @@ class ViewSet extends React.Component {
                         <p>Tags</p>
 
                         <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
                         <p>Users</p>

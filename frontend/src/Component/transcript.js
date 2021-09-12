@@ -12,7 +12,7 @@ class PureTranscript extends React.Component {
         <div className={classes.transcriptframe}>
             <h5> Transcript </h5>
         <form>
-        <textarea
+        <textarea onChange={(e)=>this.props.handleTranscript(e.currentTarget.value)}
           placeholder="Insert a transcript here"
           className={classes.transcript}
           name={this.props.title.title}
