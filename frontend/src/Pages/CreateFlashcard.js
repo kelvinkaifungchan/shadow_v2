@@ -88,14 +88,6 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps = dispatch => {
-    return {
-        loginMDP: (email, password) => {
-            dispatch(addAudioRecordingThunk(email, password))
-        }
-     
-    }
-}
 
 
 const connectedCreateFlashcard = connect(mapStateToProps, null)(CreateFlashcard)
