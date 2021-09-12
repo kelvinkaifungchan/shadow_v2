@@ -16,7 +16,7 @@ export const addCard = (card) => async (dispatch) => {
     console.log("adding card")
    return axios.post("http://localhost:8080/api/card", card)
    .then(response => {
-       console.log(response)
+       console.log("card Response",response)
        if (card.type === "dictationcard") {
         dispatch({
             type: ADD_DICTATIONCARD,

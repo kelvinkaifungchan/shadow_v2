@@ -6,7 +6,6 @@ class ClassroomService {
   //Method to add classroom
   add(body) {
     console.log("Adding Classroom");
-    console.log(body)
     return this.knex("user")
       .where({
         email: body.email,
