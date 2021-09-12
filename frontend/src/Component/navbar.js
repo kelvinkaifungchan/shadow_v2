@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
     return {
 
 
-                    user: state.userStore.user,
+        user: state.userStore.user,
         classrooms: state.classroomStore.classroom,
         sets: state.setStore.set,
         cards: state.cardStore.card,
