@@ -22,6 +22,7 @@ class PureDashboard extends React.Component {
         this.state = {
             modal: false,
             type: "",
+            classroomId: "",
         };
     }
 

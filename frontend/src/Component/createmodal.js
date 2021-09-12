@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addClassroom } from '../Redux/actions/classroomAction'
+import { addSet } from '../Redux/actions/setAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +25,6 @@ class PureModel extends React.Component {
     }
 
     submit = (e) => {
-        console.log("this.props in createmodal", this.props);
         e.preventDefault();
         if (this.props.create.type === "class") {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
@@ -42,9 +42,9 @@ class PureModel extends React.Component {
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
-                            {/* <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4"/> */}
-                            <input onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomTitle" : "setTitle")} value={this.state.title} type="text" className="form-control mb-4" placeholder={this.props.create.type === "class" ? "Classroom Title" : "Set Title"} />
-                            <textarea onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomDesc" : "setDesc")} value={this.state.description} type="text" style={{ resize: "none" }} className="form-control" placeholder={this.props.create.type === "class" ? "Classroom Description" : "Set Description"} />
+                            <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4" hidden="true"/>
+                            <input onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomTitle" : "setTitle")} value={this.props.create.type === "class" ? this.state.classroomTitle : this.state.setTitle} type="text" className="form-control mb-4" placeholder={this.props.create.type === "class" ? "Classroom Title" : "Set Title"} />
+                            <textarea onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomDesc" : "setDesc")} value={this.props.create.type === "class" ? this.state.classroomDesc : this.state.setDesc} type="text" style={{ resize: "none" }} className="form-control" placeholder={this.props.create.type === "class" ? "Classroom Description" : "Set Description"} />
                         </Form>
                     </ModalBody>
                     <ModalFooter>
@@ -73,8 +73,21 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         createClassMDP: (email, title, description) => {
-            dispatch(addClassroom(email, title, description))
+            let classroom = {
+                email: email,
+                title: title,
+                desc: description
+            }
+            dispatch(addClassroom(classroom))
         },
+        createSetMDP: (email, title, description) => {
+            let set = {
+                email: email,
+                title: title,
+                desc: description
+            }
+            dispatch(addSet(set))
+        }
     }
 }
 

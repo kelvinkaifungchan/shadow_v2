@@ -5,11 +5,11 @@ export const EDIT_CLASSROOM = "EDIT_CLASSROOM";
 export const DELETE_CLASSROOM = "DELETE_CLASSROOM";
 
 export const addClassroom = (classroom) => async (dispatch) => {
-    console.log("adding classroom")
+    console.log("adding classroom", classroom)
 
    const { data } = await axios.post("http://localhost:8080/api/classroom", classroom)
-   
-    dispatch({type: ADD_CLASSROOM, payload: {classroom_id: classroom.classroomId, description: classroom.description, title: classroom.title}});
+   console.log("this is the post return", data)
+    dispatch({type: ADD_CLASSROOM, payload: {classroom_id: data[0], description: classroom.description, title: classroom.title}});
 }
 
 export const editClassroom = (classroom) => async (dispatch) => {

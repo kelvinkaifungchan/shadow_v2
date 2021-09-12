@@ -18,6 +18,7 @@ class Card {
                 flashcardRecording: body.flashcardRecording,
                 flashcardStatus: true,
             })
+            .returning("id")
             .catch((err) => {
                 console.log(err)
             });
@@ -33,7 +34,7 @@ class Card {
             .returning("id")
             .then((quizcardId)=>{
                 if(body.multipleChoice != null){
-                    body.multipleChoice.map((mcData)=>{
+                    return body.multipleChoice.map((mcData)=>{
                         return this.knex("multipleChoice")
                         .insert({
                             quizcard_id: quizcardId,
@@ -46,6 +47,7 @@ class Card {
                             multipleChoiceTime: mcData.multipleChoiceTime,
                             multipleChoiceStatus: true,
                         })
+                        .returning("id")
                     })
                 }
 
@@ -59,6 +61,7 @@ class Card {
                             trueFalseTime: tfData.trueFalseTime,
                             trueFalseStatus: true,
                         })
+                        .returning("id")
                     })
                 }
             })
@@ -77,7 +80,7 @@ class Card {
             .returning("id")
             .then((dicId) => {
                 if(body.dictation != null){
-                    body.dictation.map((dicData)=>{
+                    return body.dictation.map((dicData)=>{
                         return this.knex("dictation")
                         .insert({
                             user_id: userId[0].id,
@@ -86,6 +89,7 @@ class Card {
                             dictationRecording: dicData.dictationRecording,
                             dictationStatus: true
                         })
+                        .returning("id")
                     })
                 }
             })
