@@ -12,6 +12,7 @@ import { HeadingInput } from '../Component/headinginput';
 import {VideoRecorder} from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
+import { Link } from 'react-router-dom';
 
 import classes from './CreateFlashcard.module.css'
 
@@ -46,7 +47,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                         {/* <FormSubmit/> */}
-                        <button>Create Card</button>
+                        <Link to='/viewset'><button>Create Card</button></Link>
                         </div>
                     </div>
 

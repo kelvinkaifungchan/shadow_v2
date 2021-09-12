@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addClassroom } from '../Redux/actions/classroomAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class PureModel extends React.Component {
@@ -23,22 +24,21 @@ class PureModel extends React.Component {
     }
 
     submit = (e) => {
-        console.log("this.props in createmodal",this.props);
+        console.log("this.props in createmodal", this.props);
         e.preventDefault();
         if (this.props.create.type === "class") {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
-            this.props.history.push('/viewclassroom')
         } else {
-            // this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
-            this.props.history.push('/viewset')
+            this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
         }
 
     }
 
     render() {
+        console.log("this.props.create", this.props.create);
         return (
             <div>
-                <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
+                <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
@@ -48,9 +48,12 @@ class PureModel extends React.Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
-                        <button onClick={()=>{ this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
-                    
+                        {this.props.create.type === "class" ?
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/viewclassroom'><div>Create</div></Link> </button>:
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/viewset'><div>Create</div></Link></button>
+                        }
+                        <button onClick={() => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+
                     </ModalFooter>
                 </Modal>
 
@@ -60,7 +63,7 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in createmodal", state);
 
     return {
         user: state.userStore.user,
