@@ -35,4 +35,3 @@ class PureCreateClassBtn extends React.Component {
 
 
 export const CreateClassBtn = connect(null, null)(PureCreateClassBtn)
-

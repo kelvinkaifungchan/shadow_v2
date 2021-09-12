@@ -35,4 +35,3 @@ setToggle() {
 
 
 export const CreateSetBtn = connect(null, null)(PureCreateSetBtn)
-

@@ -21,7 +21,8 @@ class PureTagModal extends React.Component{
 
     submit = (e) => {
         e.preventDefault();
-        this.props.createTagMDP(this.state.tagBody)
+
+        this.props.createClassMDP(this.state.title, this.state.description)
     }
 
     render() {
