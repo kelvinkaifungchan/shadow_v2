@@ -9,9 +9,10 @@ export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 export const LOGOUT_NOW_ACTION = 'LOGOUT_NOW_ACTION';
 
-function loginSuccessActionCreator() {
+function loginSuccessActionCreator(email) {
   return {
-    type: LOGIN_SUCCESS_ACTION
+    type: LOGIN_SUCCESS_ACTION,
+    payload: email
   }
 }
 
@@ -36,7 +37,7 @@ export function loginUserThunk(email, password) {
       } else {
         localStorage.setItem('token', response.data)
         // Dispatch the success action
-        dispatch(loginSuccessActionCreator());
+        dispatch(loginSuccessActionCreator(email));
         
       }
     }).catch(err => console.log("Error: ", err))

@@ -25,7 +25,6 @@ class ViewFlashCard extends React.Component {
 
 
     render() {
-        console.log("i want to see the props",this.props);
 
         return (
             <div>
