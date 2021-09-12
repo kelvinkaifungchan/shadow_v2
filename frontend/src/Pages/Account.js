@@ -12,7 +12,8 @@ import classes from './Account.module.css'
 class Account extends React.Component {
     
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        console.log("componentDidMount", this.props)
+        this.props.getdata({ email: this.props.user.email })
     }
 
     logout = (e) => {
@@ -85,8 +86,8 @@ class Account extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.userStore.user,
-        classrooms: state.classroomStore.classroom,
-        sets: state.setStore.set,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
         tags: state.tagStore.tags,
     }

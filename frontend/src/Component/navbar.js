@@ -25,7 +25,7 @@ class PureNavBar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        this.props.getdata({ email: this.props.user.email })
     }
     logout = (e) => {
         e.preventDefault();
