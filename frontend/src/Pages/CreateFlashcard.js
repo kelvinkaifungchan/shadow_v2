@@ -43,7 +43,7 @@ class CreateFlashcard extends React.Component {
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                        <HeadingInput/>
+                        <HeadingInput title={this.state}/>
                         </div>
                         <div className="col-4">
                         {/* <FormSubmit/> */}
@@ -53,8 +53,12 @@ class CreateFlashcard extends React.Component {
 
                     {/* Video & Transcript row */}
                 <div className="row d-flex p-4">
-                        <VideoRecorder/>
+                    <div className="col">
+                    <VideoRecorder/>
+                    </div>
+                       <div className="col">
                             <Transcript title={this.state}/>
+                            </div>
                 </div>
 
                     <BrowserRouter>

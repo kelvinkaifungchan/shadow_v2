@@ -11,10 +11,12 @@ class PureNavBar extends React.Component {
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
     }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
+    
     render() {
         console.log("this.props in navbar >>>>>>>>>>>",)
 

@@ -13,14 +13,14 @@ class PureTranscript extends React.Component {
             <h5> Transcript </h5>
         <form>
         <textarea
-          placeholder="Insert a transcript here"
+          placeholder="Transcript"
           className={classes.transcript}
           name={this.props.title.title}
+          disabled= {this.props.title.read !=null ? true : false}
         />
       </form>
       </div>
       </div>
-
         )
     }
 }

@@ -14,11 +14,13 @@ class PureHeadingInput extends React.Component {
           type="text" 
           placeholder="Untitled Flashcard"
           className={classes.title}
+          disabled= {this.props.title.read !=null ? true : false}
         />
         <input
           type="text" 
           placeholder="Insert a description"
           className={classes.description}
+          disabled= {this.props.title.read !=null ? true : false}
         />
       </form>
             </>

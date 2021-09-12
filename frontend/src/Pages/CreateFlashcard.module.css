@@ -16,3 +16,8 @@
 .createflashcard button:active {
     background-color: #7879F1;
   }
+
+ .createflashcard video {
+    width: 100%    !important;
+    height: auto   !important;
+}

@@ -1,0 +1,93 @@
+
+
+.viewflashcard {
+    margin: 2% 5%
+    }
+    
+video, iframe {
+    width: 100%;
+    height: auto;
+}
+
+div.submissions {
+    padding: 20px
+}
+
+div.feedback {
+  padding: 20px
+}
+
+.scrollsubmission {
+    background-color:transparent;
+    overflow: auto;
+    white-space: nowrap;
+    display: flex;
+  }
+  
+.scrollicon {
+    display: flex;
+    /* padding: 14px; */
+    /* width: 6rem; */
+    /* height: auto; */
+    /* border-radius: 50%; */
+    background-color: transparent;
+    /* margin: 2px; */
+  }
+  
+
+.scrollicon img{
+	width: 50px;
+	height: 50px;
+	/* -webkit-border-radius: 30px;  */
+    border: 2px solid #3D4176;
+	border-radius: 50%; 
+	}
+/* 
+    .scrollplusicon i{
+        width: 50px;
+        height: 50px;
+        border: 2px solid #3D4176;
+        border-radius: 50%; 
+        } */
+
+    /* .scrollplusicon {
+        display: flex;
+        padding: 14px;
+        width: 6rem;
+        height: auto;
+        border-radius: 50%;
+        background-color: transparent;
+        margin: 2px;
+        align-items: center;
+      } */
+
+  
+.scrollsubmission button {
+    font: inherit;
+    cursor: pointer;
+    /* display: flex; */
+	width: 50px;
+	height: 50px;
+    text-align: center;
+    color: #3D4176;
+    border: 2px solid #3D4176;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 2px;
+    /* padding: 6px; */
+    /* position:relative; */
+  }
+  
+.scrollfeedback {
+    background-color:transparent;
+    overflow: auto;
+    white-space: nowrap;
+    height: 18vh;
+}
+
+.scrollfeedbackcard {
+    border: 1px solid #5D5FEF;
+    border-radius: 4px;
+    margin: 6px;
+}
+
