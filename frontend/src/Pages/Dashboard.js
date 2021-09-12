@@ -27,6 +27,7 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Propshere", this.props)
         this.props.getdata({ email: this.props.email })
     }
 
