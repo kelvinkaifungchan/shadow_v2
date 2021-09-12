@@ -1,4 +1,4 @@
-h1 {
+.landingLogo {
     font-size: 150px;
     font-weight: bold;
 }
@@ -6,6 +6,7 @@ h1 {
 h2 {
     font-size: 20px;
     font-weight: normal;
+    text-align: justify;
     margin-left: 2rem;
     margin-right: 2rem;
 }

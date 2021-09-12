@@ -12,6 +12,7 @@ class ClassroomService {
         
       })
       .then((email) => {
+        console.log(email)
         return this.knex
           .insert({
             user_id: email[0].id,
@@ -19,7 +20,8 @@ class ClassroomService {
             classroomDesc: body.desc,
             classroomStatus: true
           })
-          .into("classroom");
+          .into("classroom")
+          .returning("id")
       });
   }
 

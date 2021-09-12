@@ -4,7 +4,6 @@ import '../Component/main.css'
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
-import { logoutNowThunk } from '../Redux/loginbox/action'
 import { LoginBox } from '../Component/loginbox'
 import { SignUp } from '../Component/signupbox';
 
@@ -34,10 +33,7 @@ class Login extends React.Component {
         });
     }
 
-    logout (e){
-        e.preventDefault();
-        this.props.logout()
-    }
+
     render() {
         const { show } = this.state;
         return (
@@ -45,13 +41,15 @@ class Login extends React.Component {
                 <div className="col-6  p-5 d-flex align-items-center">
                         <div className="p-5 mx-5">
                             <div>
-                                <h1>shadow.</h1>
-                                <h2 className="w-75">Simplifying the process of teaching students how to speak, listen and write second languages online.</h2>
+                                <p className="landingLogo">shadow.</p>
+                                <p className="w-75">Simplifying the process of teaching students how to speak, listen and write second languages online.</p>
                             </div>
                         </div>
                     </div>
+                <div className="col-6 p-2 d-flex align-items-center justify-content-center ">
                 {!show ? <LoginBox handleshow={()=>this.handleshow()}/> : null}
                 {show ? <SignUp handleshow={()=>this.handleshow()}/> : null}
+                </div>
             </div>
         );
     }
@@ -62,14 +60,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
+
+const connectedLogin = connect(mapStateToProps, null)(Login)
 export { connectedLogin as Login };

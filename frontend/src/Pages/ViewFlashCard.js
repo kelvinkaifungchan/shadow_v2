@@ -2,10 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import { getdataThunk } from '../Redux/getdata/action'
-import { logoutNowThunk } from '../Redux/loginbox/action'
-import {Account} from './Account';
-
+import { getdataThunk } from '../Redux/actions/action'
+import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+import { Account } from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
 import { NavBar } from '../Component/navbar';
@@ -16,7 +15,7 @@ import { VideoPlayer } from '../Component/videoplayer';
 import { Transcript } from '../Component/transcript';
 // import FlashcardSubmissions from '../Component/flashcardSubmission';
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
-
+import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
 
 import classes from './ViewFlashcard.module.css'
 
@@ -28,7 +27,7 @@ class ViewFlashCard extends React.Component {
         // }
         this.state = {
             title: "classroomTitle",
-            read: "readonly"
+            read: "readonly",
         }
     }
 
@@ -78,30 +77,54 @@ class ViewFlashCard extends React.Component {
                                     <i className="fas fa-plus"></i>
                                     </button>
                                     
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
-                                    <button className={classes.scrollicon}> 
+                                    <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </button>
+                                    </div>
 
+
+                                    <div className={classes.scrollicon}> 
+                                        <img src={this.props.user.picture} alt="Avatar"></img>
+                                    </div>
+
+
+                                    <div className={classes.scrollicon}> 
+                                        <img src={this.props.user.picture} alt="Avatar"></img>
+                                    </div>
+
+
+                                    <div className={classes.scrollicon}> 
+                                        <img src={this.props.user.picture} alt="Avatar"></img>
+                                    </div>
+
+
+                                    <div className={classes.scrollicon}> 
+                                        <img src={this.props.user.picture} alt="Avatar"></img>
+                                    </div>
+
+
+                                    <div className={classes.scrollicon}> 
+                                        <img src={this.props.user.picture} alt="Avatar"></img>
+                                    </div>
 
                                 </div>
                             </div>
@@ -110,10 +133,7 @@ class ViewFlashCard extends React.Component {
                                 <h6>Feedback</h6>
                                 <div className={classes.scrollfeedback}>
                                     <div className={classes.scrollfeedbackcard}> 
-                                        <table> 
-                                            <th>Timestamp</th>
-                                            <td>Comment</td>
-                                        </table>
+                                    {/* <DisplayFlashcardFeedbackModule cards={this.props.cards}/> */}
                                     </div>
 
                                     <div className={classes.scrollfeedbackcard}> 
@@ -155,14 +175,11 @@ class ViewFlashCard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps  = dispatch => {

@@ -17,20 +17,21 @@ class ShadowRouter {
 
     //Router to get all data for a user
     post (req, res) {
+        console.log("req.body",req.body);
         console.log("Requesting getting all data for a user")
         let data = {}
         return this.userService
         .user(req.body)
         .then((user) => {
-            console.log("user",user);
+            console.log("ShadowRouter user.user")
             return data.user = user
         })
         .then(() => {
-            console.log('tagsvc.search')
             return this.tagService
             .search(req.body)
         })
         .then((tags) => {
+            console.log("ShadowRouter tag.search")
             return data.tags = tags
         })
         .then(() => {
@@ -38,33 +39,31 @@ class ShadowRouter {
             .list(req.body)
         })
         .then((classrooms) => {
-            console.log("clsrm from router");
+            console.log("ShadowRouter classroom.list")
             return data.classrooms = classrooms
         })
         .then(() => {
-            console.log('setsvc.user')
             return this.setService
             .user(req.body)
         })
         .then((sets) => {
-            console.log('sets.sets', sets)
+            console.log("ShadowRouter set.user")
             return data.sets = sets
         })
         .then(() => {
-            console.log('cardsvc.user')
             return this.cardService
             .user(req.body)
         })
         .then((cards) => {
-            console.log('cardsvc.user done')
+            console.log("ShadowRouter card.user")
             return data.cards = cards
         })
         .then(() => {
-            console.log("Data in shadow router", data)
+            // console.log("Data in shadow router", data)
             return res.json(data)
         })
         .catch((err) => {
-            console.log(err);
+            console.log('shadow route err', err);
             return res.status(500).json(err)
         })
     }

@@ -5,12 +5,13 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   LOGOUT_NOW_ACTION
-} from "./action";
+} from "../actions/loginboxAction";
 
 const initialState = {
   error: "",
   loading: false,
-  isAuthenticated: false || (localStorage.getItem('token') != null)
+  isAuthenticated: false || (localStorage.getItem('token') != null),
+  email:"",
 };
 
 export function authReducer(state = initialState, action) {
@@ -26,7 +27,8 @@ export function authReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        isAuthenticated: true
+        isAuthenticated: true,
+        email: action.payload
       };
     case LOGIN_FAILURE_ACTION:
     case SIGN_UP_FAILURE:

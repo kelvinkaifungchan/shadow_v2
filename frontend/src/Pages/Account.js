@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
+import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 
-import { getdataThunk } from '../Redux/getdata/action'
-import { logoutNowThunk } from '../Redux/loginbox/action'
+import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
 
@@ -12,7 +12,8 @@ import classes from './Account.module.css'
 class Account extends React.Component {
     
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        console.log("componentDidMount", this.props)
+        this.props.getdata({ email: this.props.user.email })
     }
 
     logout = (e) => {
@@ -84,14 +85,11 @@ class Account extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps  = dispatch => {

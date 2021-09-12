@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getdataThunk } from '../Redux/getdata/action'
-import { Form } from 'react-bootstrap'
+import { getdataThunk } from '../Redux/actions/action'
+import { Form } from 'reactstrap'
 
 import classes from './transcript.module.css'
 
@@ -25,13 +25,7 @@ class PureTranscript extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log("state in dashboard",state);
 
-    return {
-        dataMSP: state.dataStore.data
-    }
-}
 const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
@@ -40,4 +34,4 @@ const mapDispatchToProps  = dispatch => {
     }
 }
 
-export const Transcript = connect (mapStateToProps, mapDispatchToProps)(PureTranscript)
+export const Transcript = connect (null, mapDispatchToProps)(PureTranscript)

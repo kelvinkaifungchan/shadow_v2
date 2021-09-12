@@ -2,14 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
+import "./menu.css"
 import classes from './navbar.module.css'
-import { getdataThunk } from '../Redux/getdata/action'
-import { logoutNowThunk } from '../Redux/loginbox/action'
+import { getdataThunk } from '../Redux/actions/action'
+import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+import { Menu } from '../Component/menu'
+
 
 class PureNavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modal: false,
+            type: ""
+        };
+    }
+    toggle() {
+        console.log('t')
+        this.setState({
+            modal: !this.state.modal,
+        });
+    }
 
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        this.props.getdata({ email: this.props.user.email })
     }
 
     logout = (e) => {
@@ -19,22 +35,25 @@ class PureNavBar extends React.Component {
     
     render() {
         console.log("this.props in navbar >>>>>>>>>>>",)
-
+        const { modal } = this.state
         return (
             <div className={classes.header}>
                     <div className="col-2">
-                    <Link to='/' className={classes.logo}>Shadow</Link>
+                        <Link to='/' className={classes.logo}>shadow</Link>
                     </div>
 
                     <div className="col-8">
-                    <button><i className="fas fa-bars"></i></button>
-                        </div>
+                        <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
+                    </div>
 
-                        <div className={classes.right}>
+                    <div className={classes.right}>
                         <button><i className="fas fa-search"></i></button>
                         <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
-                        </div>
-            </div>
+                    </div>
+                    <div className="d-flex justify-content-center ">
+                        {modal ? <Menu /> : null}
+                    </div>
+                </div>
 
         );
     }
@@ -42,26 +61,25 @@ class PureNavBar extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+                    console.log("state in dashboard", state);
 
     return {
-        loading: state.dataStore.loading,
-        error: state.dataStore.error,
-        user: state.dataStore.user,
-        classrooms: state.dataStore.classrooms,
-        sets: state.dataStore.sets,
-        cards: state.dataStore.cards,
-        tags: state.dataStore.tags,
+        isAuthenticatedMSP: state.authStore.isAuthenticated,
+        user: state.userStore,
+        classrooms: state.classroomStore,
+        sets: state.setStore,
+        cards: state.cardStore,
+        tags: state.tagStore,
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getdata: (email) => {
-            dispatch(getdataThunk(email))
-        },
+                    getdata: (email) => {
+                    dispatch(getdataThunk(email))
+                },
         logout: () => {
-            dispatch(logoutNowThunk())
-        }
+                    dispatch(logoutNowThunk())
+                }
     }
 }
 

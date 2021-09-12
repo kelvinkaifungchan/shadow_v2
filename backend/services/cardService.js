@@ -18,6 +18,7 @@ class Card {
                 flashcardRecording: body.flashcardRecording,
                 flashcardStatus: true,
             })
+            .returning("id")
             .catch((err) => {
                 console.log(err)
             });
@@ -33,7 +34,7 @@ class Card {
             .returning("id")
             .then((quizcardId)=>{
                 if(body.multipleChoice != null){
-                    body.multipleChoice.map((mcData)=>{
+                    return body.multipleChoice.map((mcData)=>{
                         return this.knex("multipleChoice")
                         .insert({
                             quizcard_id: quizcardId,
@@ -46,6 +47,7 @@ class Card {
                             multipleChoiceTime: mcData.multipleChoiceTime,
                             multipleChoiceStatus: true,
                         })
+                        .returning("id")
                     })
                 }
 
@@ -59,6 +61,7 @@ class Card {
                             trueFalseTime: tfData.trueFalseTime,
                             trueFalseStatus: true,
                         })
+                        .returning("id")
                     })
                 }
             })
@@ -77,7 +80,7 @@ class Card {
             .returning("id")
             .then((dicId) => {
                 if(body.dictation != null){
-                    body.dictation.map((dicData)=>{
+                    return body.dictation.map((dicData)=>{
                         return this.knex("dictation")
                         .insert({
                             user_id: userId[0].id,
@@ -86,6 +89,7 @@ class Card {
                             dictationRecording: dicData.dictationRecording,
                             dictationStatus: true
                         })
+                        .returning("id")
                     })
                 }
             })
@@ -378,43 +382,215 @@ class Card {
         let allCard = {}
 
         return this.knex("flashcard")
-        .where("user_id", email[0].id)
-        .select("id", "user_id", "flashcardTitle")
-        .then((flashcards)=>{
-            allCard.flashcard = flashcards.map((flashcard)=>{
-                return ({
-                    id: flashcard.id,
-                    user_id: flashcard.user_id,
-                    title: flashcard.flashcardTitle
+        .where("flashcard.user_id", email[0].id)
+        .where("flashcardStatus", true)
+        .select("flashcard.id")
+        .then(async(fcId)=>{
+            allCard.flashcard = await Promise.all(fcId.map((id)=>{
+                let data = {}
+                return this.knex("flashcard")
+                .where("flashcard.id", id.id)
+                .select("id", "flashcardTitle","flashcardBody", "flashcardRecording")
+                .then((fcdata)=>{
+                    data.id = fcdata[0].id
+                    data.flashcardTitle = fcdata[0].flashcardTitle
+                    data.flashcardBody = fcdata[0].flashcardBody
+                    data.flashcardRecording = fcdata[0].flashcardRecording
                 })
-            })
+                .then(()=>{
+                    return this.knex("flashcardSubmission")
+                    .where("flashcard_id", id.id)
+                    .where("flashcardSubmissionStatus", true)
+                })
+                .then((subs)=>{
+                    data.submission = subs.map((fuck) =>{
+                        return {
+                            id: fuck.id,
+                            user_id:fuck.user_id,
+                            flashcardSubmissionRecording: fuck.flashcardSubmissionRecording
+                        }
+                    })
+                })
+                .then(async()=>{
+                    data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
+                        let feedback = {}
+                        return this.knex("flashcardFeedback")
+                        .where("flashcardSubmission_id", sub.id)
+                        .where("flashcardFeedbackStatus", true)
+                        .then((fcfb)=>{
+                            sub.feedback = fcfb.map((fcfbs)=>{
+                                return {
+                                    user_id: fcfbs.user_id,
+                                    flashcardFeedbackBody: fcfbs.flashcardFeedbackBody,
+                                    flashcardFeedbackTime: fcfbs.flashcardFeedbackTime,
+                                }
+                            })
+                        })
+                        .then(()=>{
+                            return feedback
+                        })
+                    }))
+                })
+                .then(()=>{
+                    return data
+                })
+            }))
+            return allCard.flashcard
         })
         .then(() => {
             return this.knex("quizcard")
             .where("user_id", email[0].id)
+            .where("quizcardStatus", true)
             .select("id", "user_id", "quizcardTitle")
-            .then((quizcards)=>{
-                allCard.quizcard = quizcards.map((quizcard)=>{
-                    return ({
-                        id: quizcard.id,
-                        user_id: quizcard.user_id,
-                        title: quizcard.quizcardTitle
+            .then(async(qcId)=>{
+                allCard.quizcard = await Promise.all(qcId.map((id)=>{
+                    let data = {}
+                    return this.knex("quizcard")
+                    .where("quizcard.id", id.id)
+                    .select("id", "quizcardTitle", "quizcardRecording")
+                    .then((qcdata)=>{
+                        data.id = qcdata[0].id
+                        data.quizcardTitle = qcdata[0].quizcardTitle
+                        data.quizcardRecording = qcdata[0].quizcardRecording
                     })
-                })
+                    .then(()=>{
+                        return this.knex("multipleChoice")
+                        .where("quizcard_id", id.id)
+                        .where("multipleChoiceStatus", true)
+                    })
+                    .then((mcs)=>{
+                        data.mc = mcs.map((mc) =>{
+                            return {
+                                id: mc.id,
+                                multipleChoiceBody: mc.multipleChoiceBody,
+                                multipleChoiceA: mc.multipleChoiceA,
+                                multipleChoiceB: mc.multipleChoiceB,
+                                multipleChoiceC: mc.multipleChoiceC,
+                                multipleChoiceD: mc.multipleChoiceD,
+                                multipleChoiceAnswer: mc.multipleChoiceAnswer,
+                                multipleChoiceTime: mc.multipleChoiceTime
+                            }
+                        })
+                    })
+                    .then(async()=>{
+                        data.mc.submission = await Promise.all(data.mc.map((sub)=>{
+                            let submission = {}
+                            return this.knex("multipleChoiceSubmission")
+                            .where("multipleChoice_id", sub.id)
+                            .where("multipleChoiceStatus", true)
+                            .then((mcSub)=>{
+                                sub.submission = mcSub.map((mcSubs)=>{
+                                    return {
+                                        user_id: mcSubs.user_id,
+                                        multipleChoiceSubmission: mcSubs.multipleChoiceSubmission,
+                                        multipleChoiceMarking: mcSubs.multipleChoiceMarking
+                                    }
+                                })
+                            })
+                            .then(()=>{
+                                return submission
+                            })
+                        }))
+                    })
+                    .then(()=>{
+                        return this.knex("trueFalse")
+                        .where("quizcard_id", id.id)
+                        .where("trueFalseStatus", true)
+                    })
+                    .then((tfs)=>{
+                        data.tf = tfs.map((tf) =>{
+                            return {
+                                id: tf.id,
+                                trueFalseBody: tf.trueFalseBody,
+                                trueFalseAnswer: tf.trueFalseAnswer,
+                                trueFalseTime: tf.trueFalseTime
+                            }
+                        })
+                    })
+                    .then(async()=>{
+                        data.tf.submission = await Promise.all(data.tf.map((sub)=>{
+                            let submission = {}
+                            return this.knex("trueFalseSubmission")
+                            .where("trueFalse_id", sub.id)
+                            .where("trueFalseSubmissionStatus", true)
+                            .then((tfSub)=>{
+                                sub.submission = tfSub.map((tfSubs)=>{
+                                    return {
+                                        user_id: tfSubs.user_id,
+                                        trueFalseSubmission: tfSubs.trueFalseSubmission,
+                                        trueFalseMarking: tfSubs.trueFalseMarking
+                                    }
+                                })
+                            })
+                            .then(()=>{
+                                return submission
+                            })
+                        }))
+                    })
+                    .then(()=>{
+                        return data
+                    })
+                }))
+                return allCard.quizcard
             })
         })
         .then(() => {
             return this.knex("dictationcard")
-            .where("user_id", email[0].id)
-            .select("id", "user_id", "dictationcardTitle")
-            .then((dictationcards)=>{
-                allCard.dictationcard = dictationcards.map((dictationcard)=>{
-                    return ({
-                        id: dictationcard.id,
-                        user_id: dictationcard.user_id,
-                        title: dictationcard.dictationcardTitle
+            .where("dictationcard.user_id", email[0].id)
+            .where("dictationcardStatus", true)
+            .select("dictationcard.id", "dictationcard.dictationcardTitle")
+            .then(async (dictationcards)=>{
+                allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
+                    let data = {}
+                    return this.knex("dictation")
+                    .where("dictationcard_id", id.id)
+                    .where("dictationStatus", true)
+                    .select("id", "dictationBody", "dictationRecording")
+                    .then((dcdata)=>{
+                        console.log(dcdata, '<<<<<<<<<<<<,dcdata')
+                        data.id = id.id
+                        data.dictationcardTitle = id.dictationcardTitle
+                        data.dictationBody = dcdata[0].dictationBody
+                        data.dictationRecording = dcdata[0].dictationRecording
                     })
-                })
+                    .then(()=>{
+                        return this.knex("dictationSubmission")
+                        .where("dictation_id", data.id)
+                        .where("dictationSubmissionStatus", true)
+                    })
+                    .then((subs)=>{
+                        data.submission = subs.map((sub) =>{
+                            return {
+                                id: sub.id,
+                                user_id:sub.user_id,
+                                dictationSubmissionPath: sub.dictationSubmissionPath
+                            }
+                        })
+                    })
+                    .then(async()=>{
+                        data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
+                            let feedback = {}
+                            return this.knex("dictationFeedback")
+                            .where("dictationSubmission_id", sub.id)
+                            .where("dictationFeedbackStatus", true)
+                            .then((fcfb)=>{
+                                sub.feedback = fcfb.map((fcfbs)=>{
+                                    return {
+                                        user_id: fcfbs.user_id,
+                                        dictationFeedbackBody: fcfbs.dictationFeedbackBody,
+                                    }
+                                })
+                            })
+                            .then(()=>{
+                                return feedback
+                            })
+                        }))
+                    })
+                    .then(()=>{
+                        return data
+                    })
+                }))
+                return allCard.dictationcard
             })
         })
         .then(() => {
@@ -425,5 +601,7 @@ class Card {
         })
     }
 }
+
+
 
 module.exports = Card

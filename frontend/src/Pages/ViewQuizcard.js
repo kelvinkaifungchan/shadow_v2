@@ -2,12 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/loginbox/action'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
 
-// import NavBar from '../Component/navbar';
+import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import QuestionProgress from '../Component/questionProgress';
 import { VideoPlayer } from '../Component/videoplayer';
@@ -23,20 +22,15 @@ class ViewQuizcard extends React.Component {
         }
     }
 
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
-    }
+
 
     render() {
-        console.log("i want to see the props",this.props);
 
         return (
             <div>
                 <div className="row" style={this.bg}>
                     <div className="col col-8">
-                    {/* <NavBar/> */}
-                    <p>Navbar</p>
+                    <NavBar/>
                     </div>
                     <div className="col col-4">
                     <Link to="/account">Account</Link>
@@ -74,14 +68,8 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-const mapDispatchToProps  = dispatch => {
-    return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
-    }
-}
 
 
-const connectedViewQuizcard= connect(mapStateToProps, mapDispatchToProps)(ViewQuizcard)
+
+const connectedViewQuizcard= connect(mapStateToProps, null)(ViewQuizcard)
 export { connectedViewQuizcard as ViewQuizcard };
