@@ -20,19 +20,19 @@ export const addCard = (card) => async (dispatch) => {
        if (card.type === "dictationcard") {
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {dictationcard_id: card.dictationcardId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
         })
        }
-       else if (card.type === "quizcard") {
+       else if (card.type === "flashcard") {
         dispatch({
             type: ADD_FLASHCARD,
-            payload: {user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}
+            payload: {flashcard_id: card.flashcardId, user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}
         })
        }
        else if (card.type === "quizcard") {
         dispatch({
             type: ADD_QUIZCARD,
-            payload: {user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
+            payload: {quizcard_id: card.quizcardId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
         })
        }
    })
@@ -46,19 +46,19 @@ export const editCard = (card) => async (dispatch) => {
         if (card.type === "dictationcard") {
          dispatch({
              type: EDIT_DICTATIONCARD,
-             payload: {id:{quizcard_id: card.quizcardId}, content:{user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}}
+             payload: {id:{dictationcard_id: card.dictationcardId}, content:{dictationcard_id: card.dictationcardId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}}
          })
         }
         else if (card.type === "flashcard") {
             dispatch({
                 type: EDIT_FLASHCARD,
-                payload: {id:{quizcard_id: card.quizcardId}, content:{user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}}
+                payload: {id:{flashcard_id: card.flashcardId}, content:{flashcard_id: card.flashcardId, user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}}
             })
            }
            else if (card.type === "quizcard") {
             dispatch({
                 type: EDIT_QUIZCARD,
-                payload: {id:{quizcard_id: card.quizcardId}, content:{user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}}
+                payload: {id:{quizcard_id: card.quizcardId}, content:{quizcard_id: card.quizcardId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}}
             })
            }
     })
