@@ -22,6 +22,7 @@ class PureDashboard extends React.Component {
         this.state = {
             modal: false,
             type: "",
+            classroomId: "",
         };
     }
 
@@ -46,6 +47,9 @@ class PureDashboard extends React.Component {
         })
     }
 
+    navigate(e){
+        console.log(e.target.attributes["data-key"].value)
+    }
 
     render() {
         return (
@@ -61,7 +65,7 @@ class PureDashboard extends React.Component {
                     <CreateClassBtn  /> */}
 
                     </div>
-                    <DisplayClassModule classrooms={this.props.classrooms} />
+                    <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigate(e)}}/>
                     
                     <div className="row d-flex p-4">
                         <div className="col ">

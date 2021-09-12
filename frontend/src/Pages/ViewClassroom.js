@@ -23,6 +23,7 @@ class ViewClassroom extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
+            classroomId: 1,
         };
     }
     toggle() {
@@ -58,23 +59,44 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props", this.props);
-
+        console.log("i want to see the props in view class", this.props);
+        console.log("locationsssssss", this.props.location)
         return (
             <div>
                 <NavBar />
-
                 <div className="row">
                     <div className="col col-12">
                         <HeadingInput/>
-                        <p>HeadingInput</p>
-                        {/* <Tags/> */}
-                        <p>Tags</p>
+                        <div className="row">
+                            <div className="col col-3">
+                                {this.props.classrooms.map((classroom, i) => {
+                                    if(classroom.id === this.state.classroomId){
+                                        return (
+                                            <div>
+                                                <div className="d-inline-flex align-item-center h-50 pt-2">
+                                                    {classroom.tags.map((tag, j) => {
+                                                        return (
+                                                            <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                    )   
+                                } else {
+                                    return (
+                                        <>
+                                        </>
+                                        )
+                                    }
+                                })}
+                            </div>
+                            <div className="col col-2 d-inline-flex align-item-center h-50 pt-2">
+                                <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                                <span className="d-inline-flex "><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning"><i className="fas fa-plus"></i></span></span>
+                            </div>
+                        </div>
                         <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
                         <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
-
-                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">tags</h2><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
                         <p>Users</p>
@@ -107,6 +129,7 @@ class ViewClassroom extends React.Component {
 const mapStateToProps = (state) => {
     return {
         sets: state.setStore.sets,
+        classrooms: state.classroomStore.classrooms,
     }
 }
 
