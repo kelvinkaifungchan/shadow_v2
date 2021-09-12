@@ -19,6 +19,7 @@ class ViewSet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectModal:false,
             modal: false,
             type: ""
         };
@@ -26,6 +27,11 @@ class ViewSet extends React.Component {
     toggle() {
         this.setState({
             modal: !this.state.modal,
+        });
+    }
+    selectToggle() {
+        this.setState({
+            selectModal: !this.state.selectModal,
         });
     }
     changeTypeSet(){

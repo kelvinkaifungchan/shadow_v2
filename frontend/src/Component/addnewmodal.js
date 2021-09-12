@@ -52,6 +52,7 @@ class PureModel extends React.Component {
 
 
 render() {
+    console.log("this.props.create>>>>>>>>",this.props.create);
     const isClass = this.props.create.type === "class";
     let button
     if(isClass){
@@ -70,7 +71,7 @@ render() {
 
             <ModalHeader >Add New {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}</ModalHeader>
             <ModalBody>
-                {this.props.create.type === "class" ? <SelectCardPopUp selectCard={this.state} toggle={() => this.openSelect()} /> : <CreatePopUp create={this.state}/>}
+                {this.props.create.type === "class" ?<CreatePopUp create={this.state}/>: <SelectCardPopUp selectCard={this.state} toggle={() => this.openSelect()} /> }
 
                 <AddExistPopUp create={this.state} toggle={() => this.toggle()} />
 
