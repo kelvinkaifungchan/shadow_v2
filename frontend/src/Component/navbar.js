@@ -47,7 +47,7 @@ class PureNavBar extends React.Component {
 
                     <div className={classes.right}>
                         <button><i className="fas fa-search"></i></button>
-                        <Search items={this.props.classrooms} />
+                        {/* <Search items={this.props.classrooms} /> */}
                         <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
                     </div>
                     <div className="d-flex justify-content-center ">
