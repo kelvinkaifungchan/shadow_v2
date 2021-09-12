@@ -16,6 +16,7 @@ class Set {
                 user_id: email[0].id,
                 setStatus: true
             })
+            .returning("id")
             .catch((err) => {
                 console.log(err)
             })

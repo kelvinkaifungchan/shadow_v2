@@ -31,7 +31,7 @@ export function classroomReducer(state = initialState, action){
             };
         case EDIT_CLASSROOM:
             var newClassroom = action.payload;
-            var newArray = state.classrooms.filter((classroom) => classroom.id !== newClassroom.classroom_id);
+            var newArray = state.classrooms.filter((classroom) => classroom.classroom_id !== newClassroom.classroom_id);
             newArray.push(newClassroom);
             return{
                 classrooms: newArray
@@ -39,7 +39,7 @@ export function classroomReducer(state = initialState, action){
         case DELETE_CLASSROOM:
             return {
                 classrooms: state.classrooms.filter((classroom) => {
-                    return classroom.id !== action.payload.classroom_id;
+                    return classroom.classroom_id !== action.payload.classroom_id;
                 })
             }
         case ADD_TAG_CLASSROOM:

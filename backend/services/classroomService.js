@@ -20,7 +20,8 @@ class ClassroomService {
             classroomDesc: body.desc,
             classroomStatus: true
           })
-          .into("classroom");
+          .into("classroom")
+          .returning("id")
       });
   }
 
