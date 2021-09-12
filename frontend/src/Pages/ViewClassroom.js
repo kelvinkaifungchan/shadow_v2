@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
@@ -23,9 +24,35 @@ class ViewClassroom extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
-            classroomId: 1,
+            classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         };
     }
+
+    componentDidMount(){
+        console.log('cmpn did muntmuntmuntmuntmuntmuntmuntmuntmunt')
+        this.props.getdata({ email: "test@test.com" })
+        this.setState({
+            classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
+        })
+    }
+    componentWillReceiveProps (nextProps){
+        console.log('CWRP', nextProps)
+        this.setState({
+            classroom: nextProps.classrooms.filter(classroom => classroom.id === parseInt(nextProps.match.params.id))
+        })
+    }
+    // static getDerivedStateFromProps (nextProps, prevState) {
+    //     console.log('next props', nextProps)
+    //     console.log('prev state', prevState)
+    //     // nextProps.classrooms = prevState
+    //     const classroom = nextProps.classrooms
+    //     this.setState({
+    //         classroom: classroom
+    //     })
+    //     // update your internal state that depends on the props
+    //     // const internalState = nextProps.something
+    //     // this.setState({internalState}
+    //   }
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -56,36 +83,25 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props in view class", this.props);
-        console.log("locationsssssss", this.props.location)
+        console.log("props of view classroom", this.props)
+        console.log('states in view classroom', this.state)
         return (
             <div>
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
+                        <HeadingInput heading={this.state.classroom[0]}/>
                         <div className="row">
                             <div className="col col-3">
-                                {this.props.classrooms.map((classroom, i) => {
-                                    if(classroom.id === this.state.classroomId){
-                                        return (
-                                            <div>
-                                                <div className="d-inline-flex align-item-center h-50 pt-2">
-                                                    {classroom.tags.map((tag, j) => {
-                                                        return (
-                                                            <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </div>
-                                    )   
-                                } else {
-                                    return (
-                                        <>
-                                        </>
-                                        )
-                                    }
-                                })}
+                                <div>
+                                    <div className="d-inline-flex align-item-center h-50 pt-2">
+                                        {this.state.classroom[0].tags.map((tag, j) => {
+                                            return (
+                                                <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                             <div className="col col-2 d-inline-flex align-item-center h-50 pt-2">
                                 <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
@@ -124,12 +140,18 @@ class ViewClassroom extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log('state in vclass', state)
     return {
         sets: state.setStore.sets,
         classrooms: state.classroomStore.classrooms,
     }
 }
-
-
-const connectedViewClassroom = connect(mapStateToProps, null)(ViewClassroom)
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        }
+    }
+}
+const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };

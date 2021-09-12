@@ -20,7 +20,8 @@ class ViewSet extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            type: ""
+            type: "",
+            set: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id)),
         };
     }
     toggle() {
@@ -42,7 +43,7 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
+                        <HeadingInput heading={this.state.set[0]}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
@@ -70,7 +71,6 @@ class ViewSet extends React.Component {
                         <DisplayCardModule cards={this.props.cards} />
                     </div>
                 </div>
-
             </div>
         );
     }

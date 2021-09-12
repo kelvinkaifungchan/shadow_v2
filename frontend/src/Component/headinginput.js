@@ -11,12 +11,12 @@ class PureHeadingInput extends React.Component {
       <form className={classes.headingframe}>
         <input
           type="text" 
-          placeholder="Untitled Flashcard"
+          placeholder={this.props.heading.title}
           className={classes.title}
         />
         <input
           type="text" 
-          placeholder="Insert a description"
+          placeholder={this.props.heading.description}
           className={classes.description}
         />
       </form>
