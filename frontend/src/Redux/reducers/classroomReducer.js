@@ -43,7 +43,7 @@ export function classroomReducer(state = initialState, action){
         case ADD_TAG_CLASSROOM:
             return {
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                    if(action.payload.id.classroom_id === classroom.classroom_id){
                         return {
                             ...classroom, tags:[...classroom.tags, action.payload.content]
                         }
@@ -55,7 +55,7 @@ export function classroomReducer(state = initialState, action){
         case DELETE_TAG_CLASSROOM:
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                    if(action.payload.id.classroom_id === classroom.classroom_id){
                         return {
                             ...classroom, tags:classroom.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
                         }
@@ -66,7 +66,7 @@ export function classroomReducer(state = initialState, action){
         case ADD_SHARING:
             return {
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                    if(action.payload.id.classroom_id === classroom.classroom_id){
                         return {
                             ...classroom, shared:[...classroom.shared, action.payload.content]
                         }
@@ -78,9 +78,9 @@ export function classroomReducer(state = initialState, action){
         case DELETE_SHARING:
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id == classroom.classroom_id){
+                    if(action.payload.id.classroom_id === classroom.classroom_id){
                         return {
-                            ...classroom, shared:classroom.shared.filter((tag) => shared.id !== action.payload.content.id)
+                            ...classroom, shared:classroom.shared.filter((shared) => shared.id !== action.payload.content.id)
                         }
                     }
                     return classroom

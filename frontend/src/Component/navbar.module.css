@@ -1,0 +1,87 @@
+.header {
+    height: 8vh;
+    background-color: #F8DF4F;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* justify-content: space-between; */
+    padding: 0 2vw;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.left{
+  column-count: 2;
+}
+
+.middle{
+justify-content:center;
+column-count: 8;
+}
+
+.right{
+  float: right;
+  display:flex
+}
+
+.logo {
+font-size: 3rem;
+font-weight: bold;
+color: #000000;
+}
+
+.header button {
+    font: inherit;
+    cursor: pointer;
+    display: block;
+    /* width:30px;
+    height:30px; */
+    text-align: center;
+    font-size: 1.2rem;
+    color: #77002e;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+.icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+
+.icon img{
+	/* width: 50px;
+	height: 50px; */
+	/* -webkit-border-radius: 30px;  */
+    border: 1px solid;
+	border-radius: 50%; 
+	}
+
+.header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .header li {
+    margin-left: 3rem;
+  }
+  
+  .header a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #3D4176;
+  }
+  
+  .header a:hover,
+  .header a:active,
+  .header a.active {
+    color: #5D5FEF;
+  }
+  

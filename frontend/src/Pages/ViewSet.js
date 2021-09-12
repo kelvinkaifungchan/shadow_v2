@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
+import {HeadingInput} from '../Component/headinginput';
 // import Tags from '../Component/tags';
+import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 
 import { DisplayCardModule } from '../Component/displaycardmodule'
@@ -33,6 +34,7 @@ class ViewSet extends React.Component {
             type: "set"
         })
     }
+
     render() {
         console.log("i want to see the props", this.props);
 
@@ -41,10 +43,13 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        {/* <HeadingInput/> */}
-                        <p>HeadingInput</p>
+                        <HeadingInput/>
                         {/* <Tags/> */}
                         <p>Tags</p>
+
+                        <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        
                         {/* <Users/> */}
                         <p>Users</p>
                     </div>
@@ -71,13 +76,19 @@ class ViewSet extends React.Component {
         );
     }
 }
-
-
 const mapStateToProps = (state) => {
+    console.log("state in dashboard", state);
+
     return {
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
+
+
 const mapDispatchToProps = dispatch => {
     return {
         logout: () => {
