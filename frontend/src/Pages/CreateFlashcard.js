@@ -1,67 +1,79 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
-// import { Link } from 'react-router-dom';
-import {Account} from './Account';
+import { Account } from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
-// import HeadingInput from '../Component/headingInput';
 // import FormSubmit from '../Component/formSubmit';
-import {VideoRecorder} from '../Component/videorecorder';
+import { VideoRecorder } from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
 
 import classes from './CreateFlashcard.module.css'
 
 class CreateFlashcard extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        // this.bg = {
-        //     backgroundColor: '#F8DF4F'
-        // }
         this.state = {
-            title: "classroomTitle"
+            type:"flashcard",
+            flashcardTitle: "",
+            flashcardBody:"",
+            flashcardRecording:"",
         }
     }
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
-    }
-    render() {
-        console.log("i want to see the props",this.props);
 
+    handleHeading(title){
+        this.setState({
+            flashcardTitle: title
+        })
+    }
+
+    handleTranscript(body){
+        this.setState({
+            flashcardBody: body
+        })
+    }
+
+    handleRecording(record){
+        this.setState({
+            flashcardRecording: record
+        })
+    }
+
+
+    render() {
+        console.log("this.state in create flash card",this.state);
         return (
             <div>
-                {/* Navbar */}
-                    <NavBar/>
-
+                <NavBar />
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                        <HeadingInput/>
+                            <HeadingInput card={this.state} handleHeading={this.handleHeading}/>
                         </div>
                         <div className="col-4">
-                        {/* <FormSubmit/> */}
-                        <button>Create Card</button>
+                            {/* <FormSubmit/> */}
+                            <Link to='/viewset'><button>Create Card</button></Link>
                         </div>
                     </div>
 
                     {/* Video & Transcript row */}
-                <div className="row d-flex p-4">
-                        <VideoRecorder/>
-                            <Transcript title={this.state}/>
-                </div>
+                    <div className="row d-flex p-4">
+                        <VideoRecorder handleRecording={this.handleRecording}/>
+                        <Transcript title={this.state} handleTranscript={this.handleTranscript} />
+                    </div>
 
                     <BrowserRouter>
                         <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
+                            <PrivateRoute path="/account" component={Account} />
+                        </Switch>
                     </BrowserRouter>
-            </div>
+                </div>
             </div>
         );
     }
@@ -76,5 +88,5 @@ const mapStateToProps = (state) => {
 
 
 
-const connectedCreateFlashcard= connect(mapStateToProps, null)(CreateFlashcard)
+const connectedCreateFlashcard = connect(mapStateToProps, null)(CreateFlashcard)
 export { connectedCreateFlashcard as CreateFlashcard };

@@ -7,6 +7,7 @@ import classes from './navbar.module.css'
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 import { Menu } from '../Component/menu'
+import Search from './searchbox'
 
 
 class PureNavBar extends React.Component {
@@ -46,6 +47,7 @@ class PureNavBar extends React.Component {
 
                     <div className={classes.right}>
                         <button><i className="fas fa-search"></i></button>
+                        {/* <Search items={this.props.classrooms} /> */}
                         <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
                     </div>
                     <div className="d-flex justify-content-center ">
@@ -65,8 +67,8 @@ const mapStateToProps = (state) => {
 
 
         user: state.userStore.user,
-        classrooms: state.classroomStore.classroom,
-        sets: state.setStore.set,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
         cards: state.cardStore.card,
         tags: state.tagStore.tags,
     }
