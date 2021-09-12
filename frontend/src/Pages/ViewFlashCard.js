@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
 import { getdataThunk } from '../Redux/getdata/action'
-import {logoutNowThunk} from '../Redux/loginbox/action'
+import { logoutNowThunk } from '../Redux/loginbox/action'
 import {Account} from './Account';
 
 import PrivateRoute from '../Component/PrivateRoute'
@@ -19,7 +19,6 @@ import { Transcript } from '../Component/transcript';
 
 
 import classes from './ViewFlashcard.module.css'
-
 
 class ViewFlashCard extends React.Component {
     constructor(props){
