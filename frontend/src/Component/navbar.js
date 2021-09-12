@@ -64,12 +64,13 @@ const mapStateToProps = (state) => {
                     console.log("state in dashboard", state);
 
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
-        user: state.userStore,
-        classrooms: state.classroomStore,
-        sets: state.setStore,
-        cards: state.cardStore,
-        tags: state.tagStore,
+
+
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classroom,
+        sets: state.setStore.set,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps = dispatch => {

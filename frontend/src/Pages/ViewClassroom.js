@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
-import { HeadingInput } from '../Component/headinginput';
+
 // import Tags from '../Component/tags';
 import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
@@ -15,7 +17,6 @@ import { AddnewPopUp } from '../Component/addnewmodal'
 
 
 class ViewClassroom extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -25,6 +26,15 @@ class ViewClassroom extends React.Component {
             shareModal: false,
         };
     }
+
+    // componentDidMount() {
+    //     this.props.getdata({ email: this.props.email })
+    // }
+
+    componentDidMount() {
+        this.props.getdata({ email: "test@test.com" })
+    }
+    
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -63,7 +73,7 @@ class ViewClassroom extends React.Component {
 
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
+
                         {/* <Tags/> */}
                         <p>Tags</p>
                         <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
@@ -101,11 +111,24 @@ class ViewClassroom extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log("state in VIEW CLASSROOM", state);
     return {
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
         sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 
+const mapDispatchToProps  = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
+    }
+}
 
-const connectedViewClassroom = connect(mapStateToProps, null)(ViewClassroom)
+const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };

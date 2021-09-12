@@ -18,6 +18,7 @@ import { DisplayCardModule } from '../Component/displaycardmodule';
 // import NavBar from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Tags from '../Component/tags';
+import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 
@@ -39,6 +40,15 @@ class ViewSet extends React.Component {
             type: ""
         }
     }
+
+    // componentDidMount() {
+    //     this.props.getdata({ email: this.props.user.email })
+    // }
+    
+    componentDidMount() {
+        this.props.getdata({ email: "test@test.com" })
+    }
+
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -61,10 +71,21 @@ class ViewSet extends React.Component {
             <div className={classes.viewset}>
                 <div classNmae="row d-flex p-4">
                     <div className="col-8">
-                        <h1>Sample Set Name{this.props.sets.title}</h1>
-                        <h6>This is a sample description. {this.props.sets.description}</h6>
+                        <h1>{this.props.sets[0].title}</h1>
+                        <h6>{this.props.sets[0].description}</h6>
                     </div>
                 </div>
+
+<div className="row">
+<NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+
+</div>
+               
+               <div className="row">
+                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">tags</h2><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        </div>
 
                 <div className="row">
                     <div className="col col-12">
@@ -77,8 +98,9 @@ class ViewSet extends React.Component {
                                 <span>Add new or exist card</span>
                             </div>
                         </div>
+                        <div className="row">
                         <DisplayCardModule cards={this.props.cards} />
-                        {/* <p>Display card Module</p> */}
+                        </div>
                     </div>
                 </div>
 
@@ -101,11 +123,11 @@ const mapStateToProps = (state) => {
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps  = dispatch => {
     return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
     }
 }
 

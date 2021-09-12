@@ -17,7 +17,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.cards.flashcard.map((card, i) => {
                     return (
                         <div key={i} className="col  m-1 p-3 border border-4 rounded-lg highlight ">
-                            <h4 className="p-3"><strong>{card.flashcardtitle}</strong></h4>
+                            <h4 className="p-3"><strong>{card.flashcardTitle}</strong></h4>
                             <p className="p-3">{card.flashcardBody}</p>
                         </div>
                     )
@@ -26,20 +26,20 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.cards.quizcard.map((card, i) => {
                     return (
                         <div key={i} className="col  m-1 p-3 border border-4 rounded-lg highlight ">
-                            <h4 className="p-3"><strong>{card.quizcardtitle}</strong></h4>
-                            {/* <p className="p-3">{card.quizcardbody}</p> */}
+                            <h4 className="p-3"><strong>{card.quizcardTitle}</strong></h4>
+                            <p className="p-3">{card.quizcardRecording}</p>
                         </div>
                     )
                 })}
 
-                {/* {this.props.cards.dictation.map((card, i) => {
+                {this.props.cards.dictationcard.map((card, i) => {
                     return (
                         <div key={i} className="col  m-1 p-3 border border-4 rounded-lg highlight ">
-                            <h4 className="p-3"><strong>{card.title}</strong></h4>
-                            <p className="p-3">{card.description}</p>
+                            <h4 className="p-3"><strong>{card.dictationcardTitle}</strong></h4>
+                            <p className="p-3">{card.dictationBody}</p>
                         </div>
                     )
-                })} */}
+                })}
             </>
 
         );
