@@ -27,20 +27,17 @@ class ViewClassroom extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
     }
     changeTypeClass() {
-        console.log('ctc')
         this.setState({
             type: "class"
         })
     }
 
     tagToggle(){
-        console.log('tag tog')
         this.setState({
             tagModal: !this.state.tagModal
         })
