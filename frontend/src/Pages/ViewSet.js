@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
-import {NavBar} from '../Component/navbar';
-import {HeadingInput} from '../Component/headinginput';
+import { NavBar } from '../Component/navbar';
+import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
@@ -21,7 +21,7 @@ class ViewSet extends React.Component {
         this.state = {
             modal: false,
             type: "",
-            set: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id)),
+            set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
         };
     }
     toggle() {

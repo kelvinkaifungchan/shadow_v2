@@ -46,12 +46,14 @@ class PureDashboard extends React.Component {
 
     navigateClass(e){
         this.props.history.push({
-            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`
+            pathname:`/viewclassroom`,
+            state:{ classroom: e.target.attributes["data-key"].value }
         })
     }
     navigateSet(e){
         this.props.history.push({
-            pathname:`/viewset/${e.target.attributes["data-key"].value}`
+            pathname:`/viewset`,
+            state: { set:e.target.attributes["data-key"].value }
         })
     }
     render() {

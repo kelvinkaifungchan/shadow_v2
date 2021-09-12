@@ -30,8 +30,8 @@ class Landing extends React.Component {
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
-                        <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
-                        <PrivateRoute path="/viewset/:id" component={ViewSet} />
+                        <PrivateRoute path="/viewclassroom" component={ViewClassroom} />
+                        <PrivateRoute path="/viewset" component={ViewSet} />
                         <PrivateRoute path="/createFlashcard" component={CreateFlashcard} />
                         <PrivateRoute path="/viewflashcard" component={ViewFlashCard} />
                         <PrivateRoute path="/createQuizcard" component={CreateQuizcard} />
