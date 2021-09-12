@@ -26,11 +26,10 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+        this.props.getdata({ email: this.props.email })
     }
 
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
@@ -86,6 +85,7 @@ const mapStateToProps = (state) => {
     console.log("state in dashboard", state);
 
     return {
+        email: state.authStore.email,
         user: state.userStore.user,
         classrooms: state.classroomStore.classrooms,
         sets: state.setStore.sets,
