@@ -17,7 +17,9 @@ class ClassroomRouter {
     post(req, res){
         console.log("Post request to create a classroom ");
         return this.classroomService.add(req.body)
-        .then((data) => res.json(data) )
+        .then((data) => {
+            console.log("data in add router",data);
+            res.json(data)} )
         .catch((err) => {
             return res.status(500).json(err);
         });

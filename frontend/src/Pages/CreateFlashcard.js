@@ -23,6 +23,9 @@ class CreateFlashcard extends React.Component {
             flashcardBody:"",
             flashcardRecording:"",
         }
+        this.handleHeading = this.handleHeading.bind(this);
+        this.handleTranscript = this.handleTranscript.bind(this);
+        this.handleRecording = this.handleRecording.bind(this);
     }
 
     handleHeading(title){
@@ -85,7 +88,6 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
-
 
 
 const connectedCreateFlashcard = connect(mapStateToProps, null)(CreateFlashcard)
