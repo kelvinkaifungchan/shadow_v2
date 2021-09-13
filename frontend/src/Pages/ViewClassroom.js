@@ -21,7 +21,7 @@ class ViewClassroom extends React.Component {
         super(props);
 
         this.state = {
-            email: JSON.parse(window.localStorage.getItem('email')),
+            email: "",
             modal: false,
             type: "",
             tagModal: false,
