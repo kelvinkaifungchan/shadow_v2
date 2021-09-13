@@ -54,6 +54,7 @@ class ViewFlashCard extends React.Component {
                         {/* <h1>{this.props.sets[0].title}</h1> */}
                         <h6>Sample Flashcard Description</h6>
                         {/* <h6>{this.props.sets[0].description}</h6> */}
+                </div>
 
                 <div className="row" style={this.bg}>
                     <div className="col col-8">
@@ -194,6 +195,7 @@ class ViewFlashCard extends React.Component {
                     <PrivateRoute path="/account" component={Account} />
                     </Switch>
                     </BrowserRouter>
+            </div>
             </div>
         );
     }

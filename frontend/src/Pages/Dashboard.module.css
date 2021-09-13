@@ -20,7 +20,6 @@
   .createsetbtn button{
     font: inherit;
     cursor: pointer;
-    display: block;
     width:30px;
     height:30px;
     text-align: center;
