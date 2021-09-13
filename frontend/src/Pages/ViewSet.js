@@ -124,8 +124,9 @@ class ViewSet extends React.Component {
                         </span>
                         </div>
 
-                <div className="row justify-content-between">
+                <div className="row d-flex m-3">
                     <AddnewPopUp create={this.state} toggle={() => this.toggle()} /> 
+                    <div className={classes.frame}>
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -134,6 +135,7 @@ class ViewSet extends React.Component {
                                 <span>Add new or exist card</span>
                             </div>
                         </div>
+                    </div>
 
                         <DisplayCardModule cards={this.props.cards} />
                 </div>
