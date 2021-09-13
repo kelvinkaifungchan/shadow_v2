@@ -36,6 +36,10 @@ class ViewClassroom extends React.Component {
         })
     }
     
+    componentDidMount() {
+        console.log("this page is rerendering")
+    }
+
     handleTranscript(desc){
         this.setState({
             classroomDesc: desc
@@ -65,18 +69,21 @@ class ViewClassroom extends React.Component {
             shareModal: !this.state.shareModal
         })
     }
-
+    navigateSet(e){
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set:e.target.attributes["data-key"].value }
+        })
+    }
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
 
     render() {
-        console.log("props of view classroom", this.props)
-        console.log('states in view classroom', this.state)
         return (
             <div>
-                <NavBar />
+                <NavBar history={this.props.history}/>
                 <div className="row">
                     <div className="col col-12">
                         <HeadingInput card={this.state} heading={this.state.classroom[0]} handleHeading={this.handleHeading}/>
@@ -118,7 +125,7 @@ class ViewClassroom extends React.Component {
                                 <span>Add new or exist set</span>
                             </div>
                         </div>
-                        <DisplaySetModule sets={this.props.sets} />
+                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>this.navigateSet(e)} />
 
                     </div>
                 </div>

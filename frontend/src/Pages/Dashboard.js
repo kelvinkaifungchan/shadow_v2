@@ -51,17 +51,19 @@ class PureDashboard extends React.Component {
             state:{ classroom: e.target.attributes["data-key"].value }
         })
     }
+
     navigateSet(e){
         this.props.history.push({
             pathname:`/viewset`,
             state: { set:e.target.attributes["data-key"].value }
         })
     }
+
     render() {
         console.log('props in dashboard', this.props)
         return (
             <div>
-                <NavBar user={this.props.user} />
+                <NavBar user={this.props.user} history={this.props.history}/>
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 <div className="p-3">
                     <div className="row d-flex p-4">

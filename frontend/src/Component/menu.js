@@ -1,11 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { getdataThunk } from '../Redux/actions/action'
 import "./menu.css"
 
 
 class PureMenu extends React.Component {
+
+    navigateClass(e){
+        console.log("this is data key",e.target.attributes["data-key"].value)
+        if (this.props.history.location.pathname === "/viewclassroom") {
+            this.props.history.replace({
+                pathname:`/viewclassroom`,
+                state:{ classroom: e.target.attributes["data-key"].value }
+            })
+        } else {
+            this.props.history.push({
+                pathname:`/viewclassroom`,
+                state:{ classroom: e.target.attributes["data-key"].value }
+            })
+        }
+    }
 
     render() {
         return (
@@ -13,9 +29,8 @@ class PureMenu extends React.Component {
             <ListGroup variant="flush" >
                 <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
                 {this.props.classrooms.map((classroom, i) => {
-                    console.log(">>>>>>>>", classroom);
                     return (
-                <ListGroupItem tag="a" href="#" action>{classroom.title}</ListGroupItem>
+                <ListGroupItem data-key={classroom.id} onClick={(e)=>{this.navigateClass(e)}} tag="a" action>{classroom.title}</ListGroupItem>
                     )
                 })}
                 <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>

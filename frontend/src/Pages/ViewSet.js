@@ -46,7 +46,7 @@ class ViewSet extends React.Component {
 
         return (
             <div>
-                <NavBar />
+                <NavBar history={this.props.history}/>
                 <div className="row">
                     <div className="col col-12">
                         <HeadingInput heading={this.state.set[0]}/>
