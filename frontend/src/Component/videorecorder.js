@@ -93,6 +93,7 @@ class PureVideoRecorder extends React.Component {
         preview.setAttribute("src", videoURL)
 
         this.setState({ videos });
+        console.log("this.props.emai in VR",this.props.email);
         // axios.post(
         //     ` http://localhost:8000/api/recording`, formData
         // )
@@ -133,6 +134,7 @@ class PureVideoRecorder extends React.Component {
 const mapStateToProps = (state) => {
     console.log("this is state;", state);
     return {
+        email: state.authStore.email,
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }

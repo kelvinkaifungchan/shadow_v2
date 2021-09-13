@@ -11,7 +11,7 @@ const initialState = {
   error: "",
   loading: false,
   isAuthenticated: false || (localStorage.getItem('token') != null),
-  email:"",
+  email:false || (localStorage.getItem('email') != null),
 };
 
 export function authReducer(state = initialState, action) {

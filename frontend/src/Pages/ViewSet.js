@@ -22,8 +22,11 @@ class ViewSet extends React.Component {
             selectModal:false,
             modal: false,
             type: "",
-            set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
+            // set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
         };
+    }
+    componentDidMount (){
+        this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
     }
     toggle() {
         this.setState({
@@ -49,7 +52,7 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput heading={this.state.set[0]}/>
+                        <HeadingInput heading={this.props.location.state.set}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
