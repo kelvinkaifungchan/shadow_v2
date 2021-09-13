@@ -18,10 +18,6 @@ class SetRouter {
         console.log("Requesting adding set")
         return this.setService
             .add(req.body)
-            .then(() => {
-                return this.setService
-                .set(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })

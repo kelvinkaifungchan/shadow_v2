@@ -90,12 +90,12 @@ class ViewClassroom extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput card={this.state} heading={this.props.location.state.classroom} handleHeading={this.handleHeading}/>
+                        <HeadingInput card={this.state} heading={this.props.location.state.classroom[0]} handleHeading={this.handleHeading}/>
                         <div className="row">
                             <div className="col col-3">
                                 <div>
                                     <div className="d-inline-flex align-item-center h-50 pt-2">
-                                        {this.props.location.state.classroom.tags && this.props.location.state.classroom.tags.length > 0 ? this.props.location.state.classroom.tags.map((tag, j) => {
+                                        {this.props.location.state.classroom[0].tags && this.props.location.state.classroom[0].tags.length > 0 ? this.props.location.state.classroom[0].tags.map((tag, j) => {
                                             return (
                                                 <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
                                             )
