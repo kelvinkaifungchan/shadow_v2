@@ -15,11 +15,11 @@ class PureDisplayClassModule extends React.Component {
                             <h4 data-key={classroom.id} className="p-3"><strong>{classroom.title}</strong></h4>
                             <p data-key={classroom.id} className="p-3">{classroom.description}</p>
                             <div data-key={classroom.id} className="d-flex justify-content-start p-3">
-                                {classroom.tags.map((tag, j) => {
+                                {classroom.tag && classroom.tag.length > 0 ? classroom.tags.map((tag, j) => {
                                     return (
                                         <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
                                     )
-                                })}
+                                }): null}
                             </div>
                         </div>
                     )

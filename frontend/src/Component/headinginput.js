@@ -15,18 +15,18 @@ class PureHeadingInput extends React.Component {
           placeholder={this.props.heading.title}
           className={classes.title}
         />
-        {
+        {/* {
           this.props.card.type ==="flashcard" ? null : this.props.card === "undefined" || "" ? <input
             type="text"
             placeholder="Insert a description"
             className={classes.description}
           />: null
-        }
-        {/* <input
+        } */}
+        <input
           type="text" 
           placeholder={this.props.heading.description}
           className={classes.description}
-        /> */}
+        />
       </form>
             </>
         )
