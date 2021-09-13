@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
+import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 import { NavBar } from '../Component/navbar';
@@ -46,13 +47,13 @@ class ViewSet extends React.Component {
 
     render() {
         console.log("i want to see the props", this.props);
-
+        console.log('this.props.location.state.set', this.props.location.state.set)
         return (
             <div>
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput heading={this.props.location.state.set}/>
+                        <HeadingInput heading={this.props.location.state.set[0]}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
@@ -96,9 +97,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-
 const mapDispatchToProps = dispatch => {
     return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
         logout: () => {
             dispatch(logoutNowThunk())
         }

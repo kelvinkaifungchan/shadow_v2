@@ -9,19 +9,19 @@ class PureHeadingInput extends React.Component {
     super(props)
   }
   render() {
-
+    console.log('heading input propssssss', this.props)
     return (
       <>
         <form className={classes.headingframe}>
           <input onChange={(e) => this.props.handleHeading(e.currentTarget.value)}
             type="text"
-            placeholder="Untitled Flashcard"
+            placeholder={this.props.heading.title}
             className={classes.title}
           />
         {
           this.props.card ? null : <input
             type="text"
-            placeholder="Insert a description"
+            placeholder={this.props.heading.description}
             className={classes.description}
           />
         }
