@@ -92,10 +92,11 @@ class FeedbackService {
             .join("dictationSubmission", "dictationFeedback.dictationSubmission_id", "=", "dictationSubmission.id")
             .join("dictation", "dictationSubmission.dictation_id", "=", "dictation.id")
             .where("dictation.id", body.cardId)
-            .select("user.displayName", "dictationFeedback.dictationFeedbackBody",  "dictationFeedback.dictationSubmission_id", "dictationFeedback.id")
+            .select("user.displayName", "user.picture", "dictationFeedback.dictationFeedbackBody",  "dictationFeedback.dictationSubmission_id", "dictationFeedback.id")
             .then((feedbacks) => {
                 return feedbacks.map((feedback) => {
                     return ({
+                        picture: feedback.picture,
                         displayName: feedback.displayName,
                         dictationSubmissionId: feedback.dictationSubmission_id,
                         dictationFeedbackId: feedback.id,

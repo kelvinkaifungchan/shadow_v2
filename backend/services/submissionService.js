@@ -171,7 +171,7 @@ class SubmissionService {
             .join("user", "trueFalseSubmission.user_id", "=", "user.id")
             .where("trueFalseSubmission.id", body.trueFalseSubmissionId)
             .select("user.displayName", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
-            .then((submissions) => {
+            .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
                         trueFalseId: submission[0].trueFalse_id,
@@ -197,10 +197,11 @@ class SubmissionService {
             .join("flashcard", "flashcard.id", "=", "flashcardSubmission.flashcard_id")
             .where("flashcard.id", body.flashcardId)
             .andWhere("flashcardSubmission.flashcardSubmissionStatus", true)
-            .select("user.displayName", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
+            .select("user.displayName", "user.picture", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
             .then((submissions) => {
                 return submissions.map((submission) => {
                     return ({
+                        picture: submission.picture,
                         displayName: submission.displayName,
                         flashcardId: submission.flashcard_id,
                         flashcardSubmissionId: submission.id,
@@ -217,10 +218,11 @@ class SubmissionService {
             .join("dictation", "dictation.id", "=", "dictationSubmission.dictation_id")
             .where("dictation.id", body.dictationId)
             .andWhere("dictationSubmission.dictationSubmissionStatus", true)
-            .select("user.displayName", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
+            .select("user.displayName", "user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
             .then((submissions) => {
                 return submissions.map((submission) => {
                     return ({
+                        picture: submission.picture,
                         displayName: submission.displayName,
                         dictationId: submission.dictation_id,
                         dictationSubmissionId: submission.id,
@@ -238,10 +240,11 @@ class SubmissionService {
             .join("multipleChoice", "multipleChoice.id", "=", "multipleChoiceSubmission.multipleChoice_id")
             .where("multipleChoice.id", body.multipleChoiceId)
             .andWhere("multipleChoiceSubmission.multipleChoiceSubmissionStatus", true)
-            .select("user.displayName", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+            .select("user.displayName", "user.picture", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
             .then((submissions) => {
                 return submissions.map((submission) => {
                     return ({
+                        picture: submission.picture,
                         displayName: submission.displayName,
                         multipleChoiceId: submission.multipleChoice_id,
                         multipleChoiceSubmissionId: submission.id,
@@ -258,10 +261,11 @@ class SubmissionService {
             .join("trueFalse", "trueFalse.id", "=", "trueFalseSubmission.trueFalse_id")
             .where("trueFalse.id", body.trueFalseId)
             .andWhere("trueFalseSubmission.trueFalseSubmissionStatus", true)
-            .select("user.displayName", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
+            .select("user.displayName", "user.picture", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
             .then((submissions) => {
                 return submissions.map((submission) => {
                     return ({
+                        picture: submission.picture,
                         displayName: submission.displayName,
                         trueFalseId: submission.trueFalse_id,
                         trueFalseSubmissionId: submission.id,
