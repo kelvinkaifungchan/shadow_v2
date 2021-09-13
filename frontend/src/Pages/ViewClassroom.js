@@ -89,6 +89,20 @@ class ViewClassroom extends React.Component {
         })
     }
 
+    navigateSet(e){
+        console.log()
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set: this.props.sets.filter ((set) => {
+                if(set.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return set
+                }
+            }) 
+        }
+        })
+    }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -171,7 +185,7 @@ class ViewClassroom extends React.Component {
                         </div>
                         
 
-                        <DisplaySetModule sets={this.props.sets} />
+                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>this.navigateSet(e)}/>
 
                     </div>
                 </div>
