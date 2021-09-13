@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 
+import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
