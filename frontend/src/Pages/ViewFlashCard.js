@@ -28,6 +28,7 @@ class ViewFlashCard extends React.Component {
         this.state = {
             title: "classroomTitle",
             read: "readonly",
+            type: "",
         }
     }
 
@@ -48,9 +49,13 @@ class ViewFlashCard extends React.Component {
 
                 <div className={classes.viewflashcard}>
                     <div classNmae="row d-flex p-4">
-                        <div className="col-8">
-                        <HeadingInput title={this.state}/>
-                        </div>
+                    <div className="col-8">
+                    <h1>Sample Flashcard Title</h1>
+                        {/* <h1>{this.props.sets[0].title}</h1> */}
+                        <h6>Sample Flashcard Description</h6>
+                        {/* <h6>{this.props.sets[0].description}</h6> */}
+
+                    </div>
                     </div>
 
                     <div className="row d-flex p-4">
@@ -133,7 +138,7 @@ class ViewFlashCard extends React.Component {
                                 <h6>Feedback</h6>
                                 <div className={classes.scrollfeedback}>
                                     <div className={classes.scrollfeedbackcard}> 
-                                    {/* <DisplayFlashcardFeedbackModule cards={this.props.cards}/> */}
+                                    <DisplayFlashcardFeedbackModule cards={this.props.cards}/>
                                     </div>
 
                                     <div className={classes.scrollfeedbackcard}> 
