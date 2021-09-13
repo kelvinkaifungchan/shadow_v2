@@ -27,6 +27,9 @@ class CreateFlashcard extends React.Component {
         this.handleTranscript = this.handleTranscript.bind(this);
         this.handleRecording = this.handleRecording.bind(this);
     }
+    componentDidMount (){
+        this.props.getdata({ email:localStorage.getItem('email') }) 
+    }
 
     handleHeading(title){
         this.setState({
