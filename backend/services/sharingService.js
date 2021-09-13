@@ -28,6 +28,17 @@ class SharingService {
                     sharedUser_id: user_id[0].id
                 })
                 .into("classroom_user")
+                .then(() => {
+                    return this.knex("user")
+                    .where("email", body.email)
+                })
+                .then((data) => {
+                    return ({
+                        user_id: data.id,
+                        email: data.email,
+                        displayName: data.displayName
+                    })
+                })
         }
     }
 

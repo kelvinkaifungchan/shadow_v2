@@ -13,14 +13,14 @@ import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
 
 import classes from './CreateFlashcard.module.css'
+import { TypeaheadInputMulti } from 'react-bootstrap-typeahead';
 
 class CreateFlashcard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             type:"flashcard",
-            flashcardTitle: "",
-            flashcardBody:"",
+            title: "Add A Title",
             flashcardRecording:"",
         }
         this.handleHeading = this.handleHeading.bind(this);
@@ -51,13 +51,13 @@ class CreateFlashcard extends React.Component {
         console.log("this.state in create flash card",this.state);
         return (
             <div>
-                <NavBar />
+                <NavBar history={this.props.history}/>
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            <HeadingInput card={this.state} handleHeading={this.handleHeading}/>
+                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state}/>
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}

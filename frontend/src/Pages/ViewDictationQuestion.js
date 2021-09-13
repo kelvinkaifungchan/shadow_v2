@@ -22,7 +22,7 @@ class ViewDictationQuestion extends React.Component {
             <div>
             <div className="row" style={this.bg}>
             <div className="col col-8">
-                <NavBar/>
+                <NavBar history={this.props.history}/>
                 </div>
                 <div className="col col-4">
                 <Link to="/account">Account</Link>
