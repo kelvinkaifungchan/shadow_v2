@@ -8,7 +8,7 @@
         color: #3D4176;
     }
 
-    .card{
+    .frame{
         width: 28vw;
         height: 20vh;
         border: 1px solid #B6B6B6;
@@ -17,7 +17,19 @@
         justify-content: center;
         align-items: center;
         margin: 10px;
-        padding: 10px;
+        padding: 30px;
+    }
+
+    .card{
+        width: 28vw;
+        height: 20vh;
+        border: 1px solid #B6B6B6;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* margin: 10px; */
+        padding: 30px;
     }
 
     .addbtn{

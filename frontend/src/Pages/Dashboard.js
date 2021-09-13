@@ -77,44 +77,40 @@ class PureDashboard extends React.Component {
     render() {
         console.log('props in dashboard', this.props)
         return (
-            <div>
+            <div >
                 <NavBar user={this.props.user} history={this.props.history}/>
-                <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
-                <div className="p-3">
-                    <div className="row d-flex p-4">
-                        <div className="col ">
-                        <span className={classes.createclassroombtn}>
-                            <h2 className="p-2 m-0">My Classroom</h2>
-                            
-                                <button onClick={() => { this.changeTypeClass(); this.toggle(); }} className=""><i className="fas fa-plus"></i></button>
-                                </span>
+                {/* <CreatePopUp create={this.state} toggle={() => this.toggle()}/> */}
+                
+                <div className={classes.dashboard}>
 
+                        <div className="row d-flex p-4">
+                                <h1>My Classroom</h1>
+                                <span className={classes.createclassroombtn}>
+                                    <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                                    </span>
                         </div>
-                        {/* <h2>My Classroom</h2>
-                    <CreateClassBtn  /> */}
 
-                    </div>
-                    <div className="row d-flex p-4">
-                    <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
-                    </div>
-
-                    <div className="row d-flex p-4">
-                        <div className="col ">
-                            <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/>
-                            <span className={classes.createsetbtn}>
-                            <h2 className="p-2 m-0">My Set</h2>
-                                <button onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></button>
-                                </span>
+                        <div className="row d-flex pl-4">
+                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
                         </div>
-                        {/* <h2>My Set</h2>
-                    <CreateSetBtn /> */}
-                    </div>
-                    <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
-                    {this.props.loading && <div> Loading...</div>}
-                    {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
 
+                        <div className="row d-flex p-4">
+                                {/* <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/> */}
+                                <h1>My Set</h1>
+                                <span className={classes.createsetbtn}>
+                                    <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                                    </span>
+                            </div>
+
+                        <div className="row d-flex pl-4">
+                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
+                        </div>
+                        
+
+                        {this.props.loading && <div> Loading...</div>}
+                        {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
+                        </div>
                 </div>
-            </div>
         );
     }
 }
