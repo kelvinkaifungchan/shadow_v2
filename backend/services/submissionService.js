@@ -17,7 +17,8 @@ class SubmissionService {
                 flashcardSubmissionRecording: body.flashcardSubmissionRecording,
                 flashcardSubmissionStatus: true
             })
-            .into("flashcardSubmission");
+            .into("flashcardSubmission")
+            .returning("id");
         } 
         else if (body.type === "dictation"){
             console.log("Adding submission to dictation");
@@ -31,7 +32,8 @@ class SubmissionService {
                 dictationSubmissionPath: body.dictationSubmissionPath,
                 dictationSubmissionStatus: true
             })
-            .into("dictationSubmission");
+            .into("dictationSubmission")
+            .returning("id");
         }
         else if (body.type === "multipleChoice"){
             console.log("Adding submission to multipleChoice");
@@ -46,7 +48,8 @@ class SubmissionService {
                 multipleChoiceMarking: body.multipleChoiceMarking,
                 multipleChoiceStatus: true
             })
-            .into("multipleChoiceSubmission");
+            .into("multipleChoiceSubmission")
+            .returning("id");
         }
         else if (body.type === "trueFalse") {
             console.log ("Adding submission to trueFalse")
@@ -61,7 +64,8 @@ class SubmissionService {
                 trueFalseMarking: body.trueFalseMarking,
                 trueFalseSubmissionStatus: true
             })
-            .into("trueFalseSubmission");
+            .into("trueFalseSubmission")
+            .returning("id");
         }
         else {
             return "card type not recognized";

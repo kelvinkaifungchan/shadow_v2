@@ -1,3 +1,7 @@
+.createflashcard {
+    margin: 2% 5%
+    }
+
 .createflashcard button {
     cursor: pointer;
     float: right;

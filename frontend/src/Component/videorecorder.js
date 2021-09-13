@@ -85,6 +85,7 @@ class PureVideoRecorder extends React.Component {
         formData.append("file", blob, `${dt}.webm`);
 
         const videoURL = window.URL.createObjectURL(blob);
+        this.props.handleRecording(videoURL)
         // append videoURL to list of saved videos for rendering
         const videos = this.state.videos.concat([videoURL]);
         const preview = document.getElementById('preview');
@@ -92,6 +93,7 @@ class PureVideoRecorder extends React.Component {
         preview.setAttribute("src", videoURL)
 
         this.setState({ videos });
+        console.log("this.props.emai in VR",this.props.email);
         // axios.post(
         //     ` http://localhost:8000/api/recording`, formData
         // )
@@ -108,7 +110,7 @@ class PureVideoRecorder extends React.Component {
     render() {
         const { show } = this.state;
         return (
-            <div>
+            <div className="col">
             <div className="flex-col d-flex justify-content-center" id="videoSubmission">
                 {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
 
@@ -132,6 +134,7 @@ class PureVideoRecorder extends React.Component {
 const mapStateToProps = (state) => {
     console.log("this is state;", state);
     return {
+        email: state.authStore.email,
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }

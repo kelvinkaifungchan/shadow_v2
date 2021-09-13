@@ -18,7 +18,7 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
             <>
                 {this.state.flashcard[0].submission.map((submission, i) => {
                     return (
-                        <table key={i}> 
+                        <table data-key={i}> 
                         <th>{submission.feedback[0].flashcardFeedbackTime}</th>
                         <td>{submission.feedback[0].flashcardFeedbackBody}</td>
                         </table>

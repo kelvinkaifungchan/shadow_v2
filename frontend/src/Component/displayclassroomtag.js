@@ -10,7 +10,7 @@ class PureDisplayClassroomTag extends React.Component {
             <>
                 {this.props.classrooms.tags.map((tag, i) => {
                     return (
-                        <div key={i} className="col m-1 p-5 border border-4 rounded-lg highlight ">
+                        <div data-key={i} className="col m-1 p-5 border border-4 rounded-lg highlight ">
                             <p>{tag[0].body}</p>
                         </div>
                     )

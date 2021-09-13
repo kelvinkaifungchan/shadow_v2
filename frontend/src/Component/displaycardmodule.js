@@ -17,7 +17,7 @@ class PureDisplayCardModule extends React.Component {
 
                 {this.props.cards.flashcard.map((card, i) => {
                     return (
-                        <div key={i} className={classes.card}>
+                        <div data-key={i} className={classes.card}>
                             <h4>{card.flashcardTitle}</h4>
                             <p>{card.flashcardBody}</p>
                         </div>
@@ -26,7 +26,7 @@ class PureDisplayCardModule extends React.Component {
 
                 {this.props.cards.quizcard.map((card, i) => {
                     return (
-                        <div key={i} className={classes.card}>
+                        <div data-key={i} className={classes.card}>
                             <h4>{card.quizcardTitle}</h4>
                             <p>{card.quizcardRecording}</p>
                         </div>
@@ -35,7 +35,7 @@ class PureDisplayCardModule extends React.Component {
 
                 {this.props.cards.dictationcard.map((card, i) => {
                     return (
-                        <div key={i} className={classes.card}>
+                        <div data-key={i} className={classes.card}>
                             <h4>{card.dictationcardTitle}</h4>
                             <p >{card.dictationBody}</p>
                         </div>

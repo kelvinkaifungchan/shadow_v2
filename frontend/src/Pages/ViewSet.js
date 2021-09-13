@@ -17,6 +17,7 @@ import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplayCardModule } from '../Component/displaycardmodule';
 // import NavBar from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
+
 // import Tags from '../Component/tags';
 import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
@@ -41,12 +42,8 @@ class ViewSet extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.props.getdata({ email: this.props.user.email })
-    // }
-    
-    componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+    componentDidMount (){
+        this.props.getdata({ email: localStorage.getItem('email') }) 
     }
 
     toggle() {
@@ -95,6 +92,7 @@ class ViewSet extends React.Component {
                         {/* <h1>{this.props.sets[0].title}</h1> */}
                         <h6>Sample Set Description</h6>
                         {/* <h6>{this.props.sets[0].description}</h6> */}
+
                     </div>
                 </div>
 
@@ -137,7 +135,6 @@ class ViewSet extends React.Component {
 
                         <DisplayCardModule cards={this.props.cards} />
                 </div>
-
             </div>
             </div>
         );
@@ -156,12 +153,13 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
 
-const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
+
     }
 }
 

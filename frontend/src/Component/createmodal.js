@@ -28,8 +28,10 @@ class PureModel extends React.Component {
         e.preventDefault();
         if (this.props.create.type === "class") {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
+
         } else {
-            this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
+            this.props.createSetMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
+
         }
 
     }
@@ -49,8 +51,8 @@ class PureModel extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         {this.props.create.type === "class" ?
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/viewclassroom'><div>Create</div></Link> </button>:
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/viewset'><div>Create</div></Link></button>
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button>:
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
                         }
                         <button onClick={() => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
 
@@ -76,7 +78,7 @@ const mapDispatchToProps = dispatch => {
             let classroom = {
                 email: email,
                 title: title,
-                desc: description
+                description: description
             }
             dispatch(addClassroom(classroom))
         },

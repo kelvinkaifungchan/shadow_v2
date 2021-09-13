@@ -13,15 +13,17 @@
 
 .card h4{
     font-size: 20px;
-    display: flex; 
-        justify-content: center;
-        align-items: center;
+    font-weight: bold;
 }
 
 .card p{
     font-size: 14px;
-    display: flex; 
+    /* display: flex;  */
     justify-content: center;
     align-items: center;
     color: #B9B9B9;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

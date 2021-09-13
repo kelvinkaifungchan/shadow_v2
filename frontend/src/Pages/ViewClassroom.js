@@ -19,20 +19,33 @@ import classes from './ViewClassroom.module.css'
 class ViewClassroom extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
+            email: "",
             modal: false,
             type: "",
             tagModal: false,
             shareModal: false,
+            // classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+            classroomTitle: "",
+            classroomDesc: "",
         };
     }
 
-    // componentDidMount() {
-    //     this.props.getdata({ email: this.props.user.email })
-    // }
+    componentDidMount (){
+        this.props.getdata({ email: localStorage.getItem('email') }) 
+    }
 
-    componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+    handleHeading(title){
+        this.setState({
+            classroomTitle: title
+        })
+    }
+    
+    handleTranscript(desc){
+        this.setState({
+            classroomDesc: desc
+        })
     }
 
     toggle() {
@@ -65,8 +78,13 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props", this.props);
-
+        console.log("props of view classroom", this.props)
+        console.log("state of view classroom", this.state)
+        // if(this.props.classrooms == []){
+        //     console.log("I AM HEREEEEEE");
+        //     this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
+        // }
+ 
         return (
             <div>
                 <NavBar />
@@ -106,6 +124,7 @@ class ViewClassroom extends React.Component {
                         <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
                         </span>
                         </div>
+
                     {/* Add button */}
                     <div className="row d-flex justify-content-between m-3">
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
@@ -130,14 +149,13 @@ class ViewClassroom extends React.Component {
 
 
 const mapStateToProps = (state) => {
+
     console.log("state in VIEW CLASSROOM", state);
     return {
-        email: state.authStore.email,
-        user: state.userStore.user,
-        classrooms: state.classroomStore.classrooms,
+        tags:state.setStore.tags,
         sets: state.setStore.sets,
-        cards: state.cardStore.card,
-        tags: state.tagStore.tags,
+        classrooms: state.classroomStore.classrooms,
+        user:state.userStore.user
     }
 }
 
@@ -151,3 +169,28 @@ const mapDispatchToProps  = dispatch => {
 
 const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };
+
+    // componentDidMount(){
+    //     console.log('cmpn did muntmuntmuntmuntmuntmuntmuntmuntmunt')
+    //     this.props.getdata({ email: "test@test.com" })
+    //     this.setState({
+    //         classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
+    //     })
+    // }
+    // componentWillReceiveProps (nextProps){
+    //     console.log('CWRP', nextProps)
+    //     this.setState({
+    //         classroom: nextProps.classrooms.filter(classroom => classroom.id === parseInt(nextProps.match.params.id))
+    //     })
+    // }
+    // static getDerivedStateFromProps (nextProps, prevState) {
+    //     console.log('next props', nextProps)
+    //     console.log('prev state', prevState)
+    //     // nextProps.classrooms = prevState
+    //     const classroom = nextProps.classrooms
+    //     console.log(classroom)
+    //     // update your internal state that depends on the props
+    //     // const internalState = nextProps.something
+    //     // this.setState({internalState}
+    //   }
+
