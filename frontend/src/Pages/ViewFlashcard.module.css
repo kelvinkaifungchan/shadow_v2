@@ -5,8 +5,8 @@
     }
     
 video, iframe {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 50vh;
 }
 
 div.submissions {

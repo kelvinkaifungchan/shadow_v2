@@ -93,7 +93,7 @@ class ViewClassroom extends React.Component {
                 {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
                         {/* <Tags/> */}
                         <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
-                        <span className="d-inline-flex ">
+                        <span className={classes.sharingusericon}>
                         <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
                         </span>
             </div>

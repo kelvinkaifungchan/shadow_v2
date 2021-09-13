@@ -21,6 +21,7 @@
         border: 2px solid #3D4176;
       }
 
+
     .tagbutton {
         height: 1.5rem;
         margin: 4px;
@@ -32,9 +33,13 @@
         /* width: auto; */
         box-shadow: none;
         text-align: center;
+        cursor: pointer;
         font-size: 15px;
     }
 
+    /* .tagbutton :hover{
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    } */
 
     .addtagbutton {
         height: 1.5rem;
@@ -50,6 +55,11 @@
         font-size: 15px;
     }
 
+    .viewclassroom button:hover{
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    }
+
+
 
     .sharingusericon {
         display: flex;
@@ -58,8 +68,10 @@
         /* height: auto; */
         /* border-radius: 50%; */
         background-color: transparent;
-        /* margin: 2px; */
+        cursor: pointer;
+        margin: 6px;
       }
+    
       
     
     .sharingusericon img{
@@ -68,5 +80,9 @@
         /* -webkit-border-radius: 30px;  */
         border: 2px solid #3D4176;
         border-radius: 50%; 
-        margin: 0px 8px;
+        /* margin: 0px 8px; */
         }
+    
+    .sharingusericon img:hover{
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    }
