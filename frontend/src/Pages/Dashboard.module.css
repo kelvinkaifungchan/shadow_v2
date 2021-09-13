@@ -1,37 +1,62 @@
-  .createclassroombtn button{
+  .dashboard{
+    margin: 2% 5%;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #3D4176;
+    
+    /* display: block; */
+  }
+  
+  .createclassroombtn div{
     font: inherit;
     cursor: pointer;
-    display: block;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin: 0px 10px;
     width:30px;
     height:30px;
     text-align: center;
-    font-size: 10px;
+    font-size: 0.8rem;
     color: #77002e;
     border: 1px solid #77002e;
     background-color: transparent;
     border-radius: 50%;
   }
   
-.createclassroombtn button:hover,
-.createclassroombtn button:active {
+  .addbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.createclassroombtn div:hover,
+.createclassroombtn div:active {
     background-color: #ffe2ed;
   }
 
-  .createsetbtn button{
+
+  .createsetbtn div{
     font: inherit;
     cursor: pointer;
-    display: block;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin: 0px 10px;
     width:30px;
     height:30px;
     text-align: center;
-    font-size: 10px;
+    font-size: 0.8rem;
     color: #77002e;
     border: 1px solid #77002e;
     background-color: transparent;
     border-radius: 50%;
   }
   
-.createsetbtn button:hover,
-.createsetbtn button:active {
+.createsetbtn div:hover,
+.createsetbtn div:active {
     background-color: #ffe2ed;
   }

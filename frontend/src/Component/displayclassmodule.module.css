@@ -1,8 +1,7 @@
-
-.card{
+.classroom{
     width: 28vw;
     height: 20vh;
-    margin: 5px 10px;
+    margin: 20px;
     border: 1px solid #B6B6B6;
     border-radius: 25px;
     /* display: flex; */
@@ -12,12 +11,12 @@
     padding: 30px;
 }
 
-.card h4{
+.classroom h4{
     font-size: 20px;
     font-weight: bold;
 }
 
-.card p{
+.classroom p{
     font-size: 14px;
     /* display: flex;  */
     justify-content: center;

@@ -68,7 +68,7 @@ export function cardReducer(state = initialState, action) {
             return {
                 card: {
                     ...state.card,
-                    dictationcard: [...state.card.dictationcard, action.payload.content]
+                    dictationcard: [...state.card.dictationcard, action.payload]
                 }
             };
 
@@ -76,7 +76,7 @@ export function cardReducer(state = initialState, action) {
             return {
                 card: {
                     ...state.card,
-                    flashcard: [...state.card.flashcard, action.payload.content]
+                    flashcard: [...state.card.flashcard, action.payload]
                 }
             };
 
@@ -84,7 +84,7 @@ export function cardReducer(state = initialState, action) {
             return {
                 card: {
                     ...state.card,
-                    quizcard: [...state.card.quizcard, action.payload.content]
+                    quizcard: [...state.card.quizcard, action.payload]
                 }
             };
 

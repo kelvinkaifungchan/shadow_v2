@@ -53,7 +53,7 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log("this.props.create>>>>>>>>", this.props.create);
+        console.log("this.props.create>>>>>>>>", this.props);
         console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
@@ -71,7 +71,7 @@ class PureModel extends React.Component {
             <Modal isOpen={this.props.create.modal} toggle={this.props.toggle} className={classes.addnewmodal}>
                 <ModalHeader >Add New {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}</ModalHeader>
                 <ModalBody>
-                    {this.props.create.type === "class" ? <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} /> : <SelectCardPopUp selectCard={this.state} toggle={() => this.openSelect()} />}
+                    {this.props.create.type === "class" ? <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} /> : <SelectCardPopUp selectCard={this.state} navigate={(e)=>{this.props.navigate(e)}} toggle={() => this.openSelect()} />}
                     <AddExistPopUp create={this.state} toggle={() => this.toggle()} />
 
                     <div className="d-inline-flex row">

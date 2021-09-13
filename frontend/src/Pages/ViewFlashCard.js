@@ -32,16 +32,11 @@ class ViewFlashCard extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+    componentDidMount (){
+        this.props.getdata({ email: localStorage.getItem('email') }) 
     }
-
-    // logout = (e) => {
-    //     e.preventDefault();
-    //     this.props.logout()
-    // }
     render() {
-        console.log("i want to see the props",this.props);
+        console.log("i want to see the props in vw flcds",this.props);
 
         return (
             <div>
@@ -54,31 +49,8 @@ class ViewFlashCard extends React.Component {
                         {/* <h1>{this.props.sets[0].title}</h1> */}
                         <h6>Sample Flashcard Description</h6>
                         {/* <h6>{this.props.sets[0].description}</h6> */}
+                </div>
 
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar history={this.props.history}/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                    <div className="col col-4">
-                    {/* <FormSubmit/> */}
-                    <p>FormSubmit</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-6">
-                        <VideoPlayer/>
-                    </div>
-                    </div>
 
                     <div className="row d-flex p-4">
                         <div className="col">
@@ -194,6 +166,7 @@ class ViewFlashCard extends React.Component {
                     <PrivateRoute path="/account" component={Account} />
                     </Switch>
                     </BrowserRouter>
+            </div>
             </div>
         );
     }
