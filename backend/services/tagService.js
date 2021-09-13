@@ -21,7 +21,7 @@ class TagService{
                         tag_id: tag_id[0].id
                     })
                     .into("tag_set")
-                return query
+                return tag_id[0].id
             }
             else if(body.type == "classroom"){
                 console.log("Tag exists, adding to classroom")           
@@ -31,7 +31,7 @@ class TagService{
                         tag_id: tag_id[0].id
                     })
                     .into("tag_classroom")
-                return query
+                return tag_id[0].id
             }
             // else if(body.type == "flashcard"){
             //     console.log("Tag exists, adding to flashcard")
@@ -80,7 +80,7 @@ class TagService{
                                 tag_id: tag_id[0].id
                             })
                             .into("tag_set")
-                        return query
+                        return tag_id[0].id
                     }
                     else if(body.type == "classroom"){
                         console.log("Tag exists, adding to classroom")
@@ -91,7 +91,7 @@ class TagService{
                                 tag_id: tag_id[0].id
                             })
                             .into("tag_classroom")
-                        return query
+                        return tag_id[0].id
                     }
                     // else if(body.type == "flashcard"){
                     //     console.log("Tag exists, adding to flashcard")
