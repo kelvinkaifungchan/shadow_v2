@@ -11,15 +11,16 @@ export const DELETE_TAG_SET = "DELETE_TAG_SET";
 export const addTag = (tag) => async (dispatch) => {
     console.log("adding tag")
 
-   const { newId } = await axios.post(`http://localhost:8080/api/tag/${tag.type}` , tag)
+   const { data } = await axios.post(`http://localhost:8080/api/tag/${tag.type}` , tag)
+   const newId = data[0];
 
-    dispatch({type: ADD_TAG, payload: {tagId: newId[0], tagBody: tag.tagBody}});
+    dispatch({type: ADD_TAG, payload: {tagId: newId, tagBody: tag.tagBody}});
     
     if (tag.type === "class"){
-        dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: newId[0], tagBody: tag.tagBody}}});
+        dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: newId, tagBody: tag.tagBody}}});
     }
     if(tag.type === "set"){
-        dispatch({type: ADD_TAG_SET, payload: {id:{set_id: tag.setId}, content:{tagId: newId[0], tagBody: tag.tagBody}}});
+        dispatch({type: ADD_TAG_SET, payload: {id:{set_id: tag.setId}, content:{tagId: newId, tagBody: tag.tagBody}}});
     }
 
 }
