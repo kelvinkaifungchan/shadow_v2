@@ -211,27 +211,3 @@ const connectedViewClassroom = connect(
   mapDispatchToProps
 )(ViewClassroom);
 export { connectedViewClassroom as ViewClassroom };
-
-// componentDidMount(){
-//     console.log('cmpn did muntmuntmuntmuntmuntmuntmuntmuntmunt')
-//     this.props.getdata({ email: "test@test.com" })
-//     this.setState({
-//         classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
-//     })
-// }
-// componentWillReceiveProps (nextProps){
-//     console.log('CWRP', nextProps)
-//     this.setState({
-//         classroom: nextProps.classrooms.filter(classroom => classroom.id === parseInt(nextProps.match.params.id))
-//     })
-// }
-// static getDerivedStateFromProps (nextProps, prevState) {
-//     console.log('next props', nextProps)
-//     console.log('prev state', prevState)
-//     // nextProps.classrooms = prevState
-//     const classroom = nextProps.classrooms
-//     console.log(classroom)
-//     // update your internal state that depends on the props
-//     // const internalState = nextProps.something
-//     // this.setState({internalState}
-//   }
