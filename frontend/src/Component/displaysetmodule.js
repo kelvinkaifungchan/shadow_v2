@@ -15,6 +15,7 @@ class PureDisplaySetModule extends React.Component {
                             <h4 data-key={set.id}><strong data-key={set.id}>{set.title}</strong></h4>
                             <p data-key={set.id}>{set.description}</p>
                         </div>
+
                         </div>
                     )
                 })}

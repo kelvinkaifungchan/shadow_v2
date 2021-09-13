@@ -42,8 +42,9 @@ class ViewSet extends React.Component {
         }
     }
 
+
     componentDidMount (){
-        this.props.getdata({ email: localStorage.getItem('email') }) 
+        this.props.getdata({ email: (localStorage.getItem('email')) }) 
     }
 
     toggle() {
@@ -154,12 +155,13 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => {
-
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
-
+        logout: () => {
+            dispatch(logoutNowThunk())
+        }
     }
 }
 

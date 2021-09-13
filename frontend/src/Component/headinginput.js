@@ -33,7 +33,6 @@ class PureHeadingInput extends React.Component {
   }
 }
 
-
 const mapDispatchToProps = dispatch => {
   return {
     getdata: (email) => {

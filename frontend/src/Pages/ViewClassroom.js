@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+
 import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
@@ -50,6 +51,7 @@ class ViewClassroom extends React.Component {
             });
           });
       }
+
 
     handleHeading(title){
         this.setState({
@@ -156,6 +158,7 @@ class ViewClassroom extends React.Component {
                         </span>
                         </div>
 
+
                     {/* Add button */}
                     <div className="row d-flex justify-content-between m-3">
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
@@ -182,10 +185,12 @@ const mapStateToProps = (state) => {
 
     console.log("state in VIEW CLASSROOM", state);
     return {
-        tags:state.setStore.tags,
-        sets: state.setStore.sets,
+        email: state.authStore.email,
+        user: state.userStore.user,
         classrooms: state.classroomStore.classrooms,
-        user:state.userStore.user
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 
@@ -199,5 +204,4 @@ const mapDispatchToProps  = dispatch => {
 
 const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };
-
 
