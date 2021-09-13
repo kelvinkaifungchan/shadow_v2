@@ -24,6 +24,7 @@ class CreateFlashcard extends React.Component {
             flashcardTitle: "",
             flashcardBody:"",
             flashcardRecording:"",
+            setId:""
         }
         this.handleHeading = this.handleHeading.bind(this);
         this.handleTranscript = this.handleTranscript.bind(this);
@@ -51,24 +52,26 @@ class CreateFlashcard extends React.Component {
             flashcardRecording: record
         })
     }
-    addFlashCard(e){
-        // console.log(this.props)
-        e.preventDefault()
-        this.props.addCard({
-            email: localStorage.getItem('email'),
-            type : this.state.type,
-            flashcardTitle: this.state.flashcardTitle,
-            flashcardBody: this.state.flashcardBody,
-            flashcardRecording: this.state.flashcardRecording
-        })
+    
+    addFlashCard(){
+      this.props.addCard({
+                email: localStorage.getItem('email'),
+                type : this.state.type,
+                flashcardTitle: this.state.flashcardTitle,
+                flashcardBody: this.state.flashcardBody,
+                flashcardRecording: this.state.flashcardRecording,
+                setId: this.props.location.state.set[0].id
+            })
+       
     }
-    navigateSet(e){
+
+    async navigateSet(e){
+        e.preventDefault()
         this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.location.state.set
             }
-        }
-        )
+        })
     }
     render() {
         console.log("this.props in create flash card",this.props);
@@ -86,7 +89,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <button cards={this.props.cards} onClick={(e)=>{this.addFlashCard(e); this.navigateSet(e)}}>Create Card</button>
+                            <button cards={this.props.cards} onClick={()=>{this.addFlashCard()}}>Create Card</button>
                         </div>
                     </div>
 
