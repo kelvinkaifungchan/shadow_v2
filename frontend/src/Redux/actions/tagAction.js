@@ -15,7 +15,7 @@ export const addTag = (tag) => async (dispatch) => {
 
     dispatch({type: ADD_TAG, payload: {tagId: newId[0], tagBody: tag.tagBody}});
     
-    if (tag.type === "classroom"){
+    if (tag.type === "class"){
         dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: newId[0], tagBody: tag.tagBody}}});
     }
     if(tag.type === "set"){
@@ -32,7 +32,7 @@ export const deleteTag = (tag) => async (dispatch) => {
    
    dispatch({type: DELETE_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
     
-   if (tag.type === "classroom"){
+   if (tag.type === "class"){
        dispatch({type: DELETE_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
    }
    if(tag.type === "set"){

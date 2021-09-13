@@ -7,8 +7,8 @@ class PureDisplaySetModule extends React.Component {
 
     render() {
         return (
-            <>
-                {this.props.sets.map((set, i) => {
+            <div className="row ">
+                {this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     return (
                         <div className="col">
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
@@ -18,8 +18,9 @@ class PureDisplaySetModule extends React.Component {
 
                         </div>
                     )
-                })}
-            </>
+                }) : null}
+
+            </div>
         )
 
     }

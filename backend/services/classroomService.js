@@ -159,7 +159,8 @@ class ClassroomService {
               return {
                 id: user.id,
                 email: user.email,
-                displayName: user.displayName
+                displayName: user.displayName,
+                picture: user.picture
               };
             }));
           })

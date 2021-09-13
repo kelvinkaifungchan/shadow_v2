@@ -94,6 +94,7 @@ class ViewSet extends React.Component {
                         <h6>Sample Set Description</h6>
                         {/* <h6>{this.props.sets[0].description}</h6> */}
 
+
                     </div>
                 </div>
 
@@ -161,6 +162,9 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             dispatch(logoutNowThunk())
+        },
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }
