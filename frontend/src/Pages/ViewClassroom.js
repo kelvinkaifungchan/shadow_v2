@@ -19,15 +19,21 @@ class ViewClassroom extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
+            email: JSON.parse(window.localStorage.getItem('email')),
             modal: false,
             type: "",
             tagModal: false,
             shareModal: false,
-            classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+            // classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
             classroomTitle: "",
             classroomDesc: "",
         };
+    }
+
+    componentDidMount (){
+        this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
     }
 
     handleHeading(title){
@@ -73,22 +79,27 @@ class ViewClassroom extends React.Component {
 
     render() {
         console.log("props of view classroom", this.props)
-        console.log('states in view classroom', this.state)
+        console.log("state of view classroom", this.state)
+        // if(this.props.classrooms == []){
+        //     console.log("I AM HEREEEEEE");
+        //     this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
+        // }
+ 
         return (
             <div>
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput card={this.state} heading={this.state.classroom[0]} handleHeading={this.handleHeading}/>
+                        <HeadingInput card={this.state} heading={this.props.location.state.classroom} handleHeading={this.handleHeading}/>
                         <div className="row">
                             <div className="col col-3">
                                 <div>
                                     <div className="d-inline-flex align-item-center h-50 pt-2">
-                                        {this.state.classroom[0].tags.map((tag, j) => {
+                                        {this.props.location.state.classroom.tags && this.props.location.state.classroom.tags.length > 0 ? this.props.location.state.classroom.tags.map((tag, j) => {
                                             return (
                                                 <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
                                             )
-                                        })}
+                                        }): null}
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +141,9 @@ class ViewClassroom extends React.Component {
 
 const mapStateToProps = (state) => {
     console.log('state in vclass', state)
+
     return {
+        tags:state.setStore.tags,
         sets: state.setStore.sets,
         classrooms: state.classroomStore.classrooms,
     }

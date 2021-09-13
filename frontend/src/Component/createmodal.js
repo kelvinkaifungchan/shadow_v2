@@ -28,18 +28,10 @@ class PureModel extends React.Component {
         e.preventDefault();
         if (this.props.create.type === "class") {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
-            // console.log('actionsactionsactionsactionsactionsactionsactionsactions', this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc))
-            // console.log(this.props)
-            // this.props.history.push({
-            //     pathname: '/viewclassroom',
-            //     state: { classroom: 6 }
-            // })
+
         } else {
-            this.props.createClassMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
-            // this.props.history.push({
-            //     pathname: '/viewset',
-            //     state: { set: 6 }
-            // })
+            this.props.createSetMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
+
         }
 
     }
@@ -86,7 +78,7 @@ const mapDispatchToProps = dispatch => {
             let classroom = {
                 email: email,
                 title: title,
-                desc: description
+                description: description
             }
             dispatch(addClassroom(classroom))
         },
