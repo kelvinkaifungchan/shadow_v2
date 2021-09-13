@@ -33,12 +33,9 @@ class PureNavBar extends React.Component {
         this.props.logout()
     }
     render() {
-<<<<<<< HEAD
-=======
         console.log("this.props in nav", this.props);
         console.log("this.state in nav", this.state);
 
->>>>>>> cb40fb9334f5a0c6dc56d5383d1bf354cb5e508e
         const { modal } = this.state
         return (
             <div className={classes.header}>

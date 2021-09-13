@@ -36,7 +36,7 @@ class PureMenu extends React.Component {
                 <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
                 {this.props.sets.map((sets, i) => {
                     return (
-                <ListGroupItem tag="a" href="#" action>{sets.title}</ListGroupItem>
+                <ListGroupItem tag="a" href="#" onClick={(e)=>{this.navigateSet(e)}} action>{sets.title}</ListGroupItem>
                     )
                 })}
             </ListGroup>

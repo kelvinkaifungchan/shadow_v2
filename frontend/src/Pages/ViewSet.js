@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
+import { getdataThunk } from '../Redux/actions/action'
+
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
@@ -101,6 +103,9 @@ const mapDispatchToProps = dispatch => {
     return {
         logout: () => {
             dispatch(logoutNowThunk())
+        },
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }

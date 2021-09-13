@@ -87,16 +87,6 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
-=======
-        console.log("props of view classroom", this.props)
-        console.log("state of view classroom", this.state)
-        // if(this.props.classrooms == []){
-        //     console.log("I AM HEREEEEEE");
-        //     this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
-        // }
- 
->>>>>>> cb40fb9334f5a0c6dc56d5383d1bf354cb5e508e
         return (
             <div>
                 <NavBar history={this.props.history}/>
