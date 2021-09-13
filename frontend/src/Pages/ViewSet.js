@@ -79,6 +79,43 @@ class ViewSet extends React.Component {
         })
     }
 
+    navigateCard(e){
+        if(e.target.attributes["data-type"].value === "flashcard"){
+            this.props.history.push({
+                pathname:`/viewflashcard`,
+                state: { set: this.props.cards.flashcard.filter ((flashcard) => {
+                    if(flashcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return flashcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "quizcard"){
+            this.props.history.push({
+                pathname:`/viewQuizcard`,
+                state: { set: this.props.cards.quizcard.filter ((quizcard) => {
+                    if(quizcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return quizcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "dictationcard"){
+            this.props.history.push({
+                pathname:`/viewDictationcard`,
+                state: { set: this.props.cards.dictationcard.filter ((dictationcard) => {
+                    if(dictationcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return dictationcard
+                    }
+                }) 
+            }
+            })
+        }
+    }
+
     render() {
         console.log("VIEW SET PROPS", this.props);
 
@@ -135,7 +172,7 @@ class ViewSet extends React.Component {
                             </div>
                         </div>
 
-                        <DisplayCardModule cards={this.props.cards} />
+                        <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
                 </div>
             </div>
             </div>

@@ -40,7 +40,8 @@ class ViewClassroom extends React.Component {
       }
 
       getclassroom(){
-        this.props.location.state.classroom[0].bridge.map((setId) => {
+        if(this.props.location.state.classroom[0].bridge != null){
+            this.props.location.state.classroom[0].bridge.map((setId) => {
             console.log("inlocation,smao");
             this.props.sets.map((set) => {
               if (set.id === setId.set_id) {
@@ -50,6 +51,9 @@ class ViewClassroom extends React.Component {
               }
             });
           });
+        } else {
+            return null
+        }
       }
 
 
@@ -90,7 +94,6 @@ class ViewClassroom extends React.Component {
     }
 
     navigateSet(e){
-        console.log()
         this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.sets.filter ((set) => {
