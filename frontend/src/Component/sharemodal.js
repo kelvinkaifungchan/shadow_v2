@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { addSharingThunk } from '../Redux/actions/sharingAction';
+
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 class PureShareModal extends React.Component{
@@ -21,7 +23,7 @@ class PureShareModal extends React.Component{
 
     submit = (e) => {
         e.preventDefault();
-        this.props.createTagMDP(this.state.email)
+        this.props.createShareMDP(this.state.email, this.props.location.id)
     }
 
     render() {
@@ -44,5 +46,17 @@ class PureShareModal extends React.Component{
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        createShareMDP: (email, classroomId) => {
+            let classroom = {
+                email: email,
+                classroomId: classroomId
+            }
+            dispatch(addSharingThunk(classroom))
+        }
+    }
+}
 
-export const NewSharePopUp = connect(null, null)(PureShareModal)
+
+export const NewSharePopUp = connect(null, mapDispatchToProps)(PureShareModal)

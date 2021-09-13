@@ -72,6 +72,8 @@ class UserService {
         };
       });
   }
+
+  //Method to search
 }
 
 module.exports = UserService;

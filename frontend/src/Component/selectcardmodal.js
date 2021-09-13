@@ -13,14 +13,14 @@ class PureSelectCardModal extends React.Component{
                     <ModalBody>
                         <div className="row">
                             <div className="col col-4 d-flex justify-content-center">
-                                <Link className="btn btn-dark p-2" to="/createFlashcard"><h2>Flashcard</h2> <br/> <span>Shadow to imporve speaking</span></Link>
+                                <Link className="btn p-2 border" to="/createFlashcard"><h2>Flashcard</h2> <br/> <span>Shadow to improve speaking</span></Link>
+                            </div>
+                            {/* <div className="col col-4 d-flex justify-content-center">
+                                 <Link className="btn p-2 border" to="/createQuizcard"><h2>Quizcard</h2> <br/> <span>Test your knowledge</span></Link>
                             </div>
                             <div className="col col-4 d-flex justify-content-center">
-                                 <Link className="btn btn-dark p-2" to="/createQuizcard"><h2>Quizcard</h2> <br/> <span>Test your knowledge</span></Link>
-                            </div>
-                            <div className="col col-4 d-flex justify-content-center">
-                                 <Link className="btn btn-dark p-2" to="/createDictationcard"><h2>Dictation Card</h2> <br/> <span>How to spell this?</span></Link>
-                            </div>
+                                 <Link className="btn p-2 border" to="/createDictationcard"><h2>Dictation Card</h2> <br/> <span>Write</span></Link>
+                            </div> */}
                         </div>
                     </ModalBody>
                 </Modal>

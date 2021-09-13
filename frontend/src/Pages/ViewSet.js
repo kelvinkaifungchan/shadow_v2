@@ -50,14 +50,14 @@ class ViewSet extends React.Component {
         console.log('this.props.location.state.set', this.props.location.state.set)
         return (
             <div>
-                <NavBar />
+                <NavBar history={this.props.history}/>
                 <div className="row">
                     <div className="col col-12">
                         <HeadingInput heading={this.props.location.state.set[0]}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
-                        <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
+                        <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={()=>this.toggle()}/>
                         <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
@@ -104,6 +104,9 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             dispatch(logoutNowThunk())
+        },
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }
