@@ -93,14 +93,16 @@ class PureDashboard extends React.Component {
                     <CreateClassBtn  /> */}
 
                     </div>
+                    <div className="row d-flex p-4">
                     <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
-                    
+                    </div>
+
                     <div className="row d-flex p-4">
                         <div className="col ">
                             <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/>
                             <span className={classes.createsetbtn}>
                             <h2 className="p-2 m-0">My Set</h2>
-                                <button onClick={() => { this.changeTypeSet(); this.toggle(); }} className=""><i className="fas fa-plus"></i></button>
+                                <button onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></button>
                                 </span>
                         </div>
                         {/* <h2>My Set</h2>
