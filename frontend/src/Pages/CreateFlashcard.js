@@ -27,9 +27,7 @@ class CreateFlashcard extends React.Component {
         this.handleTranscript = this.handleTranscript.bind(this);
         this.handleRecording = this.handleRecording.bind(this);
     }
-    componentDidMount (){
-        this.props.getdata({ email:localStorage.getItem('email') }) 
-    }
+    
 
     handleHeading(title){
         this.setState({
@@ -49,9 +47,9 @@ class CreateFlashcard extends React.Component {
         })
     }
 
-
+    
     render() {
-        console.log("this.state in create flash card",this.state);
+        console.log("this.props in create flash card",this.props);
         return (
             <div>
                 <NavBar history={this.props.history}/>
@@ -64,7 +62,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <Link to='/viewset'><button>Create Card</button></Link>
+                            <button  onClick={(e)=>this.navigateSet(e)}>Create Card</button>
                         </div>
                     </div>
 

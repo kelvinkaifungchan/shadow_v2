@@ -52,7 +52,7 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log("this.props.create>>>>>>>>", this.props.create);
+        console.log("this.props.create>>>>>>>>", this.props);
         console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
@@ -67,7 +67,6 @@ class PureModel extends React.Component {
             </div>;
         }
         return (
-
 
             <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
 

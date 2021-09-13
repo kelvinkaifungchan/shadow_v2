@@ -45,9 +45,9 @@ class ViewSet extends React.Component {
         })
     }
 
+
     render() {
         console.log("i want to see the props", this.props);
-        console.log('this.props.location.state.set', this.props.location.state.set)
         return (
             <div>
                 <NavBar history={this.props.history}/>
@@ -69,7 +69,7 @@ class ViewSet extends React.Component {
                     {/* Add button */}
                     <div className="row d-flex justify-content-between m-3">
 
-                       <AddnewPopUp create={this.state} toggle={() => this.toggle()} /> 
+                       <AddnewPopUp  create={this.state} toggle={() => this.toggle()} /> 
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className="col-3 m-1 p-1 border border-4 rounded-lg d-inline-flex ">
                             <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
                                 <i className="fas fa-plus" />

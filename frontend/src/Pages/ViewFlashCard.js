@@ -23,14 +23,16 @@ class ViewFlashCard extends React.Component {
         }
     }
 
-
+    componentDidMount (){
+        this.props.getdata({ email: localStorage.getItem('email') }) 
+    }
     render() {
 
         return (
             <div>
                 <div className="row" style={this.bg}>
                     <div className="col col-8">
-                    <NavBar history={this.props.history}/>
+                    <NavBar/>
                     </div>
                     <div className="col col-4">
                     <Link to="/account">Account</Link>
