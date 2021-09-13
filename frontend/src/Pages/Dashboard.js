@@ -26,6 +26,8 @@ class PureDashboard extends React.Component {
         };
     }
 
+
+
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email')})
     }
