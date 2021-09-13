@@ -25,8 +25,7 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Propshere", this.props)
-        this.props.getdata({ email: this.props.email })
+        this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) })
     }
 
     toggle() {
@@ -46,16 +45,17 @@ class PureDashboard extends React.Component {
     }
 
     navigateClass(e){
+        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
             pathname:`/viewclassroom`,
-            state:{ classroom: e.target.attributes["data-key"].value }
+            state:{ classroom: this.props.classrooms.filter (classroom => classroom.id === e.target.attributes["data-key"].value)}
         })
     }
 
     navigateSet(e){
         this.props.history.push({
             pathname:`/viewset`,
-            state: { set:e.target.attributes["data-key"].value }
+            state: { set: this.props.sets.filter (set => set.id === e.target.attributes["data-key"].value) }
         })
     }
 

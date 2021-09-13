@@ -33,6 +33,12 @@ class PureNavBar extends React.Component {
         this.props.logout()
     }
     render() {
+<<<<<<< HEAD
+=======
+        console.log("this.props in nav", this.props);
+        console.log("this.state in nav", this.state);
+
+>>>>>>> cb40fb9334f5a0c6dc56d5383d1bf354cb5e508e
         const { modal } = this.state
         return (
             <div className={classes.header}>
@@ -46,7 +52,7 @@ class PureNavBar extends React.Component {
 
                     <div className={classes.right}>
                         <button><i className="fas fa-search"></i></button>
-                        {/* <Search items={this.props.classrooms} /> */}
+                        {/* <Search class={this.props.classrooms} set={this.props.sets}/> */}
                         <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
                     </div>
                     <div className="d-flex justify-content-center ">
@@ -63,8 +69,6 @@ const mapStateToProps = (state) => {
                     // console.log("state in dashboard", state);
 
     return {
-
-
         user: state.userStore.user,
         classrooms: state.classroomStore.classrooms,
         sets: state.setStore.sets,
