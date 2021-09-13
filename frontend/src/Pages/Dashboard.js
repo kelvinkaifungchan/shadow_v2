@@ -13,6 +13,8 @@ import { CreatePopUp } from '../Component/createmodal'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 
+import classes from './Dashboard.module.css'
+
 
 class PureDashboard extends React.Component {
     constructor(props) {
@@ -81,7 +83,12 @@ class PureDashboard extends React.Component {
                 <div className="p-3">
                     <div className="row d-flex p-4">
                         <div className="col ">
-                            <span className="d-inline-flex"><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => { this.changeTypeClass(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        <span className={classes.createclassroombtn}>
+                            <h2 className="p-2 m-0">My Classroom</h2>
+                            
+                                <button onClick={() => { this.changeTypeClass(); this.toggle(); }} className=""><i className="fas fa-plus"></i></button>
+                                </span>
+
                         </div>
                         {/* <h2>My Classroom</h2>
                     <CreateClassBtn  /> */}
@@ -92,7 +99,10 @@ class PureDashboard extends React.Component {
                     <div className="row d-flex p-4">
                         <div className="col ">
                             <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/>
-                            <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => { this.changeTypeSet(); this.toggle(); }} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                            <span className={classes.createsetbtn}>
+                            <h2 className="p-2 m-0">My Set</h2>
+                                <button onClick={() => { this.changeTypeSet(); this.toggle(); }} className=""><i className="fas fa-plus"></i></button>
+                                </span>
                         </div>
                         {/* <h2>My Set</h2>
                     <CreateSetBtn /> */}

@@ -6,6 +6,7 @@ import { AddExistPopUp } from '../Component/addexistmodal';
 import { SelectCardPopUp } from '../Component/selectcardmodal';
 import { CreatePopUp } from '../Component/createmodal';
 
+import classes from './addnewmodal.module.css'
 
 class PureModel extends React.Component {
     constructor(props) {
@@ -58,53 +59,57 @@ class PureModel extends React.Component {
         const isClass = this.props.create.type === "class";
         let button
         if (isClass) {
-            button = <div onClick={() => { this.setCreatePopUp() }} className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+            button = <div onClick={() => { this.setCreatePopUp() }} className={classes.addbtn}>
                 <i className="fas fa-plus" />
             </div>;
         } else {
-            button = <div onClick={() => { this.openSelect() }} className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+            button = <div onClick={() => { this.openSelect() }} className={classes.addbtn}>
                 <i className="fas fa-plus" />
             </div>;
         }
         return (
-
-            <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
-
+            <Modal isOpen={this.props.create.modal} toggle={this.props.toggle} className={classes.addnewmodal}>
                 <ModalHeader >Add New {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}</ModalHeader>
                 <ModalBody>
                     {this.props.create.type === "class" ? <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} /> : <SelectCardPopUp selectCard={this.state} toggle={() => this.openSelect()} />}
-
                     <AddExistPopUp create={this.state} toggle={() => this.toggle()} />
 
-                    <div className="d-inline-flex p-3">
-                        <div className="col-6 m-2 p-3 border border-4 rounded-lg d-inline-flex">
+                    <div className="d-inline-flex row">
+                        <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
                             {button}
                             <div >
-                                <div className="col">
+                                <div className="col" >
+                                    <strong>
                                     Create {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}
+                                    </strong>
                                 </div>
-                                <div className="col">
+                                <h6 className="col" >
                                     Click to add a new {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}
-                                </div>
+                                </h6>
                             </div>
                         </div>
-                        <div className="col-6 m-2 p-3 border border-4 rounded-lg d-inline-flex">
+
+                        <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
                             {this.props.create.type === "class" ?
-                                <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+                                <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
+
                                 </div> :
-                                <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className="col-4 m-1 p-1 border border-4 rounded-lg d-flex justify-content-center align-items-center">
+                                <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
                                 </div>
 
                             }
-                            <div >
+
+                            <div>
                                 <div className="col">
+                                    <strong>
                                     Existing {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}
+                                    </strong>
                                 </div>
-                                <div className="col">
+                                <h6 className="col">
                                     Click to add a existing {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}
-                                </div>
+                                </h6>
                             </div>
                         </div>
                     </div>
