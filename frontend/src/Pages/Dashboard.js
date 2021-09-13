@@ -48,12 +48,6 @@ class PureDashboard extends React.Component {
         // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
             pathname:`/viewclassroom`,
-<<<<<<< HEAD
-            state:{ classroom: this.props.classrooms.filter (classroom => classroom.id === e.target.attributes["data-key"].value)}
-        })
-    }
-
-=======
             state: { classroom: this.props.classrooms.filter ((classroom) => {
                 if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
                     console.log('in if')
@@ -62,7 +56,6 @@ class PureDashboard extends React.Component {
             }) 
         }
     })}
->>>>>>> 36ba9436d5197b834fa74dbbfe16feb3ad5913ae
     navigateSet(e){
         console.log()
         this.props.history.push({

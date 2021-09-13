@@ -106,11 +106,11 @@ class ViewClassroom extends React.Component {
                                 </div>
                             </div>
                             <div className="col col-2 d-inline-flex align-item-center h-50 pt-2">
-                                <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                                <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()}/>
                                 <span className="d-inline-flex "><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning"><i className="fas fa-plus"></i></span></span>
                             </div>
                         </div>
-                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()}/>
                         <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}

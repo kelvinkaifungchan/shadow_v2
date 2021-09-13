@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
-import { getdataThunk } from '../Redux/actions/action'
-
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
@@ -59,7 +57,7 @@ class ViewSet extends React.Component {
                         {/* <Tags/> */}
                         <p>Tags</p>
 
-                        <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
+                        <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={()=>this.toggle()}/>
                         <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
