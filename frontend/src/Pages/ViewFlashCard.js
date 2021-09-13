@@ -36,7 +36,7 @@ class ViewFlashCard extends React.Component {
         this.props.getdata({ email: localStorage.getItem('email') }) 
     }
     render() {
-        console.log("i want to see the props",this.props);
+        console.log("i want to see the props in vw flcds",this.props);
 
         return (
             <div>
@@ -51,30 +51,6 @@ class ViewFlashCard extends React.Component {
                         {/* <h6>{this.props.sets[0].description}</h6> */}
                 </div>
 
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                    <div className="col col-4">
-                    {/* <FormSubmit/> */}
-                    <p>FormSubmit</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-6">
-                        <VideoPlayer/>
-                    </div>
-                    </div>
 
                     <div className="row d-flex p-4">
                         <div className="col">
@@ -217,3 +193,27 @@ const mapDispatchToProps  = dispatch => {
 
 const connectedViewFlashCard= connect(mapStateToProps, mapDispatchToProps)(ViewFlashCard)
 export { connectedViewFlashCard as ViewFlashCard };
+{/* <div className="row" style={this.bg}>
+<div className="col col-8">
+<NavBar history={this.props.history}/>
+</div>
+<div className="col col-4">
+<Link to="/account">Account</Link>
+<Link onClick={this.logout} to="/login">Logout</Link>
+</div>
+</div>
+<div className="row">
+<div className="col col-8">
+{/* <HeadingInput/> */}
+{/* <p>HeadingInput</p> */}
+// </div>
+{/* <div className="col col-4"> */}
+{/* <FormSubmit/> */}
+{/* <p>FormSubmit</p> */}
+// </div>
+// </div> */}
+{/* <div className="row">
+<div className="col col-6">
+    <VideoPlayer/>
+</div>
+</div> */}
