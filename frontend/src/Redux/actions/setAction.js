@@ -7,9 +7,9 @@ export const DELETE_SET = "DELETE_SET";
 export const addSet = (set) => async (dispatch) => {
     console.log("adding set")
 
-   const { data } = await axios.post("http://localhost:8080/api/set", set)
+   const { newId } = await axios.post("http://localhost:8080/api/set", set)
    
-    dispatch({type: ADD_SET, payload: {id: set.setId, description: set.setDesc, title: set.setTitle, }});
+    dispatch({type: ADD_SET, payload: {id: newId[0], description: set.setDesc, title: set.setTitle, }});
 }
 
 export const editSet = (set) => async (dispatch) => {
