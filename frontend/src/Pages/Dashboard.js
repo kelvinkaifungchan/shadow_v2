@@ -13,9 +13,6 @@ import { CreatePopUp } from '../Component/createmodal'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 
-
-
-
 class PureDashboard extends React.Component {
     constructor(props) {
         super(props);

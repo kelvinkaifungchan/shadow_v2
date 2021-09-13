@@ -33,7 +33,6 @@ class ViewSet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            read: "readonly",
             selectModal:false,
             modal: false,
             type: "",
@@ -69,6 +68,13 @@ class ViewSet extends React.Component {
         })
     }
 
+
+    selectToggle() {
+        this.setState({
+            selectModal: !this.state.selectModal,
+        });
+    }
+
     changeTypeSet(){
         this.setState({
             type: "set"
@@ -85,20 +91,38 @@ class ViewSet extends React.Component {
             <div className={classes.viewset}>
                 <div classNmae="row d-flex p-4">
                     <div className="col-8">
-                        <h1>{this.props.sets[0].title}</h1>
-                        <h6>{this.props.sets[0].description}</h6>
+                    <h1>Sample Set Title</h1>
+                        {/* <h1>{this.props.sets[0].title}</h1> */}
+                        <h6>Sample Set Description</h6>
+                        {/* <h6>{this.props.sets[0].description}</h6> */}
+
                     </div>
                 </div>
 
-<div className="row">
-<NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
 
-</div>
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
+
+                {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
+                        {/* <Tags/> */}
+                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                        </span>
+            </div>
                
-               <div className="row">
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <button className={classes.tagbutton}>#sampletag</button>
+                {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
                         <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">tags</h2><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        </span>
                         </div>
 
                 <div className="row">
