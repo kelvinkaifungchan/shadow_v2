@@ -12,6 +12,7 @@ import { VideoRecorder } from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
 import { addCard } from '../Redux/actions/cardAction'
+import { getdataThunk } from '../Redux/actions/action'
 
 import classes from './CreateFlashcard.module.css'
 
@@ -20,15 +21,18 @@ class CreateFlashcard extends React.Component {
         super(props)
         this.state = {
             type:"flashcard",
-            title: "Add A Title",
-            body:"",
+            flashcardTitle: "",
+            flashcardBody:"",
             flashcardRecording:"",
         }
         this.handleHeading = this.handleHeading.bind(this);
         this.handleTranscript = this.handleTranscript.bind(this);
         this.handleRecording = this.handleRecording.bind(this);
     }
-    
+    componentDidMount() {
+        this.props.getdata({ email: localStorage.getItem('email')})
+    }
+
 
     handleHeading(title){
         this.setState({
@@ -47,16 +51,25 @@ class CreateFlashcard extends React.Component {
             flashcardRecording: record
         })
     }
-    addCard(){
+    addFlashCard(e){
+        // console.log(this.props)
+        e.preventDefault()
         this.props.addCard({
             email: localStorage.getItem('email'),
             type : this.state.type,
-            flashcardTitle: this.state.title,
-            flashcardBody: this.state.body,
-            flashcardRecording: this.state.record
+            flashcardTitle: this.state.flashcardTitle,
+            flashcardBody: this.state.flashcardBody,
+            flashcardRecording: this.state.flashcardRecording
         })
     }
-    
+    navigateSet(e){
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set: this.props.location.state.set
+            }
+        }
+        )
+    }
     render() {
         console.log("this.props in create flash card",this.props);
         console.log("this.state in create flash card",this.state);
@@ -73,7 +86,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <button  onClick={(e)=>this.navigateSet(e)}>Create Card</button>
+                            <button cards={this.props.cards} onClick={(e)=>{this.addFlashCard(e); this.navigateSet(e)}}>Create Card</button>
                         </div>
                     </div>
 
@@ -96,8 +109,15 @@ class CreateFlashcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log("state in dashboard", state);
+
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 
@@ -105,6 +125,9 @@ const mapDispatchToProps = dispatch => {
     return {
         addCard: (card) => {
             dispatch(addCard(card))
+        },
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
         }
     }
 }
