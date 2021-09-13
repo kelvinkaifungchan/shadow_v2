@@ -26,7 +26,7 @@ class Account extends React.Component {
         return (
             <div>
             {/* Navbar */}
-                <NavBar/>
+                <NavBar history={this.props.history}/>
             <div className={classes.account}>
 
                 <div className="row p-4">

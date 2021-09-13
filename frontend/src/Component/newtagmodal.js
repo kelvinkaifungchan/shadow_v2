@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { addTag } from '../Redux/actions/tagAction'
+
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 class PureTagModal extends React.Component{
@@ -21,8 +23,12 @@ class PureTagModal extends React.Component{
 
     submit = (e) => {
         e.preventDefault();
+        if (this.props.addTag.type === "class") {
+            this.props.createClassTagMDP(this.props.addTag.type, this.state.tagBody, this.props.location.id)
+        } else {
+            this.props.createSetTagMDP(this.props.addTag.type, this.state.tagBody, this.props.location.id)
+        }
 
-        this.props.createClassMDP(this.state.title, this.state.description)
     }
 
     render() {
@@ -32,7 +38,7 @@ class PureTagModal extends React.Component{
                     <ModalHeader toggle={this.toggle}> New Tag </ModalHeader>
                     <ModalBody>
                         <Form>
-                            <input onChange={this.onChangeField.bind(this, 'tagBody')} value={this.state.tag} type="text" className="form-control mb-4" placeholder="#newtag"/>
+                            <input onChange={this.onChangeField.bind(this, 'tagBody')} value={this.state.tagBody} type="text" className="form-control mb-4" placeholder="#newtag"/>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
@@ -45,5 +51,26 @@ class PureTagModal extends React.Component{
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        createClassTagMDP: (type, tagBody, classroomId) => {
+            let tag = {
+                type: type,
+                tagBody: tagBody,
+                classroomId: classroomId
+            } 
+            dispatch(addTag(tag))
+        },
+        createSetTagMDP: (type, tagBody, setId) => {
+            let tag = {
+                type: type,
+                tagBody: tagBody,
+                setId: setId
+            } 
+            dispatch(addTag(tag))
+        }
+    }
+}
 
-export const NewTagPopUp = connect(null, null)(PureTagModal)
+
+export const NewTagPopUp = connect(null, mapDispatchToProps)(PureTagModal)

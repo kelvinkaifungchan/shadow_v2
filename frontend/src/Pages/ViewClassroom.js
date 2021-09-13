@@ -97,7 +97,6 @@ class ViewClassroom extends React.Component {
     render() {
     console.log("props of view classroom", this.props);
     console.log("state of view classroom", this.state);
-    console.log("mayathi>>>>>>>>>", this.state)
 
         // if(this.props.classrooms == []){
         //     console.log("I AM HEREEEEEE");

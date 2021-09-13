@@ -55,7 +55,7 @@ class PureNavBar extends React.Component {
                         <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
                     </div>
                     <div className="d-flex justify-content-center ">
-                        {modal ? <Menu /> : null}
+                        {modal ? <Menu history={this.props.history}/> : null}
                     </div>
                 </div>
 

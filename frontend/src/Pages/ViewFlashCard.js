@@ -55,6 +55,28 @@ class ViewFlashCard extends React.Component {
                         <h6>Sample Flashcard Description</h6>
                         {/* <h6>{this.props.sets[0].description}</h6> */}
 
+                <div className="row" style={this.bg}>
+                    <div className="col col-8">
+                    <NavBar history={this.props.history}/>
+                    </div>
+                    <div className="col col-4">
+                    <Link to="/account">Account</Link>
+                    <Link onClick={this.logout} to="/login">Logout</Link>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col-8">
+                    {/* <HeadingInput/> */}
+                    <p>HeadingInput</p>
+                    </div>
+                    <div className="col col-4">
+                    {/* <FormSubmit/> */}
+                    <p>FormSubmit</p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col-6">
+                        <VideoPlayer/>
                     </div>
                     </div>
 

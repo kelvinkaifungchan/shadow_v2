@@ -18,6 +18,9 @@ class SharingRouter {
         console.log("Post request to add user to set");
 
         return this.sharingService.add(req.body)
+        .then((data) => {
+            return res.json(data)
+        })
         .catch((err) => {
             return res.status(500).json(err);
         }); 
