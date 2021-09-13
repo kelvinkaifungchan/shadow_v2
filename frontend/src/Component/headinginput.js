@@ -13,23 +13,21 @@ class PureHeadingInput extends React.Component {
     }
   }
   render() {
-    console.log("this is this.state in heading ip", this.state);
-    console.log("this is this.state in heading ip", this.props);
-
+    console.log('heading input propssssss', this.props)
     return (
       <>
         <form className={classes.headingframe}>
           <input onChange={(e) => this.props.handleHeading(e.currentTarget.value)}
             type="text"
-            placeholder="Untitled Flashcard"
+            placeholder={this.props.heading.title}
             className={classes.title}
           />
         {
-          this.props.card.type ==="flashcard" ? null : this.props.card === "undefined"? <input
+          this.props.card ? null : <input
             type="text"
-            placeholder="Insert a description"
+            placeholder={this.props.heading.description}
             className={classes.description}
-          />: null
+          />
         }
         </form>
       </>
@@ -48,3 +46,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 export const HeadingInput = connect(null, mapDispatchToProps)(PureHeadingInput)
+

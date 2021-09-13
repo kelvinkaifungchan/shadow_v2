@@ -15,6 +15,7 @@ import { DisplaySetModule } from '../Component/displaysetmodule'
 
 import classes from './Dashboard.module.css'
 
+
 class PureDashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,8 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getdata({ email: this.props.email })
+
+        this.props.getdata({ email: localStorage.getItem('email')})
     }
 
     toggle() {
@@ -45,8 +47,33 @@ class PureDashboard extends React.Component {
         })
     }
 
-
+    navigateClass(e){
+        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+        this.props.history.push({
+            pathname:`/viewclassroom`,
+            state: { classroom: this.props.classrooms.filter ((classroom) => {
+                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return classroom
+                }
+            }) 
+        }
+    })}
+    navigateSet(e){
+        console.log()
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set: this.props.sets.filter ((set) => {
+                if(set.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return set
+                }
+            }) 
+        }
+        })
+    }
     render() {
+        console.log('props in dashboard', this.props)
         return (
             <div>
                 <NavBar user={this.props.user} />
@@ -59,12 +86,13 @@ class PureDashboard extends React.Component {
                             
                                 <button onClick={() => { this.changeTypeClass(); this.toggle(); }} className=""><i className="fas fa-plus"></i></button>
                                 </span>
+
                         </div>
                         {/* <h2>My Classroom</h2>
                     <CreateClassBtn  /> */}
 
                     </div>
-                    <DisplayClassModule classrooms={this.props.classrooms} />
+                    <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
                     
                     <div className="row d-flex p-4">
                         <div className="col ">
@@ -77,7 +105,7 @@ class PureDashboard extends React.Component {
                         {/* <h2>My Set</h2>
                     <CreateSetBtn /> */}
                     </div>
-                    <DisplaySetModule sets={this.props.sets} />
+                    <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
                     {this.props.loading && <div> Loading...</div>}
                     {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
 

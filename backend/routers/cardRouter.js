@@ -25,10 +25,6 @@ class CardRouter {
         console.log("Requesting adding a card")
         return this.cardService
             .add(req.body)
-            .then(() => {
-                return this.cardService
-                .card(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })
@@ -73,10 +69,6 @@ class CardRouter {
         console.log("Requesting adding a submission")
         return this.submissionService
             .add(req.body)
-            .then(() => {
-                return this.submissionService
-                .submission(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })
@@ -105,10 +97,6 @@ class CardRouter {
         console.log("Requesting adding a feedback")
         return this.feedbackService
             .add(req.body)
-            .then(() => {
-                return this.feedbackService
-                .feedback(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })
@@ -121,10 +109,6 @@ class CardRouter {
         console.log("Requesting deleting a feedback")
         return this.feedbackService
             .delete(req.body)
-            .then(() => {
-                return this.feedbackService
-                .feedback(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })

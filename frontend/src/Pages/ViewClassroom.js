@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+
 import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
@@ -19,20 +21,34 @@ import classes from './ViewClassroom.module.css'
 class ViewClassroom extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
+            email: "",
             modal: false,
             type: "",
             tagModal: false,
             shareModal: false,
+            // classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+            classroomTitle: "",
+            classroomDesc: "",
         };
     }
 
-    // componentDidMount() {
-    //     this.props.getdata({ email: this.props.user.email })
-    // }
+    componentDidMount (){
+        this.props.getdata({ email: localStorage.getItem('email') }) 
+    }
 
-    componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
+    handleHeading(title){
+        this.setState({
+            classroomTitle: title
+        })
+    }
+    
+    handleTranscript(desc){
+        this.setState({
+            classroomDesc: desc
+        })
+
     }
 
     toggle() {
@@ -65,8 +81,13 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props", this.props);
-
+        console.log("props of view classroom", this.props)
+        console.log("state of view classroom", this.state)
+        // if(this.props.classrooms == []){
+        //     console.log("I AM HEREEEEEE");
+        //     this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
+        // }
+ 
         return (
             <div>
                 <NavBar />
@@ -106,6 +127,36 @@ class ViewClassroom extends React.Component {
                         <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
                         </span>
                         </div>
+
+                <div className="row">
+                    <div className="col col-12">
+                        <HeadingInput card={this.state} heading={this.props.location.state.classroom[0]} handleHeading={this.handleHeading}/>
+                        <div className="row">
+                            <div className="col col-3">
+                                <div>
+                                    <div className="d-inline-flex align-item-center h-50 pt-2">
+                                        {this.props.location.state.classroom[0].tags && this.props.location.state.classroom[0].tags.length > 0 ? this.props.location.state.classroom[0].tags.map((tag, j) => {
+                                            return (
+                                                <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
+                                            )
+                                        }): null}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-2 d-inline-flex align-item-center h-50 pt-2">
+                                <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                                <span className="d-inline-flex "><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning"><i className="fas fa-plus"></i></span></span>
+                            </div>
+                        </div>
+                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        
+                        {/* <Users/> */}
+                        <p>Users</p>
+                    </div>
+                </div>
+                <div className="p-3">
+
                     {/* Add button */}
                     <div className="row d-flex justify-content-between m-3">
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />

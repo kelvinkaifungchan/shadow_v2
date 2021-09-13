@@ -18,7 +18,8 @@ class FeedbackService {
                 flashcardFeedbackTime: body.timestamp,
                 flashcardFeedbackStatus: true
             })
-            .into("flashcardFeedback");
+            .into("flashcardFeedback")
+            .returning("id");
         }
         else if (body.type === "dictationcard") {
             console.log("Adding feedback to dictationcard")
@@ -32,7 +33,8 @@ class FeedbackService {
                 dictationFeedbackBody: body.body,
                 dictationFeedbackStatus: true
             })
-            .into("dictationFeedback");
+            .into("dictationFeedback")
+            .returning("id");
         }
         else {
             return "card type not recognised"

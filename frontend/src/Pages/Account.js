@@ -13,7 +13,7 @@ class Account extends React.Component {
     
     componentDidMount() {
         console.log("componentDidMount", this.props)
-        this.props.getdata({ email: this.props.user.email })
+        this.props.getdata({ email: localStorage.getItem('email') })
     }
 
     logout = (e) => {

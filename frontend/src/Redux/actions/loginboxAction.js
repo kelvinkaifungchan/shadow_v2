@@ -36,9 +36,11 @@ export function loginUserThunk(email, password) {
         dispatch(loginFailureActionCreator(response.data.message || ''));
       } else {
         localStorage.setItem('token', response.data)
+        localStorage.setItem('email', email)
+        
         // Dispatch the success action
         dispatch(loginSuccessActionCreator(email));
-        
+
       }
     }).catch(err => console.log("Error: ", err))
   }
@@ -63,25 +65,26 @@ export function loginFacebookThunk(accessToken) {
         } else {
           // If login was successful, set the token in local storage
           localStorage.setItem('token', response.data.token);
+
           // Dispatch the success action
           dispatch(loginSuccessActionCreator());
         }
       })
-      .catch (err => console.log('Error: ', err));
+      .catch(err => console.log('Error: ', err));
   };
 }
 
-function signUpRequest(){
+function signUpRequest() {
   return {
     type: SIGN_UP_REQUEST,
   };
 };
-function signUpSuccess(user){
+function signUpSuccess(user) {
   return {
     type: SIGN_UP_SUCCESS,
   };
 };
-function signUpFailure(message){
+function signUpFailure(message) {
   return {
     type: SIGN_UP_FAILURE,
     message: message
@@ -91,7 +94,7 @@ function signUpFailure(message){
 export const signUpThunk = (email, password, displayName, role) => {
   return function (dispatch) {
     dispatch(signUpRequest());
-    console.log("email, password, displayName, role",email, password, displayName, role);
+    console.log("email, password, displayName, role", email, password, displayName, role);
     return axios.post(`${process.env.REACT_APP_API_SERVER}/api/auth/signup`, {
       email: email,
       password: password,
@@ -112,6 +115,8 @@ export const signUpThunk = (email, password, displayName, role) => {
 export function logoutNowThunk() {
   return (dispatch) => {
     localStorage.clear('token');
+    localStorage.clear('email');
+
     dispatch({ type: LOGOUT_NOW_ACTION });
   }
 }
