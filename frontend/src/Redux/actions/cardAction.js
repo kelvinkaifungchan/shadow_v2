@@ -16,12 +16,12 @@ export const addCard = (card) => async (dispatch) => {
     console.log("adding card")
    const { newId } = axios.post("http://localhost:8080/api/card", card);
  
-       console.log("card ID", newId[0])
+       console.log("card ID", newId)
 
        if (card.type === "dictationcard") {
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {dictationcard_id: newId[0], user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {dictationcard_id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
         })
        }
        else if (card.type === "flashcard") {
