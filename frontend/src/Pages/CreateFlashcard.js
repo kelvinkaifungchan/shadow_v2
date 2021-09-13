@@ -11,9 +11,9 @@ import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
+import { addCard } from '../Redux/actions/cardAction'
 
 import classes from './CreateFlashcard.module.css'
-import { TypeaheadInputMulti } from 'react-bootstrap-typeahead';
 
 class CreateFlashcard extends React.Component {
     constructor(props) {
@@ -21,6 +21,7 @@ class CreateFlashcard extends React.Component {
         this.state = {
             type:"flashcard",
             title: "Add A Title",
+            body:"",
             flashcardRecording:"",
         }
         this.handleHeading = this.handleHeading.bind(this);
@@ -46,10 +47,20 @@ class CreateFlashcard extends React.Component {
             flashcardRecording: record
         })
     }
-
+    addCard(){
+        this.props.addCard({
+            email: localStorage.getItem('email'),
+            type : this.state.type,
+            flashcardTitle: this.state.title,
+            flashcardBody: this.state.body,
+            flashcardRecording: this.state.record
+        })
+    }
     
     render() {
         console.log("this.props in create flash card",this.props);
+        console.log("this.state in create flash card",this.state);
+
         return (
             <div>
                 <NavBar history={this.props.history}/>
@@ -90,6 +101,14 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        addCard: (card) => {
+            dispatch(addCard(card))
+        }
+    }
+}
 
-const connectedCreateFlashcard = connect(mapStateToProps, null)(CreateFlashcard)
+
+const connectedCreateFlashcard = connect(mapStateToProps, mapDispatchToProps)(CreateFlashcard)
 export { connectedCreateFlashcard as CreateFlashcard };
