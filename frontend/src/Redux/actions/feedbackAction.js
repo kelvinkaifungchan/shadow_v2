@@ -8,17 +8,18 @@ export const DELETE_FEEDBACK_FLASHCARD = "DELETE_FEEDBACK_FLASHCARD";
 
 export const addFeedbackThunk = (feedback) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/card/submission/feedback", feedback)
-    .then(response => {
-        console.log(response)
+    .then((data) => {
+        var newId = data.data[0];
+        console.log("feedback ID >> ", newId)
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: ADD_FEEDBACK_DICTATIONCARD,
-                payload: {user_id: feedback.userEmail, dictationcard_id: feedback.dictationcard_id, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedback_id: feedback.dictationcardFeedbackId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
+                payload: {user_id: feedback.userEmail, dictationcard_id: feedback.dictationcard_id, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedback_id: newId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
             })
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: ADD_FEEDBACK_FLASHCARD,
-                payload: {user_id: feedback.userEmail, flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: feedback.flashcardFeedbackId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
+                payload: {user_id: feedback.userEmail, flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: newId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
             })
         }
     })
