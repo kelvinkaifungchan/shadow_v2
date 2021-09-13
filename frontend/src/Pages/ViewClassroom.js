@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
@@ -23,8 +24,24 @@ class ViewClassroom extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
+            classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+            classroomTitle: "",
+            classroomDesc: "",
         };
     }
+
+    handleHeading(title){
+        this.setState({
+            classroomTitle: title
+        })
+    }
+    
+    handleTranscript(desc){
+        this.setState({
+            classroomDesc: desc
+        })
+    }
+
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -55,22 +72,33 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props", this.props);
-
+        console.log("props of view classroom", this.props)
+        console.log('states in view classroom', this.state)
         return (
             <div>
                 <NavBar />
-
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
-                        {/* <Tags/> */}
-                        <p>Tags</p>
+                        <HeadingInput card={this.state} heading={this.state.classroom[0]} handleHeading={this.handleHeading}/>
+                        <div className="row">
+                            <div className="col col-3">
+                                <div>
+                                    <div className="d-inline-flex align-item-center h-50 pt-2">
+                                        {this.state.classroom[0].tags.map((tag, j) => {
+                                            return (
+                                                <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-2 d-inline-flex align-item-center h-50 pt-2">
+                                <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                                <span className="d-inline-flex "><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning"><i className="fas fa-plus"></i></span></span>
+                            </div>
+                        </div>
                         <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
                         <span className="d-inline-flex "><h2 className="p-2 m-0">share</h2><span onClick={() => this.shareToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
-
-                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">tags</h2><span onClick={() => this.tagToggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
                         <p>Users</p>
@@ -101,11 +129,42 @@ class ViewClassroom extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log('state in vclass', state)
     return {
         sets: state.setStore.sets,
+        classrooms: state.classroomStore.classrooms,
     }
 }
-
-
-const connectedViewClassroom = connect(mapStateToProps, null)(ViewClassroom)
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        }
+    }
+}
+const connectedViewClassroom = connect(mapStateToProps, mapDispatchToProps)(ViewClassroom)
 export { connectedViewClassroom as ViewClassroom };
+
+    // componentDidMount(){
+    //     console.log('cmpn did muntmuntmuntmuntmuntmuntmuntmuntmunt')
+    //     this.props.getdata({ email: "test@test.com" })
+    //     this.setState({
+    //         classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
+    //     })
+    // }
+    // componentWillReceiveProps (nextProps){
+    //     console.log('CWRP', nextProps)
+    //     this.setState({
+    //         classroom: nextProps.classrooms.filter(classroom => classroom.id === parseInt(nextProps.match.params.id))
+    //     })
+    // }
+    // static getDerivedStateFromProps (nextProps, prevState) {
+    //     console.log('next props', nextProps)
+    //     console.log('prev state', prevState)
+    //     // nextProps.classrooms = prevState
+    //     const classroom = nextProps.classrooms
+    //     console.log(classroom)
+    //     // update your internal state that depends on the props
+    //     // const internalState = nextProps.something
+    //     // this.setState({internalState}
+    //   }

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
-import {NavBar} from '../Component/navbar';
-import {HeadingInput} from '../Component/headinginput';
+import { NavBar } from '../Component/navbar';
+import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
@@ -19,13 +19,20 @@ class ViewSet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectModal:false,
             modal: false,
-            type: ""
+            type: "",
+            set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
         };
     }
     toggle() {
         this.setState({
             modal: !this.state.modal,
+        });
+    }
+    selectToggle() {
+        this.setState({
+            selectModal: !this.state.selectModal,
         });
     }
     changeTypeSet(){
@@ -42,12 +49,12 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
+                        <HeadingInput heading={this.state.set[0]}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
                         <NewTagPopUp addTag={this.state} toggle={()=>this.toggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Classroom</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
+                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
                         
                         {/* <Users/> */}
                         <p>Users</p>
@@ -70,7 +77,6 @@ class ViewSet extends React.Component {
                         <DisplayCardModule cards={this.props.cards} />
                     </div>
                 </div>
-
             </div>
         );
     }

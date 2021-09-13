@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addClassroom } from '../Redux/actions/classroomAction'
 import { addSet } from '../Redux/actions/setAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class PureModel extends React.Component {
@@ -27,18 +28,27 @@ class PureModel extends React.Component {
         e.preventDefault();
         if (this.props.create.type === "class") {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
-            this.props.history.push('/viewclassroom')
+            // console.log('actionsactionsactionsactionsactionsactionsactionsactions', this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc))
+            // console.log(this.props)
+            // this.props.history.push({
+            //     pathname: '/viewclassroom',
+            //     state: { classroom: 6 }
+            // })
         } else {
-            this.props.createSetMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
-            this.props.history.push('/viewset')
+            this.props.createClassMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
+            // this.props.history.push({
+            //     pathname: '/viewset',
+            //     state: { set: 6 }
+            // })
         }
 
     }
 
     render() {
+        console.log("this.props.create", this.props.create);
         return (
             <div>
-                <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
+                <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
@@ -48,9 +58,12 @@ class PureModel extends React.Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Create</button>
-                        <button onClick={()=>{ this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
-                    
+                        {this.props.create.type === "class" ?
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button>:
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
+                        }
+                        <button onClick={() => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+
                     </ModalFooter>
                 </Modal>
 
@@ -60,7 +73,7 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in createmodal", state);
 
     return {
         user: state.userStore.user,

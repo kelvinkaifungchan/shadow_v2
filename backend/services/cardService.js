@@ -459,7 +459,7 @@ class Card {
                         .where("multipleChoiceStatus", true)
                     })
                     .then((mcs)=>{
-                        data.mc = mcs.map((mc) =>{
+                        data.multipleChoice = mcs.map((mc) =>{
                             return {
                                 id: mc.id,
                                 multipleChoiceBody: mc.multipleChoiceBody,
@@ -473,7 +473,7 @@ class Card {
                         })
                     })
                     .then(async()=>{
-                        data.mc.submission = await Promise.all(data.mc.map((sub)=>{
+                        data.multipleChoice.submission = await Promise.all(data.multipleChoice.map((sub)=>{
                             let submission = {}
                             return this.knex("multipleChoiceSubmission")
                             .where("multipleChoice_id", sub.id)
@@ -498,7 +498,7 @@ class Card {
                         .where("trueFalseStatus", true)
                     })
                     .then((tfs)=>{
-                        data.tf = tfs.map((tf) =>{
+                        data.trueFalse = tfs.map((tf) =>{
                             return {
                                 id: tf.id,
                                 trueFalseBody: tf.trueFalseBody,
@@ -508,7 +508,7 @@ class Card {
                         })
                     })
                     .then(async()=>{
-                        data.tf.submission = await Promise.all(data.tf.map((sub)=>{
+                        data.trueFalse.submission = await Promise.all(data.trueFalse.map((sub)=>{
                             let submission = {}
                             return this.knex("trueFalseSubmission")
                             .where("trueFalse_id", sub.id)

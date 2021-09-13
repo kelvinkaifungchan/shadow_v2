@@ -18,7 +18,7 @@ class RecordingRouter {
     let fileName = recording.name;
     let fileData = recording.data;
     return this.recordingService
-      .add(fileName, fileData)
+      .addVideo(fileName, fileData)
       .then(() => {
         return res.send("post request is done");
       })
@@ -33,7 +33,7 @@ class RecordingRouter {
     let fileName = recording.name;
     let fileData = recording.data;
     return this.recordingService
-      .add(fileName, fileData)
+      .addAudio(fileName, fileData)
       .then(() => {
         return res.send("post request is done");
       })
