@@ -27,7 +27,6 @@ class PureLoginBox extends React.Component {
     login = (e) => {
         e.preventDefault();
         this.props.loginMDP(this.state.email, this.state.password)
-        localStorage.setItem("email", JSON.stringify(this.state.email))
     };
 
     componentClicked() {

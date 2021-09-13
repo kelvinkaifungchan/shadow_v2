@@ -11,7 +11,11 @@ class PureDisplayClassModule extends React.Component {
             <>
                 {this.props.classrooms.map((classroom, i) => {
                     return (
+<<<<<<< HEAD
                         <div data-key={classroom.id} className="col  m-1 p-3 border border-4 rounded-lg highlight " onClick={(e)=>{this.props.navigate(e)}}>
+=======
+                        <div data-key={classroom.id} className="col  m-1 p-3 border border-4 rounded-lg highlight " onClick={(e=>{this.props.navigate(e)})}>
+>>>>>>> 36ba9436d5197b834fa74dbbfe16feb3ad5913ae
                             <h4 data-key={classroom.id} className="p-3"><strong data-key={classroom.id}>{classroom.title}</strong></h4>
                             <p data-key={classroom.id} className="p-3">{classroom.description}</p>
                             <div data-key={classroom.id} className="d-flex justify-content-start p-3">

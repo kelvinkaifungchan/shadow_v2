@@ -25,7 +25,7 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) })
+        this.props.getdata({ email: localStorage.getItem('email')})
     }
 
     toggle() {
@@ -48,14 +48,32 @@ class PureDashboard extends React.Component {
         // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
             pathname:`/viewclassroom`,
+<<<<<<< HEAD
             state:{ classroom: this.props.classrooms.filter (classroom => classroom.id === e.target.attributes["data-key"].value)}
         })
     }
 
+=======
+            state: { classroom: this.props.classrooms.filter ((classroom) => {
+                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return classroom
+                }
+            }) 
+        }
+    })}
+>>>>>>> 36ba9436d5197b834fa74dbbfe16feb3ad5913ae
     navigateSet(e){
+        console.log()
         this.props.history.push({
             pathname:`/viewset`,
-            state: { set: this.props.sets.filter (set => set.id === e.target.attributes["data-key"].value) }
+            state: { set: this.props.sets.filter ((set) => {
+                if(set.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return set
+                }
+            }) 
+        }
         })
     }
 
