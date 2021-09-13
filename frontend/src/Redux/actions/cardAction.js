@@ -14,26 +14,27 @@ export const DELETE_QUIZCARD = "DELETE_QUIZCARD";
 
 export const addCard = (card) => async (dispatch) => {
     console.log("adding card")
-   const { newId } = axios.post("http://localhost:8080/api/card", card);
+   const { data } = axios.post("http://localhost:8080/api/card", card);
+   const newId = data[0];
  
-       console.log("card ID", newId[0])
+       console.log("card ID", newId)
 
        if (card.type === "dictationcard") {
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {dictationcard_id: newId[0], user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {dictationcard_id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
         })
        }
        else if (card.type === "flashcard") {
         dispatch({
             type: ADD_FLASHCARD,
-            payload: {flashcard_id: newId[0], user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}
+            payload: {flashcard_id: newId, user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardBody: card.flashcardBody, flashcardRecording: card.flashcardRecording}
         })
        }
        else if (card.type === "quizcard") {
         dispatch({
             type: ADD_QUIZCARD,
-            payload: {quizcard_id: newId[0], user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
+            payload: {quizcard_id: newId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
         })
        }
     }
