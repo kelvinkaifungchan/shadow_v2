@@ -112,9 +112,9 @@ class PureVideoRecorder extends React.Component {
         return (
             <div className="col">
             <div className="flex-col d-flex justify-content-center" id="videoSubmission">
-                {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" width="720" height="486" autoPlay={true} muted="muted" ></video> : null}
+                {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
 
-                {!show ? <video ref={b => { this.player = b }} controls id="preview" width="720" height="486" src="" autoPlay={true} muted="muted"  ></video> : null}
+                {!show ? <video ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true} muted="muted"  ></video> : null}
             </div>
             <div className="row flex-row flex-nowrap">
                 <div className="p-3 ml-auto mr-auto ">
@@ -126,7 +126,7 @@ class PureVideoRecorder extends React.Component {
                         title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
                 </div>
             </div>
-        </div>
+            </div>
         );
     }
 }

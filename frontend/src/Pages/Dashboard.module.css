@@ -1,0 +1,37 @@
+  .createclassroombtn button{
+    font: inherit;
+    cursor: pointer;
+    display: block;
+    width:30px;
+    height:30px;
+    text-align: center;
+    font-size: 10px;
+    color: #77002e;
+    border: 1px solid #77002e;
+    background-color: transparent;
+    border-radius: 50%;
+  }
+  
+.createclassroombtn button:hover,
+.createclassroombtn button:active {
+    background-color: #ffe2ed;
+  }
+
+  .createsetbtn button{
+    font: inherit;
+    cursor: pointer;
+    display: block;
+    width:30px;
+    height:30px;
+    text-align: center;
+    font-size: 10px;
+    color: #77002e;
+    border: 1px solid #77002e;
+    background-color: transparent;
+    border-radius: 50%;
+  }
+  
+.createsetbtn button:hover,
+.createsetbtn button:active {
+    background-color: #ffe2ed;
+  }
