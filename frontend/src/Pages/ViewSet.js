@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
-import {NavBar} from '../Component/navbar';
-import {HeadingInput} from '../Component/headinginput';
+import { NavBar } from '../Component/navbar';
+import { HeadingInput } from '../Component/headinginput';
 // import Tags from '../Component/tags';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
@@ -21,7 +21,8 @@ class ViewSet extends React.Component {
         this.state = {
             selectModal:false,
             modal: false,
-            type: ""
+            type: "",
+            set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
         };
     }
     toggle() {
@@ -48,7 +49,7 @@ class ViewSet extends React.Component {
                 <NavBar />
                 <div className="row">
                     <div className="col col-12">
-                        <HeadingInput/>
+                        <HeadingInput heading={this.state.set[0]}/>
                         {/* <Tags/> */}
                         <p>Tags</p>
 
@@ -76,7 +77,6 @@ class ViewSet extends React.Component {
                         <DisplayCardModule cards={this.props.cards} />
                     </div>
                 </div>
-
             </div>
         );
     }
