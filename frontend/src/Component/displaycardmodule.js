@@ -10,16 +10,13 @@ class PureDisplayCardModule extends React.Component {
 
         return (
             <>
-                    <div  className={classes.card}>
-                            <h4 >Sample Flashcard Title</h4>
-                            <p >Sample Flashcard description </p>
-                        </div>
-
                 {this.props.cards.flashcard.map((card, i) => {
                     return (
+                        <div className={classes.frame}>
                         <div data-key={i} className={classes.card}>
                             <h4>{card.flashcardTitle}</h4>
                             <p>{card.flashcardBody}</p>
+                        </div>
                         </div>
                     )
                 })}

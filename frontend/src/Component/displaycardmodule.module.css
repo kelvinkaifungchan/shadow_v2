@@ -1,7 +1,8 @@
+
 .card{
     width: 28vw;
     height: 20vh;
-    margin: 10px;
+    margin: 5px 10px;
     border: 1px solid #B6B6B6;
     border-radius: 25px;
     /* display: flex; */

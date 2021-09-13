@@ -159,20 +159,20 @@ class ViewClassroom extends React.Component {
 
 
                     {/* Add button */}
-                    <div className="row d-flex justify-content-between m-3">
+                    <div className="row d-flex m-3">
+                        <div>
                         <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
                         <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
-                            <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
+                            <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
                             <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist set</span>
                             </div>
                         </div>
-                        
-
+                        </div>
+                    
                         <DisplaySetModule sets={this.props.sets} />
-
                     </div>
                 </div>
         </div>
