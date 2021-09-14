@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { getdataThunk } from "../Redux/actions/action"
+import { DisplayCardModule } from './displaycardmodule';
 
 
 
@@ -44,7 +45,7 @@ class PureModel extends React.Component {
                 <ModalHeader >Add Exist {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : "Classroom"}</ModalHeader>
                 <ModalBody>
                     <div className="">
-                        {this.props.create.type === "class" ? <DisplaySetModule sets={this.props.sets} /> : <DisplaySetModule cards={this.props.cards} />}
+                        {this.props.create.type === "class" ? <DisplaySetModule sets={this.props.sets} /> : <DisplayCardModule flashcard={this.props.correctCards.correctflashCard} quizcard={this.props.correctCards.correctquizCard} dictationcard={this.props.correctCards.correctdictationCard} navigate={(e)=> this.navigateCard(e)}/>}
 
                     </div>
                 </ModalBody>
