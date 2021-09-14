@@ -25,8 +25,6 @@ class TagRouter {
             })
     }
 
-   
-
     delete(req, res) {
         console.log("Requesting deleting tag")
         return this.tagService

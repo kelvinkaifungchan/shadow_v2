@@ -12,15 +12,15 @@ export const addTag = (tag) => async (dispatch) => {
     console.log("adding tag")
 
    const { data } = await axios.post(`http://localhost:8080/api/tag/` , tag)
-   const newId = data[0];
 
-    dispatch({type: ADD_TAG, payload: {tagId: newId, tagBody: tag.tagBody}});
+    dispatch({type: ADD_TAG, payload: {tagId: data, tagBody: tag.tagBody}});
     
     if (tag.type === "class"){
-        dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: newId, tagBody: tag.tagBody}}});
+        
+        dispatch({type: ADD_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{id: data, body: tag.tagBody}}});
     }
     if(tag.type === "set"){
-        dispatch({type: ADD_TAG_SET, payload: {id:{set_id: tag.setId}, content:{tagId: newId, tagBody: tag.tagBody}}});
+        dispatch({type: ADD_TAG_SET, payload: {id:{set_id: tag.setId}, content:{id: data, body: tag.tagBody}}});
     }
 
 }

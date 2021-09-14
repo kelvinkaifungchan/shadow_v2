@@ -14,7 +14,7 @@ export function tagReducer(state = initialState, action){
             return {
               ...state,
               loading: false,
-              tags: action.payload.content
+              tags: action.payload
             };
         case GETDATATAGS_FAILURE:
             return {
@@ -25,7 +25,7 @@ export function tagReducer(state = initialState, action){
         
         case ADD_TAG:
                 return {
-                    tags: [...state.tag, action.payload.content]
+                    tags: [...state.tags, action.payload]
                 };
             
         case DELETE_TAG:

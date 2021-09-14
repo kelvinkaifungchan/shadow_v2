@@ -15,7 +15,7 @@ class PureShareModal extends React.Component{
 
     onChangeField = (field, e) => {
         const state = {};
-        state[field] = e.currentTarget.value;
+        state.field = e.currentTarget.value;
         this.setState({
             email: state.field
         });
