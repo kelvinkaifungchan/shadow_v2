@@ -98,17 +98,17 @@ exports.seed = function (knex) {
           setDesc: "This set was created by user 1 Test Wong",
           setStatus: true
         }, {
-          user_id: 2,
+          user_id: 1,
           setTitle: "User Philip's Set",
           setDesc: "This set was created by user 2 User Phlip",
           setStatus: true
         }, {
-          user_id: 3,
+          user_id: 1,
           setTitle: "John Cheng's Set",
           setDesc: "This set was created by user 3 John Cheng",
           setStatus: true
         }, {
-          user_id: 4,
+          user_id: 1,
           setTitle: "Jack Wynn's Set",
           setDesc: "This set was created by user 4 Jack Wynn",
           setStatus: true
@@ -449,13 +449,13 @@ exports.seed = function (knex) {
           set_id: 2
         }, {
           classroom_id: 2,
-          set_id: 1
+          set_id: 4
         }, {
           classroom_id: 2,
-          set_id: 2
+          set_id: 3
         }, {
           classroom_id: 3,
-          set_id: 1
+          set_id: 4
         }])
       })
       .then(() => {
