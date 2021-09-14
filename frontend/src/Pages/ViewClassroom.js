@@ -41,16 +41,17 @@ class ViewClassroom extends React.Component {
 
       getclassroom(){
         if(this.props.location.state.classroom[0].bridge != null){
-            this.props.location.state.classroom[0].bridge.map((setId) => {
-            console.log("inlocation,smao");
-            this.props.sets.map((set) => {
-              if (set.id === setId.set_id) {
-                this.setState({
-                    correctSet:  this.state.correctSet.concat(set)
-                })
-              }
-            });
-          });
+            const trueState = this.props.location.state.classroom[0].bridge.map((setId) => {
+            const fakeState = this.props.sets.filter((set) => set.id === setId.set_id)
+            console.log('lmao setId', setId)
+            console.log('lmao u wat m8, fakse', fakeState)
+            return fakeState[0]
+        });
+        console.log('lmao u wat m8, true',trueState)
+        this.setState({
+            correctSet: trueState
+        })
+        console.log('lmao u wat m8', this.state.correctSet)
         } else {
             return null
         }
@@ -186,7 +187,7 @@ class ViewClassroom extends React.Component {
                                 </div>
                                 
 
-                                <DisplaySetModule sets={this.props.sets} navigate={(e)=>this.navigateSet(e)}/>
+                                <DisplaySetModule sets={this.state.correctSet} navigate={(e)=>this.navigateSet(e)}/>
 
                             </div>
                         </div>

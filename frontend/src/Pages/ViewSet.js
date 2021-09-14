@@ -81,6 +81,8 @@ class ViewSet extends React.Component {
 
     navigateCard(e){
         if(e.target.attributes["data-type"].value === "flashcard"){
+            console.log('nav card func props', this.props.cards.flashcard)
+            console.log('nav card func value', e.target.attributes["data-key"].value)
             this.props.history.push({
                 pathname:`/viewflashcard`,
                 state: { card: this.props.cards.flashcard.filter ((flashcard) => {
@@ -89,7 +91,6 @@ class ViewSet extends React.Component {
                         return flashcard
                     }
                 }),
-                set: this.props
             }
             })
         } else if (e.target.attributes["data-type"].value === "quizcard"){

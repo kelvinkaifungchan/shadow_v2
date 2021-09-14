@@ -36,6 +36,8 @@ class PureModel extends React.Component {
 
 
     render() {
+        console.log('props in add exist modal', this.props)
+        console.log('props.sets in add exist modal', this.props.sets)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
