@@ -67,6 +67,7 @@ class CreateFlashcard extends React.Component {
 
     async navigateSet(e){
         e.preventDefault()
+        await this.addFlashCard()
         this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.location.state.set
@@ -89,7 +90,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <button cards={this.props.cards} onClick={()=>{this.addFlashCard()}}>Create Card</button>
+                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
                         </div>
                     </div>
 
