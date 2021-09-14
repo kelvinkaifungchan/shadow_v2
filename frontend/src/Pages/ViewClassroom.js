@@ -106,6 +106,7 @@ class ViewClassroom extends React.Component {
         })
     }
 
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -114,11 +115,6 @@ class ViewClassroom extends React.Component {
     render() {
     console.log("props of view classroom", this.props);
     console.log("state of view classroom", this.state);
-
-        // if(this.props.classrooms == []){
-        //     console.log("I AM HEREEEEEE");
-        //     this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
-        // }
  
         return (
         <div>
@@ -179,7 +175,7 @@ class ViewClassroom extends React.Component {
                         {/* Add button */}
                         <div className="row d-flex m-3">
                             <div>
-                                <AddnewPopUp create={this.state} toggle={() => this.toggle()} />
+                                <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} navigate={(e)=>this.navigateSet(e)} />
                                 <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                                     <div className={classes.addbtn}>
                                         <i className="fas fa-plus" />
