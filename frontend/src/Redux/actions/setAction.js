@@ -4,6 +4,8 @@ export const ADD_SET = "ADD_SET";
 export const EDIT_SET = "EDIT_SET";
 export const DELETE_SET = "DELETE_SET";
 
+export const ADD_BRIDGE_CLASSROOM_SET = "ADD_BRIDGE_CLASSROOM_SET";
+
 export const addSet = (set) => async (dispatch) => {
     console.log("adding set" , set)
     let newId;
@@ -21,6 +23,12 @@ export const addSet = (set) => async (dispatch) => {
         })
         .then(() => {
             dispatch({ type: ADD_SET, payload: { id: newId, description: set.description, title: set.title } });
+        })
+        .then(() => {
+            dispatch({
+                type: ADD_BRIDGE_CLASSROOM_SET,
+                payload: {id:{classroom_id: set.classroomId}, content:{set_id: newId}}
+            })
         })
 }
 

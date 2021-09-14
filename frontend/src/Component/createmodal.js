@@ -31,7 +31,6 @@ class PureModel extends React.Component {
 
         } else {
                 this.props.createSetMDP(this.props.create.type,this.props.user.email, this.state.setTitle, this.state.setDesc, this.props.location.state.classroom[0].id)
-
         }
 
     }
@@ -87,7 +86,7 @@ const mapDispatchToProps = dispatch => {
                 type : type,
                 email: email,
                 title: title,
-                desc: description,
+                description: description,
                 classroomId: classroomId
             }
             dispatch(addSet(set))
