@@ -5,8 +5,8 @@ class BridgeService {
 
     //Add bridge
     async add(body) {
-        console.log("sharing classroom with a user")
-        if (body.type === "classroom_set") {
+        console.log("sharing classroom with a user", body)
+        if (body.type === "set") {
             const share = await this.knex("classroom_set").where({
                 classroom_id: body.classroomId,
                 set_id: body.setId
@@ -22,7 +22,7 @@ class BridgeService {
                     .into("classroom_set")
             }
         }
-        if (body.type === "set_flashcard") {
+        if (body.type === "flashcard") {
             const share = await this.knex("set_flashcard").where({
                 set_id: body.setId,
                 flashcard_id: body.flashcardId
@@ -38,7 +38,7 @@ class BridgeService {
                     .into("set_flashcard")
             }
         }
-        if (body.type === "set_quizcard") {
+        if (body.type === "quizcard") {
             const share = await this.knex("set_quizcard").where({
                 set_id: body.setId,
                 flashcard_id: body.quizcardId
@@ -54,7 +54,7 @@ class BridgeService {
                     .into("set_quizcard")
             }
         }
-        if (body.type === "set_dictationcard") {
+        if (body.type === "dictationcard") {
             const share = await this.knex("set_dictationcard").where({
                 set_id: body.setId,
                 flashcard_id: body.dictationcardId

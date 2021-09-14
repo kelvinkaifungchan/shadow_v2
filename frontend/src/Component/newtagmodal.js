@@ -17,7 +17,7 @@ class PureTagModal extends React.Component{
         const state = {};
         state[field] = e.target.value;
         this.setState({
-            tagBody: state
+            tagBody: state.field
         });
     }
 

@@ -6,7 +6,7 @@ import classes from './displaycardmodule.module.css'
 class PureDisplayCardModule extends React.Component {
   
     render() {
-        console.log("this.......",this.props)
+        console.log("this.......",this.props.cards)
 
         return (
             <>

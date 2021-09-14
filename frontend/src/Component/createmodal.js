@@ -30,14 +30,13 @@ class PureModel extends React.Component {
             this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
 
         } else {
-            this.props.createSetMDP(this.props.user.email, this.state.setTitle, this.state.setDesc)
-
+                this.props.createSetMDP(this.props.create.type,this.props.user.email, this.state.setTitle, this.state.setDesc, this.props.location.state.classroom[0].id)
         }
 
     }
 
     render() {
-        console.log("this.props.create", this.props.create);
+        console.log("this.props in CM", this.props);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>
@@ -54,7 +53,7 @@ class PureModel extends React.Component {
                             <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button>:
                             <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
                         }
-                        <button onClick={() => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                        <button onClick={(e) => { this.props.toggle() ; this.props.navigate(e)}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
 
                     </ModalFooter>
                 </Modal>
@@ -82,11 +81,13 @@ const mapDispatchToProps = dispatch => {
             }
             dispatch(addClassroom(classroom))
         },
-        createSetMDP: (email, title, description) => {
+        createSetMDP: (type, email, title, description, classroomId) => {
             let set = {
+                type : type,
                 email: email,
                 title: title,
-                desc: description
+                description: description,
+                classroomId: classroomId
             }
             dispatch(addSet(set))
         }
