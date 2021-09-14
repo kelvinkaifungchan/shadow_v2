@@ -15,7 +15,7 @@ class PureTagModal extends React.Component{
 
     onChangeField = (field, e) => {
         const state = {};
-        state[field] = e.currentTarget.value;
+        state[field] = e.target.value;
         this.setState({
             tagBody: state
         });

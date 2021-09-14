@@ -83,12 +83,13 @@ class ViewSet extends React.Component {
         if(e.target.attributes["data-type"].value === "flashcard"){
             this.props.history.push({
                 pathname:`/viewflashcard`,
-                state: { set: this.props.cards.flashcard.filter ((flashcard) => {
+                state: { card: this.props.cards.flashcard.filter ((flashcard) => {
                     if(flashcard.id === parseInt(e.target.attributes["data-key"].value)){
                         console.log('in if')
                         return flashcard
                     }
-                }) 
+                }),
+                set: this.props
             }
             })
         } else if (e.target.attributes["data-type"].value === "quizcard"){

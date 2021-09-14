@@ -14,7 +14,7 @@ export const DELETE_QUIZCARD = "DELETE_QUIZCARD";
 
 export const addCard = (card) => async (dispatch) => {
     console.log("adding card")
-   const { data } = axios.post("http://localhost:8080/api/card", card);
+   const { data } = await axios.post("http://localhost:8080/api/card", card);
    const newId = data[0];
  
        console.log("card ID", newId)
