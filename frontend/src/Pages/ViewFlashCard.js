@@ -16,6 +16,7 @@ import { Transcript } from '../Component/transcript';
 import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
+import { AddnewPopUp } from '../Component/addnewmodal'
 
 import classes from './ViewFlashcard.module.css'
 
@@ -28,6 +29,7 @@ class ViewFlashCard extends React.Component {
         this.state = {
             title: "classroomTitle",
             read: "readonly",
+            transcript: this.props.location.state.card[0].flashcardBody,
             type: "",
             correctSet: [],
         }
@@ -35,9 +37,8 @@ class ViewFlashCard extends React.Component {
 
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
-        this.getflashcard()
+        // this.getflashcard()
     }
-
 
     // componentDidMount() {
     //     this.props.getdata({ email: localStorage.getItem("email") });
@@ -57,6 +58,12 @@ class ViewFlashCard extends React.Component {
     //       });
     //   }
 
+    toggle() {
+        this.setState({
+            modal: !this.state.modal,
+        });
+    }
+
     // logout = (e) => {
     //     e.preventDefault();
     //     this.props.logout()
@@ -72,37 +79,49 @@ class ViewFlashCard extends React.Component {
                 <div className={classes.viewflashcard}>
                     <div classNmae="row d-flex p-4">
                     <div className="col-8">
-                    <h1>Sample Flashcard Title</h1>
-                        {/* <h1>{this.props.sets[0].title}</h1> */}
-                        <h6>Sample Flashcard Description</h6>
-                        {/* <h6>{this.props.sets[0].description}</h6> */}
+                    {/* <h1>Sample Flashcard Title</h1> */}
+                        <h1>{this.props.location.state.card[0].flashcardTitle}</h1>
+                        {/* <h6>Sample Flashcard Description</h6> */}
+                        {/* <h6>{this.props.location.state.card[0]}</h6> */}
                 </div>
 
                 <div className="row d-flex p-4">
-                        <div className="col">
+                        <div className="col-6">
                             <VideoPlayer/>
                         </div>
-                        <div className="col">
-                            <Transcript title={this.state}/>
+                        <div className="col-6">
+                            <Transcript title={this.state} transcript={this.state}/>
                         </div>
                     </div>
 
                     <div className="row d-flex p-4">
-                        <div className="col">
+                        <div className="col-6">
                             <VideoRecorder/>
                         </div>
 
-                        <div className="col">
+                        <div className="col-6">
                             {/* <FlashcardSubmissions flashcard={this.props.cards.flashcard}/> */}
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
-                                <h3>Submissions</h3>
+                                <h5>Submissions</h5>
                                 <div className={classes.scrollsubmission}>
                                     <button className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </button>
                                     
-                                    {/* {this.props.location.state.cards.} */}
+                                    {this.props.location.state.card[0].submission && 
+                                        this.props.location.state.card[0].submission.length > 0
+                                            ? this.props.location.state.card[0].submission.map(
+                                                (submission, j) => {
+                                                    return (
+                                                    <div key={j} className={classes.scrollicon}>
+                                                        <p>{submission.user_id}</p>
+                                                    </div>
+                                                    )
+                                                }
+                                            )
+                                    : null}
+
                                     <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
                                     </div>
@@ -156,25 +175,37 @@ class ViewFlashCard extends React.Component {
                             </div>
 
                             <div className={classes.feedback}>
-                                <h3>Feedback</h3>
+                                <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
-                                    <div className={classes.scrollfeedbackcard}> 
-                                    {/* <DisplayFlashcardFeedbackModule cards={this.props.cards}/> */}
+                                    <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} />
+                                    <div className={classes.addcommentcontainer}>
+                                    <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addcommentbox}>
+                                        <div className={classes.addbtn}>
+                                            <i className="fas fa-plus" />
+                                        </div>
+                                        <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
+                                            <span>Add new comment</span>
+                                        </div>
+                                    </div>
                                     </div>
 
-                                    <div className={classes.scrollfeedbackcard}> 
-                                        <table> 
-                                            <th>Timestamp</th>
-                                            <td>Comment</td>
-                                        </table>
-                                    </div>
+                                {this.props.location.state.card[0].submission && 
+                                        this.props.location.state.card[0].submission.length > 0
+                                            ? this.props.location.state.card[0].submission.map(
+                                                (submission, j) => {
+                                                    return (
+                                                    <div key={j} className={classes.scrollfeedbackcard}>
+                                                        <table>
+                                                            <th>{submission.feedback[0].flashcardFeedbackTime}</th>
+                                                            <td>{submission.feedback[0].flashcardFeedbackBody}</td>
+                                                            <td className={classes.commentinguser}>Commented by {submission.feedback[0].user_id}</td>
+                                                        </table>
+                                                    </div>
+                                                    )
+                                                }
+                                            )
+                                    : null}
 
-                                    <div className={classes.scrollfeedbackcard}> 
-                                        <table> 
-                                            <th>Timestamp</th>
-                                            <td>Comment</td>
-                                        </table>
-                                    </div>
 
                                     <div className={classes.scrollfeedbackcard}> 
                                         <table> 

@@ -44,7 +44,7 @@ class ViewSet extends React.Component {
 
 
     componentDidMount (){
-        this.props.getdata({ email: (localStorage.getItem('email')) }) 
+        this.props.getdata({ email:localStorage.getItem('email') }) 
     }
 
     toggle() {
@@ -79,9 +79,52 @@ class ViewSet extends React.Component {
         })
     }
 
-    render() {
-        console.log("VIEW SET PROPS", this.props);
+    navigateCard(e){
+        if(e.target.attributes["data-type"].value === "flashcard"){
+            this.props.history.push({
+                pathname:`/viewflashcard`,
+                state: { card: this.props.cards.flashcard.filter ((flashcard) => {
+                    if(flashcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return flashcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "quizcard"){
+            this.props.history.push({
+                pathname:`/viewQuizcard`,
+                state: { card: this.props.cards.quizcard.filter ((quizcard) => {
+                    if(quizcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return quizcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "dictationcard"){
+            this.props.history.push({
+                pathname:`/viewDictationcard`,
+                state: { card: this.props.cards.dictationcard.filter ((dictationcard) => {
+                    if(dictationcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return dictationcard
+                    }
+                }) 
+            }
+            })
+        }
+    }
+    navigateNewCard(e){
+        this.props.history.push({
+            pathname:`/createflashcard`,
+            state:{ set: this.props.location.state.set
+        }}
+        )
+    }
 
+    render() {
+        console.log("i want to see the props", this.props);
         return (
             <div>
                 <NavBar/>
@@ -125,7 +168,7 @@ class ViewSet extends React.Component {
                         </div>
 
                 <div className="row d-flex m-3">
-                    <AddnewPopUp create={this.state} toggle={() => this.toggle()} /> 
+                    <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}}toggle={() => this.toggle()} /> 
                     <div className={classes.frame}>
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
@@ -137,7 +180,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                        <DisplayCardModule cards={this.props.cards} />
+                        <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
                 </div>
             </div>
             </div>

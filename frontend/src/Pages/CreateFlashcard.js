@@ -11,22 +11,29 @@ import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
 // import { Button } from "reactstrap";
+import { addCard } from '../Redux/actions/cardAction'
+import { getdataThunk } from '../Redux/actions/action'
 
 import classes from './CreateFlashcard.module.css'
-import { TypeaheadInputMulti } from 'react-bootstrap-typeahead';
 
 class CreateFlashcard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             type:"flashcard",
-            title: "Add A Title",
+            flashcardTitle: "",
+            flashcardBody:"",
             flashcardRecording:"",
+            setId:""
         }
         this.handleHeading = this.handleHeading.bind(this);
         this.handleTranscript = this.handleTranscript.bind(this);
         this.handleRecording = this.handleRecording.bind(this);
     }
+    componentDidMount() {
+        this.props.getdata({ email: localStorage.getItem('email')})
+    }
+
 
     handleHeading(title){
         this.setState({
@@ -45,10 +52,32 @@ class CreateFlashcard extends React.Component {
             flashcardRecording: record
         })
     }
+    
+    addFlashCard(){
+      this.props.addCard({
+                email: localStorage.getItem('email'),
+                type : this.state.type,
+                flashcardTitle: this.state.flashcardTitle,
+                flashcardBody: this.state.flashcardBody,
+                flashcardRecording: this.state.flashcardRecording,
+                setId: this.props.location.state.set[0].id
+            })
+       
+    }
 
-
+    async navigateSet(e){
+        e.preventDefault()
+        await this.addFlashCard()
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set: this.props.location.state.set
+            }
+        })
+    }
     render() {
+        console.log("this.props in create flash card",this.props);
         console.log("this.state in create flash card",this.state);
+
         return (
             <div>
                 <NavBar history={this.props.history}/>
@@ -61,14 +90,18 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <Link to='/viewset'><button>Create Card</button></Link>
+                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
                         </div>
                     </div>
 
                     {/* Video & Transcript row */}
                     <div className="row d-flex p-4">
+                        <div className="col-6">
                         <VideoRecorder handleRecording={this.handleRecording}/>
+                        </div>
+                        <div className="col-6">
                         <Transcript title={this.state} handleTranscript={this.handleTranscript} />
+                        </div>
                     </div>
 
                     <BrowserRouter>
@@ -84,11 +117,29 @@ class CreateFlashcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log("state in dashboard", state);
+
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addCard: (card) => {
+            dispatch(addCard(card))
+        },
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        }
     }
 }
 
 
-const connectedCreateFlashcard = connect(mapStateToProps, null)(CreateFlashcard)
+const connectedCreateFlashcard = connect(mapStateToProps, mapDispatchToProps)(CreateFlashcard)
 export { connectedCreateFlashcard as CreateFlashcard };

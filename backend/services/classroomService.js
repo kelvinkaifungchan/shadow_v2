@@ -17,7 +17,7 @@ class ClassroomService {
           .insert({
             user_id: email[0].id,
             classroomTitle: body.title,
-            classroomDesc: body.desc,
+            classroomDesc: body.description,
             classroomStatus: true
           })
           .into("classroom")
