@@ -177,7 +177,7 @@ class ViewSet extends React.Component {
                                 <span>Add new or exist card</span>
                             </div>
                     </div>
-
+=
                         <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
                 </div>
             </div>

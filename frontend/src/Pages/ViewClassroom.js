@@ -129,7 +129,7 @@ class ViewClassroom extends React.Component {
                                     <h6>{this.props.location.state.classroom[0].description}</h6>
                                 </div>
                             </div>
-                        </div>
+
 
                         <div className="row d-flex pl-4 pr-4 m-2">
                             <div className={classes.sharingusericon}> 
@@ -174,23 +174,21 @@ class ViewClassroom extends React.Component {
 
                         {/* Add button */}
                         <div className="row d-flex m-3">
-                            <div>
                                 <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} navigate={(e)=>this.navigateSet(e)} />
                                 <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                                     <div className={classes.addbtn}>
                                         <i className="fas fa-plus" />
                                     </div>
-                                    <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
+                                    <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                         <span>Add new or exist set</span>
                                     </div>
-                                </div>
-                                
+                                    </div>
 
                                 <DisplaySetModule sets={this.props.sets} navigate={(e)=>this.navigateSet(e)}/>
 
                             </div>
                         </div>
-        </div>
+                        </div>
         );
     }
 }

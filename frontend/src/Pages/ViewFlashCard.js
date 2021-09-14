@@ -17,9 +17,11 @@ import { Transcript } from '../Component/transcript';
 import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
-import { AddnewPopUp } from '../Component/addnewmodal'
+import { NewCommentModal } from '../Component/newcommentmodal';
+
 
 import classes from './ViewFlashcard.module.css'
+
 
 class ViewFlashCard extends React.Component {
     constructor(props){
@@ -39,6 +41,7 @@ class ViewFlashCard extends React.Component {
             recording: false,
             videos: [],
         }
+        this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
@@ -76,6 +79,13 @@ class ViewFlashCard extends React.Component {
                 show: !prevState.show
             }
         });
+    }
+
+
+    handleRecording(record){
+        this.setState({
+            flashcardRecording: record
+        })
     }
 
     addTimeStamp() {
@@ -143,7 +153,7 @@ class ViewFlashCard extends React.Component {
 
                     <div className="row d-flex p-4">
                         <div className="col-6">
-                            <VideoRecorder/>
+                            <VideoRecorder handleRecording={this.handleRecording}/>
                         </div>
 
                         <div className="col-6">
@@ -162,69 +172,19 @@ class ViewFlashCard extends React.Component {
                                                 (submission, j) => {
                                                     return (
                                                     <div key={j} className={classes.scrollicon}>
-                                                        <p>{submission.user_id}</p>
+                                                        <img src={submission.picture} alt="Avatar"></img>
                                                     </div>
                                                     )
                                                 }
                                             )
                                     : null}
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
-
-                                    <div className={classes.scrollicon}> 
-                                        <img src={this.props.user.picture} alt="Avatar"></img>
-                                    </div>
-
                                 </div>
                             </div>
 
                             <div className={classes.feedback}>
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
-                                    <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} />
+                                    <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
                                     <div className={classes.addcommentcontainer}>
                                     <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
                                         <div className={classes.addbtn}>
@@ -245,7 +205,7 @@ class ViewFlashCard extends React.Component {
                                                         <table>
                                                             <th>{submission.feedback[0].flashcardFeedbackTime}</th>
                                                             <td>{submission.feedback[0].flashcardFeedbackBody}</td>
-                                                            <td className={classes.commentinguser}>Commented by {submission.feedback[0].user_id}</td>
+                                                            <td className={classes.commentinguser}><img src={submission.feedback[0].picture} alt="Avatar"></img></td>
                                                         </table>
                                                     </div>
                                                     )
