@@ -139,34 +139,34 @@ class ViewClassroom extends React.Component {
                     </div>
 
                     {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
-                    {/* <Tags/> */}
-                    <NewSharePopUp share={this.state} toggle={() => this.shareToggle()} />
-                    <span className={classes.sharingusericon}>
-                        <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
-                    </span>
+                                    {/* <Tags/> */}
+                                    <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()}/>
+                                    <span className={classes.sharingusericon}>
+                                    <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                                    </span>
                 </div>
 
                 <div className="row d-flex pl-4 pr-4 m-2">
-                    {this.props.location.state.classroom[0].tags &&
-                        this.props.location.state.classroom[0].tags.length > 0
-                        ? this.props.location.state.classroom[0].tags.map(
-                            (tag, j) => {
-                                return (
-                                    <span
-                                        key={j}
-                                        className={classes.tagbutton}
-                                    >
-                                        #{tag.body}
-                                    </span>
-                                );
-                            }
-                        )
-                        : null}
-                    {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
-                    <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()} />
-                    <span className="d-inline-flex ">
-                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
-                    </span>
+                            {this.props.location.state.classroom[0].tags &&
+                                    this.props.location.state.classroom[0].tags.length > 0
+                                    ? this.props.location.state.classroom[0].tags.map(
+                                        (tag, j) => {
+                                            return (
+                                            <span
+                                                key={j}
+                                                className={classes.tagbutton}
+                                            >
+                                                #{tag.body}
+                                            </span>
+                                            );
+                                        }
+                                        )
+                                    : null}
+                                {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                                        <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()}/>
+                                        <span className="d-inline-flex ">
+                                        <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                                        </span>
                 </div>
 
 
@@ -181,11 +181,10 @@ class ViewClassroom extends React.Component {
                             <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist set</span>
                             </div>
-                        </div>
-
 
                         <DisplaySetModule sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
+                        </div>
                     </div>
                 </div>
             </div>

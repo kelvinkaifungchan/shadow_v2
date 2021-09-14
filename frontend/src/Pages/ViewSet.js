@@ -186,13 +186,13 @@ class ViewSet extends React.Component {
                 </div>
 
             <div className="row d-flex pl-4 pr-4 m-2">
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
                 {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
                         {/* <Tags/> */}
@@ -205,9 +205,9 @@ class ViewSet extends React.Component {
             <div className="row d-flex pl-4 pr-4 m-2">
             <button className={classes.tagbutton}>#sampletag</button>
                 {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
-                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                        <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()}/>
                         <span className="d-inline-flex ">
-                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        <button onClick={() => {this.tagToggle(); this.changeTypeSet()}} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
                         </span>
                         </div>
 
