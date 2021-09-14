@@ -449,13 +449,13 @@ exports.seed = function (knex) {
           set_id: 2
         }, {
           classroom_id: 2,
-          set_id: 3
-        }, {
-          classroom_id: 2,
           set_id: 4
         }, {
+          classroom_id: 2,
+          set_id: 3
+        }, {
           classroom_id: 3,
-          set_id: 1
+          set_id: 4
         }])
       })
       .then(() => {

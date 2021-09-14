@@ -9,11 +9,11 @@ class SharingService {
         let user_id = await this.knex("user").where({
             email: body.email
         }).select("id");
-        const share = await this.knex("classroom_user").where({
+        let share = await this.knex("classroom_user").where({
             classroom_id: body.classroomId,
             sharedUser_id: user_id[0].id
         })
-        const owner = await this.knex("classroom").where({
+        let owner = await this.knex("classroom").where({
             user_id: user_id[0].id,
             id: body.classroomId
         })
@@ -36,7 +36,8 @@ class SharingService {
                     return ({
                         user_id: data.id,
                         email: data.email,
-                        displayName: data.displayName
+                        displayName: data.displayName,
+                        picture: data.picture
                     })
                 })
         }
