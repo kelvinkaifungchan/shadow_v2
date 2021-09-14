@@ -11,7 +11,7 @@ export const DELETE_TAG_SET = "DELETE_TAG_SET";
 export const addTag = (tag) => async (dispatch) => {
     console.log("adding tag")
 
-   const { data } = await axios.post(`http://localhost:8080/api/tag/${tag.type}` , tag)
+   const { data } = await axios.post(`http://localhost:8080/api/tag/` , tag)
    const newId = data[0];
 
     dispatch({type: ADD_TAG, payload: {tagId: newId, tagBody: tag.tagBody}});
@@ -29,7 +29,7 @@ export const addTag = (tag) => async (dispatch) => {
 export const deleteTag = (tag) => async (dispatch) => {
     console.log("delete tag")
 
-   const { data } = await axios.delete(`http://localhost:8080/api/tag/${tag.type}`, tag)
+   const { data } = await axios.delete(`http://localhost:8080/api/tag/`, tag)
    
    dispatch({type: DELETE_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
     

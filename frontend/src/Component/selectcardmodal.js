@@ -6,6 +6,7 @@ import { Modal, ModalHeader, ModalBody, Button} from 'reactstrap';
 class PureSelectCardModal extends React.Component{
 
     render() {
+        console.log("PROPS IN SCM",this.props);
         return (
             <div>
                 <Modal isOpen={this.props.selectCard.selectModal} toggle={this.props.toggle} >
