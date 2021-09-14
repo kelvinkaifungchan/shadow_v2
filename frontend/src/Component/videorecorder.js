@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loginUserThunk} from '../Redux/actions/loginboxAction';
 
+import classes from './videorecorder.module.css'
+
 class PureVideoRecorder extends React.Component {
 
     constructor(props){
@@ -110,22 +112,22 @@ class PureVideoRecorder extends React.Component {
     render() {
         const { show } = this.state;
         return (
-            <div className="col">
-            <div className="flex-col d-flex justify-content-center" id="videoSubmission">
-                {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
+            <div className={classes.videorecorder}>
+                <div className="" id="videoSubmission">
+                    {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
 
-                {!show ? <video ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true} muted="muted"  ></video> : null}
-            </div>
-            <div className="row flex-row flex-nowrap">
-                <div className="p-3 ml-auto mr-auto ">
-                    {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
-                        className="fas fa-power-off"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
-                        title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
-                        title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
+                    {!show ? <video ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true} muted="muted"  ></video> : null}
                 </div>
-            </div>
+                <div className="">
+                    <div className="p-3 ml-auto mr-auto ">
+                        {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
+                            className="fas fa-power-off"></i></span> : null}
+                        {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                            title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
+                        {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                            title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
+                    </div>
+                </div>
             </div>
         );
     }

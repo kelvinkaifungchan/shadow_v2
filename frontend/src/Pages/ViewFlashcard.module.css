@@ -5,7 +5,7 @@
     }
     
 video, iframe {
-    width: auto;
+    width: 50vw;
     height: 50vh;
 }
 

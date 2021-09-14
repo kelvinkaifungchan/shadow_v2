@@ -13,7 +13,7 @@ import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { VideoPlayer } from '../Component/videoplayer';
 import { Transcript } from '../Component/transcript';
-// import FlashcardSubmissions from '../Component/flashcardSubmission';
+import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
 
@@ -29,12 +29,33 @@ class ViewFlashCard extends React.Component {
             title: "classroomTitle",
             read: "readonly",
             type: "",
+            correctSet: [],
         }
     }
 
     componentDidMount() {
         this.props.getdata({ email: "test@test.com" })
+        this.getflashcard()
     }
+
+
+    // componentDidMount() {
+    //     this.props.getdata({ email: localStorage.getItem("email") });
+    //     this.getflashcard()
+    //   }
+
+    //   getflashcard(){
+    //     this.props.location.state.classroom[0].bridge.map((setId) => {
+    //         console.log("inlocation,smao");
+    //         this.props.sets.map((set) => {
+    //           if (set.id === setId.set_id) {
+    //             this.setState({
+    //                 correctSet:  this.state.correctSet.concat(set)
+    //             })
+    //           }
+    //         });
+    //       });
+    //   }
 
     // logout = (e) => {
     //     e.preventDefault();
@@ -42,6 +63,7 @@ class ViewFlashCard extends React.Component {
     // }
     render() {
         console.log("i want to see the props",this.props);
+        console.log("i want to see the state",this.state);
 
         return (
             <div>
@@ -56,32 +78,7 @@ class ViewFlashCard extends React.Component {
                         {/* <h6>{this.props.sets[0].description}</h6> */}
                 </div>
 
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar history={this.props.history}/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                    <div className="col col-4">
-                    {/* <FormSubmit/> */}
-                    <p>FormSubmit</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-6">
-                        <VideoPlayer/>
-                    </div>
-                    </div>
-
-                    <div className="row d-flex p-4">
+                <div className="row d-flex p-4">
                         <div className="col">
                             <VideoPlayer/>
                         </div>
@@ -91,20 +88,21 @@ class ViewFlashCard extends React.Component {
                     </div>
 
                     <div className="row d-flex p-4">
-                        <div className="col-6">
+                        <div className="col">
                             <VideoRecorder/>
                         </div>
 
-                        <div className="col-6">
-                            {/* <FlashcardSubmissions/> */}
+                        <div className="col">
+                            {/* <FlashcardSubmissions flashcard={this.props.cards.flashcard}/> */}
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
-                                <h6>Submissions</h6>
+                                <h3>Submissions</h3>
                                 <div className={classes.scrollsubmission}>
                                     <button className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </button>
                                     
+                                    {/* {this.props.location.state.cards.} */}
                                     <div className={classes.scrollicon}> 
                                         <img src={this.props.user.picture} alt="Avatar"></img>
                                     </div>
@@ -158,10 +156,10 @@ class ViewFlashCard extends React.Component {
                             </div>
 
                             <div className={classes.feedback}>
-                                <h6>Feedback</h6>
+                                <h3>Feedback</h3>
                                 <div className={classes.scrollfeedback}>
                                     <div className={classes.scrollfeedbackcard}> 
-                                    <DisplayFlashcardFeedbackModule cards={this.props.cards}/>
+                                    {/* <DisplayFlashcardFeedbackModule cards={this.props.cards}/> */}
                                     </div>
 
                                     <div className={classes.scrollfeedbackcard}> 

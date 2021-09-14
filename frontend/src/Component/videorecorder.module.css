@@ -1,0 +1,6 @@
+.videorecorder {
+    display: flex;
+    justify-content: center;
+    /* float:left; */
+    flex-direction: column;
+}
