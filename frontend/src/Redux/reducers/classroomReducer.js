@@ -5,7 +5,9 @@ import { GETDATACLASSROOMS_SUCCESS, GETDATACLASSROOMS_FAILURE } from "../actions
 import { ADD_TAG_CLASSROOM, DELETE_TAG_CLASSROOM } from "../actions/tagAction";
 import { ADD_SHARING, DELETE_SHARING } from "../actions/sharingAction";
 
-import { ADD_BRIDGE_CLASSROOM_SET, DELETE_BRIDGE_CLASSROOM_SET } from "../actions/bridgeAction";
+import { DELETE_BRIDGE_CLASSROOM_SET } from "../actions/bridgeAction";
+import { ADD_BRIDGE_CLASSROOM_SET } from "../actions/setAction";
+
 
 const initialState = {
     classrooms: []

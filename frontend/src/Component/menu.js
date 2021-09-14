@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { getdataThunk } from '../Redux/actions/action'
-import "./menu.css"
+
+import classes from './menu.module.css'
 
 
 class PureMenu extends React.Component {
@@ -25,21 +26,21 @@ class PureMenu extends React.Component {
 
     render() {
         return (
-            <div id="menu">
-            <ListGroup variant="flush" >
-                <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
-                {this.props.classrooms.map((classroom, i) => {
-                    return (
-                <ListGroupItem data-key={classroom.id} onClick={(e)=>{this.navigateClass(e)}} tag="a" action>{classroom.title}</ListGroupItem>
-                    )
-                })}
-                <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
-                {this.props.sets.map((sets, i) => {
-                    return (
-                <ListGroupItem tag="a" href="#" onClick={(e)=>{this.navigateSet(e)}} action>{sets.title}</ListGroupItem>
-                    )
-                })}
-            </ListGroup>
+            <div className={classes.dropdown}>
+                <ListGroup variant="flush" className={classes.dropdowncontent}>
+                    <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
+                    {this.props.classrooms.map((classroom, i) => {
+                        return (
+                    <ListGroupItem data-key={classroom.id} onClick={(e)=>{this.navigateClass(e)}} tag="a" action>{classroom.title}</ListGroupItem>
+                        )
+                    })}
+                    <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
+                    {this.props.sets.map((sets, i) => {
+                        return (
+                    <ListGroupItem tag="a" href="#" onClick={(e)=>{this.navigateSet(e)}} action>{sets.title}</ListGroupItem>
+                        )
+                    })}
+                </ListGroup>
             </div>
         )
     }

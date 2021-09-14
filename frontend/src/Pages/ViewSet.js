@@ -1,18 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-// import { Link } from 'react-router-dom';
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
+import { Link } from 'react-router-dom';
+
 import { NavBar } from '../Component/navbar';
+import {Account} from './Account';
 import { HeadingInput } from '../Component/headinginput';
+
+import PrivateRoute from '../Component/PrivateRoute'
+import { BrowserRouter , Switch} from "react-router-dom";
+
+import { DisplayClassModule } from '../Component/displayclassmodule'
+import { DisplayCardModule } from '../Component/displaycardmodule';
+// import NavBar from '../Component/navbar';
+// import HeadingInput from '../Component/headingInput';
+
 // import Tags from '../Component/tags';
+import { NewSharePopUp } from '../Component/sharemodal';
 import { NewTagPopUp } from '../Component/newtagmodal';
 // import Users from '../Component/users';
 
-import { DisplayCardModule } from '../Component/displaycardmodule'
 import { AddnewPopUp } from '../Component/addnewmodal'
+
+import classes from './ViewSet.module.css'
+
 
 
 class ViewSet extends React.Component {
@@ -23,72 +37,161 @@ class ViewSet extends React.Component {
             selectModal:false,
             modal: false,
             type: "",
-            // set: this.props.sets.filter(set => set.id === parseInt(this.props.location.state.set)),
-        };
+            tagModal: false,
+            shareModal: false,
+        }
     }
+
+
     componentDidMount (){
-        this.props.getdata({ email: JSON.parse(localStorage.getItem('email')) }) 
+        this.props.getdata({ email:localStorage.getItem('email') }) 
     }
+
     toggle() {
         this.setState({
             modal: !this.state.modal,
         });
     }
+
+    tagToggle(){
+        this.setState({
+            tagModal: !this.state.tagModal
+        })
+    }
+
+    shareToggle(){
+        console.log('share tog')
+        this.setState({
+            shareModal: !this.state.shareModal
+        })
+    }
+
+
     selectToggle() {
         this.setState({
             selectModal: !this.state.selectModal,
         });
     }
+
     changeTypeSet(){
         this.setState({
             type: "set"
         })
     }
 
+    navigateCard(e){
+        if(e.target.attributes["data-type"].value === "flashcard"){
+            this.props.history.push({
+                pathname:`/viewflashcard`,
+                state: { card: this.props.cards.flashcard.filter ((flashcard) => {
+                    if(flashcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return flashcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "quizcard"){
+            this.props.history.push({
+                pathname:`/viewQuizcard`,
+                state: { card: this.props.cards.quizcard.filter ((quizcard) => {
+                    if(quizcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return quizcard
+                    }
+                }) 
+            }
+            })
+        } else if (e.target.attributes["data-type"].value === "dictationcard"){
+            this.props.history.push({
+                pathname:`/viewDictationcard`,
+                state: { card: this.props.cards.dictationcard.filter ((dictationcard) => {
+                    if(dictationcard.id === parseInt(e.target.attributes["data-key"].value)){
+                        console.log('in if')
+                        return dictationcard
+                    }
+                }) 
+            }
+            })
+        }
+    }
+    navigateNewCard(e){
+        this.props.history.push({
+            pathname:`/createflashcard`,
+            state:{ set: this.props.location.state.set
+        }}
+        )
+    }
+
     render() {
         console.log("i want to see the props", this.props);
-        console.log('this.props.location.state.set', this.props.location.state.set)
         return (
             <div>
-                <NavBar history={this.props.history}/>
-                <div className="row">
-                    <div className="col col-12">
-                        <HeadingInput heading={this.props.location.state.set[0]}/>
-                        {/* <Tags/> */}
-                        <p>Tags</p>
+                <NavBar/>
 
-                        <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={()=>this.toggle()}/>
-                        <span className="d-inline-flex "><h2 className="p-2 m-0">My Set</h2><span onClick={() => this.toggle()} className="btn rounded-pill border border-warning p-2"><i className="fas fa-plus"></i></span></span>
-                        
-                        {/* <Users/> */}
-                        <p>Users</p>
+            <div className={classes.viewset}>
+                <div classNmae="row d-flex p-4">
+                    <div className="col-8">
+                    <h1>Sample Set Title</h1>
+                        {/* <h1>{this.props.sets[0].title}</h1> */}
+                        <h6>Sample Set Description</h6>
+                        {/* <h6>{this.props.sets[0].description}</h6> */}
+
+
                     </div>
                 </div>
-                <div className="p-3">
 
-                    {/* Add button */}
-                    <div className="row d-flex justify-content-between m-3">
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
 
-                       <AddnewPopUp create={this.state} toggle={() => this.toggle()} /> 
-                        <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className="col-3 m-1 p-1 border border-4 rounded-lg d-inline-flex ">
-                            <div className="col-4 m-1 p-1 d-flex justify-content-center align-items-center">
+            <div className={classes.sharingusericon}> 
+                <img src={this.props.user.picture} alt="Avatar"></img>
+            </div>
+
+                {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
+                        {/* <Tags/> */}
+                        <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                        </span>
+            </div>
+               
+            <div className="row d-flex pl-4 pr-4 m-2">
+            <button className={classes.tagbutton}>#sampletag</button>
+                {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                        <span className="d-inline-flex ">
+                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        </span>
+                        </div>
+
+                <div className="row d-flex m-3">
+                    <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}}toggle={() => this.toggle()} /> 
+                    <div className={classes.frame}>
+                        <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
+                            <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
-                            <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
+                            <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist card</span>
                             </div>
                         </div>
-                        <DisplayCardModule cards={this.props.cards} />
                     </div>
+
+                        <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
                 </div>
+            </div>
             </div>
         );
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in VIEWSET", state);
 
     return {
+        email: state.authStore.email,
         user: state.userStore.user,
         classrooms: state.classroomStore.classrooms,
         sets: state.setStore.sets,

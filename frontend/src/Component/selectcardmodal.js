@@ -6,6 +6,7 @@ import { Modal, ModalHeader, ModalBody, Button} from 'reactstrap';
 class PureSelectCardModal extends React.Component{
 
     render() {
+        console.log("PROPS IN SCM",this.props);
         return (
             <div>
                 <Modal isOpen={this.props.selectCard.selectModal} toggle={this.props.toggle} >
@@ -13,7 +14,7 @@ class PureSelectCardModal extends React.Component{
                     <ModalBody>
                         <div className="row">
                             <div className="col col-4 d-flex justify-content-center">
-                                <Link className="btn p-2 border" to="/createFlashcard"><h2>Flashcard</h2> <br/> <span>Shadow to improve speaking</span></Link>
+                                <Button onClick={(e)=>{this.props.navigate(e)}}><h2>Flashcard</h2> <br/> <span>Shadow to improve speaking</span></Button>
                             </div>
                             {/* <div className="col col-4 d-flex justify-content-center">
                                  <Link className="btn p-2 border" to="/createQuizcard"><h2>Quizcard</h2> <br/> <span>Test your knowledge</span></Link>

@@ -1,3 +1,7 @@
+.createflashcard {
+    margin: 2% 5%
+    }
+
 .createflashcard button {
     cursor: pointer;
     float: right;
@@ -16,3 +20,8 @@
 .createflashcard button:active {
     background-color: #7879F1;
   }
+
+ .createflashcard video {
+    width: 100%    !important;
+    height: auto   !important;
+}

@@ -1,0 +1,62 @@
+  .dashboard{
+    margin: 2% 5%;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #3D4176;
+    
+    /* display: block; */
+  }
+  
+  .createclassroombtn div{
+    font: inherit;
+    cursor: pointer;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin: 0px 10px;
+    width:30px;
+    height:30px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #77002e;
+    border: 1px solid #77002e;
+    background-color: transparent;
+    border-radius: 50%;
+  }
+  
+  .addbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.createclassroombtn div:hover,
+.createclassroombtn div:active {
+    background-color: #ffe2ed;
+  }
+
+
+  .createsetbtn div{
+    font: inherit;
+    cursor: pointer;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin: 0px 10px;
+    width:30px;
+    height:30px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #77002e;
+    border: 1px solid #77002e;
+    background-color: transparent;
+    border-radius: 50%;
+  }
+  
+.createsetbtn div:hover,
+.createsetbtn div:active {
+    background-color: #ffe2ed;
+  }

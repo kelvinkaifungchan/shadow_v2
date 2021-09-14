@@ -6,7 +6,11 @@ import classes from './headinginput.module.css'
 
 class PureHeadingInput extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state={
+      type: "",
+      read: "readonly"
+    }
   }
   render() {
     console.log('heading input propssssss', this.props)
@@ -15,22 +19,27 @@ class PureHeadingInput extends React.Component {
         <form className={classes.headingframe}>
           <input onChange={(e) => this.props.handleHeading(e.currentTarget.value)}
             type="text"
-            placeholder={this.props.heading.title}
+            placeholder="Untitled"
             className={classes.title}
           />
-        {
-          this.props.card ? null : <input
+          {this.props.card.type ? null : <input
             type="text"
-            placeholder={this.props.heading.description}
+            placeholder="Insert a description"
             className={classes.description}
-          />
-        }
-
+          />}
         </form>
       </>
     )
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getdata: (email) => {
+      dispatch(getdataThunk(email))
+    }
+  }
+}
 
-export const HeadingInput = connect(null, null)(PureHeadingInput)
+export const HeadingInput = connect(null, mapDispatchToProps)(PureHeadingInput)
+

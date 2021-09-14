@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
-import "./menu.css"
 import classes from './navbar.module.css'
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
@@ -28,10 +27,12 @@ class PureNavBar extends React.Component {
     componentDidMount() {
         this.props.getdata({ email: this.props.user.email })
     }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
+    
     render() {
         console.log("this.props in nav", this.props);
         console.log("this.state in nav", this.state);
@@ -39,11 +40,11 @@ class PureNavBar extends React.Component {
         const { modal } = this.state
         return (
             <div className={classes.header}>
-                    <div className="col-2">
+                    <div className={classes.left}>
                         <Link to='/' className={classes.logo}>shadow</Link>
                     </div>
 
-                    <div className="col-8">
+                    <div className={classes.middle}>
                         <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
                     </div>
 
