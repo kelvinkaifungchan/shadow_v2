@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import ReactPlayer from 'react-player'
 
 import { Link } from 'react-router-dom';
 import { getdataThunk } from '../Redux/actions/action'
@@ -26,12 +27,17 @@ class ViewFlashCard extends React.Component {
         // this.bg = {
         //     backgroundColor: '#F8DF4F'
         // }
+        this.player = React.createRef();
         this.state = {
             title: "classroomTitle",
             read: "readonly",
             transcript: this.props.location.state.card[0].flashcardBody,
             type: "",
             correctSet: [],
+            show: Boolean(),
+            res: [],
+            recording: false,
+            videos: [],
         }
     }
 
@@ -64,6 +70,47 @@ class ViewFlashCard extends React.Component {
         });
     }
 
+    handleshow() {
+        this.setState((prevState) => {
+            return {
+                show: !prevState.show
+            }
+        });
+    }
+
+    addTimeStamp() {
+        const stamp = this.player.currentTime
+        var m = Math.floor(stamp / 60);
+        var s = Math.floor(stamp % 60);
+        if (m.toString().length < 2) {
+            m = '0' + m;
+        }
+        if (s.toString().length < 2) {
+            s = '0' + s;
+        }
+        const timeStamp = (m + ':' + s)
+        // axios.post( http://13.228.254.45/api/set/feedback, {
+        //     timeStamp: timeStamp,
+        //     body: "",
+        //     user: user,
+        //     submissionId: submissionId,
+        //     cardId: cardId
+        // }).then((res) => {
+        //     console.log("Update received")
+        //     console.log(res)
+        //     reload(res)
+        // })
+
+        const timeStamps = this.state.res.concat({ timeStamp: timeStamp })
+        console.log("timeStamp", timeStamp)
+        console.log("timeStamps", timeStamps)
+
+        this.setState({
+            res: timeStamps
+        })
+        console.log("this.state.res", this.state.res);
+
+    }
     // logout = (e) => {
     //     e.preventDefault();
     //     this.props.logout()
@@ -179,7 +226,7 @@ class ViewFlashCard extends React.Component {
                                 <div className={classes.scrollfeedback}>
                                     <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} />
                                     <div className={classes.addcommentcontainer}>
-                                    <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addcommentbox}>
+                                    <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
                                         <div className={classes.addbtn}>
                                             <i className="fas fa-plus" />
                                         </div>

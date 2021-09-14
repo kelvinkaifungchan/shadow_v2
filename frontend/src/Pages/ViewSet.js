@@ -169,7 +169,6 @@ class ViewSet extends React.Component {
 
                 <div className="row d-flex m-3">
                     <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}}toggle={() => this.toggle()} /> 
-                    <div className={classes.frame}>
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -177,7 +176,6 @@ class ViewSet extends React.Component {
                             <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist card</span>
                             </div>
-                        </div>
                     </div>
 
                         <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
