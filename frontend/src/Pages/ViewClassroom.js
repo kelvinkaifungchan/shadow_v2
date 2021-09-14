@@ -42,7 +42,6 @@ class ViewClassroom extends React.Component {
       getclassroom(){
         if(this.props.location.state.classroom[0].bridge != null){
             this.props.location.state.classroom[0].bridge.map((setId) => {
-            console.log("inlocation,smao");
             this.props.sets.map((set) => {
               if (set.id === setId.set_id) {
                 this.setState({
@@ -87,7 +86,6 @@ class ViewClassroom extends React.Component {
     }
 
     shareToggle(){
-        console.log('share tog')
         this.setState({
             shareModal: !this.state.shareModal
         })
@@ -142,7 +140,7 @@ class ViewClassroom extends React.Component {
 
                             {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
                                     {/* <Tags/> */}
-                                    <NewSharePopUp share={this.state} toggle={() => this.shareToggle()}/>
+                                    <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()}/>
                                     <span className={classes.sharingusericon}>
                                     <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
                                     </span>

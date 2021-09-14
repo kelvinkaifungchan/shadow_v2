@@ -15,7 +15,7 @@ class SharingRouter {
     }
 
     post(req, res){
-        console.log("Post request to add user to set");
+        console.log("Post request to add user to classroom");
 
         return this.sharingService.add(req.body)
         .then((data) => {

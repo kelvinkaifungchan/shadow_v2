@@ -142,13 +142,13 @@ class ViewSet extends React.Component {
                 </div>
 
             <div className="row d-flex pl-4 pr-4 m-2">
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
                 {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
                         {/* <Tags/> */}
