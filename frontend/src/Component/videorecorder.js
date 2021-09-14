@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loginUserThunk} from '../Redux/actions/loginboxAction';
 
+
 class PureVideoRecorder extends React.Component {
 
     constructor(props){
@@ -110,7 +111,7 @@ class PureVideoRecorder extends React.Component {
     render() {
         const { show } = this.state;
         return (
-            <div className="col">
+            <div>
             <div className="flex-col d-flex justify-content-center" id="videoSubmission">
                 {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
 
