@@ -120,10 +120,11 @@ class SubmissionService {
             return this.knex("flashcardSubmission")
             .join("user", "flashcardSubmission.user_id", "=", "user.id")
             .where("flashcardSubmission.id", body.flashcardSubmissionId)
-            .select("user.displayName", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
+            .select("user.displayName","user.picture", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
             .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
+                        picture: submission[0].picture,
                         flashcardId: submission[0].flashcard_id,
                         flashcardSubmissionId: submission[0].id,
                         flashcardSubmissionRecording: submission[0].flashcardSubmissionRecording
@@ -136,10 +137,11 @@ class SubmissionService {
             return this.knex("dictationSubmission")
             .join("user", "dictationSubmission.user_id", "=", "user.id")
             .where("dictationSubmission.id", body.dictationSubmissionId)
-            .select("user.displayName", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
+            .select("user.displayName","user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
             .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
+                        picture: submission[0].picture,
                         dictationId: submission[0].dictation_id,
                         dictationSubmissionId: submission[0].id,
                         dictationSubmissionPath: submission[0].dictationSubmissionPath
@@ -154,10 +156,11 @@ class SubmissionService {
             return this.knex("multipleChoiceSubmission")
             .join("user", "multipleChoiceSubmission.user_id", "=", "user.id")
             .where("multipleChoiceSubmission.id", body.multipleChoiceSubmissionId)
-            .select("user.displayName", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+            .select("user.displayName", "user.picture", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
             .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
+                        picture: submission[0].picture,
                         multipleChoiceId: submission[0].multipleChoice_id,
                         multipleChoiceSubmissionId: submission[0].id,
                         multipleChoiceSubmission: submission[0].multipleChoiceSubmission,
@@ -170,10 +173,11 @@ class SubmissionService {
             return this.knex("trueFalseSubmission")
             .join("user", "trueFalseSubmission.user_id", "=", "user.id")
             .where("trueFalseSubmission.id", body.trueFalseSubmissionId)
-            .select("user.displayName", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
+            .select("user.displayName", "user.picture", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
             .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
+                        picture: submission[0].picture,
                         trueFalseId: submission[0].trueFalse_id,
                         trueFalseSubmissionId: submission[0].id,
                         trueFalseSubmission: submission[0].trueFalseSubmission,
