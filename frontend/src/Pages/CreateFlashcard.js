@@ -96,8 +96,12 @@ class CreateFlashcard extends React.Component {
 
                     {/* Video & Transcript row */}
                     <div className="row d-flex p-4">
+                        <div className="col-6">
                         <VideoRecorder handleRecording={this.handleRecording}/>
+                        </div>
+                        <div className="col-6">
                         <Transcript title={this.state} handleTranscript={this.handleTranscript} />
+                        </div>
                     </div>
 
                     <BrowserRouter>

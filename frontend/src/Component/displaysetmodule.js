@@ -6,6 +6,7 @@ import classes from './displaysetmodule.module.css'
 class PureDisplaySetModule extends React.Component {
 
     render() {
+        console.log("THISSSSS ISSSS SUCKSSSS", this.props.sets);
         return (
             <>
                 {this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
