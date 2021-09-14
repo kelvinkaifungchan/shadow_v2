@@ -214,7 +214,7 @@ class ViewSet extends React.Component {
                         </div>
 
                 <div className="row d-flex m-3">
-                    <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}}toggle={() => this.toggle()} /> 
+                    <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}} correctSet={this.props.location.state.set[0]} toggle={() => this.toggle()} /> 
                     <div className={classes.frame}>
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
