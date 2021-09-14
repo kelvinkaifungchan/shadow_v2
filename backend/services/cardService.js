@@ -399,12 +399,16 @@ class Card {
                 })
                 .then(()=>{
                     return this.knex("flashcardSubmission")
-                    .where("flashcard_id", id.id)
-                    .where("flashcardSubmissionStatus", true)
+                    .join("user", "flashcardSubmission.user_id", "user.id")
+                    .where("flashcardSubmission.flashcard_id", id.id)
+                    .where("flashcardSubmission.flashcardSubmissionStatus", true)
+                    .select("user.displayName", "user.picture", "flashcardSubmission.id", "flashcardSubmission.user_id", "flashcardSubmission.flashcardSubmissionRecording")
                 })
                 .then((subs)=>{
                     data.submission = subs.map((fuck) =>{
                         return {
+                            displayName: fuck.displayName,
+                            picture: fuck.picture,
                             id: fuck.id,
                             user_id:fuck.user_id,
                             flashcardSubmissionRecording: fuck.flashcardSubmissionRecording
