@@ -135,7 +135,7 @@ class ViewSet extends React.Component {
         )
     }
     getSet() {
-        console.log("(this.props.location.state.set[0]", this.props.location.state.set[0]);
+        console.log("DIU SET", this.props.location.state.set[0]);
         if (this.props.location.state.set[0].bridge_flashcard != null) {
             const flash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
                 const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
@@ -179,7 +179,7 @@ class ViewSet extends React.Component {
 
         return (
             <div>
-                <NavBar getSet={() => this.getSet()} user={this.props.user} history={this.props.history} />
+                <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} />
 
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">
