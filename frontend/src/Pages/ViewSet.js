@@ -26,6 +26,7 @@ import { NewTagPopUp } from '../Component/newtagmodal';
 import { AddnewPopUp } from '../Component/addnewmodal'
 
 import classes from './ViewSet.module.css'
+import { DisplaySetTag} from '../Component/displaysettag'
 
 
 
@@ -183,35 +184,18 @@ class ViewSet extends React.Component {
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">
                         <div className="col-8">
-                            <h1>Sample Set Title</h1>
-                            {/* <h1>{this.props.sets[0].title}</h1> */}
-                            <h6>Sample Set Description</h6>
-                            {/* <h6>{this.props.sets[0].description}</h6> */}
+                            <h1>{this.props.location.state.set[0].title}</h1>
+                            <h6>{this.props.location.state.set[0].description}</h6>
 
 
                         </div>
                     </div>
 
-                <div className="row d-flex pl-4 pr-4 m-2">
-                    <div className={classes.sharingusericon}>
-                        <img src={this.props.user.picture} alt="Avatar"></img>
-                    </div>
-
-                    <div className={classes.sharingusericon}>
-                        <img src={this.props.user.picture} alt="Avatar"></img>
-                    </div>
-
-                    {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
-                    {/* <Tags/> */}
-                    <NewSharePopUp share={this.state} toggle={() => this.shareToggle()} />
-                    <span className="d-inline-flex ">
-                        <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
-                    </span>
-                </div>
 
                 <div className="row d-flex pl-4 pr-4 m-2">
-                    <button className={classes.tagbutton}>#sampletag</button>
-                    {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                    {/* <button className={classes.tagbutton}>#sampletag</button> */}
+                    
+                    <DisplaySetTag tags={this.props.location.state.set[0].tags} />
                     <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
                     <span className="d-inline-flex ">
                         <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
@@ -219,7 +203,7 @@ class ViewSet extends React.Component {
                 </div>
 
                 <div className="row d-flex m-3">
-                    <AddnewPopUp create={this.state} navigate={(e) => { this.navigateNewCard(e) }} correctSet={this.props.location.state.set[0]} toggle={() => this.toggle()} />
+                    <AddnewPopUp location={ this.props.location } create={ this.state } allCard={this.props.cards} navigate={(e) => { this.navigateNewCard(e) }} toggle={() => this.toggle()} />
                     <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                         <div className={classes.addbtn}>
                             <i className="fas fa-plus" />
@@ -229,7 +213,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                    <DisplayCardModule flashcard={this.state.correctflashCard} quizcard={this.state.correctquizCard} dictationcard={this.state.correctdictationCard} navigate={(e) => this.navigateCard(e)} />
+                    <DisplayCardModule view={this.state} navigate={(e) => this.navigateCard(e)} />
                 </div>
             </div>
             </div>

@@ -31,6 +31,7 @@ class ViewClassroom extends React.Component {
             classroomTitle: "",
             classroomDesc: "",
             correctSet: [],
+            correctTag: []
         };
     }
 
@@ -42,7 +43,7 @@ class ViewClassroom extends React.Component {
     getclassroom() {
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
-                const newestState = this.props.sets.filter( set => set.id === setId.set_id)
+                const newestState = this.props.sets.filter(set => set.id === setId.set_id)
                 return newestState[0]
             });
             this.setState({
@@ -52,8 +53,7 @@ class ViewClassroom extends React.Component {
             return null
         }
     }
-
-
+   
     handleHeading(title) {
         this.setState({
             classroomTitle: title
@@ -122,83 +122,72 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("THIS PROPS IN VC", this.props);
+        console.log("props in view classroom", this.props);
         console.log("state of view classroom", this.state);
 
         return (
-        <div>
-            <NavBar user={this.props.user} history={this.props.history} />
+            <div>
+                <NavBar user={this.props.user} history={this.props.history}/>
 
-            <div className={classes.viewclassroom}>
-                            <div className="row d-flex p-4">
-                                <div className="col-8">
-                                    {/* <h1>Sample Classroom Title</h1> */}
-                                    <h1>{this.props.location.state.classroom[0].title}</h1>
-                                    {/* <h6>Sample Classroom Description</h6> */}
-                                    <h6>{this.props.location.state.classroom[0].description}</h6>
-                                </div>
+                <div className={classes.viewclassroom}>
+                    <div className="row d-flex p-4">
+                        <div className="col-8">
+                            <h1>{this.props.location.state.classroom[0].title}</h1>
+                            <h6>{this.props.location.state.classroom[0].description}</h6>
+                        </div>
+                    </div>
+
+
+                    <div className="row d-flex pl-4 pr-4 m-2">
+
+                        {/* Share User */}
+                        {this.props.location.state.classroom[0].shared &&
+                            this.props.location.state.classroom[0].shared.length > 0
+                            ? this.props.location.state.classroom[0].shared.map(
+                                (shared, j) => {
+                                    return (
+                                        <div data-key={shared.id} className={classes.sharingusericon}>
+                                            <img src={shared.picture} alt="Avatar"></img>
+                                        </div>
+                                    )
+                                }
+                            ) : null
+                        }
+
+
+                        {/* share user add button */}
+                        <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()} />
+                        <span className={classes.sharingusericon}>
+                            <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                        </span>
+                    </div>
+
+                    <div className="row d-flex pl-4 pr-4 m-2">
+                        <DisplayClassroomTag tags={this.props.location.state.classroom[0].tags} />
+                        <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
+                        <span className="d-inline-flex ">
+                            <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        </span>
+                    </div>
+
+
+                    {/* Add button */}
+                    <div className="row d-flex m-3">
+                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateSet(e)} />
+                        <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
+                            <div className={classes.addbtn}>
+                                <i className="fas fa-plus" />
                             </div>
+                            <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
+                                <span>Add new or exist set</span>
+                            </div>
+                        </div>
 
+                        <DisplaySetModule location={this.props.location} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
-
-                <div className="row d-flex pl-4 pr-4 m-2">
-                    <div className={classes.sharingusericon}>
-                        <img src={this.props.user.picture} alt="Avatar"></img>
                     </div>
-
-                    <div className={classes.sharingusericon}>
-                        <img src={this.props.user.picture} alt="Avatar"></img>
-                    </div>
-
-                    {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
-                                    {/* <Tags/> */}
-                                    <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()}/>
-                                    <span className={classes.sharingusericon}>
-                                    <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
-                                    </span>
                 </div>
-
-                <div className="row d-flex pl-4 pr-4 m-2">
-                            {this.props.location.state.classroom[0].tags &&
-                                    this.props.location.state.classroom[0].tags.length > 0
-                                    ? this.props.location.state.classroom[0].tags.map(
-                                        (tag, j) => {
-                                            return (
-                                            <span
-                                                key={j}
-                                                className={classes.tagbutton}
-                                            >
-                                                #{tag.body}
-                                            </span>
-                                            );
-                                        }
-                                        )
-                                    : null}
-                                {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
-                                        <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()}/>
-                                        <span className="d-inline-flex ">
-                                        <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
-                                        </span>
-                </div>
-
-
-                        {/* Add button */}
-                        <div className="row d-flex m-3">
-                                <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} navigate={(e)=>this.navigateSet(e)} />
-                                <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
-                                    <div className={classes.addbtn}>
-                                        <i className="fas fa-plus" />
-                                    </div>
-                                    <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
-                                        <span>Add new or exist set</span>
-                                    </div>
-                                    </div>
-
-                        <DisplaySetModule parent={this.props} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
-
-                        </div>
-                        </div>
-                        </div>
+            </div>
         );
     }
 }
