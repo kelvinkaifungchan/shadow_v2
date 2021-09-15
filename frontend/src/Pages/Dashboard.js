@@ -27,7 +27,6 @@ class PureDashboard extends React.Component {
     }
 
 
-
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email')})
     }
@@ -57,7 +56,7 @@ class PureDashboard extends React.Component {
                     console.log('in if')
                     return classroom
                 }
-            }) 
+            })
         }
     })}
     navigateSet(e){
@@ -76,7 +75,6 @@ class PureDashboard extends React.Component {
 
     render() {
         console.log('props in dashboard', this.props)
-        console.log('fml')
         return (
             <div >
                 <NavBar user={this.props.user} history={this.props.history}/>
