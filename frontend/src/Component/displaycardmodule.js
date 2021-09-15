@@ -20,7 +20,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.allCard && this.props.allCard.flashcard.length > 0 ? this.props.allCard.flashcard.map((card, i) => {
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}, flashcard1</h4>
+                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}</h4>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
@@ -28,7 +28,7 @@ class PureDisplayCardModule extends React.Component {
                 this.props.view && this.props.view.correctflashCard.length > 0 ? this.props.view.correctflashCard.map((card, i) => {
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}, flashcard2</h4>
+                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}</h4>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
@@ -40,7 +40,7 @@ class PureDisplayCardModule extends React.Component {
                     return (
                                                                                                     // insert add bridge function here
                         <div data-key={card.id} data-type="quizcard" className={classes.card} onClick={(e)=>{ this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}, quizcard1</h4>
+                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}</h4>
                             <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
@@ -48,7 +48,7 @@ class PureDisplayCardModule extends React.Component {
                 this.props.view && this.props.view.correctquizCard.length > 0 ? this.props.view.correctquizCard.map((card, i) => {
                     return (
                         <div data-key={card.id} data-type="quizcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}, quizcard2</h4>
+                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}</h4>
                             <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
@@ -59,7 +59,7 @@ class PureDisplayCardModule extends React.Component {
                     return (
                                                                                                     // insert add bridge function here
                         <div data-key={card.id} data-type="dictationcard" className={classes.card} onClick={(e)=>{ this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="dictationcard">{card.dictationcardTitle}, dictationcard1</h4>
+                            <h4 data-key={card.id} data-type="dictationcard">{card.dictationcardTitle}</h4>
                             <p data-key={card.id} data-type="dictationcard">{card.dictationBody}</p>
                         </div>
                     )
@@ -67,7 +67,7 @@ class PureDisplayCardModule extends React.Component {
                 this.props.view && this.props.view.correctdictationCard.length > 0 ? this.props.view.correctdictationCard.map((card, i) => {
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.dictationcardTitle}, dictationcard2</h4>
+                            <h4 data-key={card.id} data-type="flashcard">{card.dictationcardTitle}</h4>
                             <p data-key={card.id} data-type="flashcard">{card.dictationBody}</p>
                         </div>
                     )
