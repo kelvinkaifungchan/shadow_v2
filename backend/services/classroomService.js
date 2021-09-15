@@ -153,7 +153,7 @@ class ClassroomService {
             return this.knex("classroom_user")
               .join("user", "classroom_user.sharedUser_id", "user.id")
               .where("classroom_user.classroom_id", data.id)
-              .select("user.id", "user.email", "user.displayName")
+              .select("user.id", "user.email", "user.displayName", "user.picture")
           })
           .then((shared) => {
             return (data.shared = shared.map((user) => {
