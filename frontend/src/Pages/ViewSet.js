@@ -184,10 +184,8 @@ class ViewSet extends React.Component {
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">
                         <div className="col-8">
-                            <h1>Sample Set Title</h1>
-                            {/* <h1>{this.props.sets[0].title}</h1> */}
-                            <h6>Sample Set Description</h6>
-                            {/* <h6>{this.props.sets[0].description}</h6> */}
+                            <h1>{this.props.location.state.set[0].title}</h1>
+                            <h6>{this.props.location.state.set[0].description}</h6>
 
 
                         </div>
@@ -197,7 +195,7 @@ class ViewSet extends React.Component {
                 <div className="row d-flex pl-4 pr-4 m-2">
                     {/* <button className={classes.tagbutton}>#sampletag</button> */}
                     
-                    <DisplaySetTag sets={this.props.sets} />
+                    <DisplaySetTag tags={this.props.location.state.set[0].tags} />
                     <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
                     <span className="d-inline-flex ">
                         <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>

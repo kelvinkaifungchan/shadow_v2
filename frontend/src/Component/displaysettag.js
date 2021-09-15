@@ -9,15 +9,12 @@ class PureDisplaySetTag extends React.Component {
         console.log("SET TAG PROPS",this.props.sets);
         return (
             <>
-                {this.props.sets.map((set, i) => {
-                    return set.tags.map((tag)=>{
+                   {this.props.tags.map((tag, i) => {
                         return (
                             <span data-key={i} className={classes.tagbutton}>
                                 #{tag.body}
                             </span>
                         )
-                    })
-                    
                 })}
             </>
         )
