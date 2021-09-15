@@ -35,13 +35,7 @@ class PureNewCommentModal extends React.Component {
         this.setState(state);
     }
 
-    // submit = (e) => {
-    //     e.preventDefault();
-    //             this.props.newFeedback(this.props.user.id,this.state.flashcardFeedbackBody, this.state.flashcardTitle)
-    //     }
-
     render() {
-        console.log("this.props for NEW COMMENT", this.props);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
@@ -53,7 +47,7 @@ class PureNewCommentModal extends React.Component {
                         value={this.props.user.email} 
                         type="text" 
                         className="form-control mb-4" 
-                        hidden="true"/>
+                        hidden={true}/>
 
                             <input 
                             onChange={this.onChangeField.bind(this, this.props.flashcardComment)} 

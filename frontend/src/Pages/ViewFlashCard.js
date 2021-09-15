@@ -1,10 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import ReactPlayer from 'react-player'
 
-import { Link } from 'react-router-dom';
-import { getdataThunk } from '../Redux/actions/action'
-import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+//Component
 import { Account } from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
@@ -18,6 +15,10 @@ import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
 import { NewCommentModal } from '../Component/newcommentmodal';
+
+//Actions
+import { getdataThunk } from '../Redux/actions/action'
+import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 
 
 import classes from './ViewFlashcard.module.css'
@@ -36,35 +37,16 @@ class ViewFlashCard extends React.Component {
             type: "",
             correctSet: [],
             show: Boolean(),
-            res: [],
+            timeStamp: "",
             recording: false,
-            videos: [],
+            submissionRecording: "",
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
-        this.props.getdata({ email: "test@test.com" })
-        // this.getflashcard()
+        this.props.getdata({ email: localStorage.getItem('email') })
     }
-
-    // componentDidMount() {
-    //     this.props.getdata({ email: localStorage.getItem("email") });
-    //     this.getflashcard()
-    //   }
-
-    //   getflashcard(){
-    //     this.props.location.state.classroom[0].bridge.map((setId) => {
-    //         console.log("inlocation,smao");
-    //         this.props.sets.map((set) => {
-    //           if (set.id === setId.set_id) {
-    //             this.setState({
-    //                 correctSet:  this.state.correctSet.concat(set)
-    //             })
-    //           }
-    //         });
-    //       });
-    //   }
 
     toggle() {
         this.setState({
@@ -104,7 +86,7 @@ class ViewFlashCard extends React.Component {
 
     handleRecording(record){
         this.setState({
-            flashcardRecording: record
+            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
         })
     }
 
@@ -119,36 +101,24 @@ class ViewFlashCard extends React.Component {
             s = '0' + s;
         }
         const timeStamp = (m + ':' + s)
-        // axios.post( http://13.228.254.45/api/set/feedback, {
-        //     timeStamp: timeStamp,
-        //     body: "",
-        //     user: user,
-        //     submissionId: submissionId,
-        //     cardId: cardId
-        // }).then((res) => {
-        //     console.log("Update received")
-        //     console.log(res)
-        //     reload(res)
-        // })
-
-        const timeStamps = this.state.res.concat({ timeStamp: timeStamp })
-        console.log("timeStamp", timeStamp)
-        console.log("timeStamps", timeStamps)
-
         this.setState({
-            res: timeStamps
+            timeStamp: timeStamp
         })
-        console.log("this.state.res", this.state.res);
-
     }
-    // logout = (e) => {
-    //     e.preventDefault();
-    //     this.props.logout()
-    // }
+
+    addSubmission(e) {
+        e.preventDefault()
+        this.props.addSubmission({
+            type: this.state.type,
+            email: localStorage.getItem('email'),
+            flashcardId: this.props.location.state.card[0].id,
+            flashcardSubmissionRecording: this.state.submissionRecording
+        })
+    }
+
     render() {
         console.log("i want to see the props",this.props);
         console.log("i want to see the state",this.state);
-
         return (
             <div>
                 <NavBar/>
@@ -156,11 +126,8 @@ class ViewFlashCard extends React.Component {
                 <div className={classes.viewflashcard}>
                     <div classNmae="row d-flex p-4">
                     <div className="col-8">
-                    {/* <h1>Sample Flashcard Title</h1> */}
                         <h1>{this.props.location.state.card[0].flashcardTitle}</h1>
-                        {/* <h6>Sample Flashcard Description</h6> */}
-                        {/* <h6>{this.props.location.state.card[0]}</h6> */}
-                </div>
+                    </div>
 
                 <div className="row d-flex p-4">
                         <div className="col-6">
@@ -237,6 +204,7 @@ class ViewFlashCard extends React.Component {
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
                             {this.state.showSubmissionViewer && <VideoPlayer/>}
+                            <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
                         </div>
                     </div>
                 </div>
@@ -267,6 +235,9 @@ const mapDispatchToProps  = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
+        addSubmission: (submission) => {
+            dispatch(addSubmissionThunk(submission))
+        }
     }
 }
 
