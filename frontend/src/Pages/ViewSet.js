@@ -26,6 +26,7 @@ import { NewTagPopUp } from '../Component/newtagmodal';
 import { AddnewPopUp } from '../Component/addnewmodal'
 
 import classes from './ViewSet.module.css'
+import { DisplaySetTag} from '../Component/displaysettag'
 
 
 
@@ -210,8 +211,8 @@ class ViewSet extends React.Component {
                 </div>
 
                 <div className="row d-flex pl-4 pr-4 m-2">
-                    <button className={classes.tagbutton}>#sampletag</button>
-                    {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                    {/* <button className={classes.tagbutton}>#sampletag</button> */}
+                    <DisplaySetTag sets={this.props.sets} />
                     <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
                     <span className="d-inline-flex ">
                         <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
