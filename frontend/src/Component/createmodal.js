@@ -24,9 +24,10 @@ class PureModel extends React.Component {
         this.setState(state);
     }
 
-    submit = (e) => {
+    submit = async (e) => {
         e.preventDefault();
         if (this.props.create.type === "class") {
+            console.log('this.props.creat.type=== class')
             // this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
             this.props.createClassMDP({
                 email: this.props.user.email,
@@ -34,25 +35,25 @@ class PureModel extends React.Component {
                 description: this.state.classroomDesc,
             })
         } else {
-            if (this.props.location !== undefined){
-                this.props.createSetMDP({
+            if (this.props.dash === "dashSet"){
+                console.log('creatSetBridge MDP')
+                console.log('create Set MDP')
+                const data = await this.props.createSetMDP({
+                    type: this.props.create.type,
+                    email: this.props.user.email,
+                    title: this.state.setTitle,
+                    desc: this.state.setDesc,
+                })
+            } else {
+                const data = await this.props.createSetMDP({
                     type: this.props.create.type,
                     email: this.props.user.email,
                     title: this.state.setTitle,
                     desc: this.state.setDesc,
                     classroomId: this.props.location.state.classroom[0].id
                 })
-            } else{
-                this.props.createSetMDP({
-                    type: this.props.create.type,
-                    email: this.props.user.email,
-                    title: this.state.setTitle,
-                    desc: this.state.setDesc,
-                    classroomId: ""
-                })
             }
         }
-
     }
 
     render() {
@@ -70,8 +71,8 @@ class PureModel extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         {this.props.create.type === "class" ?
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button> :
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><div>Create</div></button> :
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><div>Create</div></button>
                         }
                         <button onClick={(e) => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
 

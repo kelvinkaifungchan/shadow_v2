@@ -31,12 +31,13 @@ class ViewClassroom extends React.Component {
             classroomTitle: "",
             classroomDesc: "",
             correctSet: [],
-            correctTag: []
+            correctTag: [],
+            trigger: false,
         };
     }
 
-    componentDidMount() {
-        this.props.getdata({ email: localStorage.getItem("email") });
+    async componentDidMount() {
+        await this.props.getdata({ email: localStorage.getItem("email") });
         this.getclassroom()
     }
 
@@ -71,6 +72,7 @@ class ViewClassroom extends React.Component {
     toggle() {
         this.setState({
             modal: !this.state.modal,
+            trigger: !this.state.trigger
         });
     }
     changeTypeClass() {
@@ -174,7 +176,7 @@ class ViewClassroom extends React.Component {
 
                     {/* Add button */}
                     <div className="row d-flex m-3">
-                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateSet(e)} />
+                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => {this.changeTypeClass(); this.toggle()}} navigate={(e) => this.navigateSet(e)} />
                         <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -184,7 +186,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div>
 
-                        <DisplaySetModule location={this.props.location} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>
@@ -194,6 +196,7 @@ class ViewClassroom extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("state in ViewClassroom", state);
 
     return {
         email: state.authStore.email,

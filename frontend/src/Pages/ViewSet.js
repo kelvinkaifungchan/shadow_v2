@@ -240,8 +240,6 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             dispatch(logoutNowThunk())
-        },
-       
     }
 }
 

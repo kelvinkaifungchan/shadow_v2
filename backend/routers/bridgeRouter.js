@@ -18,7 +18,7 @@ class BridgeRouter {
         return this.bridgeService
         .add(req.body)
         .then((data) => {
-            console.log(data)
+            console.log('/api/bridge return', data)
             return res.json(data)
         })
         .catch((err) => {

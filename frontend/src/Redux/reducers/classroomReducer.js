@@ -28,6 +28,7 @@ export function classroomReducer(state = initialState, action){
                 isAuthenticated: false
               };
         case ADD_CLASSROOM:
+            console.log('adding sets classroom')
             return {
                 classrooms: [...state.classrooms, action.payload]
             };
@@ -91,6 +92,7 @@ export function classroomReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_CLASSROOM_SET:
+            console.log('ADD_BRIDGE_CLASSROOM_SETADD_BRIDGE_CLASSROOM_SET')
             return {
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
