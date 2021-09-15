@@ -31,12 +31,14 @@ class ViewClassroom extends React.Component {
             classroomTitle: "",
             classroomDesc: "",
             correctSet: [],
+            correctTag: []
         };
     }
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem("email") });
         this.getclassroom()
+        this.getclassroomtag()
     }
 
     getclassroom() {
@@ -52,7 +54,16 @@ class ViewClassroom extends React.Component {
             return null
         }
     }
-
+    getclassroomtag() {
+        if (this.props.location.state.classroom[0].bridge != null) {
+            const corcls = this.props.location.state.classroom[0].bridge.map((setId) => {
+                const newestState = this.props.classrooms.filter(set => set.id === setId.set_id)
+                   console.log("getclassroomtag newestState",newestState[0].tags);
+                })
+        } else {
+            return null
+        }
+    }
 
     handleHeading(title) {
         this.setState({
@@ -135,12 +146,8 @@ class ViewClassroom extends React.Component {
                             ? this.props.location.state.classroom[0].shared.map(
                                 (shared, j) => {
                                     return (
-                                        <div key={j}>
-                                            {/* //     <div className={classes.sharingusericon}> */}
-                                            {/* //     <img src={this.props.user.picture} alt="Avatar"></img> */}
-                                            <p >{shared.displayName}</p>
-
-                                            {/* // </div> */}
+                                        <div data-key={shared.id} className={classes.sharingusericon}>
+                                            <img src={shared.picture} alt="Avatar"></img>
                                         </div>
                                     )
                                 }
@@ -156,22 +163,7 @@ class ViewClassroom extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        {this.props.location.state.classroom[0].tags &&
-                            this.props.location.state.classroom[0].tags.length > 0
-                            ? this.props.location.state.classroom[0].tags.map(
-                                (tag, j) => {
-                                    return (
-                                        <span
-                                            key={j}
-                                            className={classes.tagbutton}
-                                        >
-                                            #{tag.body}
-                                        </span>
-                                    );
-                                }
-                            )
-                            : null}
-                        {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
+                        <DisplayClassroomTag tags={this.props.location.state.classroom[0].tags} />
                         <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>

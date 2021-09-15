@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import classes from './displayclassroomtag.module.css'
 
 class PureDisplayClassroomTag extends React.Component {
 
@@ -8,15 +9,12 @@ class PureDisplayClassroomTag extends React.Component {
         console.log("CLASSROOM TAG PROPS",this.props.classrooms);
         return (
             <>
-                {this.props.classrooms.map((classroom, i) => {
-                    return classroom.tags.map((tag)=>{
+                {this.props.tags.map((tag, i) => {
                         return (
-                            <div data-key={i} className="col m-1 p-5 border border-4 rounded-lg highlight ">
-                                <p>{tag.body}</p>
-                            </div>
+                            <span data-key={i} className={classes.tagbutton}>
+                                #{tag.body}
+                            </span>
                         )
-                    })
-                    
                 })}
             </>
         )

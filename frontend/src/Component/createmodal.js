@@ -27,33 +27,55 @@ class PureModel extends React.Component {
     submit = (e) => {
         e.preventDefault();
         if (this.props.create.type === "class") {
-            this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
-
+            // this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
+            this.props.createClassMDP({
+                email: this.props.user.email,
+                title: this.state.classroomTitle,
+                description: this.state.classroomDesc,
+            })
         } else {
-                this.props.createSetMDP(this.props.create.type,this.props.user.email, this.state.setTitle, this.state.setDesc, this.props.location.state.classroom[0].id)
+            if (this.props.location !== undefined){
+                this.props.createSetMDP({
+                    type: this.props.create.type,
+                    email: this.props.user.email,
+                    title: this.state.setTitle,
+                    desc: this.state.setDesc,
+                    classroomId: this.props.location.state.classroom[0].id
+                })
+            } else{
+                this.props.createSetMDP({
+                    type: this.props.create.type,
+                    email: this.props.user.email,
+                    title: this.state.setTitle,
+                    desc: this.state.setDesc,
+                    classroomId: ""
+                })
+            }
         }
 
     }
 
     render() {
         console.log("this.props in CM", this.props);
+        console.log(">>>>>>>>>>>>>>>this.state in CM", this.state);
+
         return (
             <div>
                 <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Create {this.props.create.type === "class" ? "Classroom" : this.props.create.type === "set" ? "Set" : "Classroom"}</ModalHeader>
                     <ModalBody>
                         <Form>
-                            <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4" hidden="true"/>
+                            <input onChange={this.onChangeField.bind(this, 'email')} value={this.props.user.email} type="text" className="form-control mb-4" hidden={true} />
                             <input onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomTitle" : "setTitle")} value={this.props.create.type === "class" ? this.state.classroomTitle : this.state.setTitle} type="text" className="form-control mb-4" placeholder={this.props.create.type === "class" ? "Classroom Title" : "Set Title"} />
                             <textarea onChange={this.onChangeField.bind(this, this.props.create.type === "class" ? "classroomDesc" : "setDesc")} value={this.props.create.type === "class" ? this.state.classroomDesc : this.state.setDesc} type="text" style={{ resize: "none" }} className="form-control" placeholder={this.props.create.type === "class" ? "Classroom Description" : "Set Description"} />
                         </Form>
                     </ModalBody>
                     <ModalFooter>
                         {this.props.create.type === "class" ?
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button>:
+                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button> :
                             <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
                         }
-                        <button onClick={(e) => { this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                        <button onClick={(e) => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
 
                     </ModalFooter>
                 </Modal>
@@ -64,8 +86,6 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in createmodal", state);
-
     return {
         user: state.userStore.user,
     }
@@ -73,22 +93,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createClassMDP: (email, title, description) => {
-            let classroom = {
-                email: email,
-                title: title,
-                description: description
-            }
+        createClassMDP: (classroom) => {
             dispatch(addClassroom(classroom))
         },
-        createSetMDP: (type, email, title, description, classroomId) => {
-            let set = {
-                type : type,
-                email: email,
-                title: title,
-                description: description,
-                classroomId: classroomId
-            }
+        createSetMDP: (set) => {
             dispatch(addSet(set))
         }
     }

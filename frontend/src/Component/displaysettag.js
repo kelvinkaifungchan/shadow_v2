@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import classes from './displaysettag.module.css'
 
 class PureDisplaySetTag extends React.Component {
 
@@ -11,9 +12,9 @@ class PureDisplaySetTag extends React.Component {
                 {this.props.sets.map((set, i) => {
                     return set.tags.map((tag)=>{
                         return (
-                            <div data-key={i} className="col m-1 p-5 border border-4 rounded-lg highlight ">
-                                <p>{tag.body}</p>
-                            </div>
+                            <span data-key={i} className={classes.tagbutton}>
+                                #{tag.body}
+                            </span>
                         )
                     })
                     
