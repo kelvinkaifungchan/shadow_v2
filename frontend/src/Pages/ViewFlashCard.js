@@ -81,6 +81,27 @@ class ViewFlashCard extends React.Component {
         });
     }
 
+    getRecorderInitialState(){
+            return { showRecorder: false};
+        }
+    
+    onClickShowRecorder(){
+            this.setState({
+                showRecorder: true,
+                showSubmissionViewer: false
+            })
+        }
+    
+    getSubmissionViewInitialState(){
+            return { showSubmissionViewer: false};
+        }
+    
+    onClickShowSubmissionViewer(){
+            this.setState({
+                showRecorder: false,
+                showSubmissionViewer: true,
+            })
+        }
 
     handleRecording(record){
         this.setState({
@@ -144,34 +165,30 @@ class ViewFlashCard extends React.Component {
 
                 <div className="row d-flex p-4">
                         <div className="col-6">
-                            <VideoPlayer/>
+                            <Transcript title={this.state} transcript={this.state}/>
                         </div>
                         <div className="col-6">
-                            <Transcript title={this.state} transcript={this.state}/>
+                            <VideoPlayer/>
                         </div>
                     </div>
 
                     <div className="row d-flex p-4">
-                        <div className="col-6">
-                            <VideoRecorder handleRecording={this.handleRecording}/>
-                        </div>
-
                         <div className="col-6">
                             {/* <FlashcardSubmissions flashcard={this.props.cards.flashcard}/> */}
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
                                 <h5>Submissions</h5>
                                 <div className={classes.scrollsubmission}>
-                                    <button className={classes.scrollplusicon}> 
+                                    <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
-                                    </button>
+                                    </div>
                                     
                                     {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
                                                     return (
-                                                    <div key={j} className={classes.scrollicon}>
+                                                    <div onClick={() => {this.onClickShowSubmissionViewer()}} key={j} className={classes.scrollicon}>
                                                         <img src={submission.picture} alt="Avatar"></img>
                                                     </div>
                                                     )
@@ -212,16 +229,13 @@ class ViewFlashCard extends React.Component {
                                                 }
                                             )
                                     : null}
-
-
-                                    <div className={classes.scrollfeedbackcard}> 
-                                        <table> 
-                                            <th>Timestamp</th>
-                                            <td>Comment</td>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="col-6">
+                            {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
+                            {this.state.showSubmissionViewer && <VideoPlayer/>}
                         </div>
                     </div>
                 </div>
