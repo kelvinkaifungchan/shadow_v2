@@ -53,7 +53,7 @@ class PureNewCommentModal extends React.Component {
                         value={this.props.user.email} 
                         type="text" 
                         className="form-control mb-4" 
-                        hidden="true"/>
+                        hidden={true}/>
 
                             <input 
                             onChange={this.onChangeField.bind(this, this.props.flashcardComment)} 
