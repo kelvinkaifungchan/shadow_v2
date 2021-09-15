@@ -27,7 +27,6 @@ class PureDashboard extends React.Component {
     }
 
 
-
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email')})
     }
@@ -57,11 +56,10 @@ class PureDashboard extends React.Component {
                     console.log('in if')
                     return classroom
                 }
-            }) 
+            })
         }
     })}
     navigateSet(e){
-        console.log()
         this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.sets.filter ((set) => {
@@ -76,10 +74,9 @@ class PureDashboard extends React.Component {
 
     render() {
         console.log('props in dashboard', this.props)
-        console.log('fml')
         return (
             <div >
-                <NavBar user={this.props.user} history={this.props.history}/>
+                <NavBar  user={this.props.user} history={this.props.history}/>
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 
                 <div className={classes.dashboard}>
@@ -104,7 +101,7 @@ class PureDashboard extends React.Component {
                             </div>
 
                         <div className="row d-flex pl-4">
-                        <DisplaySetModule sets={this.props.sets} parent={this.props} navigate={(e)=>{this.navigateSet(e)}}/>
+                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
                         </div>
                         
 

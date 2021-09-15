@@ -9,19 +9,60 @@ import classes from './menu.module.css'
 
 class PureMenu extends React.Component {
 
+    // navigateClass(e){
+    //     console.log("this is data key",e.target.attributes["data-key"].value)
+    //     if (this.props.history.location.pathname === "/viewclassroom") {
+    //         this.props.history.replace({
+    //             pathname:`/viewclassroom`,
+    //             state:{ classroom: e.target.attributes["data-key"].value }
+    //         })
+    //     } else {
+    //         this.props.history.push({
+    //             pathname:`/viewclassroom`,
+    //             state:{ classroom: e.target.attributes["data-key"].value }
+    //         })
+    //     }
+    // }
     navigateClass(e){
-        console.log("this is data key",e.target.attributes["data-key"].value)
-        if (this.props.history.location.pathname === "/viewclassroom") {
-            this.props.history.replace({
-                pathname:`/viewclassroom`,
-                state:{ classroom: e.target.attributes["data-key"].value }
-            })
-        } else {
-            this.props.history.push({
-                pathname:`/viewclassroom`,
-                state:{ classroom: e.target.attributes["data-key"].value }
-            })
+        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+        this.props.history.push({
+            pathname:`/viewclassroom`,
+            state: { classroom: this.props.classrooms.filter ((classroom) => {
+                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return classroom
+                }
+            }) 
         }
+    })}
+
+    // navigateSet(e){
+    //     console.log("this is data key",e.target.attributes["data-key"].value)
+    //     if (this.props.history.location.pathname === "/viewset") {
+    //         this.props.history.replace({
+    //             pathname:`/viewset`,
+    //             state:{ set: e.target.attributes["data-key"].value }
+    //         })
+    //     } else {
+    //         this.props.history.push({
+    //             pathname:`/viewset`,
+    //             state:{ set: e.target.attributes["data-key"].value }
+    //         })
+    //     }
+    // }
+
+    navigateSet(e){
+        console.log("FUCK ME DADDY SET")
+        this.props.history.push({
+            pathname:`/viewset`,
+            state: { set: this.props.sets.filter ((set) => {
+                if(set.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return set
+                }
+            }) 
+        }
+        })
     }
 
     render() {
@@ -35,9 +76,9 @@ class PureMenu extends React.Component {
                         )
                     })}
                     <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
-                    {this.props.sets.map((sets, i) => {
+                    {this.props.sets.map((set, i) => {
                         return (
-                    <ListGroupItem tag="a" href="#" onClick={(e)=>{this.navigateSet(e)}} action>{sets.title}</ListGroupItem>
+                    <ListGroupItem data-key={set.id} tag="a" onClick={(e)=>{this.navigateSet(e)}} action>{set.title}</ListGroupItem>
                         )
                     })}
                 </ListGroup>
