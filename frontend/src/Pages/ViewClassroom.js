@@ -53,7 +53,7 @@ class ViewClassroom extends React.Component {
             return null
         }
     }
-   
+
     handleHeading(title) {
         this.setState({
             classroomTitle: title
@@ -150,7 +150,7 @@ class ViewClassroom extends React.Component {
                             <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
                         </span>
                     </div>
-
+                    {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
                         <DisplayClassroomTag tags={this.props.location.state.classroom[0].tags} />
                         <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
