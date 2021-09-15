@@ -419,17 +419,10 @@ class Card {
                     data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
                         let feedback = {}
                         return this.knex("flashcardFeedback")
-<<<<<<< HEAD
                         .join("user", "flashcardFeedback.user_id", "user.id")
                         .where("flashcardSubmission_id", sub.id)
                         .where("flashcardFeedbackStatus", true)
                         .select("user.displayName", "user.picture", "flashcardFeedback.user_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
-=======
-                        // .join("user", "flashcardFeedback.user_id", "user.id")
-                        .where("flashcardSubmission_id", sub.id)
-                        .where("flashcardFeedbackStatus", true)
-                        // .select("user.displayName", "user.picture", "flashcardSubmission.user_id")
->>>>>>> 9e79a9c00df9f885e980f6a0d6546bd343c1d87a
                         .then((fcfb)=>{
                             sub.feedback = fcfb.map((fcfbs)=>{
                                 return {
