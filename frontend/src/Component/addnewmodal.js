@@ -15,7 +15,8 @@ class PureModel extends React.Component {
             selectModal: false,
             setCreatePopUp: false,
             modal: false,
-            type: ""
+            type: "",
+            connect: ""
         };
     }
     toggle() {
@@ -34,6 +35,11 @@ class PureModel extends React.Component {
             type: "set"
         })
     }
+    changeTypeConnect(){
+        this.setState({
+            connect: "card"
+        })
+    }
 
     openSelect() {
         console.log("cls");
@@ -44,7 +50,6 @@ class PureModel extends React.Component {
 
     setCreatePopUp() {
         console.log("fml");
-
         this.setState({
             setCreatePopUp: !this.state.setCreatePopUp,
             type: "set"
@@ -74,7 +79,9 @@ class PureModel extends React.Component {
                     {this.props.create.type === "class" ?
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} location={this.props.location} navigate={(e) => this.navigateSet(e)} /> :
                         <SelectCardPopUp selectCard={this.state} navigate={(e) => { this.props.navigate(e) }} toggle={() => this.openSelect()} />}
-                    <AddExistPopUp create={this.state} toggle={() => this.toggle()} />
+                    {this.props.location ? <AddExistPopUp create={this.state} correctClass={this.props.location.state.classroom[0]} correctCards={this.props.create} correctSet={this.props.correctSet} toggle={() => this.toggle()} />
+                    :<AddExistPopUp create={this.state} correctCards={this.props.create} correctSet={this.props.correctSet} toggle={() => this.toggle()} />}
+                    
 
                     <div className="d-inline-flex row">
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
@@ -93,11 +100,11 @@ class PureModel extends React.Component {
 
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
                             {this.props.create.type === "class" ?
-                                <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}>
+                                <div onClick={() => { this.changeTypeClass(); this.toggle(); this.changeTypeConnect() }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
 
                                 </div> :
-                                <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}>
+                                <div onClick={() => { this.changeTypeSet(); this.toggle(); this.changeTypeConnect() }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
                                 </div>
 
