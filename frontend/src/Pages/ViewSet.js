@@ -256,9 +256,6 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             dispatch(logoutNowThunk())
-        },
-        getdata: (email) => {
-            dispatch(getdataThunk(email))
         }
     }
 }

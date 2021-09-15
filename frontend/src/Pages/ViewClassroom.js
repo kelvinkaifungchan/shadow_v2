@@ -193,6 +193,7 @@ class ViewClassroom extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("state in ViewClassroom", state);
 
     return {
         email: state.authStore.email,
