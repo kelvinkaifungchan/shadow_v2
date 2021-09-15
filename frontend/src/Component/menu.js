@@ -24,6 +24,7 @@ class PureMenu extends React.Component {
     //     }
     // }
     navigateClass(e){
+        this.props.classroom()
         // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
             pathname:`/viewclassroom`,

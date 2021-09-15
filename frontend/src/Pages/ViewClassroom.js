@@ -41,11 +41,13 @@ class ViewClassroom extends React.Component {
     }
 
     getclassroom() {
+        console.log("DIU", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
                 return newestState[0]
             });
+            console.log("CORRECTTTTTSET", lmao)
             this.setState({
                 correctSet: lmao
             })
@@ -127,7 +129,7 @@ class ViewClassroom extends React.Component {
 
         return (
             <div>
-                <NavBar user={this.props.user} history={this.props.history}/>
+                <NavBar classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
 
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
@@ -136,7 +138,6 @@ class ViewClassroom extends React.Component {
                             <h6>{this.props.location.state.classroom[0].description}</h6>
                         </div>
                     </div>
-
 
                     <div className="row d-flex pl-4 pr-4 m-2">
 
