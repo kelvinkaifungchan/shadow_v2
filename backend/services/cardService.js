@@ -426,8 +426,6 @@ class Card {
                         .then((fcfb)=>{
                             sub.feedback = fcfb.map((fcfbs)=>{
                                 return {
-                                    displayName: fuck.displayName,
-                                    picture: fuck.picture,
                                     user_id: fcfbs.user_id,
                                     picture: fcfbs.picture,
                                     displayName: fcfbs.displayName,
