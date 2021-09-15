@@ -26,7 +26,7 @@ class PureDisplayCardModule extends React.Component {
                     )
                 }): this.props.flashcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.toggle(e)}}>
+                        <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}, flashcard</h4>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>

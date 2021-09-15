@@ -177,7 +177,7 @@ class ViewFlashCard extends React.Component {
                             <div className={classes.feedback}>
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
-                                    <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} />
+                                    {/* <AddnewPopUp location={this.props.location} create={this.state}  toggle={() => this.toggle()} /> */}
                                     <div className={classes.addcommentcontainer}>
                                     <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addcommentbox}>
                                         <div className={classes.addbtn}>

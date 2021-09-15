@@ -182,7 +182,7 @@ class ViewClassroom extends React.Component {
                                 <span>Add new or exist set</span>
                             </div>
 
-                        <DisplaySetModule sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule parent={this.props} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                         </div>
                     </div>
