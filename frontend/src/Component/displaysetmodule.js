@@ -10,7 +10,7 @@ class PureDisplaySetModule extends React.Component {
         this.props.addBridge({
             type: "classroom_set",
             classroomId: this.props.correctClass.id,
-            setId: e.target.attributes["data-key"].value,
+            setId: parseInt(e.target.attributes["data-key"].value),
         })
       }
     render() {
