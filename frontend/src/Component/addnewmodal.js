@@ -58,8 +58,8 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log("this.props in ANM", this.props);
-        console.log("state in addnewmodal", this.state)
+        console.log("props in add new modal", this.props);
+        console.log("state in add new modal", this.state)
 
         const isClass = this.props.create.type === "class";
         let button
@@ -79,8 +79,7 @@ class PureModel extends React.Component {
                     {this.props.create.type === "class" ?
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} location={this.props.location} navigate={(e) => this.navigateSet(e)} /> :
                         <SelectCardPopUp selectCard={this.state} navigate={(e) => { this.props.navigate(e) }} toggle={() => this.openSelect()} />}
-                    {this.props.location ? <AddExistPopUp create={this.state} correctClass={this.props.location.state.classroom[0]} correctCards={this.props.create} correctSet={this.props.correctSet} toggle={() => this.toggle()} />
-                    :<AddExistPopUp create={this.state} correctCards={this.props.create} correctSet={this.props.correctSet} toggle={() => this.toggle()} />}
+                    {<AddExistPopUp create={this.state} allCard={this.props.allCard} location={this.props.location} toggle={() => {this.toggle(); this.props.toggle()}} />}
                     
 
                     <div className="d-inline-flex row">

@@ -111,7 +111,7 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("THIS PROPS IN VC", this.props);
+        console.log("props in view classroom", this.props);
         console.log("state of view classroom", this.state);
 
         return (
@@ -183,7 +183,7 @@ class ViewClassroom extends React.Component {
                                     </div>
                                     </div>
 
-                        <DisplaySetModule parent={this.props} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule location={this.props.location} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                         </div>
                         </div>
