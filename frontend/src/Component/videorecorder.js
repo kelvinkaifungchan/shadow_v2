@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
 
 
 class PureVideoRecorder extends React.Component {
-    stream
+    stream 
     constructor(props){
         super(props)
         this.state = {
