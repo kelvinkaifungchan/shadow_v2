@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
 
 
 class PureVideoRecorder extends React.Component {
-
+    stream
     constructor(props){
         super(props)
         this.state = {
@@ -53,16 +53,18 @@ class PureVideoRecorder extends React.Component {
     }
 
     startRecording(e) {
+        console.log('startiung')
         e.preventDefault();
         // wipe old data chunks
         this.chunks = [];
         // start recorder with 10ms buffer
-        this.mediaRecorder.start();
+        this.mediaRecorder.start(10);
         // say that we're recording
         this.setState({ recording: true });
     }
 
     stopRecording(e) {
+        console.log('stoppiung')
         e.preventDefault();
         // stop the recorder
         this.mediaRecorder.stop();
@@ -97,6 +99,8 @@ class PureVideoRecorder extends React.Component {
 
         this.setState({ videos });
         console.log("this.props.emai in VR",this.props.email);
+        console.log('state videoURL', videoURL)
+        console.log('state video', videos)
         // axios.post(
         //     ` http://localhost:8000/api/recording`, formData
         // )
