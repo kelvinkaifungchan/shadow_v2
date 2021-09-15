@@ -13,8 +13,8 @@ export const DELETE_SUBMISSION_TRUEFALSE = "DELETE_SUBMISSION_TRUEFALSE";
 export const addSubmissionThunk = (submission) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/card/submission", submission)
     .then((data) => {
-        console.log("DATA", data)
-        
+        console.log("SUBMISSION DATA", data)
+
         if (submission.type === "dictation") {
             dispatch({
                 type: ADD_SUBMISSION_DICTATIONCARD,
