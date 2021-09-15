@@ -6,7 +6,8 @@ import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
-    
+
+
     addSetConnect(e){
         this.props.addBridge({
             type: "set",

@@ -51,7 +51,7 @@ class ViewSet extends React.Component {
         this.props.getdata({ email: localStorage.getItem('email') })
         this.getSet()
     }
-
+ 
     toggle() {
         this.setState({
             modal: !this.state.modal,
