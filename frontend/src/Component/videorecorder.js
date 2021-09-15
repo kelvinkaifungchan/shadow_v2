@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
 
 
 class PureVideoRecorder extends React.Component {
-
+    stream
     constructor(props){
         super(props)
         this.state = {
@@ -57,7 +57,7 @@ class PureVideoRecorder extends React.Component {
         // wipe old data chunks
         this.chunks = [];
         // start recorder with 10ms buffer
-        this.mediaRecorder.start();
+        this.mediaRecorder.start(10);
         // say that we're recording
         this.setState({ recording: true });
     }
