@@ -8,28 +8,29 @@ export const ADD_BRIDGE_CLASSROOM_SET = "ADD_BRIDGE_CLASSROOM_SET";
 
 export const addSet = (set) => async (dispatch) => {
     console.log("adding set" , set)
-    let newId;
-    await axios.post("http://localhost:8080/api/set", set)
-        .then((data) => {
-            newId = data.data[0]
-            return newId
+    console.log('set in action', set)
+    const { data } = await axios.post("http://localhost:8080/api/set", set)
+    const newId = data[0]
+    console.log('this is the set post return', newId)
+    if(set.classroomId === null || set.classroomId === undefined){
+        console.log('set.classroom null')
+        dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title} });
+    } else {
+        const bridge  = await axios.post("http://localhost:8080/api/bridge", {
+            type: set.type,
+            classroomId: set.classroomId,
+            setId: newId
         })
-        .then((newId) => {
-            return axios.post("http://localhost:8080/api/bridge", {
-                type: set.type,
-                classroomId: set.classroomId,
-                setId: newId
-            })
+        const newBridge = bridge.data
+        console.log('bridge', bridge.data)   
+        dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title} });
+        dispatch({
+            type: ADD_BRIDGE_CLASSROOM_SET,
+            payload: {id:{classroom_id: set.classroomId}, content:{set_id: newBridge[0]}}
         })
-        .then(() => {
-            dispatch({ type: ADD_SET, payload: { id: newId, description: set.description, title: set.title } });
-        })
-        .then(() => {
-            dispatch({
-                type: ADD_BRIDGE_CLASSROOM_SET,
-                payload: {id:{classroom_id: set.classroomId}, content:{set_id: newId}}
-            })
-        })
+    }
+    console.log('post dispatch')
+    
 }
 
 export const editSet = (set) => async (dispatch) => {
@@ -46,4 +47,26 @@ export const deleteSet = (set) => async (dispatch) => {
     const { data } = await axios.delete("http://localhost:8080/api/set", set)
 
     dispatch({ type: DELETE_SET, payload: { id: set.setId } });
+}
+
+export const addSetBridge = (set) => async (dispatch) => {
+    // console.log("adding set" , set)
+    // const { data } = await axios.post("http://localhost:8080/api/set", set)
+    // const newId = data[0]
+    // console.log('addSetBridge MDP newId', newId)
+    // console.log('this is the set post return', newId)
+    // dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title} });
+    // console.log('post dispatch')
+    console.log(set)
+    const { bridge } = await axios.post("http://localhost:8080/api/bridge", {
+                type: set.type,
+                classroomId: set.classroomId,
+                setId: set.setId,
+        })
+    const newBridge = bridge[0]
+    console.log('addSetBridge MDP bridge', bridge)
+    dispatch({
+        type: ADD_BRIDGE_CLASSROOM_SET,
+        payload: {id:{classroom_id: set.classroomId}, content:{set_id: set.setId}}
+    })
 }

@@ -23,9 +23,9 @@ class PureDashboard extends React.Component {
             modal: false,
             type: "",
             classroomId: "",
+            dashSet: "dashSet",
         };
     }
-
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email')})
@@ -94,7 +94,7 @@ class PureDashboard extends React.Component {
                         </div>
 
                         <div className="row d-flex p-4">
-                                <CreatePopUp create={this.state} toggle={() => this.toggle() } history={this.props.history}/>
+                                <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle() } history={this.props.history}/>
                                 <h1>My Set</h1>
                                 <span className={classes.createsetbtn}>
                                     <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
