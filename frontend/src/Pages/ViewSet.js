@@ -205,7 +205,7 @@ class ViewSet extends React.Component {
                 </div>
 
                 <div className="row d-flex m-3">
-                    <AddnewPopUp create={this.state} navigate={(e) => { this.navigateNewCard(e) }} correctSet={this.props.location.state.set[0]} toggle={() => this.toggle()} />
+                    <AddnewPopUp location={ this.props.location } create={ this.state } allCard={this.props.cards} navigate={(e) => { this.navigateNewCard(e) }} toggle={() => this.toggle()} />
                     <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                         <div className={classes.addbtn}>
                             <i className="fas fa-plus" />
@@ -215,7 +215,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                    <DisplayCardModule flashcard={this.state.correctflashCard} quizcard={this.state.correctquizCard} dictationcard={this.state.correctdictationCard} navigate={(e) => this.navigateCard(e)} />
+                    <DisplayCardModule view={this.state} navigate={(e) => this.navigateCard(e)} />
                 </div>
             </div>
             </div>

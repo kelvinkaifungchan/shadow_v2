@@ -213,7 +213,9 @@ class ViewFlashCard extends React.Component {
                                     </div>
 
                                 {this.props.location.state.card[0].submission && 
-                                        this.props.location.state.card[0].submission.length > 0
+                                        this.props.location.state.card[0].submission.length > 0 &&
+                                        this.props.location.state.card[0].submission.feedback &&
+                                        this.props.location.state.card[0].submission.feedback.length > 0
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
                                                     return (

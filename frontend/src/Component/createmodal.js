@@ -56,9 +56,7 @@ class PureModel extends React.Component {
     }
 
     render() {
-        console.log("this.props in CM", this.props);
-        console.log(">>>>>>>>>>>>>>>this.state in CM", this.state);
-
+        console.log("props in create modal", this.props);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>

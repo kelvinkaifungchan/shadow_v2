@@ -38,7 +38,6 @@ class ViewClassroom extends React.Component {
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem("email") });
         this.getclassroom()
-        this.getclassroomtag()
     }
 
     getclassroom() {
@@ -54,17 +53,7 @@ class ViewClassroom extends React.Component {
             return null
         }
     }
-    getclassroomtag() {
-        if (this.props.location.state.classroom[0].bridge != null) {
-            const corcls = this.props.location.state.classroom[0].bridge.map((setId) => {
-                const newestState = this.props.classrooms.filter(set => set.id === setId.set_id)
-                   console.log("getclassroomtag newestState",newestState[0].tags);
-                })
-        } else {
-            return null
-        }
-    }
-
+   
     handleHeading(title) {
         this.setState({
             classroomTitle: title
@@ -122,7 +111,7 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("THIS PROPS IN VC", this.props);
+        console.log("props in view classroom", this.props);
         console.log("state of view classroom", this.state);
 
         return (
@@ -183,7 +172,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div>
 
-                        <DisplaySetModule parent={this.props} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule location={this.props.location} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>

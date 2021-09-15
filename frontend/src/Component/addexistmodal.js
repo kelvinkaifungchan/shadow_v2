@@ -40,15 +40,14 @@ class PureModel extends React.Component {
 
     render() {
         console.log('props in add exist modal', this.props)
-        console.log('props.sets in add exist modal', this.props.sets)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
                 <ModalHeader >Add Exist {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : "Classroom"}</ModalHeader>
                 <ModalBody>
                     <div className="">
-                        {this.props.create.type === "class" ? <DisplaySetModule correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> : 
-                        <DisplayCardModule flashcard={this.props.correctCards.correctflashCard} quizcard={this.props.correctCards.correctquizCard} dictationcard={this.props.correctCards.correctdictationCard} create={this.props.create} correctSet={this.props.correctSet} connect={(e)=>this.connect(e)} toggle={(e)=>this.props.toggle(e)}/>
+                        {this.props.create.type === "class" ? <DisplaySetModule location={this.props.location}  correctClass={this.props.location.state} sets={this.props.sets} toggle={this.props.toggle}/> : 
+                        <DisplayCardModule location={this.props.location} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }
 
                     </div>
