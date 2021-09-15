@@ -33,11 +33,12 @@ class SharingService {
                     .where("email", body.email)
                 })
                 .then((data) => {
+                    console.log("this is the sharing data", data)
                     return ({
-                        user_id: data.id,
-                        email: data.email,
-                        displayName: data.displayName,
-                        picture: data.picture
+                        user_id: data[0].id,
+                        email: data[0].email,
+                        displayName: data[0].displayName,
+                        picture: data[0].picture
                     })
                 })
         }

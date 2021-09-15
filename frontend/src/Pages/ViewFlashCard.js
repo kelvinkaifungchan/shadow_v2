@@ -22,7 +22,6 @@ import { NewCommentModal } from '../Component/newcommentmodal';
 
 import classes from './ViewFlashcard.module.css'
 
-
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)
@@ -217,6 +216,7 @@ class ViewFlashCard extends React.Component {
                                         this.props.location.state.card[0].submission.length > 0 &&
                                         this.props.location.state.card[0].submission.feedback &&
                                         this.props.location.state.card[0].submission.feedback.length > 0
+                                        this.props.location.state.card[0].submission.feedback.length >0
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
                                                     return (
