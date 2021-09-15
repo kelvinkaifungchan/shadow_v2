@@ -89,7 +89,18 @@ class ViewClassroom extends React.Component {
             shareModal: !this.state.shareModal
         })
     }
-
+    navigateClass(e){
+        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+        this.props.history.push({
+            pathname:`/viewclassroom`,
+            state: { classroom: this.props.classrooms.filter ((classroom) => {
+                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
+                    console.log('in if')
+                    return classroom
+                }
+            }) 
+        }
+    })}
     navigateSet(e) {
         this.props.history.push({
             pathname: `/viewset`,
@@ -115,6 +126,7 @@ class ViewClassroom extends React.Component {
         console.log("state of view classroom", this.state);
 
         return (
+
             <div>
                 <NavBar />
 
@@ -125,7 +137,6 @@ class ViewClassroom extends React.Component {
                             <h6>{this.props.location.state.classroom[0].description}</h6>
                         </div>
                     </div>
-
 
                     <div className="row d-flex pl-4 pr-4 m-2">
 
