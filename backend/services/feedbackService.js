@@ -63,6 +63,46 @@ class FeedbackService {
             return "card type not recognised"
         }
     }
+    async feedback(body){
+        if (body.type === "flashcard"){
+            console.log("Listing details of flashcardFeedback");
+            return this.knex("flashcardFeedback")
+            .join("user", "flashcardFeedback.user_id", "=", "user.id")
+            .where("flashcardFeedback.id", body.flashcardFeedbackId)
+            .select("user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
+            .then((feedback) => {
+                    return ({
+                        displayName: feedback.displayName,
+                        picture: feedback.picture,
+                        flashcardSubmissionId: feedback.flashcardSubmission_id,
+                        flashcardFeedbackId: feedback.id,
+                        flashcardFeedbackBody: feedback.flashcardFeedbackBody,
+                        flashcardFeedbackTime: feedback.flashcardFeedbackTime,
+                    });
+            })
+        
+        } 
+        else if (body.type === "dictationcard"){
+            console.log("Listing details of dictationFeedback");
+            return this.knex("dictationFeedback")
+            .join("user", "dictationFeedback.user_id", "=", "user.id")
+            .where("dictationFeedback.id", body.dictationFeedbackId)
+            .select("user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody", "dictationFeedback.dictationFeedbackTime")
+            .then((feedback) => {
+                    return ({
+                        displayName: feedback.displayName,
+                        picture: feedback.picture,
+                        dictationSubmissionId: feedback.dictationSubmission_id,
+                        dictationFeedbackId: feedback.id,
+                        dictationFeedbackBody: feedback.dictationFeedbackBody,
+                        dictationFeedbackTime: feedback.dictationFeedbackTime,
+                    });
+            })
+        
+        } 
+
+
+    }
 
     async list(body) {
         if (body.type === "flashcard") {
