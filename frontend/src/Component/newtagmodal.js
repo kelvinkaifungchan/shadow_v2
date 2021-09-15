@@ -10,12 +10,15 @@ class PureTagModal extends React.Component{
         super(props);
         this.state = {
             tagBody: "",
+            type: "",
+            classroomId: "",
+            setId: "",
         }
     }
 
     onChangeField = (field, e) => {
         const state = {};
-        state[field] = e.currentTarget.value;
+        state.field = e.currentTarget.value;
         this.setState({
             tagBody: state.field
         });
@@ -24,11 +27,11 @@ class PureTagModal extends React.Component{
     submit = (e) => {
         e.preventDefault();
         if (this.props.addTag.type === "class") {
-            this.props.createClassTagMDP(this.props.addTag.type, this.state.tagBody, this.props.location.id)
+            this.props.createClassTagMDP(this.props.addTag.type,  this.state.tagBody, this.props.location.id)
         } else {
+            console.log("firing")
             this.props.createSetTagMDP(this.props.addTag.type, this.state.tagBody, this.props.location.id)
         }
-
     }
 
     render() {

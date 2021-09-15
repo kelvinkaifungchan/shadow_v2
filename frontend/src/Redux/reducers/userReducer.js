@@ -1,5 +1,4 @@
 import { GETDATAUSER_SUCCESS, GETDATAUSER_FAILURE } from "../actions/action";
-import { ADD_TAG, DELETE_TAG } from "../actions/tagAction"
 
 const initialState = {
     user: [],
@@ -22,17 +21,6 @@ export function userReducer(state = initialState, action){
               isAuthenticated: false
             };
         
-        case ADD_TAG:
-                return {
-                    tag: [...state.tag, action.payload]
-                };
-            
-        case DELETE_TAG:
-            return{
-                tag: state.tag.filter((tag) => {
-                    return tag.id !== action.payload.id
-                })
-            }
         default:
             return state;
         }
