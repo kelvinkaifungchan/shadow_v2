@@ -242,7 +242,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(logoutNowThunk())
     }
 }
-
+}
 
 const connectedViewSet = connect(mapStateToProps, mapDispatchToProps)(ViewSet)
 export { connectedViewSet as ViewSet };
