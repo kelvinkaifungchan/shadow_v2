@@ -179,7 +179,7 @@ class ViewSet extends React.Component {
 
         return (
             <div>
-                <NavBar />
+                <NavBar user={this.props.user} history={this.props.history} />
 
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">
@@ -240,7 +240,6 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             dispatch(logoutNowThunk())
-        }
     }
 }
 

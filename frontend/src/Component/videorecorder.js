@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {loginUserThunk} from '../Redux/actions/loginboxAction';
-import ReactPlayer from 'react-player'
+import { addVideoRecordingThunk} from '../Redux/actions/recordingAction'
 
 
 class PureVideoRecorder extends React.Component {
@@ -10,9 +9,8 @@ class PureVideoRecorder extends React.Component {
         super(props)
         this.state = {
             show: Boolean(),
-            res: [],
             recording: false,
-            videos: [],
+            preview: ""
         };
         this.handleshow = this.handleshow.bind(this);
     }
@@ -23,6 +21,12 @@ class PureVideoRecorder extends React.Component {
                 show: !prevState.show
             }
         });
+    }
+
+    handlePreview(videoURL){
+        this.setState({
+            preview: videoURL
+        })
     }
 
     async start() {
@@ -77,8 +81,8 @@ class PureVideoRecorder extends React.Component {
                 track.stop()
             }
         })
-
     }
+
     async upload() {
         await this.handleshow()
         const blob = new Blob(this.chunks, {
@@ -86,33 +90,18 @@ class PureVideoRecorder extends React.Component {
         });
         let time = new Date()
         let dt = time.getTime()
-        let formData = new FormData();
-        formData.append("file", blob, `${dt}.webm`);
+        let fileName = this.state.email + dt +".webm"
 
         const videoURL = window.URL.createObjectURL(blob);
-        this.props.handleRecording(videoURL)
-        // append videoURL to list of saved videos for rendering
-        const videos = this.state.videos.concat([videoURL]);
-        const preview = document.getElementById('preview');
+        this.props.handleRecording(fileName)
 
+        // append videoURL to list of saved videos for rendering
+        const preview = document.getElementById('preview');
         preview.setAttribute("src", videoURL)
 
-        this.setState({ videos });
-        console.log("this.props.emai in VR",this.props.email);
-        console.log('state videoURL', videoURL)
-        console.log('state video', videos)
-        // axios.post(
-        //     ` http://localhost:8000/api/recording`, formData
-        // )
-        //     .done(() => {
-        //         console.log("Embedding Video")
-        //         return preview.setAttribute("src", videoURL)
-        //     })
+        // Upload to S3
+        this.props.videorecordingMDP(fileName, blob)
     }
-    submit(){
-
-    }
- 
 
     render() {
         const { show } = this.state;
@@ -139,18 +128,19 @@ class PureVideoRecorder extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("this is state;", state);
     return {
         email: state.authStore.email,
-        isAuthenticatedMSP: state.authStore.isAuthenticated
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        loginMDP: (email, password) => {
-            dispatch(loginUserThunk(email, password))
+        videorecordingMDP: (fileName, fileData) => {
+            let recording = {
+                fileName: fileName,
+                fileData: fileData
+            }
+            dispatch(addVideoRecordingThunk(recording))
         }
-     
     }
 }
 export const VideoRecorder = connect(mapStateToProps, mapDispatchToProps)(PureVideoRecorder)

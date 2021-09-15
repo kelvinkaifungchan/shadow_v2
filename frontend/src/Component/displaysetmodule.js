@@ -6,28 +6,6 @@ import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
-    // constructor(props){
-    //     super(props)
-    //     this.state={
-    //         store: this.props.store
-    //     }
-    // }
-    // componentDidMount(){
-    //     this.getclassroom()
-    // }
-    // getclassroom() {
-    //     if (this.props.location.state.classroom[0].bridge != null) {
-    //         const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
-    //             const newestState = this.props.sets.filter(set => set.id === setId.set_id)
-    //             return newestState[0]
-    //         });
-    //         this.setState({
-    //             correctSet: lmao
-    //         })
-    //     } else {
-    //         return null
-    //     }
-    // }
     addSetConnect(e){
         this.props.addBridge({
             type: "set",

@@ -60,7 +60,6 @@ class PureDashboard extends React.Component {
         }
     })}
     navigateSet(e){
-        console.log()
         this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.sets.filter ((set) => {
@@ -77,7 +76,7 @@ class PureDashboard extends React.Component {
         console.log('props in dashboard', this.props)
         return (
             <div >
-                <NavBar user={this.props.user} history={this.props.history}/>
+                <NavBar  user={this.props.user} history={this.props.history}/>
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 
                 <div className={classes.dashboard}>
