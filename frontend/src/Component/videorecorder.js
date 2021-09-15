@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {loginUserThunk} from '../Redux/actions/loginboxAction';
+import ReactPlayer from 'react-player'
+
 
 class PureVideoRecorder extends React.Component {
 
@@ -55,10 +57,11 @@ class PureVideoRecorder extends React.Component {
         // wipe old data chunks
         this.chunks = [];
         // start recorder with 10ms buffer
-        this.mediaRecorder.start(10);
+        this.mediaRecorder.start();
         // say that we're recording
         this.setState({ recording: true });
     }
+
     stopRecording(e) {
         e.preventDefault();
         // stop the recorder
@@ -110,7 +113,7 @@ class PureVideoRecorder extends React.Component {
     render() {
         const { show } = this.state;
         return (
-            <div className="col">
+            <div>
             <div className="flex-col d-flex justify-content-center" id="videoSubmission">
                 {show ? <video ref={a => { this.video = a }} className="bg-dark" id="video" autoPlay={true} muted="muted" ></video> : null}
 

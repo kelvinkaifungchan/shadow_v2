@@ -43,7 +43,7 @@ export function setReducer(state = initialState, action){
         case ADD_TAG_SET:
             return {
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, tags:[...set.tags, action.payload.content]
                         }
@@ -54,7 +54,7 @@ export function setReducer(state = initialState, action){
         case DELETE_TAG_SET:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, tags:set.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
                         }
@@ -65,7 +65,7 @@ export function setReducer(state = initialState, action){
         case ADD_BRIDGE_SET_FLASHCARD:
             return {
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_flashcard:[...set.bridge_flashcard, action.payload.content]
                         }
@@ -76,7 +76,7 @@ export function setReducer(state = initialState, action){
         case ADD_BRIDGE_SET_QUIZCARD:
             return {
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_quizcard:[...set.bridge_quizcard, action.payload.content]
                         }
@@ -87,7 +87,7 @@ export function setReducer(state = initialState, action){
         case ADD_BRIDGE_SET_DICTATIONCARD:
             return {
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_dictationcard:[...set.bridge_dictationcard, action.payload.content]
                         }
@@ -99,7 +99,7 @@ export function setReducer(state = initialState, action){
         case DELETE_BRIDGE_SET_FLASHCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_flashcard:set.bridge_flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.content.flashcard_id)
                         }
@@ -110,7 +110,7 @@ export function setReducer(state = initialState, action){
         case DELETE_BRIDGE_SET_QUIZCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_quizcard:set.bridge_quizcard.filter((quizcard) => quizcard.quizcard_id !== action.payload.content.quizcard_id)
                         }
@@ -121,7 +121,7 @@ export function setReducer(state = initialState, action){
         case DELETE_BRIDGE_SET_DICTATIONCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.set_id){
+                    if(action.payload.id.set_id === set.id){
                         return {
                             ...set, bridge_dictationcard:set.bridge_dictationcard.filter((dictationcard) => dictationcard.dictationcard_id !== action.payload.content.dictationcard_id)
                         }

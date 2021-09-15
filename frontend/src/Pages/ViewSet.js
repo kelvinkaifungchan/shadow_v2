@@ -39,12 +39,16 @@ class ViewSet extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
+            correctflashCard: [],
+            correctquizCard: [],
+            correctdictationCard: [],
         }
     }
 
 
     componentDidMount (){
         this.props.getdata({ email:localStorage.getItem('email') }) 
+        this.getSet()
     }
 
     toggle() {
@@ -122,9 +126,49 @@ class ViewSet extends React.Component {
         }}
         )
     }
-
+    getSet() {
+        console.log("(this.props.location.state.set[0]",this.props.location.state.set[0]);
+        if (this.props.location.state.set[0].bridge_flashcard != null) {
+            const flash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
+                const newestState = this.props.cards.flashcard.filter( card => card.id === flashCard.flashcard_id)
+                return newestState[0]
+            });
+            console.log("lmaooooooflash",flash);
+            this.setState({
+                correctflashCard: flash
+            })
+        } else {
+            return null
+        }
+        if (this.props.location.state.set[0].bridge_quizcard != null) {
+            const quiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
+                const newestState = this.props.cards.quizcard.filter( card => card.id === quizCard.quizcard_id)
+                return newestState[0]
+            });
+            console.log("lmaooooooquiz",quiz);
+            this.setState({
+                correctquizCard: quiz
+            })
+        } else {
+            return null
+        }
+        if (this.props.location.state.set[0].bridge_dictationcard != null) {
+            const dictation = this.props.location.state.set[0].bridge_dictationcard.map((dictationCard) => {
+                const newestState = this.props.cards.dictationcard.filter( card => card.id === dictationCard.dictationcard_id)
+                return newestState[0]
+            });
+            console.log("lmaoooooodictation",dictation);
+            this.setState({
+                correctdictationCard: dictation
+            })
+        } else {
+            return null
+        }
+    }
     render() {
         console.log("i want to see the props", this.props);
+        console.log("i want to see THE STTTTTATE", this.state);
+
         return (
             <div>
                 <NavBar/>
@@ -142,13 +186,13 @@ class ViewSet extends React.Component {
                 </div>
 
             <div className="row d-flex pl-4 pr-4 m-2">
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
-            <div className={classes.sharingusericon}> 
-                <img src={this.props.user.picture} alt="Avatar"></img>
-            </div>
+                <div className={classes.sharingusericon}> 
+                    <img src={this.props.user.picture} alt="Avatar"></img>
+                </div>
 
                 {/* <p>{this.props.classrooms[0].shared.displayName}</p> */}
                         {/* <Tags/> */}
@@ -161,15 +205,14 @@ class ViewSet extends React.Component {
             <div className="row d-flex pl-4 pr-4 m-2">
             <button className={classes.tagbutton}>#sampletag</button>
                 {/* <DisplayClassroomTag classrooms={this.props.classrooms} /> */}
-                        <NewTagPopUp addTag={this.state} toggle={() => this.tagToggle()}/>
+                        <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()}/>
                         <span className="d-inline-flex ">
-                        <button onClick={() => this.tagToggle()} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                        <button onClick={() => {this.tagToggle(); this.changeTypeSet()}} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
                         </span>
                         </div>
 
                 <div className="row d-flex m-3">
                     <AddnewPopUp create={this.state} navigate={(e)=>{this.navigateNewCard(e)}}toggle={() => this.toggle()} /> 
-                    <div className={classes.frame}>
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -177,10 +220,9 @@ class ViewSet extends React.Component {
                             <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist card</span>
                             </div>
-                        </div>
                     </div>
 
-                        <DisplayCardModule cards={this.props.cards} navigate={(e)=> this.navigateCard(e)}/>
+                        <DisplayCardModule flashcard={this.state.correctflashCard} quizcard={this.state.correctquizCard} dictationcard={this.state.correctdictationCard} navigate={(e)=> this.navigateCard(e)}/>
                 </div>
             </div>
             </div>

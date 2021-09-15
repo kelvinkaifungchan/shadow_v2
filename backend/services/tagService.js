@@ -23,7 +23,7 @@ class TagService{
                     .into("tag_set")
                 return tag_id[0].id
             }
-            else if(body.type == "classroom"){
+            else {
                 console.log("Tag exists, adding to classroom")           
                 const query = await this.knex
                     .insert({
@@ -82,7 +82,7 @@ class TagService{
                             .into("tag_set")
                         return tag_id[0].id
                     }
-                    else if(body.type == "classroom"){
+                    else {
                         console.log("Tag exists, adding to classroom")
                         
                         const query = await this.knex

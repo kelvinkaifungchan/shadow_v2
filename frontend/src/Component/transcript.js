@@ -14,7 +14,7 @@ class PureTranscript extends React.Component {
         <form>
 
         <textarea onChange={(e)=>this.props.handleTranscript(e.currentTarget.value)}
-          placeholder="Insert a transcript here"
+          placeholder={this.props.transcript != null ? this.props.transcript.transcript : "Insert a transcript here"}
           className={classes.transcript}
           name={this.props.title.title}
           disabled= {this.props.title.read !=null ? true : false}
