@@ -76,6 +76,7 @@ class PureDashboard extends React.Component {
 
     render() {
         console.log('props in dashboard', this.props)
+        console.log('fml')
         return (
             <div >
                 <NavBar user={this.props.user} history={this.props.history}/>
