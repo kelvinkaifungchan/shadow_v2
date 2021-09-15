@@ -53,7 +53,7 @@ class PureModel extends React.Component {
                             <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link> </button>:
                             <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><Link to='/'><div>Create</div></Link></button>
                         }
-                        <button onClick={(e) => { this.props.toggle() ; this.props.navigate(e)}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                        <button onClick={(e) => { this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
 
                     </ModalFooter>
                 </Modal>
