@@ -22,7 +22,6 @@ import { NewCommentModal } from '../Component/newcommentmodal';
 
 import classes from './ViewFlashcard.module.css'
 
-
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)

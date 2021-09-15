@@ -38,24 +38,25 @@ class PureNavBar extends React.Component {
         const { modal } = this.state
         return (
             <div className={classes.header}>
-                    <div className={classes.left}>
-                        <Link to='/' className={classes.logo}>shadow</Link>
-                    </div>
+                    <ul className={classes.menu}>
+                        <li>
+                            <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
+                        </li>
+                        <li>
+                            <Link to='/' className={classes.logo}>shadow</Link>
+                        </li>
+                        <li>
+                            <button><i className="fas fa-search"></i></button>
+                        </li>
+                        <li>
+                            <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
+                        </li>
+                    </ul>
 
-                    <div className={classes.middle}>
-                        <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
-                    </div>
-
-                    <div className={classes.right}>
-                        <button><i className="fas fa-search"></i></button>
-                        {/* <Search class={this.props.classrooms} set={this.props.sets}/> */}
-                        <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
-                    </div>
                     <div className="d-flex justify-content-center ">
                         {modal ? <Menu history={this.props.history}/> : null}
                     </div>
-                </div>
-
+            </div>
         );
     }
 }
