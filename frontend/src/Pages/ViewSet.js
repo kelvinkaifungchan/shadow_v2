@@ -179,7 +179,7 @@ class ViewSet extends React.Component {
 
         return (
             <div>
-                <NavBar user={this.props.user} history={this.props.history} />
+                <NavBar getSet={() => this.getSet()} user={this.props.user} history={this.props.history} />
 
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">

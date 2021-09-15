@@ -53,6 +53,7 @@ class PureMenu extends React.Component {
     // }
 
     navigateSet(e){
+        
         console.log("FUCK ME DADDY SET")
         this.props.history.push({
             pathname:`/viewset`,

@@ -54,7 +54,7 @@ class PureNavBar extends React.Component {
                     </ul>
 
                     <div className="d-flex justify-content-center ">
-                        {modal ? <Menu classroom={() => this.props.classroom()}history={this.props.history}/> : null}
+                        {modal ? <Menu  classroom={() => this.props.classroom()} history={this.props.history}/> : null}
                     </div>
             </div>
         );
