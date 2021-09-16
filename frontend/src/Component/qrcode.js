@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, Button} from 'reactstrap';
 
-import classes from './selectcardmodal.module.css'
 
-class PureSelectCardModal extends React.Component{
+class PureQRModal extends React.Component{
 
     render() {
         console.log("PROPS IN SCM",this.props);
         return (
             <div>
-                <Modal isOpen={this.props.selectCard.selectModal} toggle={this.props.toggle} >
+                <Modal isOpen={this.props.modal.modal} toggle={this.props.toggle} >
                     <ModalHeader toggle={this.toggle}> Select a card type </ModalHeader>
                     <ModalBody>
                         <div className="row">
@@ -36,4 +35,4 @@ class PureSelectCardModal extends React.Component{
 }
 
 
-export const SelectCardPopUp = connect(null, null)(PureSelectCardModal)
+export const QRModal = connect(null, null)( PureQRModal)
