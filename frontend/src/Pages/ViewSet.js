@@ -54,24 +54,33 @@ class ViewSet extends React.Component {
  
     componentWillReceiveProps(nextProps) {
         console.log('nextProps!!!!!', nextProps)
-        const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
-            const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
-            return newestState[0]
-        });
-        const nextquiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
-            const newestState = nextProps.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
-            return newestState[0]
-        });
-        const nextdictation = this.props.location.state.set[0].bridge_dictationcard.map((dictationCard) => {
-            const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
-            return newestState[0]
-        });
-        console.log("NEXXXTTTTT CARDDD",nextflash,nextquiz, nextdictation);
-        this.setState({       
-            correctflashCard: nextflash,
-            correctquizCard: nextquiz,
-            correctdictationCard: nextdictation
-         });  
+        if(this.props.location.state.set[0].bridge_flashcard && this.props.location.state.set[0].bridge_flashcard.length > 0){
+            const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
+                const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctflashCard: nextflash
+            })
+        }
+        if(this.props.location.state.set[0].bridge_quizcard && this.props.location.state.set[0].bridge_quizcard.length > 0){
+            const nextquiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
+                const newestState = nextProps.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctflashCard: nextquiz
+            })
+        }
+        if(this.props.location.state.set[0].bridge_dictationcard && this.props.location.state.set[0].bridge_dictationcard.length > 0){
+            const nextdictation = this.props.location.state.set[0].bridge_dictationcard.map((dictationCard) => {
+                const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
+                return newestState[0]
+            });
+            this.setState({       
+                correctdictationCard: nextdictation
+            });  
+        }
       }
     toggle() {
         this.setState({
@@ -195,8 +204,8 @@ class ViewSet extends React.Component {
         }
     }
     render() {
-        console.log("i want to see the props", this.props);
-        console.log("i want to see THE STTTTTATE", this.state);
+        console.log("View Set the props", this.props);
+        console.log("View Set the STTTTTATE", this.state);
 
         return (
             <div>

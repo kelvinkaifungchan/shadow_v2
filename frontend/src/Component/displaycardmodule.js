@@ -5,13 +5,27 @@ import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import classes from './displaycardmodule.module.css'
 
 class PureDisplayCardModule extends React.Component {
-  addFlashConnect(e){
-    this.props.addBridge({
-        type: "flashcard",
-        setId: this.props.location.state.set[0].id,
-        flashcardId: e.target.attributes["data-key"].value
-    })
-  }
+    addFlashConnect(e){
+        this.props.addBridge({
+            type: "flashcard",
+            setId: this.props.location.state.set[0].id,
+            flashcardId: e.target.attributes["data-key"].value
+        })
+    }
+    addQuizConnect(e){
+        this.props.addBridge({
+            type: "quizcard",
+            setId: this.props.location.state.set[0].id,
+            quizcardId: e.target.attributes["data-key"].value
+        })
+    }
+    addDictationcardConnect(e){
+        this.props.addBridge({
+            type: "dictationcard",
+            setId: this.props.location.state.set[0].id,
+            quizcardId: e.target.attributes["data-key"].value
+        })
+    }
     render() {
         console.log("props in display card module",this.props)
 
@@ -39,7 +53,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
                     return (
                                                                                                     // insert add bridge function here
-                        <div data-key={card.id} data-type="quizcard" className={classes.card} onClick={(e)=>{ this.props.toggle(e) }}>
+                        <div data-key={card.id} data-type="quizcard" className={classes.card} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}</h4>
                             <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
@@ -58,7 +72,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.allCard && this.props.allCard.dictationcard.length > 0 ? this.props.allCard.dictationcard.map((card, i) => {
                     return (
                                                                                                     // insert add bridge function here
-                        <div data-key={card.id} data-type="dictationcard" className={classes.card} onClick={(e)=>{ this.props.toggle(e) }}>
+                        <div data-key={card.id} data-type="dictationcard" className={classes.card} onClick={(e)=>{ this.addDictationcardConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-type="dictationcard">{card.dictationcardTitle}</h4>
                             <p data-key={card.id} data-type="dictationcard">{card.dictationBody}</p>
                         </div>
