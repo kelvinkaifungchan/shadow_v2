@@ -6,7 +6,7 @@ import classes from './shareusermodal.module.css'
 class PureShareUser extends React.Component {
 
     render() {
-        console.log("SET TAG PROPS",this.props.shared);
+        console.log("SET SHARE PROPS",this.props.shared);
         return (
             <>
                    {this.props.shared &&
