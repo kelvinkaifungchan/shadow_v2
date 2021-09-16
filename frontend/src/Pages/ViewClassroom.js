@@ -32,7 +32,6 @@ class ViewClassroom extends React.Component {
             classroomDesc: "",
             correctSet: [],
             correctTag: [],
-            trigger: false,
         };
     }
 
@@ -40,7 +39,9 @@ class ViewClassroom extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") });
         this.getclassroom()
     }
-
+    componentDidUpdate(){
+        console.log('did update')
+    }
     getclassroom() {
         console.log("DIU", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
@@ -185,7 +186,6 @@ class ViewClassroom extends React.Component {
                                 <span>Add new or exist set</span>
                             </div>
                         </div>
-
                         <DisplaySetModule location={this.props.location} trigger={this.state.trigger} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
@@ -196,7 +196,7 @@ class ViewClassroom extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in ViewClassroom", state);
+    console.log("store in ViewClassroom", state);
 
     return {
         email: state.authStore.email,

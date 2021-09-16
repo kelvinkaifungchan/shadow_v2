@@ -13,6 +13,9 @@ class PureDisplaySetModule extends React.Component {
             setId: parseInt(e.target.attributes["data-key"].value),
         })
       }
+      componentDidUpdate(nextProps){
+        this.setState({ correctClass: nextProps.data })
+      }
     render() {
         console.log("props in display set module", this.props);
         console.log("props in display set module", this.props);
