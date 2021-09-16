@@ -36,7 +36,6 @@ class PureModel extends React.Component {
             })
         } else {
             if (this.props.dash === "dashSet"){
-                console.log('creatSetBridge MDP')
                 console.log('create Set MDP')
                 const data = await this.props.createSetMDP({
                     type: this.props.create.type,
@@ -45,6 +44,7 @@ class PureModel extends React.Component {
                     desc: this.state.setDesc,
                 })
             } else {
+                console.log('creatSetBridge MDP')
                 const data = await this.props.createSetMDP({
                     type: this.props.create.type,
                     email: this.props.user.email,
