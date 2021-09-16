@@ -49,7 +49,7 @@ class ViewQuizcard extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col col-12">
-                        <VideoPlayer/>
+                        {/* <VideoPlayer/> */}
                     </div>
                 </div>
                     <BrowserRouter>

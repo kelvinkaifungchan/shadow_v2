@@ -43,7 +43,7 @@ class BridgeService {
         if (body.type === "set_quizcard") {
             const share = await this.knex("set_quizcard").where({
                 set_id: body.setId,
-                flashcard_id: body.quizcardId
+                quizcard_id: body.quizcardId
             })
             if (share.length > 0) {
                 return "already shared"
@@ -51,7 +51,7 @@ class BridgeService {
                 return this.knex
                     .insert({
                         set_id: body.setId,
-                        flashcard_id: body.quizcardId
+                        quizcard_id: body.quizcardId
                     })
                     .into("set_quizcard")
             }
@@ -59,7 +59,7 @@ class BridgeService {
         if (body.type === "set_dictationcard") {
             const share = await this.knex("set_dictationcard").where({
                 set_id: body.setId,
-                flashcard_id: body.dictationcardId
+                dictationcard_id: body.dictationcardId
             })
             if (share.length > 0) {
                 return "already shared"
@@ -67,7 +67,7 @@ class BridgeService {
                 return this.knex
                     .insert({
                         set_id: body.setId,
-                        dictation_id: body.dictationcardId
+                        dictationcard_id: body.dictationcardId
                     })
                     .into("set_dictationcard")
             }

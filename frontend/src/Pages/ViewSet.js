@@ -53,7 +53,6 @@ class ViewSet extends React.Component {
                 correctflashCard: nextflash,
             });
         }
-
         const correctQuizs = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
         if (correctQuizs[0].bridge_quizcard !== undefined) {
             let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
@@ -118,33 +117,21 @@ class ViewSet extends React.Component {
                 this.props.history.push({
                     pathname: `/viewflashcard`,
                     state: {
-                        card: this.props.cards.flashcard.filter((flashcard) => {
-                            if (flashcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                                return flashcard
-                            }
-                        }),
+                        card: this.props.cards.flashcard.filter(flashcard => flashcard.id === parseInt(e.target.attributes["data-key"].value))
                     }
                 })
             } else if (e.target.attributes["data-type"].value === "quizcard") {
                 this.props.history.push({
-                    pathname: `/viewQuizcard`,
+                    pathname: `/viewquizcard`,
                     state: {
-                        card: this.props.cards.quizcard.filter((quizcard) => {
-                            if (quizcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                                return quizcard
-                            }
-                        })
+                        card: this.props.cards.quizcard.filter(quizcard => quizcard.id === parseInt(e.target.attributes["data-key"].value))
                     }
                 })
             } else if (e.target.attributes["data-type"].value === "dictationcard") {
                 this.props.history.push({
                     pathname: `/viewDictationcard`,
                     state: {
-                        card: this.props.cards.dictationcard.filter((dictationcard) => {
-                            if (dictationcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                                return dictationcard
-                            }
-                        })
+                        card: this.props.cards.dictationcard.filter(dictationcard => dictationcard.id === parseInt(e.target.attributes["data-key"].value))
                     }
                 })
             }
