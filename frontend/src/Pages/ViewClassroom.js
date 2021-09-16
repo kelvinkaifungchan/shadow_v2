@@ -41,6 +41,11 @@ class ViewClassroom extends React.Component {
         this.getclassroom()
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps', nextProps)
+        this.setState({ correctSet: nextProps.sets });  
+      }
+
     getclassroom() {
         console.log("DIU", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
