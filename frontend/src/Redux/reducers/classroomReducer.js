@@ -97,6 +97,7 @@ export function classroomReducer(state = initialState, action){
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
                         console.log("action.payload.content",action.payload.content)
+                        console.log("action.payload.content",action.payload.content.set_id)
                         return {
                             ...classroom, bridge:[...classroom.bridge, action.payload.content]
                         }
