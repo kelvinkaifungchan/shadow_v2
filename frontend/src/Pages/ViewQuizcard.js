@@ -46,12 +46,19 @@ class ViewQuizcard extends React.Component {
                 </div>
 
                 <div className="row d-flex p-4">
-                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
+                    <div className="col col-12 d-flex justify-content-center align-items-center">
+                    <div className={classes.startbtncontainer}>
+                    <span className={classes.startbtn}> Start Quiz</span>
+                    </div>
+                </div>
                 </div>
 
                 <div className="row d-flex p-4">
-                    <button> Start</button>
+                    <div className="col col-12 justify-content-center align-items-center">
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
                 </div>
+                </div>
+
 
             </div>
 
