@@ -7,23 +7,23 @@ import classes from './displaycardmodule.module.css'
 class PureDisplayCardModule extends React.Component {
     addFlashConnect(e){
         this.props.addBridge({
-            type: "flashcard",
+            type: "set_flashcard",
             setId: this.props.location.state.set[0].id,
             flashcardId: e.target.attributes["data-key"].value
         })
     }
     addQuizConnect(e){
         this.props.addBridge({
-            type: "quizcard",
+            type: "set_quizcard",
             setId: this.props.location.state.set[0].id,
             quizcardId: e.target.attributes["data-key"].value
         })
     }
     addDictationcardConnect(e){
         this.props.addBridge({
-            type: "dictationcard",
+            type: "set_dictationcard",
             setId: this.props.location.state.set[0].id,
-            quizcardId: e.target.attributes["data-key"].value
+            dictationcardId: e.target.attributes["data-key"].value
         })
     }
     render() {
@@ -40,7 +40,7 @@ class PureDisplayCardModule extends React.Component {
                     )
                 }): 
                 this.props.view && this.props.view.correctflashCard.length > 0 ? this.props.view.correctflashCard.map((card, i) => {
-                    console.log("WOW", card)
+                    console.log("correct card map in display card moudle", card)
                     
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
