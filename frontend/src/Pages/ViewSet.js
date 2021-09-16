@@ -62,6 +62,8 @@ class ViewSet extends React.Component {
             this.setState({
                 correctflashCard: nextflash
             })
+        } else {
+            return null
         }
         if(this.props.location.state.set[0].bridge_quizcard && this.props.location.state.set[0].bridge_quizcard.length > 0){
             const nextquiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
@@ -71,6 +73,8 @@ class ViewSet extends React.Component {
             this.setState({
                 correctflashCard: nextquiz
             })
+        } else {
+            return null
         }
         if(this.props.location.state.set[0].bridge_dictationcard && this.props.location.state.set[0].bridge_dictationcard.length > 0){
             const nextdictation = this.props.location.state.set[0].bridge_dictationcard.map((dictationCard) => {
@@ -80,6 +84,8 @@ class ViewSet extends React.Component {
             this.setState({       
                 correctdictationCard: nextdictation
             });  
+        } else {
+            return null
         }
       }
     toggle() {
@@ -166,7 +172,7 @@ class ViewSet extends React.Component {
     }
     getSet() {
         console.log("DIU SET", this.props.location.state.set[0]);
-        if (this.props.location.state.set[0].bridge_flashcard != null) {
+        if (this.props.location.state.set[0].bridge_flashcard != null && this.props.location.state.set[0].bridge_flashcard.length > 0) {
             const flash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
                 const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
                 return newestState[0]
@@ -243,7 +249,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                    <DisplayCardModule view={this.state} navigate={(e) => this.navigateCard(e)} />
+                    <DisplayCardModule view={this.state} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                 </div>
             </div>
             </div>

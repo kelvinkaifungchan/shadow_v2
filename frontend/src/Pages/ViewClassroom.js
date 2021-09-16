@@ -40,23 +40,21 @@ class ViewClassroom extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps<<<<<<', nextProps.classrooms)
-        console.log("location state", this.props.location.state.classroom[0].id)
+        console.log(nextProps,"nextProps<><><><><><><>");
         const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
-        console.log('correctProps<><><><><><><><><>', correctProps)
         let nextlmao = correctProps[0].bridge.map((changed) => {
             // console.log("inside map", changed)
             const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
             return newestState[0]
         });
-        console.log('nextlmao<<<<<<', nextlmao);
-        this.setState({ correctSet: nextlmao});
+        this.setState({ correctSet: nextlmao});  
+        console.log("next PROP TAG",nextProps.location.state.classroom[0].tags);
 
       }
 
     getclassroom() {
         
-        console.log("DIU", this.props.location.state.classroom[0].bridge )  
+        console.log("DIU CLASSROOM", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
@@ -64,12 +62,13 @@ class ViewClassroom extends React.Component {
             });
             console.log("CORRECTTTTTSET", lmao)
             this.setState({
-                correctSet: lmao
+                correctSet: lmao,
+                correctTag: this.props.location.state.classroom[0].tags
             })
         } else {
             return null
         }
-    }
+    }   
 
     handleHeading(title) {
         this.setState({
