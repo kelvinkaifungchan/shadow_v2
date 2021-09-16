@@ -27,7 +27,6 @@ class ViewClassroom extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
-            // classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
             classroomTitle: "",
             classroomDesc: "",
             correctSet: [],
@@ -42,10 +41,22 @@ class ViewClassroom extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps)
-        this.setState({ correctSet: nextProps.sets });  
+        console.log('nextProps<<<<<<', nextProps.classrooms)
+        console.log("location state", this.props.location.state.classroom[0].id)
+        const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
+        console.log('correctProps<><><><><><><><><>', correctProps)
+        let nextlmao = correctProps[0].bridge.map((changed) => {
+            // console.log("inside map", changed)
+            const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
+            return newestState[0]
+        });
+        console.log('nextlmao<<<<<<', nextlmao);
+        this.setState({ correctSet: nextlmao});  
       }
 
+      filter(nextProps){
+
+      }
     getclassroom() {
         console.log("DIU", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
@@ -191,7 +202,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div>
 
-                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} classroom={this.props.classrooms} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>
