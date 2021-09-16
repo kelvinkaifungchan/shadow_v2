@@ -16,9 +16,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /* margin: 10px; */
+        margin: 5px 20px;
         padding: 30px;
 }
+
+
 
 .addbtn{
     border: 0px solid;
