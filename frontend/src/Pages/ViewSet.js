@@ -203,8 +203,8 @@ class ViewSet extends React.Component {
         }
     }
     render() {
-        console.log("i want to see the props", this.props);
-        console.log("i want to see THE STTTTTATE", this.state);
+        // console.log("View Set the props", this.props);
+        // console.log("View Set the STTTTTATE", this.state);
 
         return (
             <div>

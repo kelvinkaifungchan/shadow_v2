@@ -120,31 +120,31 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('flashcard').insert([{
           user_id: 1,
-          flashcardTitle: "Test Wong's Card",
+          flashcardTitle: "Test Wong's flashCard",
           flashcardBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
           flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           flashcardStatus: true,
         }, {
           user_id: 1,
-          flashcardTitle: "User Chan's Card",
+          flashcardTitle: "User Chan's flashCard",
           flashcardBody: "SPEAK",
           flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 2,
-          flashcardTitle: "User Philip's Card",
+          flashcardTitle: "User Philip's flashCard",
           flashcardBody: "This is the body text of User Philip's card.",
           flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 3,
-          flashcardTitle: "John Cheng's Card",
+          flashcardTitle: "John Cheng's flashCard",
           flashcardBody: "This is the body text of John Cheng's Card.",
           flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
         }, {
           user_id: 4,
-          flashcardTitle: "Jack Wynn's Card",
+          flashcardTitle: "Jack Wynn's flashCard",
           flashcardBody: "This is the body text of Jack Wynn's Card.",
           flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
@@ -340,23 +340,23 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('dictationcard').insert([{
           user_id: 1,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "testwong Dictation Card1",
           dictationcardStatus: true,
         }, {
           user_id: 1,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "testwong Dictation Card2",
           dictationcardStatus: true,
         }, {
           user_id: 2,
-          dictationcardTitle: "Dictation's Card",
+          dictationcardTitle: "user2 Dictation's Card1",
           dictationcardStatus: true,
         }, {
           user_id: 3,
-          dictationcardTitle: "Dictations Card",
+          dictationcardTitle: "user3 Dictations Card1",
           dictationcardStatus: true,
         }, {
           user_id: 4,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "user 4 Dictation Card1",
           dictationcardStatus: true,
         }])
       })

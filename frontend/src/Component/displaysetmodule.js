@@ -8,8 +8,9 @@ import classes from './displaysetmodule.module.css'
 class PureDisplaySetModule extends React.Component {
     
     addSetConnect(e){
+        console.log('addSetConnect')
         this.props.addBridge({
-            type: "set",
+            type: "classroom_set",
             classroomId: this.props.location.state.classroom[0].id,
             setId: parseInt(e.target.attributes["data-key"].value),
         })
@@ -20,7 +21,7 @@ class PureDisplaySetModule extends React.Component {
             <>
                 { this.props.location && this.props.location.pathname === "/viewclassroom" && this.props.correctClass && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     return (
-                        <div data-key={set.id} className={classes.set} onClick={(e)=>{this.addSetConnect(e);this.props.toggle(e)}}>
+                        <div data-key={set.id} className={classes.set} onClick={(e)=>{this.addSetConnect(e); this.props.toggle()}}>
                             <h4 data-key={set.id}>{set.title} first</h4>
                             <p data-key={set.id}>{set.description}</p>
                         </div>
