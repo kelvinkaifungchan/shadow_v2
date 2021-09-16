@@ -50,7 +50,8 @@ class ViewClassroom extends React.Component {
             return newestState[0]
         });
         console.log('nextlmao<<<<<<', nextlmao);
-        this.setState({ correctSet: nextlmao});  
+        this.setState({ correctSet: nextlmao});
+
       }
 
     getclassroom() {
