@@ -8,7 +8,6 @@ import classes from './displaycardmodule.module.css'
 
 class PureDisplayCardModule extends React.Component {
     addFlashConnect(e){
-        console.log("add_set_flashcard")
         this.props.addBridge({
             type: "set_flashcard",
             setId: this.props.location.state.set[0].id,
@@ -16,7 +15,6 @@ class PureDisplayCardModule extends React.Component {
         })
     }
     addQuizConnect(e){
-        console.log("add_set_quizcard")
         this.props.addBridge({
             type: "set_quizcard",
             setId: this.props.location.state.set[0].id,
@@ -24,7 +22,6 @@ class PureDisplayCardModule extends React.Component {
         })
     }
     addDictationcardConnect(e){
-        console.log("add_set_dictationcard")
         this.props.addBridge({
             type: "set_dictationcard",
             setId: this.props.location.state.set[0].id,
