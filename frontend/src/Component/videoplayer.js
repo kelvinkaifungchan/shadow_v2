@@ -8,7 +8,7 @@ class PureVideoPlayer extends React.Component {
     render() {
         return (
             <div className="d-flex justify-content-center">
-                <iframe title="youtubethingy" src="https://www.youtube.com/embed/DDApeoSE9Bc" frameBorder="0" allowFullScreen></iframe>
+                <iframe title="youtubethingy" src={this.props.src} frameBorder="0" allowFullScreen></iframe>
             </div>
                    
         );

@@ -7,11 +7,13 @@ import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
+
 // import FormSubmit from '../Component/formSubmit';
 import { VideoRecorder } from '../Component/videorecorder';
 import { VideoPlayer } from '../Component/videoplayer';
 import { Transcript } from '../Component/transcript';
 import FlashcardSubmissions from '../Component/displayflashcardsubmission';
+
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
 import { NewCommentModal } from '../Component/newcommentmodal';
@@ -40,6 +42,7 @@ class ViewFlashCard extends React.Component {
             timeStamp: "",
             recording: false,
             submissionRecording: "",
+            submissionid: "",
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
@@ -74,19 +77,32 @@ class ViewFlashCard extends React.Component {
         }
     
     getSubmissionViewInitialState(){
-            return { showSubmissionViewer: false};
+            return { 
+                showSubmissionViewer: false, 
+            };
         }
     
-    onClickShowSubmissionViewer(){
+    onClickShowSubmissionViewer(id){
             this.setState({
                 showRecorder: false,
                 showSubmissionViewer: true,
+                submissionid: id,
             })
         }
 
     handleRecording(record){
         this.setState({
             submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
+        })
+    }
+
+
+    async navigateFlashcard(e){
+        e.preventDefault()
+        await this.addSubmission()
+        this.props.history.push({
+            pathname:`/viewflashcard`,
+            state: { card: this.props.location.state.card }
         })
     }
 
@@ -125,20 +141,24 @@ class ViewFlashCard extends React.Component {
                 <NavBar/>
 
                 <div className={classes.viewflashcard}>
+
+            {/* 1st row: Header */}
                     <div classNmae="row d-flex p-4">
                     <div className="col-8">
                         <h1>{this.props.location.state.card[0].flashcardTitle}</h1>
                     </div>
 
+            {/* 2nd row: Transcript & Video Player */}
                 <div className="row d-flex p-4">
                         <div className="col-6">
                             <Transcript title={this.state} transcript={this.state}/>
                         </div>
                         <div className="col-6">
-                            <VideoPlayer/>
+                            <VideoPlayer src={this.props.location.state.card[0].flashcardRecording}/>
                         </div>
                     </div>
 
+            {/* 3rd row: Submission & Feedback & VideoRecorder / VideoPlayer */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
                             {/* <FlashcardSubmissions flashcard={this.props.cards.flashcard}/> */}
@@ -155,7 +175,7 @@ class ViewFlashCard extends React.Component {
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
                                                     return (
-                                                    <div onClick={() => {this.onClickShowSubmissionViewer()}} key={j} className={classes.scrollicon}>
+                                                    <div onClick={() => {this.onClickShowSubmissionViewer(submission.id)}} data-key={j} className={classes.scrollicon}>
                                                         <img src={submission.picture} alt="Avatar"></img>
                                                     </div>
                                                     )
@@ -164,65 +184,90 @@ class ViewFlashCard extends React.Component {
                                     : null}
                                 </div>
                             </div>
-
+                            
+                            {this.state.showSubmissionViewer && 
                             <div className={classes.feedback}>
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
+                                
                                     <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
-                                    <div className={classes.addcommentcontainer}>
-                                    <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
-                                        <div className={classes.addbtn}>
-                                            <i className="fas fa-plus" />
+                                    
+                                        <div className={classes.addcommentcontainer}>
+                                        <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
+                                            <div className={classes.addbtn}>
+                                                <i className="fas fa-plus" />
+                                            </div>
+                                            <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
+                                                <span>Add new comment</span>
+                                            </div>
                                         </div>
-                                        <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
-                                            <span>Add new comment</span>
                                         </div>
-                                    </div>
-                                    </div>
+                                    
 
-                                {this.props.location.state.card[0].submission && 
+                                {this.state.showSubmissionViewer &&
+                                    this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
+                                    this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.map(
+                                        (feedback, j) => {
+                                            return (
+                                            <div data-key={j} className={classes.scrollfeedbackcard}>
+                                            <table>
+                                                <th>{feedback.flashcardFeedbackTime}</th>
+                                                <td>{feedback.flashcardFeedbackBody}</td>
+                                                <td className={classes.commentinguser}><img src={feedback.picture} alt="Avatar"></img></td>
+                                            </table>
+                                        </div>
+                                            )
+                                        }
+                                    )
+                                    : null
+                                }
+
+                                {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0 &&
                                         this.props.location.state.card[0].submission.feedback &&
                                         this.props.location.state.card[0].submission.feedback.length > 0
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
                                                     return (
-                                                    <div key={j} className={classes.scrollfeedbackcard}>
+                                                    <div data-key={j} className={classes.scrollfeedbackcard}>
                                                         <table>
                                                             <th>{submission.feedback[0].flashcardFeedbackTime}</th>
                                                             <td>{submission.feedback[0].flashcardFeedbackBody}</td>
                                                             <td className={classes.commentinguser}><img src={submission.feedback[0].picture} alt="Avatar"></img></td>
                                                         </table>
                                                     </div>
-                                                    )
+                                                    )   
                                                 }
                                             )
-                                    : null}
+                                    : null} */}
                                 </div>
                             </div>
+                            }
+
                         </div>
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer && <VideoPlayer/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
+                            {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}>
-                            <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
-                            </div>
+                             <button onClick={(e)=>{this.addSubmission(e); this.navigateFlashcard(e)}}>Add Submission</button>
+                            </div> 
+                            }
+
                         </div>
                     </div>
-                </div>
-
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
+                                <BrowserRouter>
+                                    <Switch>
+                                <PrivateRoute path="/account" component={Account} />
+                                </Switch>
+                                </BrowserRouter>
             </div>
+            </div>;
             </div>
-        );
-    }
+        )
 }
-
+}
 
 const mapStateToProps = (state) => {
     return {
