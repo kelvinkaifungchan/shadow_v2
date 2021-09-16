@@ -30,7 +30,9 @@ import classes from './ViewFlashcard.module.css'
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)
-       
+        // this.bg = {
+        //     backgroundColor: '#F8DF4F'
+        // }
         this.player = React.createRef();
 
         this.state = {
@@ -185,7 +187,7 @@ class ViewFlashCard extends React.Component {
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
                                 
-                                    <NewCommentModal location={this.props.location} create={this.state} timestamp={this.state.timestamp} toggle={() => this.toggle()} />
+                                    <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
                                     
                                         <div className={classes.addcommentcontainer}>
                                         <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
