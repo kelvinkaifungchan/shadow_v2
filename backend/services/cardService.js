@@ -230,6 +230,10 @@ class Card {
                 quizcardData.multipleChoice = quizcard[0].map((mc)=>{
                     return ({
                         body: mc.multipleChoiceBody,
+                        multipleChoiceA: mc.multipleChoiceA,
+                        multipleChoiceB: mc.multipleChoiceB,
+                        multipleChoiceC: mc.multipleChoiceC,
+                        multipleChoiceD: mc.multipleChoiceD,
                         answer: mc.multipleChoiceAnswer,
                         time: mc.multipleChoiceTime
                     })

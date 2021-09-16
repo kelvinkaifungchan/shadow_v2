@@ -147,7 +147,9 @@ class ViewClassroom extends React.Component {
 
         return (
             <div>
-                <NavBar classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history} />
+          
+                <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
+                
 
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
