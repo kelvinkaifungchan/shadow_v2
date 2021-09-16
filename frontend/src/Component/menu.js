@@ -1,28 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { getdataThunk } from '../Redux/actions/action'
 
+// Require Action
+import { getdataThunk } from '../Redux/actions/action'
+// Require Css
 import classes from './menu.module.css'
 
 
 class PureMenu extends React.Component {
 
-    // navigateClass(e){
-    //     console.log("this is data key",e.target.attributes["data-key"].value)
-    //     if (this.props.history.location.pathname === "/viewclassroom") {
-    //         this.props.history.replace({
-    //             pathname:`/viewclassroom`,
-    //             state:{ classroom: e.target.attributes["data-key"].value }
-    //         })
-    //     } else {
-    //         this.props.history.push({
-    //             pathname:`/viewclassroom`,
-    //             state:{ classroom: e.target.attributes["data-key"].value }
-    //         })
-    //     }
-    // }
+    
     async navigateClass(e){
         // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         await this.props.history.push({
@@ -38,21 +26,6 @@ class PureMenu extends React.Component {
         this.props.classroom ? this.props.classroom() : console.log("hi")
     
     }
-
-    // navigateSet(e){
-    //     console.log("this is data key",e.target.attributes["data-key"].value)
-    //     if (this.props.history.location.pathname === "/viewset") {
-    //         this.props.history.replace({
-    //             pathname:`/viewset`,
-    //             state:{ set: e.target.attributes["data-key"].value }
-    //         })
-    //     } else {
-    //         this.props.history.push({
-    //             pathname:`/viewset`,
-    //             state:{ set: e.target.attributes["data-key"].value }
-    //         })
-    //     }
-    // }
 
     async navigateSet(e){
         console.log("FUCK ME DADDY SET")

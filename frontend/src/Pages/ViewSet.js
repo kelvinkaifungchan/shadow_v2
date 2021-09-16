@@ -1,34 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
-import { Link } from 'react-router-dom';
-
+// Require Component
 import { NavBar } from '../Component/navbar';
-import { Account } from './Account';
-import { HeadingInput } from '../Component/headinginput';
-
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter, Switch } from "react-router-dom";
-
-import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplayCardModule } from '../Component/displaycardmodule';
-// import NavBar from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
-
-// import Tags from '../Component/tags';
-import { NewSharePopUp } from '../Component/sharemodal';
-import { NewTagPopUp } from '../Component/newtagmodal';
-// import Users from '../Component/users';
-
-import { AddnewPopUp } from '../Component/addnewmodal'
-
-import classes from './ViewSet.module.css'
 import { DisplaySetTag} from '../Component/displaysettag'
 
+// Require Modal Component
+import { NewTagPopUp } from '../Component/newtagmodal';
+import { AddnewPopUp } from '../Component/addnewmodal'
 
+// Require Css
+import classes from './ViewSet.module.css'
 
 class ViewSet extends React.Component {
 

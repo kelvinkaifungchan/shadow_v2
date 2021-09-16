@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { addBridgeThunk } from '../Redux/actions/bridgeAction'
+// Require Css
 import classes from './displaycardmodule.module.css'
 
 class PureDisplayCardModule extends React.Component {

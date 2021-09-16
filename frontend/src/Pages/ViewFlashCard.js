@@ -30,9 +30,7 @@ import classes from './ViewFlashcard.module.css'
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)
-        // this.bg = {
-        //     backgroundColor: '#F8DF4F'
-        // }
+       
         this.player = React.createRef();
 
         this.state = {
