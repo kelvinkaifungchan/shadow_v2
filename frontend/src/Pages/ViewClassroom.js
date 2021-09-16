@@ -203,7 +203,6 @@ class ViewClassroom extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("store in ViewClassroom", state);
 
     return {
         email: state.authStore.email,
