@@ -5,15 +5,23 @@ import classes from './displayflashcardsubmission.module.css'
 
 class PureDisplayFlashcardSubmissionModule extends React.Component {
 
+    // onClickShowSubmissionViewer(id){
+    //     this.setState({
+    //         showRecorder: false,
+    //         showSubmissionViewer: true,
+    //         submissionid: id,
+    //     })
+    // }
+
     render() {
         return (
             <>
-                                        {this.props.location.state.card[0].submission && 
-                                        this.props.location.state.card[0].submission.length > 0
-                                            ? this.props.location.state.card[0].submission.map(
+                                        {this.props.submission && 
+                                        this.props.submission.length > 0
+                                            ? this.props.submission.map(
                                                 (submission, j) => {
                                                     return (
-                                                    <div onClick={() => {this.onClickShowSubmissionViewer(submission.id)}} data-key={j} className={classes.scrollicon}>
+                                                    <div onClick={() => {this.props.subId(submission.id)}} data-key={j} className={classes.scrollicon}>
                                                         <img src={submission.picture} alt="Avatar"></img>
                                                     </div>
                                                     )

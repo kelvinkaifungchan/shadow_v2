@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPlayer from 'react-player'
 import {connect} from 'react-redux'
 
 //Component
@@ -16,7 +17,7 @@ import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardSubmissionModule } from '../Component/displayflashcardsubmission';
-import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
+import { DisplayFlashcardFeedback } from '../Component/displayflashcardfeedback';
 import { NewCommentModal } from '../Component/newcommentmodal';
 
 //Actions
@@ -33,6 +34,7 @@ class ViewFlashCard extends React.Component {
         //     backgroundColor: '#F8DF4F'
         // }
         this.player = React.createRef();
+
         this.state = {
             title: "classroomTitle",
             read: "readonly",
@@ -40,10 +42,10 @@ class ViewFlashCard extends React.Component {
             type: "flashcard",
             correctSet: [],
             show: Boolean(),
-            timeStamp: "",
+            res: [],
             recording: false,
             submissionRecording: "",
-            submissionid: "",
+            submissionId: "",
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
@@ -87,7 +89,7 @@ class ViewFlashCard extends React.Component {
             this.setState({
                 showRecorder: false,
                 showSubmissionViewer: true,
-                submissionid: id,
+                submissionId: id,
             })
         }
 
@@ -99,17 +101,22 @@ class ViewFlashCard extends React.Component {
 
     addTimeStamp() {
         const stamp = this.player.currentTime
+        console.log("STAMP", stamp)
         var m = Math.floor(stamp / 60);
         var s = Math.floor(stamp % 60);
-        if (m.toString().length < 2) {
+        if (m.toString().length < 2){
             m = '0' + m;
         }
-        if (s.toString().length < 2) {
+        if (s.toString().length < 2){
             s = '0' + s;
         }
         const timeStamp = (m + ':' + s)
+        const timeStamps = this.state.res.concat({timeStamp: timeStamp})
+        console.log("timeStamp", timeStamp)
+        console.log("timeStamps", timeStamps)
+
         this.setState({
-            timeStamp: timeStamp
+            res: timeStamps
         })
     }
 
@@ -159,7 +166,7 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </div>
-                                    {/* <DisplayFlashcardSubmissionModule /> */}
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.props.location.state.card[0].submission}/>
                                     {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0
                                             ? this.props.location.state.card[0].submission.map(
@@ -192,9 +199,9 @@ class ViewFlashCard extends React.Component {
                                             </div>
                                         </div>
                                         </div>
-                                    
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].feedback}/>}
 
-                                {this.state.showSubmissionViewer &&
+                                {/* {this.state.showSubmissionViewer &&
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.map(
                                         (feedback, j) => {
@@ -210,7 +217,7 @@ class ViewFlashCard extends React.Component {
                                         }
                                     )
                                     : null
-                                }
+                                } */}
 
                                 {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0 &&
@@ -238,7 +245,7 @@ class ViewFlashCard extends React.Component {
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer ref={a => { this.video = a }} src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer ref={b => { this.player = b }} src={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}> 
                              <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
