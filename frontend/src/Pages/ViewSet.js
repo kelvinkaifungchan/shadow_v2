@@ -43,6 +43,7 @@ class ViewSet extends React.Component {
             correctflashCard: [],
             correctquizCard: [],
             correctdictationCard: [],
+            correctTag: [],
         }
     }
 
@@ -73,7 +74,7 @@ class ViewSet extends React.Component {
         this.setState({       
             correctflashCard: nextflash,
             correctquizCard: nextquiz,
-            correctdictationCard: nextdictation
+            correctdictationCard: nextdictation,
          });  
       }
     toggle() {
@@ -148,6 +149,7 @@ class ViewSet extends React.Component {
                 }
             })
         }
+     
     }
     navigateNewCard(e) {
         this.props.history.push({
@@ -160,6 +162,9 @@ class ViewSet extends React.Component {
     }
     getSet() {
         console.log("DIU SET", this.props.location.state.set[0]);
+        this.setState({
+            correctTag: this.props.location.state.set[0].tags
+        })
         if (this.props.location.state.set[0].bridge_flashcard != null && this.props.location.state.set[0].bridge_flashcard.length > 0) {
             const flash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
                 const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
@@ -219,7 +224,7 @@ class ViewSet extends React.Component {
                 <div className="row d-flex pl-4 pr-4 m-2">
                     {/* <button className={classes.tagbutton}>#sampletag</button> */}
                     
-                    <DisplaySetTag tags={this.props.location.state.set[0].tags} />
+                    <DisplaySetTag tags={this.state.correctTag} />
                     <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
                     <span className="d-inline-flex ">
                         <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>

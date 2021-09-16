@@ -1,19 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { logoutNowThunk } from '../Redux/actions/loginboxAction'
-
 import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
 
-// import Tags from '../Component/tags';
 import { NewSharePopUp } from "../Component/sharemodal";
 import { NewTagPopUp } from "../Component/newtagmodal";
-// import Users from '../Component/users';
+import { AddnewPopUp } from '../Component/addnewmodal'
+import {ShareUser} from '../Component/shareusermodal'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayClassroomTag } from '../Component/displayclassroomtag';
-import { AddnewPopUp } from '../Component/addnewmodal'
 
 import classes from './ViewClassroom.module.css'
 
@@ -31,6 +28,7 @@ class ViewClassroom extends React.Component {
             classroomDesc: "",
             correctSet: [],
             correctTag: [],
+            correctShare:[]
         };
     }
 
@@ -42,28 +40,29 @@ class ViewClassroom extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log(nextProps,"nextProps<><><><><><><>");
         const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
+        console.log("correctProps",correctProps);
         let nextlmao = correctProps[0].bridge.map((changed) => {
-            // console.log("inside map", changed)
             const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
             return newestState[0]
         });
-        this.setState({ correctSet: nextlmao});  
-        console.log("next PROP TAG",nextProps.location.state.classroom[0].tags);
+        this.setState({ 
+            correctSet: nextlmao,
+            correctTag: correctProps[0].tags,
+            correctShare: correctProps[0].shared
+        });  
 
       }
 
-    getclassroom() {
-        
-        console.log("DIU CLASSROOM", this.props.location.state.classroom[0].bridge )  
+    getclassroom() {      
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
                 return newestState[0]
             });
-            console.log("CORRECTTTTTSET", lmao)
             this.setState({
                 correctSet: lmao,
-                correctTag: this.props.location.state.classroom[0].tags
+                correctTag: this.props.location.state.classroom[0].tags,
+                correctTag: this.props.location.state.classroom[0].shared
             })
         } else {
             return null
@@ -157,7 +156,8 @@ class ViewClassroom extends React.Component {
                     <div className="row d-flex pl-4 pr-4 m-2">
 
                         {/* Share User */}
-                        {this.props.location.state.classroom[0].shared &&
+                        <ShareUser shared={this.state.correctShare}/>
+                        {/* {this.props.location.state.classroom[0].shared &&
                             this.props.location.state.classroom[0].shared.length > 0
                             ? this.props.location.state.classroom[0].shared.map(
                                 (shared, j) => {
@@ -168,7 +168,7 @@ class ViewClassroom extends React.Component {
                                     )
                                 }
                             ) : null
-                        }
+                        } */}
 
 
                         {/* share user add button */}
@@ -179,7 +179,7 @@ class ViewClassroom extends React.Component {
                     </div>
                     {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        <DisplayClassroomTag tags={this.props.location.state.classroom[0].tags} />
+                        <DisplayClassroomTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>

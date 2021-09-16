@@ -5,6 +5,7 @@ class SharingService {
 
     //Add users to set
     async add(body) {
+
         console.log("sharing classroom with a user")
         let user_id = await this.knex("user").where({
             email: body.email
