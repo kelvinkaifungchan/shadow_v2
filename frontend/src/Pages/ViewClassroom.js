@@ -31,7 +31,6 @@ class ViewClassroom extends React.Component {
             classroomDesc: "",
             correctSet: [],
             correctTag: [],
-            trigger: false,
         };
     }
 
@@ -54,9 +53,6 @@ class ViewClassroom extends React.Component {
         this.setState({ correctSet: nextlmao});  
       }
 
-      filter(nextProps){
-
-      }
     getclassroom() {
         
         console.log("DIU", this.props.location.state.classroom[0].bridge )  
@@ -213,7 +209,7 @@ class ViewClassroom extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in ViewClassroom", state);
+    console.log("store in ViewClassroom", state);
 
     return {
         email: state.authStore.email,
