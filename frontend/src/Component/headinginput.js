@@ -22,7 +22,7 @@ class PureHeadingInput extends React.Component {
             placeholder="Untitled"
             className={classes.title}
           />
-          {this.props.card.type ? null : <input
+          {this.props.card.type && this.props.card.type ? null : <input
             type="text"
             placeholder="Insert a description"
             className={classes.description}

@@ -2,9 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import { Link } from 'react-router-dom';
-import {Account} from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
+
 import { NavBar } from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import FormSubmit from '../Component/formSubmit';
@@ -53,11 +51,7 @@ class CreateDictationcard extends React.Component {
                         <p>DictationQuestionsCreate</p>
                     </div>
                 </div>
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
+                    
             </div>
         );
     }

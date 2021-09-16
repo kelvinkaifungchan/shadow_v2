@@ -1,13 +1,10 @@
 import React from 'react';
-import '../Component/main.css'
-
 import { connect } from 'react-redux'
 
-// import { Link } from 'react-router-dom';
 import { LoginBox } from '../Component/loginbox'
 import { SignUp } from '../Component/signupbox';
 
-
+import '../Component/main.css'
 
 
 class Login extends React.Component {
@@ -20,7 +17,6 @@ class Login extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("this.props", this.props);
         if (this.props.isAuthenticatedMSP === true) {
             this.props.history.push('/')
         }
