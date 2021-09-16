@@ -40,10 +40,10 @@ class Card {
                             quizcard_id: quizcardId,
                             multipleChoiceBody: mcData.multipleChoiceBody,
                             multipleChoiceAnswer: mcData.multipleChoiceAnswer,
-                            multipleChoiceA: mcData.a,
-                            multipleChoiceB: mcData.b,
-                            multipleChoiceC: mcData.c,
-                            multipleChoiceD: mcData.d,
+                            multipleChoiceA: mcData.multipleChoiceA,
+                            multipleChoiceB: mcData.multipleChoiceB,
+                            multipleChoiceC: mcData.multipleChoiceC,
+                            multipleChoiceD: mcData.multipleChoiceD,
                             multipleChoiceTime: mcData.multipleChoiceTime,
                             multipleChoiceStatus: true,
                         })
@@ -230,6 +230,10 @@ class Card {
                 quizcardData.multipleChoice = quizcard[0].map((mc)=>{
                     return ({
                         body: mc.multipleChoiceBody,
+                        multipleChoiceA: mc.multipleChoiceA,
+                        multipleChoiceB: mc.multipleChoiceB,
+                        multipleChoiceC: mc.multipleChoiceC,
+                        multipleChoiceD: mc.multipleChoiceD,
                         answer: mc.multipleChoiceAnswer,
                         time: mc.multipleChoiceTime
                     })
