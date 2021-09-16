@@ -70,7 +70,6 @@ class ViewSet extends React.Component {
             return newestState[0]
         });
     
-        console.log("NEXXXTTTTT CARDDD",nextflash,nextquiz, nextdictation);
         this.setState({       
             correctflashCard: nextflash,
             correctquizCard: nextquiz,
@@ -238,7 +237,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                    <DisplayCardModule view={this.state} navigate={(e) => this.navigateCard(e)} />
+                    <DisplayCardModule view={this.state} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                 </div>
             </div>
             </div>

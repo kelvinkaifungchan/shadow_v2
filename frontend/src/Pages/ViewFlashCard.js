@@ -103,12 +103,34 @@ class ViewFlashCard extends React.Component {
             })
         }
 
+<<<<<<< HEAD
     async navigateFlashcard(e){
         e.preventDefault()
         await this.addSubmission()
         this.props.history.push({
             pathname:`/viewflashcard`,
             state: { card: this.props.location.state.card }
+=======
+    handleRecording(record){
+        this.setState({
+            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
+        })
+    }
+
+    addTimeStamp() {
+        const stamp = this.player.currentTime
+        var m = Math.floor(stamp / 60);
+        var s = Math.floor(stamp % 60);
+        if (m.toString().length < 2) {
+            m = '0' + m;
+        }
+        if (s.toString().length < 2) {
+            s = '0' + s;
+        }
+        const timeStamp = (m + ':' + s)
+        this.setState({
+            timeStamp: timeStamp
+>>>>>>> c1d65c1cf0713ae4d06edfdcce0e94fcbd70947f
         })
     }
 
@@ -250,7 +272,7 @@ class ViewFlashCard extends React.Component {
                             {this.state.showSubmissionViewer &&  <VideoPlayer time={this.handleTimeStamp} src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}>
-                             <button onClick={(e)=>{this.addSubmission(e); this.navigateFlashcard(e)}}>Add Submission</button>
+                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
                             </div> 
                             }
 
