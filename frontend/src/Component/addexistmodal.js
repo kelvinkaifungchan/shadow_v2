@@ -34,9 +34,6 @@ class PureModel extends React.Component {
             type: "set"
         })
     }
-    connect() {
-
-    }
 
     render() {
         console.log('props in add exist modal', this.props)
