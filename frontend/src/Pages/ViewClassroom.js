@@ -1,17 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
+// Require Component
 import { NavBar } from '../Component/navbar';
-
-import { NewSharePopUp } from "../Component/sharemodal";
-import { NewTagPopUp } from "../Component/newtagmodal";
-import { AddnewPopUp } from '../Component/addnewmodal'
-import {ShareUser} from '../Component/shareusermodal'
+import { DisplayShareUser } from '../Component/displayshareduser'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayClassroomTag } from '../Component/displayclassroomtag';
 
+// Require Modal Component
+import { NewSharePopUp } from "../Component/sharemodal";
+import { NewTagPopUp } from "../Component/newtagmodal";
+import { AddnewPopUp } from '../Component/addnewmodal'
+
+// Require Css
 import classes from './ViewClassroom.module.css'
 
 class ViewClassroom extends React.Component {
@@ -28,7 +31,7 @@ class ViewClassroom extends React.Component {
             classroomDesc: "",
             correctSet: [],
             correctTag: [],
-            correctShare:[]
+            correctShare: []
         };
     }
 
@@ -38,22 +41,22 @@ class ViewClassroom extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps,"nextProps<><><><><><><>");
+        console.log(nextProps, "nextProps<><><><><><><>");
         const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
-        console.log("correctProps",correctProps);
+        console.log("correctProps", correctProps);
         let nextlmao = correctProps[0].bridge.map((changed) => {
             const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
             return newestState[0]
         });
-        this.setState({ 
+        this.setState({
             correctSet: nextlmao,
             correctTag: correctProps[0].tags,
             correctShare: correctProps[0].shared
-        });  
+        });
 
-      }
+    }
 
-    getclassroom() {      
+    getclassroom() {
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
@@ -67,7 +70,7 @@ class ViewClassroom extends React.Component {
         } else {
             return null
         }
-    }   
+    }
 
     handleHeading(title) {
         this.setState({
@@ -105,18 +108,19 @@ class ViewClassroom extends React.Component {
             shareModal: !this.state.shareModal
         })
     }
-    navigateClass(e){
-        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
+    navigateClass(e) {
         this.props.history.push({
-            pathname:`/viewclassroom`,
-            state: { classroom: this.props.classrooms.filter ((classroom) => {
-                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
-                    console.log('in if')
-                    return classroom
-                }
-            }) 
-        }
-    })}
+            pathname: `/viewclassroom`,
+            state: {
+                classroom: this.props.classrooms.filter((classroom) => {
+                    if (classroom.id === parseInt(e.target.attributes["data-key"].value)) {
+                        console.log('in if')
+                        return classroom
+                    }
+                })
+            }
+        })
+    }
     navigateSet(e) {
         this.props.history.push({
             pathname: `/viewset`,
@@ -143,7 +147,9 @@ class ViewClassroom extends React.Component {
 
         return (
             <div>
+          
                 <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
+                
 
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
@@ -156,19 +162,7 @@ class ViewClassroom extends React.Component {
                     <div className="row d-flex pl-4 pr-4 m-2">
 
                         {/* Share User */}
-                        <ShareUser shared={this.state.correctShare}/>
-                        {/* {this.props.location.state.classroom[0].shared &&
-                            this.props.location.state.classroom[0].shared.length > 0
-                            ? this.props.location.state.classroom[0].shared.map(
-                                (shared, j) => {
-                                    return (
-                                        <div data-key={shared.id} className={classes.sharingusericon}>
-                                            <img src={shared.picture} alt="Avatar"></img>
-                                        </div>
-                                    )
-                                }
-                            ) : null
-                        } */}
+                        <DisplayShareUser shared={this.state.correctShare} />
 
 
                         {/* share user add button */}
@@ -189,7 +183,7 @@ class ViewClassroom extends React.Component {
 
                     {/* Add button */}
                     <div className="row d-flex m-3">
-                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => {this.changeTypeClass(); this.toggle()}} navigate={(e) => this.navigateSet(e)} />
+                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
                         <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -199,7 +193,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div>
 
-                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} classroom={this.props.classrooms} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule location={this.props.location} classroom={this.props.classrooms} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>

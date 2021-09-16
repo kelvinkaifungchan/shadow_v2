@@ -13,28 +13,36 @@ export const DELETE_BRIDGE_SET_QUIZCARD = "DELETE_BRIDGE_SET_QUIZCARD";
 export const addBridgeThunk = (bridge) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/bridge", bridge)
     .then(response => {
-        console.log(response)
+        console.log('addBridgeThunk', bridge)
+        console.log('response in bridge action', response)
         if (bridge.type === "classroom_set") {
+            console.log("classroom_set")
             dispatch({
                 type: ADD_BRIDGE_CLASSROOM_SET,
                 payload: {id:{classroom_id: bridge.classroomId}, content:{set_id: bridge.setId}}
             })
         } else if (bridge.type === "set_dictationcard") {
+            console.log("set_dictationcard")
             dispatch({
                 type: ADD_BRIDGE_SET_DICTATIONCARD,
-                payload: {id:{set_id: bridge.setId}, content:{dictationcard_id: bridge.dictationcardId}}
+                payload: {id:{set_id: bridge.setId}, content:{dictationcard_id: parseInt(bridge.dictationcardId)}}
             })
         } else if (bridge.type === "set_flashcard") {
+            console.log("set_flashcard")
             dispatch({
                 type: ADD_BRIDGE_SET_FLASHCARD,
-                payload: {id:{set_id: bridge.setId}, content:{flashcard_id: bridge.flashcardId}}
+                payload: {id:{set_id: bridge.setId}, content:{flashcard_id: parseInt(bridge.flashcardId)}}
             })
         } else if (bridge.type === "set_quizcard") {
+            console.log("set_quizcard")
             dispatch({
                 type: ADD_BRIDGE_SET_QUIZCARD,
-                payload: {id:{set_id: bridge.setId}, content:{quizcard_id: bridge.quizcardId}}
+                payload: {id:{set_id: bridge.setId}, content:{quizcard_id: parseInt(bridge.quizcardId)}}
             })
+        } else {
+            console.log('none of above')
         }
+        console.log('above')
     })
     .catch(err => console.log("Error: ", err))
 }

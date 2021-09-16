@@ -16,12 +16,13 @@ class PureVideoPlayer extends React.Component {
 
 
     getTime(){
-        if (this.props.type) {
+        if (this.props.type === "display") {
             return
-        } else {
+        } else if (this.player === null) {
+            return
+        } else if (this.props.type === "flashcard") {
             setInterval(() => {
                 const stamp = this.player.currentTime
-                console.log("LOOK AT THE TIME", stamp)
                 var m = Math.floor(stamp / 60);
                 var s = Math.floor(stamp % 60);
                 if (m.toString().length < 2) {
@@ -32,7 +33,9 @@ class PureVideoPlayer extends React.Component {
                 }
                 const timeStamp = (m + ':' + s)
                 this.props.time(timeStamp)
+                console.log("this is inside the player", timeStamp)
             }, 1000)
+
         }
     }
 

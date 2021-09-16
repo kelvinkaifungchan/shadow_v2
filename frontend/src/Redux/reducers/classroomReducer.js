@@ -14,6 +14,7 @@ const initialState = {
 };
 
 export function classroomReducer(state = initialState, action){
+    console.log('12345')
     switch(action.type){
         case GETDATACLASSROOMS_SUCCESS:
             return {
@@ -28,7 +29,7 @@ export function classroomReducer(state = initialState, action){
                 isAuthenticated: false
               };
         case ADD_CLASSROOM:
-            console.log('adding sets classroom')
+            console.log('adding classroom')
             return {
                 classrooms: [...state.classrooms, action.payload]
             };
@@ -71,7 +72,10 @@ export function classroomReducer(state = initialState, action){
         case ADD_SHARING:
             return {
                 classrooms: state.classrooms.map((classroom) => {
+                    console.log(classroom,"classroom.....");
+                    console.log(action.payload.id.classroom_id,"action.payload.id.classroom_id....");
                     if(action.payload.id.classroom_id === classroom.id){
+                    console.log(classroom.id,"classroom.....");
                         return {
                             ...classroom, shared:[...classroom.shared, action.payload.content]
                         }
@@ -96,6 +100,8 @@ export function classroomReducer(state = initialState, action){
             return {
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
+                        console.log("action.payload.content",action.payload.content)
+                        console.log("action.payload.content",action.payload.content.set_id)
                         return {
                             ...classroom, bridge:[...classroom.bridge, action.payload.content]
                         }

@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
+import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
+// Require Action
 import { addClassroom } from '../Redux/actions/classroomAction'
 import { addSet } from '../Redux/actions/setAction'
-import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
-
 class PureModel extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +27,6 @@ class PureModel extends React.Component {
         e.preventDefault();
         if (this.props.create.type === "class") {
             console.log('this.props.creat.type=== class')
-            // this.props.createClassMDP(this.props.user.email, this.state.classroomTitle, this.state.classroomDesc)
             this.props.createClassMDP({
                 email: this.props.user.email,
                 title: this.state.classroomTitle,
@@ -46,7 +44,7 @@ class PureModel extends React.Component {
             } else {
                 console.log('creatSetBridge MDP')
                 const data = await this.props.createSetMDP({
-                    type: this.props.create.type,
+                    type: "classroom_set",
                     email: this.props.user.email,
                     title: this.state.setTitle,
                     desc: this.state.setDesc,

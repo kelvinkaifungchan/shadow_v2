@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPlayer from 'react-player'
 import {connect} from 'react-redux'
 
 //Component
@@ -15,7 +16,8 @@ import { Transcript } from '../Component/transcript';
 import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
-import { DisplayFlashcardFeedbackModule } from '../Component/displayflashcardfeedbackmodule';
+import { DisplayFlashcardSubmissionModule } from '../Component/displayflashcardsubmission';
+import { DisplayFlashcardFeedback } from '../Component/displayflashcardfeedback';
 import { NewCommentModal } from '../Component/newcommentmodal';
 
 //Actions
@@ -28,10 +30,9 @@ import classes from './ViewFlashcard.module.css'
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)
-        // this.bg = {
-        //     backgroundColor: '#F8DF4F'
-        // }
+       
         this.player = React.createRef();
+
         this.state = {
             title: "classroomTitle",
             read: "readonly",
@@ -43,7 +44,7 @@ class ViewFlashCard extends React.Component {
             submissionTime: "",
             recording: false,
             submissionRecording: "",
-            submissionid: "",
+            submissionId: "",
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
@@ -99,7 +100,7 @@ class ViewFlashCard extends React.Component {
             this.setState({
                 showRecorder: false,
                 showSubmissionViewer: true,
-                submissionid: id,
+                submissionId: id,
             })
         }
 
@@ -156,7 +157,6 @@ class ViewFlashCard extends React.Component {
             {/* 3rd row: Submission & Feedback & VideoRecorder / VideoPlayer */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
-                            {/* <FlashcardSubmissions flashcard={this.props.cards.flashcard}/> */}
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
                                 <h5>Submissions</h5>
@@ -164,8 +164,8 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </div>
-                                    
-                                    {this.props.location.state.card[0].submission && 
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.props.location.state.card[0].submission}/>
+                                    {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0
                                             ? this.props.location.state.card[0].submission.map(
                                                 (submission, j) => {
@@ -176,7 +176,7 @@ class ViewFlashCard extends React.Component {
                                                     )
                                                 }
                                             )
-                                    : null}
+                                    : null} */}
                                 </div>
                             </div>
                             
@@ -185,7 +185,7 @@ class ViewFlashCard extends React.Component {
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
                                 
-                                    <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
+                                    <NewCommentModal location={this.props.location} create={this.state} timestamp={this.state.timestamp} toggle={() => this.toggle()} />
                                     
                                         <div className={classes.addcommentcontainer}>
                                         <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
@@ -197,9 +197,9 @@ class ViewFlashCard extends React.Component {
                                             </div>
                                         </div>
                                         </div>
-                                    
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].feedback}/>}
 
-                                {this.state.showSubmissionViewer &&
+                                {/* {this.state.showSubmissionViewer &&
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.map(
                                         (feedback, j) => {
@@ -219,7 +219,7 @@ class ViewFlashCard extends React.Component {
                                         }
                                     )
                                     : null
-                                }
+                                } */}
 
                                 {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0 &&
@@ -247,9 +247,9 @@ class ViewFlashCard extends React.Component {
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer time={this.handleTimeStamp} src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer time={this.handleTimeStamp} src={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
-                            <div className={classes.buttoncontainer}>
+                            <div className={classes.buttoncontainer}> 
                              <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
                             </div> 
                             }
