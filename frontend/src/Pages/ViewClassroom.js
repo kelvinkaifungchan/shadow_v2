@@ -62,7 +62,7 @@ class ViewClassroom extends React.Component {
             this.setState({
                 correctSet: lmao,
                 correctTag: this.props.location.state.classroom[0].tags,
-                correctTag: this.props.location.state.classroom[0].shared
+                correctShare: this.props.location.state.classroom[0].shared
             })
         } else {
             return null
@@ -157,19 +157,7 @@ class ViewClassroom extends React.Component {
 
                         {/* Share User */}
                         <ShareUser shared={this.state.correctShare}/>
-                        {/* {this.props.location.state.classroom[0].shared &&
-                            this.props.location.state.classroom[0].shared.length > 0
-                            ? this.props.location.state.classroom[0].shared.map(
-                                (shared, j) => {
-                                    return (
-                                        <div data-key={shared.id} className={classes.sharingusericon}>
-                                            <img src={shared.picture} alt="Avatar"></img>
-                                        </div>
-                                    )
-                                }
-                            ) : null
-                        } */}
-
+                    
 
                         {/* share user add button */}
                         <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()} />
