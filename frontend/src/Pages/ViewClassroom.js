@@ -55,7 +55,7 @@ class ViewClassroom extends React.Component {
 
     getclassroom() {
         
-        console.log("DIU", this.props.location.state.classroom[0].bridge )  
+        console.log("DIU CLASSROOM", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
@@ -68,7 +68,7 @@ class ViewClassroom extends React.Component {
         } else {
             return null
         }
-    }
+    }   
 
     handleHeading(title) {
         this.setState({
