@@ -56,26 +56,37 @@ class ViewSet extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log("nextpropsss", nextProps);
         const correctFlashs = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
-        let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
-            const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
-            return newestState[0]
-        });
+        console.log('correctFlashs', correctFlashs)
+        if(correctFlashs[0].bridge_flashcard !== undefined){
+            let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
+                const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
+                return newestState[0]
+            });
+            this.setState({       
+                correctflashCard: nextflash,
+             }); 
+        }
+
         const correctQuizs = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
-        let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
-            const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
-            return newestState[0]
-        });
+        if(correctQuizs[0].bridge_quizcard !== undefined){
+            let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
+                const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
+                return newestState[0]
+            });
+            this.setState({       
+                correctquizCard: nextquiz,
+             });  
+        }
         const correctDicts = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
-        let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
-            const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
-            return newestState[0]
-        });
-    
-        this.setState({       
-            correctflashCard: nextflash,
-            correctquizCard: nextquiz,
-            correctdictationCard: nextdictation,
-         });  
+        if(correctDicts[0].bridge_dictationcard !== undefined){
+            let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
+                const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
+                return newestState[0]
+            });
+            this.setState({       
+                correctdictationCard: nextdictation,
+             });  
+        }
       }
     toggle() {
         this.setState({
@@ -118,7 +129,6 @@ class ViewSet extends React.Component {
                 state: {
                     card: this.props.cards.flashcard.filter((flashcard) => {
                         if (flashcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                            console.log('in if')
                             return flashcard
                         }
                     }),
@@ -130,7 +140,6 @@ class ViewSet extends React.Component {
                 state: {
                     card: this.props.cards.quizcard.filter((quizcard) => {
                         if (quizcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                            console.log('in if')
                             return quizcard
                         }
                     })
@@ -142,7 +151,6 @@ class ViewSet extends React.Component {
                 state: {
                     card: this.props.cards.dictationcard.filter((dictationcard) => {
                         if (dictationcard.id === parseInt(e.target.attributes["data-key"].value)) {
-                            console.log('in if')
                             return dictationcard
                         }
                     })
