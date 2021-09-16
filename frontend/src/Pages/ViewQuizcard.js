@@ -17,46 +17,29 @@ import { VideoPlayer } from '../Component/videoplayer';
 class ViewQuizcard extends React.Component {
     constructor(props){
         super(props)
-        this.bg = {
-            backgroundColor: '#F8DF4F'
+        this.state={
+            type: "quizcard"
         }
     }
 
 
 
     render() {
-
+        console.log('view quizcard props', this.props)
+        console.log('view quizcard props', this.state)
         return (
             <div>
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
                     <NavBar history={this.props.history}/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                    <div className="col col-4">
-                    {/* <QuestionProgress/> */}
-                    <p>QuestionProgress</p>
+                <div classNmae="row p-5">
+                    <div className="col-8">
+                        <h1>{this.props.location.state.card[0].quizcardTitle}</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col col-12">
-                        <VideoPlayer/>
+                <div className="row p-5">
+                    <div className="col col-6">
+                        <VideoPlayer create={this.state}/>
                     </div>
                 </div>
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
             </div>
         );
     }
