@@ -46,7 +46,7 @@ class PureModel extends React.Component {
             } else {
                 console.log('creatSetBridge MDP')
                 const data = await this.props.createSetMDP({
-                    type: this.props.create.type,
+                    type: "classroom_set",
                     email: this.props.user.email,
                     title: this.state.setTitle,
                     desc: this.state.setDesc,
