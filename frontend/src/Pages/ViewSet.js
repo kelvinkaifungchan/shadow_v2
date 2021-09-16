@@ -56,8 +56,10 @@ class ViewSet extends React.Component {
             const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
             return newestState[0]
         });
+        const correctProps = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
     
-        this.setState({       
+        this.setState({   
+            correctTag: correctProps[0].tags,    
             correctflashCard: nextflash,
             correctquizCard: nextquiz,
             correctdictationCard: nextdictation,
@@ -156,7 +158,6 @@ class ViewSet extends React.Component {
                 const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
                 return newestState[0]
             });
-            console.log("lmaooooooflash", flash);
             this.setState({
                 correctflashCard: flash
             })
@@ -168,7 +169,6 @@ class ViewSet extends React.Component {
                 const newestState = this.props.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
                 return newestState[0]
             });
-            console.log("lmaooooooquiz", quiz);
             this.setState({
                 correctquizCard: quiz
             })
@@ -180,7 +180,6 @@ class ViewSet extends React.Component {
                 const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
                 return newestState[0]
             });
-            console.log("lmaoooooodictation", dictation);
             this.setState({
                 correctdictationCard: dictation
             })
@@ -201,14 +200,11 @@ class ViewSet extends React.Component {
                         <div className="col-8">
                             <h1>{this.props.location.state.set[0].title}</h1>
                             <h6>{this.props.location.state.set[0].description}</h6>
-
-
                         </div>
                     </div>
 
 
                 <div className="row d-flex pl-4 pr-4 m-2">
-                    {/* <button className={classes.tagbutton}>#sampletag</button> */}
                     
                     <DisplaySetTag tags={this.state.correctTag} />
                     <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
@@ -236,7 +232,6 @@ class ViewSet extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in VIEWSET", state);
 
     return {
         email: state.authStore.email,
