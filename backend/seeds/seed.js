@@ -122,31 +122,31 @@ exports.seed = function (knex) {
           user_id: 1,
           flashcardTitle: "Test Wong's flashCard",
           flashcardBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          flashcardRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           flashcardStatus: true,
         }, {
           user_id: 1,
           flashcardTitle: "User Chan's flashCard",
           flashcardBody: "SPEAK",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 2,
           flashcardTitle: "User Philip's flashCard",
           flashcardBody: "This is the body text of User Philip's card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 3,
           flashcardTitle: "John Cheng's flashCard",
           flashcardBody: "This is the body text of John Cheng's Card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
         }, {
           user_id: 4,
           flashcardTitle: "Jack Wynn's flashCard",
           flashcardBody: "This is the body text of Jack Wynn's Card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
         }])
       })
@@ -157,17 +157,17 @@ exports.seed = function (knex) {
         return knex('flashcardSubmission').insert([{
           user_id: 1,
           flashcard_id: 1,
-          flashcardSubmissionRecording: "https://www.youtube.com/embed/DSRQuDPkKF4",
+          flashcardSubmissionRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           flashcardSubmissionStatus: true
         }, {
           user_id: 2,
           flashcard_id: 1,
-          flashcardSubmissionRecording: "https://www.youtube.com/embed/aExJj8r1XCI",
+          flashcardSubmissionRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardSubmissionStatus: true
         }, {
           user_id: 3,
           flashcard_id: 2,
-          flashcardSubmissionRecording: "https://www.youtube.com/embed/FfhZFRvmaVY",
+          flashcardSubmissionRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardSubmissionStatus: true
         }])
       })
@@ -201,28 +201,28 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('quizcard').insert([{
           user_id: 1,
-          quizcardTitle: "Test Wong's quizcard",
-          quizcardRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
+          quizcardTitle: "Test Wong's Card",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           quizcardStatus: true,
         }, {
           user_id: 1,
-          quizcardTitle: "User Chan's quizcard",
-          quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          quizcardTitle: "User Chan's Card",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           quizcardStatus: true,
         }, {
           user_id: 2,
-          quizcardTitle: "User Philip's quizcard",
-          quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          quizcardTitle: "User Philip's Card",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           quizcardStatus: true,
         }, {
           user_id: 3,
-          quizcardTitle: "John Cheng's quizcard",
-          quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          quizcardTitle: "John Cheng's Card",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           quizcardStatus: true,
         }, {
           user_id: 4,
-          quizcardTitle: "Jack Wynn's quizcard",
-          quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          quizcardTitle: "Jack Wynn's Card",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           quizcardStatus: true,
         }])
       })
@@ -367,31 +367,31 @@ exports.seed = function (knex) {
         return knex('dictation').insert([{
           user_id: 1,
           dictationcard_id: 1,
-          dictationRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
+          dictationRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationStatus: true,
         }, {
           user_id: 1,
           dictationcard_id: 2,
           dictationBody: "please write down the following word",
-          dictationRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          dictationRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationStatus: true,
         }, {
           user_id: 2,
           dictationcard_id: 2,
           dictationBody: "please write down the following word",
-          dictationRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          dictationRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationStatus: true,
         }, {
           user_id: 3,
           dictationcard_id: 3,
           dictationBody: "please write down the following word",
-          dictationRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          dictationRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationStatus: true,
         }, {
           user_id: 4,
           dictationcard_id: 4,
           dictationBody: "please write down the following word",
-          dictationRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          dictationRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationStatus: true,
         }])
       })
@@ -402,17 +402,17 @@ exports.seed = function (knex) {
         return knex('dictationSubmission').insert([{
           user_id: 1,
           dictation_id: 1,
-          dictationSubmissionPath: "https://www.youtube.com/embed/DSRQuDPkKF4",
+          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationSubmissionStatus: true
         }, {
           user_id: 2,
           dictation_id: 1,
-          dictationSubmissionPath: "https://www.youtube.com/embed/aExJj8r1XCI",
+          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationSubmissionStatus: true
         }, {
           user_id: 3,
           dictation_id: 2,
-          dictationSubmissionPath: "https://www.youtube.com/embed/FfhZFRvmaVY",
+          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           dictationSubmissionStatus: true
         }])
       })
