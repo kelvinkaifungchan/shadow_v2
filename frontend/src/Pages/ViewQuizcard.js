@@ -22,9 +22,16 @@ class ViewQuizcard extends React.Component {
         }
     }
 
-
+    navigateSubmission(e){
+        this.props.history.push({
+            pathname:`/viewQuizcardSubmission`,
+            state: { quizcard: this.props.location.state.card[0]}
+        })
+    }
 
     render() {
+        console.log("PROPS IN VIEW QUIZCARD", this.props)
+        console.log("STATE IN VIEW QUIZCARD", this.state)
 
         return (
             <div>
@@ -39,7 +46,7 @@ class ViewQuizcard extends React.Component {
                 </div>
 
                 <div className="row d-flex p-4">
-                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>View Submission</button>
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
                 </div>
 
                 <div className="row d-flex p-4">

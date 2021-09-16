@@ -97,14 +97,13 @@ class PureDashboard extends React.Component {
                                 <h1>My Set</h1>
                                 <span className={classes.createsetbtn}>
                                     <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                    </span>
-                            </div>
+                                </span>
+                        </div>
 
                         <div className="row d-flex pl-4">
                         <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
                         </div>
-                        
-
+                    
                         {this.props.loading && <div> Loading...</div>}
                         {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
                         </div>
