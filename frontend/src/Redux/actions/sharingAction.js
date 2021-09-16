@@ -10,7 +10,7 @@ export const addSharingThunk = (sharing) => async (dispatch) => {
         console.log("this is the sharing response", response)    
         dispatch({
                 type: ADD_SHARING,
-                payload: {id: sharing.classroomId, content:{id: response.data.user_id, email: response.data.email, displayName: response.data.displayName, picture: response.data.picture}}
+                payload: {id: {classroom_id: sharing.classroomId}, content:{id: response.data.user_id, email: response.data.email, displayName: response.data.displayName, picture: response.data.picture}}
             })
     })
     .catch(err => console.log("Error: ", err))

@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-
-import classes from './navbar.module.css'
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+// Require Component
 import { Menu } from '../Component/menu'
-import Search from './searchbox'
+// Require Css
+import classes from './navbar.module.css'
 
 
 class PureNavBar extends React.Component {
@@ -55,7 +56,6 @@ class PureNavBar extends React.Component {
 
                     <div className="d-flex justify-content-center ">
                         
-                    {/* {modal ? <Menu  history={this.props.history}/> : null}  */}
                     
                     {modal ?  this.props.classroom ? <Menu classroom={() => this.props.classroom()} history={this.props.history}/> : this.props.set  ? <Menu set={() => this.props.set()} history={this.props.history}/>: <Menu  history={this.props.history}/> : null}
 

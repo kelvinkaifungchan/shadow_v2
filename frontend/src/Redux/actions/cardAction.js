@@ -27,7 +27,7 @@ export const addCard = (card) => async (dispatch) => {
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
-            type: card.type,
+            type: "set_dictationcard",
             setId: card.setId,
             dictationcardId: newId
         })
@@ -53,7 +53,7 @@ export const addCard = (card) => async (dispatch) => {
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
-            type: card.type,
+            type: "set_flashcard",
             setId: card.setId,
             flashcardId: newId
         })
@@ -79,7 +79,7 @@ export const addCard = (card) => async (dispatch) => {
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
-            type: card.type,
+            type: "set_quizcard",
             setId: card.setId,
             quizcardId: newId
         })

@@ -6,7 +6,7 @@ class BridgeService {
     //Add bridge
     async add(body) {
         console.log("adding bridge", body)
-        if (body.type === "set") {
+        if (body.type === "classroom_set") {
                 console.log('body.type === set')
                 const share = await this.knex("classroom_set").where({
                     classroom_id: body.classroomId,
@@ -24,7 +24,7 @@ class BridgeService {
                         .returning('set_id')
                 }
         }
-        if (body.type === "flashcard") {
+        if (body.type === "set_flashcard") {
             const share = await this.knex("set_flashcard").where({
                 set_id: body.setId,
                 flashcard_id: body.flashcardId
@@ -40,7 +40,7 @@ class BridgeService {
                     .into("set_flashcard")
             }
         }
-        if (body.type === "quizcard") {
+        if (body.type === "set_quizcard") {
             const share = await this.knex("set_quizcard").where({
                 set_id: body.setId,
                 flashcard_id: body.quizcardId
@@ -56,7 +56,7 @@ class BridgeService {
                     .into("set_quizcard")
             }
         }
-        if (body.type === "dictationcard") {
+        if (body.type === "set_dictationcard") {
             const share = await this.knex("set_dictationcard").where({
                 set_id: body.setId,
                 flashcard_id: body.dictationcardId
