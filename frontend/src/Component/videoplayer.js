@@ -33,7 +33,9 @@ class PureVideoPlayer extends React.Component {
                 }
                 const timeStamp = (m + ':' + s)
                 this.props.time(timeStamp)
+                console.log("this is inside the player", timeStamp)
             }, 1000)
+
         }
     }
 

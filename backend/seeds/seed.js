@@ -122,31 +122,31 @@ exports.seed = function (knex) {
           user_id: 1,
           flashcardTitle: "Test Wong's Card",
           flashcardBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          flashcardRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           flashcardStatus: true,
         }, {
           user_id: 1,
           flashcardTitle: "User Chan's Card",
           flashcardBody: "SPEAK",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 2,
           flashcardTitle: "User Philip's Card",
           flashcardBody: "This is the body text of User Philip's card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           flashcardStatus: true,
         }, {
           user_id: 3,
           flashcardTitle: "John Cheng's Card",
           flashcardBody: "This is the body text of John Cheng's Card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
         }, {
           user_id: 4,
           flashcardTitle: "Jack Wynn's Card",
           flashcardBody: "This is the body text of Jack Wynn's Card.",
-          flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
+          flashcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           flashcardStatus: true,
         }])
       })

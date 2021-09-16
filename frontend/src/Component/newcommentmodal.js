@@ -17,7 +17,8 @@ class PureNewCommentModal extends React.Component {
 
     submit = (e) => {
         e.preventDefault();
-        this.props.addFeedbackThunk(this.props.create.type, this.props.create.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+        console.log("PLEASE SHOW ME THE CREATE", this.props.create)
+        // this.props.addFeedbackThunk(this.props.create.type, this.props.create.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
     }
 
     onChangeField = (field, e) => {
