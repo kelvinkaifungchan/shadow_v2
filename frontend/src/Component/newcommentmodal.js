@@ -39,7 +39,7 @@ class PureNewCommentModal extends React.Component {
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}>Add new comment @Timestamp</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add new comment @{this.props.timestamp}</ModalHeader>
                     <ModalBody>
                         <Form>
                         <input 
