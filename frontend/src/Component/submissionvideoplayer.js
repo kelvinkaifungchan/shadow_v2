@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 
 import {loginUserThunk} from '../Redux/actions/loginboxAction'
 
-class PureVideoPlayer extends React.Component {
+class PureSubmissionVideoPlayer extends React.Component {
     
     render() {
         return (
             <div className="d-flex justify-content-center">
-                <iframe title="youtubethingy" src={this.props.src.flashcardRecording} frameBorder="0" allowFullScreen></iframe>
+                <iframe title="youtubethingy" src={this.props.src.flashcardSubmissionRecording} frameBorder="0" allowFullScreen></iframe>
             </div>
                    
         );
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch => {
      
     }
 }
-export const VideoPlayer = connect(mapStateToProps, mapDispatchToProps)(PureVideoPlayer)
+export const SubmissionVideoPlayer = connect(mapStateToProps, mapDispatchToProps)(PureSubmissionVideoPlayer)
