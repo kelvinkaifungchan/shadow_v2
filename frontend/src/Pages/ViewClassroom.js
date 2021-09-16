@@ -62,7 +62,7 @@ class ViewClassroom extends React.Component {
             this.setState({
                 correctSet: lmao,
                 correctTag: this.props.location.state.classroom[0].tags,
-                correctTag: this.props.location.state.classroom[0].shared
+                correctShare: this.props.location.state.classroom[0].shared
             })
         } else {
             return null
@@ -143,7 +143,7 @@ class ViewClassroom extends React.Component {
 
         return (
             <div>
-                <NavBar classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
+                <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
 
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">

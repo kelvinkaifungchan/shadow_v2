@@ -6,10 +6,10 @@ import classes from './displaysettag.module.css'
 class PureDisplaySetTag extends React.Component {
 
     render() {
-        console.log("SET TAG PROPS",this.props.sets);
+        console.log("SET TAG PROPS",this.props.tags);
         return (
             <>
-                   {this.props.tags && this.props.tags.length > 0 ?this.props.tags.map((tag, i) => {
+                   {this.props.tags && this.props.tags.length > 0 ? this.props.tags.map((tag, i) => {
                         return (
                             <span data-key={i} className={classes.tagbutton}>
                                 #{tag.body}

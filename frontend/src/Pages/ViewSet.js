@@ -44,6 +44,7 @@ class ViewSet extends React.Component {
             correctquizCard: [],
             correctdictationCard: [],
             correctTag: [],
+            
         }
     }
 
@@ -75,6 +76,7 @@ class ViewSet extends React.Component {
             correctflashCard: nextflash,
             correctquizCard: nextquiz,
             correctdictationCard: nextdictation,
+            correctTag: nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id).tags
          });  
       }
     toggle() {
