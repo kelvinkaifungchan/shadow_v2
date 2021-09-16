@@ -56,7 +56,9 @@ class ViewSet extends React.Component {
         console.log('nextProps!!!!!', nextProps)
         if(this.props.location.state.set[0].bridge_flashcard && this.props.location.state.set[0].bridge_flashcard.length > 0){
             const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
+                console.log('next props ssss', flashCard)
                 const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+                console.log(newestState)
                 return newestState[0]
             });
             this.setState({
@@ -71,7 +73,7 @@ class ViewSet extends React.Component {
                 return newestState[0]
             });
             this.setState({
-                correctflashCard: nextquiz
+                correctquizCard: nextquiz
             })
         } else {
             return null

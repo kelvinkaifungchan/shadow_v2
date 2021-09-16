@@ -34,7 +34,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.allCard && this.props.allCard.flashcard.length > 0 ? this.props.allCard.flashcard.map((card, i) => {
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}</h4>
+                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} 1st</h4>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
@@ -44,7 +44,7 @@ class PureDisplayCardModule extends React.Component {
                     
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.card} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle}</h4>
+                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} 2nd</h4>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
