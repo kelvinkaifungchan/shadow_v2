@@ -121,9 +121,10 @@ class SubmissionService {
             return this.knex("flashcardSubmission")
             .join("user", "flashcardSubmission.user_id", "=", "user.id")
             .where("flashcardSubmission.id", body.flashcardSubmissionId)
-            .select("user.displayName","user.picture", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
+            .select("user.displayName","user.id as user_id","user.picture", "flashcardSubmission.flashcard_id", "flashcardSubmission.id", "flashcardSubmission.flashcardSubmissionRecording")
             .then((submission) => {
                     return ({
+                        userId: submission[0].user_id,
                         displayName: submission[0].displayName,
                         picture: submission[0].picture,
                         flashcardId: submission[0].flashcard_id,

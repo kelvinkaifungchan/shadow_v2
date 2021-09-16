@@ -36,6 +36,7 @@ import {
     DELETE_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_FLASHCARD
 } from "../actions/feedbackAction"
+import { Col } from "reactstrap";
 
 
 const initialState = {
@@ -148,7 +149,13 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     flashcard: state.card.flashcard.map((flashcard) => {
-                        if(flashcard.flashcard_id === action.payload.flashcard_id){
+                        console.log("flash",flashcard.id);
+                        console.log("action.payload.flashcard_id",action.payload.flashcard_id);
+                        if(flashcard.id === action.payload.flashcard_id){
+                            console.log("123123123123123");
+                            console.log("flash.id",flashcard);
+                            console.log("action.id",action);
+                            console.log("action.payload",action.payload);
                             return {
                                 ...flashcard,
                                 submission:[...flashcard.submission, action.payload]
