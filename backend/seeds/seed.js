@@ -120,31 +120,31 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('flashcard').insert([{
           user_id: 1,
-          flashcardTitle: "Test Wong's Card",
+          flashcardTitle: "Test Wong's flashCard",
           flashcardBody: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
           flashcardRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
           flashcardStatus: true,
         }, {
           user_id: 1,
-          flashcardTitle: "User Chan's Card",
+          flashcardTitle: "User Chan's flashCard",
           flashcardBody: "SPEAK",
           flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           flashcardStatus: true,
         }, {
           user_id: 2,
-          flashcardTitle: "User Philip's Card",
+          flashcardTitle: "User Philip's flashCard",
           flashcardBody: "This is the body text of User Philip's card.",
           flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           flashcardStatus: true,
         }, {
           user_id: 3,
-          flashcardTitle: "John Cheng's Card",
+          flashcardTitle: "John Cheng's flashCard",
           flashcardBody: "This is the body text of John Cheng's Card.",
           flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           flashcardStatus: true,
         }, {
           user_id: 4,
-          flashcardTitle: "Jack Wynn's Card",
+          flashcardTitle: "Jack Wynn's flashCard",
           flashcardBody: "This is the body text of Jack Wynn's Card.",
           flashcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           flashcardStatus: true,
@@ -201,27 +201,27 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('quizcard').insert([{
           user_id: 1,
-          quizcardTitle: "Test Wong's Card",
+          quizcardTitle: "Test Wong's quizcard",
           quizcardRecording: "https://www.youtube.com/embed/DDApeoSE9Bc",
           quizcardStatus: true,
         }, {
           user_id: 1,
-          quizcardTitle: "User Chan's Card",
+          quizcardTitle: "User Chan's quizcard",
           quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           quizcardStatus: true,
         }, {
           user_id: 2,
-          quizcardTitle: "User Philip's Card",
+          quizcardTitle: "User Philip's quizcard",
           quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           quizcardStatus: true,
         }, {
           user_id: 3,
-          quizcardTitle: "John Cheng's Card",
+          quizcardTitle: "John Cheng's quizcard",
           quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           quizcardStatus: true,
         }, {
           user_id: 4,
-          quizcardTitle: "Jack Wynn's Card",
+          quizcardTitle: "Jack Wynn's quizcard",
           quizcardRecording: "https://www.youtube.com/embed/o7kEKCFUMC4",
           quizcardStatus: true,
         }])
@@ -340,23 +340,23 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('dictationcard').insert([{
           user_id: 1,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "testwong Dictation Card1",
           dictationcardStatus: true,
         }, {
           user_id: 1,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "testwong Dictation Card2",
           dictationcardStatus: true,
         }, {
           user_id: 2,
-          dictationcardTitle: "Dictation's Card",
+          dictationcardTitle: "user2 Dictation's Card1",
           dictationcardStatus: true,
         }, {
           user_id: 3,
-          dictationcardTitle: "Dictations Card",
+          dictationcardTitle: "user3 Dictations Card1",
           dictationcardStatus: true,
         }, {
           user_id: 4,
-          dictationcardTitle: "Dictation Card",
+          dictationcardTitle: "user 4 Dictation Card1",
           dictationcardStatus: true,
         }])
       })
