@@ -47,11 +47,32 @@ class ViewSet extends React.Component {
     }
 
 
-    componentDidMount() {
-        this.props.getdata({ email: localStorage.getItem('email') })
+    async componentDidMount() {
+      await this.props.getdata({ email: localStorage.getItem('email') })
         this.getSet()
     }
-
+ 
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps!!!!!', nextProps)
+        const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
+            const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+            return newestState[0]
+        });
+        const nextquiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
+            const newestState = nextProps.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
+            return newestState[0]
+        });
+        const nextdictation = this.props.location.state.set[0].bridge_dictationcard.map((dictationCard) => {
+            const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
+            return newestState[0]
+        });
+        console.log("NEXXXTTTTT CARDDD",nextflash,nextquiz, nextdictation);
+        this.setState({       
+            correctflashCard: nextflash,
+            correctquizCard: nextquiz,
+            correctdictationCard: nextdictation
+         });  
+      }
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -135,7 +156,7 @@ class ViewSet extends React.Component {
         )
     }
     getSet() {
-        console.log("(this.props.location.state.set[0]", this.props.location.state.set[0]);
+        console.log("DIU SET", this.props.location.state.set[0]);
         if (this.props.location.state.set[0].bridge_flashcard != null) {
             const flash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
                 const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
@@ -179,7 +200,7 @@ class ViewSet extends React.Component {
 
         return (
             <div>
-                <NavBar user={this.props.user} history={this.props.history} />
+                <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} />
 
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">

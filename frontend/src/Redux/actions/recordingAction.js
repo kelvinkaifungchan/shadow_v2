@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const addVideoRecordingThunk = (recording) => async (dispatch) => {
-    return axios.post("http://localhost:8080/api/recording/video", recording)
+export const addVideoRecordingThunk = (formData) => async (dispatch) => {
+
+    return axios.post("http://localhost:8080/api/recording/video", formData, {headers: {'Content-Type': 'multipart/form-data' }})
     .then(response => {
-        console.log(response)
+        console.log("response in reecordingAction",response)
     })
     .catch(err => console.log("Error: ", err))
 }

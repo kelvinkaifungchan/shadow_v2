@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { addVideoRecordingThunk} from '../Redux/actions/recordingAction'
-
+import { v4 as uuidv4 } from 'uuid';
 
 class PureVideoRecorder extends React.Component {
     stream
@@ -90,7 +90,11 @@ class PureVideoRecorder extends React.Component {
         });
         let time = new Date()
         let dt = time.getTime()
-        let fileName = this.state.email + dt +".webm"
+        let fileName = uuidv4()
+
+        let formData = new FormData();
+        formData.append("file", blob, fileName)
+        console.log("PLS TELL ME WT IS FORMDATA",formData);
 
         const videoURL = window.URL.createObjectURL(blob);
         this.props.handleRecording(fileName)
@@ -100,7 +104,8 @@ class PureVideoRecorder extends React.Component {
         preview.setAttribute("src", videoURL)
 
         // Upload to S3
-        this.props.videorecordingMDP(fileName, blob)
+        console.log("this is blob:", blob);
+        this.props.videorecordingMDP(formData)
     }
 
     render() {
@@ -134,12 +139,9 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        videorecordingMDP: (fileName, fileData) => {
-            let recording = {
-                fileName: fileName,
-                fileData: fileData
-            }
-            dispatch(addVideoRecordingThunk(recording))
+        videorecordingMDP: (formData) => {
+                   
+            dispatch(addVideoRecordingThunk(formData))
         }
     }
 }

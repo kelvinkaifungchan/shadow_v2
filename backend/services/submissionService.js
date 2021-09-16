@@ -5,6 +5,7 @@ class SubmissionService {
 
     //Method to add submission
     async add(body){
+        console.log("submissionService body",body);
         if (body.type === "flashcard"){
             console.log("Adding submission to flashcard");
             let user_id = await this.knex("user").where({

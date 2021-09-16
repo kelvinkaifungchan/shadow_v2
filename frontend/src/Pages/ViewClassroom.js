@@ -27,7 +27,6 @@ class ViewClassroom extends React.Component {
             type: "",
             tagModal: false,
             shareModal: false,
-            // classroom: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
             classroomTitle: "",
             classroomDesc: "",
             correctSet: [],
@@ -39,10 +38,23 @@ class ViewClassroom extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") });
         this.getclassroom()
     }
-    componentDidUpdate(){
-        console.log('did update')
-    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps<<<<<<', nextProps.classrooms)
+        console.log("location state", this.props.location.state.classroom[0].id)
+        const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
+        console.log('correctProps<><><><><><><><><>', correctProps)
+        let nextlmao = correctProps[0].bridge.map((changed) => {
+            // console.log("inside map", changed)
+            const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
+            return newestState[0]
+        });
+        console.log('nextlmao<<<<<<', nextlmao);
+        this.setState({ correctSet: nextlmao});  
+      }
+
     getclassroom() {
+        
         console.log("DIU", this.props.location.state.classroom[0].bridge )  
         if (this.props.location.state.classroom[0].bridge != null) {
             const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
@@ -57,7 +69,7 @@ class ViewClassroom extends React.Component {
             return null
         }
     }
-   
+
     handleHeading(title) {
         this.setState({
             classroomTitle: title
@@ -165,7 +177,7 @@ class ViewClassroom extends React.Component {
                             <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
                         </span>
                     </div>
-
+                    {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
                         <DisplayClassroomTag tags={this.props.location.state.classroom[0].tags} />
                         <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
@@ -186,7 +198,8 @@ class ViewClassroom extends React.Component {
                                 <span>Add new or exist set</span>
                             </div>
                         </div>
-                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+
+                        <DisplaySetModule location={this.props.location} trigger={this.state.trigger} classroom={this.props.classrooms} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>

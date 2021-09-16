@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 //Express
+const fileUpload = require("express-fileupload");
 const express = require("express");
 const app = express();
 //Setup Database
@@ -18,6 +19,8 @@ app.use(cors());
 app.use(authClass.initialize());
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(fileUpload());
+
 
 // Services
 const BridgeService = require("./services/bridgeService")

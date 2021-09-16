@@ -23,10 +23,9 @@ class PureMenu extends React.Component {
     //         })
     //     }
     // }
-    navigateClass(e){
-        this.props.classroom()
+    async navigateClass(e){
         // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
-        this.props.history.push({
+        await this.props.history.push({
             pathname:`/viewclassroom`,
             state: { classroom: this.props.classrooms.filter ((classroom) => {
                 if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
@@ -35,7 +34,10 @@ class PureMenu extends React.Component {
                 }
             }) 
         }
-    })}
+        })
+        this.props.classroom ? this.props.classroom() : console.log("hi")
+    
+    }
 
     // navigateSet(e){
     //     console.log("this is data key",e.target.attributes["data-key"].value)
@@ -52,9 +54,9 @@ class PureMenu extends React.Component {
     //     }
     // }
 
-    navigateSet(e){
+    async navigateSet(e){
         console.log("FUCK ME DADDY SET")
-        this.props.history.push({
+        await this.props.history.push({
             pathname:`/viewset`,
             state: { set: this.props.sets.filter ((set) => {
                 if(set.id === parseInt(e.target.attributes["data-key"].value)){
@@ -64,6 +66,11 @@ class PureMenu extends React.Component {
             }) 
         }
         })
+        console.log("CLASSSS", this.props.class)
+        console.log("SETTT", this.props.set)
+       
+        this.props.set ? this.props.set() : console.log("hehe")
+        
     }
 
     render() {
