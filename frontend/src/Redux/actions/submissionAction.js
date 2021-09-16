@@ -14,15 +14,17 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/card/submission", submission)
     .then((data) => {
         console.log("SUBMISSION DATA", data)
+        console.log("SUBMISSION submission", submission);
         if (submission.type === "dictation") {
             dispatch({
                 type: ADD_SUBMISSION_DICTATIONCARD,
                 payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, dictationcardSubmission_id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true}
             })
         } else if (submission.type === "flashcard") {
+            console.log( "111111111111111111displayName:", data.data.displayName, "picture:", data.data.picture,  "flashcard_id:", submission.flashcardId, "flashcardSubmission_id:", data.data.flashcardSubmissionId, "flashcardSubmissionRecording:", submission.flashcardSubmissionRecording,);
             dispatch({
                 type: ADD_SUBMISSION_FLASHCARD,
-                payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmission_id: data.data.flashcardSubmissionId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}
+                payload: {user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmission_id: data.data.flashcardSubmissionId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}
             })
         } else if (submission.type === "multipleChoice") {
             dispatch({
