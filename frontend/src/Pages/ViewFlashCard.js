@@ -10,7 +10,6 @@ import { HeadingInput } from '../Component/headinginput';
 
 // import FormSubmit from '../Component/formSubmit';
 import { VideoRecorder } from '../Component/videorecorder';
-import { SubmissionVideoPlayer } from '../Component/submissionvideoplayer';
 import { VideoPlayer } from '../Component/videoplayer';
 import { Transcript } from '../Component/transcript';
 import FlashcardSubmissions from '../Component/displayflashcardsubmission';
@@ -97,28 +96,15 @@ class ViewFlashCard extends React.Component {
         })
     }
 
-    // getSubmission(){
-    //     if (this.props.location.state.card.submission != null){
-    //         const FilteredVideos = this.props.location.state.card.submission.map((submission) => {
-    //             const SubmissionVideo = this.props.cards.flashcard.submission.filter(video => video.id === submission)
-    //             return SubmissionVideo[0]
-    //         })
-    //     }
-    // }
 
-
-    // {this.props.location.state.card[0].submission &&
-    //     this.props.location.state.card[0].submission.length > 0
-    //     ? this.props.location.state.card[0].submission.map(
-    //         (video, j) => {
-    //             return (
-    //                 <div data-key={video.id}>
-    //                     {this.state.showSubmissionViewer && <SubmissionVideoPlayer src={currentVideo}/>}
-    //                 </div>
-    //             )
-    //         }
-    //     ) : null
-    // }
+    async navigateFlashcard(e){
+        e.preventDefault()
+        await this.addSubmission()
+        this.props.history.push({
+            pathname:`/viewflashcard`,
+            state: { card: this.props.location.state.card }
+        })
+    }
 
     addTimeStamp() {
         const stamp = this.player.currentTime
@@ -167,7 +153,7 @@ class ViewFlashCard extends React.Component {
                             <Transcript title={this.state} transcript={this.state}/>
                         </div>
                         <div className="col-6">
-                            <VideoPlayer src={this.props.location.state.card[0]}/>
+                            <VideoPlayer src={this.props.location.state.card[0].flashcardRecording}/>
                         </div>
                     </div>
 
@@ -197,21 +183,25 @@ class ViewFlashCard extends React.Component {
                                     : null}
                                 </div>
                             </div>
-
+                            
+                            {this.state.showSubmissionViewer && 
                             <div className={classes.feedback}>
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
+                                
                                     <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
-                                    <div className={classes.addcommentcontainer}>
-                                    <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
-                                        <div className={classes.addbtn}>
-                                            <i className="fas fa-plus" />
+                                    
+                                        <div className={classes.addcommentcontainer}>
+                                        <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
+                                            <div className={classes.addbtn}>
+                                                <i className="fas fa-plus" />
+                                            </div>
+                                            <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
+                                                <span>Add new comment</span>
+                                            </div>
                                         </div>
-                                        <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
-                                            <span>Add new comment</span>
                                         </div>
-                                    </div>
-                                    </div>
+                                    
 
                                 {this.state.showSubmissionViewer &&
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
@@ -251,19 +241,26 @@ class ViewFlashCard extends React.Component {
                                     : null} */}
                                 </div>
                             </div>
+                            }
+
                         </div>
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <SubmissionVideoPlayer src={this.props.location.state.card[0].submission[this.state.submissionid - 1]}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
+                            {this.state.showRecorder && 
+                            <div className={classes.buttoncontainer}>
+                             <button onClick={(e)=>{this.addSubmission(e); this.navigateFlashcard(e)}}>Add Submission</button>
+                            </div> 
+                            }
 
+                        </div>
+                    </div>
                                 <BrowserRouter>
                                     <Switch>
                                 <PrivateRoute path="/account" component={Account} />
                                 </Switch>
                                 </BrowserRouter>
-                        </div>
-                    </div>
             </div>
             </div>;
             </div>
