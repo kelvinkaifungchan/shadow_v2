@@ -10,14 +10,15 @@ class RecordingService {
         this.knex = knex
     }
 
-    async addVideo(body) {
+    async addVideo(fileName, fileData) {
         console.log("Uploading video to AWS")
         const params = {
             Bucket: process.env.AWS_BUCKET,
-            Key: body.fileName,
+            Key: fileName,
             ContentType: 'video/mp4',
-            Body: body.fileData
+            Body: fileData
         };
+        console.log("LET ME KNOW PARAMS",params);
         try {
             let submission = await s3.upload(params).promise()
             console.log("Uploaded Data", submission)

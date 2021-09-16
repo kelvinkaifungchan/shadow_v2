@@ -34,7 +34,7 @@ class ViewFlashCard extends React.Component {
             title: "classroomTitle",
             read: "readonly",
             transcript: this.props.location.state.card[0].flashcardBody,
-            type: "",
+            type: "flashcard",
             correctSet: [],
             show: Boolean(),
             timeStamp: "",
@@ -108,6 +108,7 @@ class ViewFlashCard extends React.Component {
 
     addSubmission(e) {
         e.preventDefault()
+        console.log("adding submission!!!!!",this.state);
         this.props.addSubmission({
             type: this.state.type,
             email: localStorage.getItem('email'),
@@ -204,7 +205,9 @@ class ViewFlashCard extends React.Component {
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
                             {this.state.showSubmissionViewer && <VideoPlayer/>}
+                            <div className={classes.buttoncontainer}>
                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
+                            </div>
                         </div>
                     </div>
                 </div>

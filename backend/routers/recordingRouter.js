@@ -1,5 +1,6 @@
 const express = require("express");
 
+
 class RecordingRouter {
   constructor(recordingService) {
     this.recordingService = recordingService;
@@ -13,12 +14,12 @@ class RecordingRouter {
   }
 
   postVideo(req, res) {
-    console.log("Requesting creating video recording");
-    let recording = req.files.file;
-    let fileName = recording.name;
-    let fileData = recording.data;
+    console.log("Requesting creating video recording",req.files);
+    // let recording = req.files.file;
+    // let fileName = recording.name;
+    // let fileData = recording.data;
     return this.recordingService
-      .addVideo(fileName, fileData)
+      .addVideo(req.files.file.name, req.files.file.data)
       .then(() => {
         return res.send("post request is done");
       })

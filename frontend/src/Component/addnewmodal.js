@@ -15,8 +15,7 @@ class PureModel extends React.Component {
             selectModal: false,
             setCreatePopUp: false,
             modal: false,
-            type: "",
-            connect: ""
+            type: ""
         };
     }
     toggle() {
@@ -35,11 +34,6 @@ class PureModel extends React.Component {
             type: "set"
         })
     }
-    changeTypeConnect(){
-        this.setState({
-            connect: "card"
-        })
-    }
 
     openSelect() {
         console.log("cls");
@@ -50,6 +44,7 @@ class PureModel extends React.Component {
 
     setCreatePopUp() {
         console.log("fml");
+
         this.setState({
             setCreatePopUp: !this.state.setCreatePopUp,
             type: "set"
@@ -58,8 +53,8 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log("props in add new modal", this.props);
-        console.log("state in add new modal", this.state)
+        console.log("this.props in ANM", this.props);
+        console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
         let button
@@ -79,8 +74,7 @@ class PureModel extends React.Component {
                     {this.props.create.type === "class" ?
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp() }} location={this.props.location} navigate={(e) => this.navigateSet(e)} /> :
                         <SelectCardPopUp selectCard={this.state} navigate={(e) => { this.props.navigate(e) }} toggle={() => this.openSelect()} />}
-                    {<AddExistPopUp create={this.state} allCard={this.props.allCard} location={this.props.location} toggle={() => {this.toggle(); this.props.toggle()}} />}
-                    
+                    <AddExistPopUp create={this.state} allCard={this.props.allCard} location={this.props.location} toggle={() => this.toggle()} />
 
                     <div className="d-inline-flex row">
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
@@ -99,11 +93,11 @@ class PureModel extends React.Component {
 
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
                             {this.props.create.type === "class" ?
-                                <div onClick={() => { this.changeTypeClass(); this.toggle(); this.changeTypeConnect() }} className={classes.addbtn}>
+                                <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
 
                                 </div> :
-                                <div onClick={() => { this.changeTypeSet(); this.toggle(); this.changeTypeConnect() }} className={classes.addbtn}>
+                                <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}>
                                     <i className="fas fa-plus" />
                                 </div>
 
