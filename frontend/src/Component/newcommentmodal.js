@@ -17,7 +17,7 @@ class PureNewCommentModal extends React.Component {
 
     submit = (e) => {
         e.preventDefault();
-        this.props.addFeedbackThunk(this.props.create.type, this.props.create.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+        this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
     }
 
     onChangeField = (field, e) => {
@@ -27,12 +27,20 @@ class PureNewCommentModal extends React.Component {
     }
 
     render() {
+        console.log("NEW COMMNET MODAL PROPS", this.props)
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}>Add new comment</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add new comment @{this.props.create.timeStamp}</ModalHeader>
                     <ModalBody>
                         <Form>
+                        <input  
+                        onChange={this.onChangeField.bind(this, this.props.create.timeStamp)} 
+                        value={this.props.create.timeStamp} 
+                        type="text" 
+                        className="form-control mb-4" 
+                        hidden={true}/>
+
                         <input 
                         onChange={this.onChangeField.bind(this, 'email')} 
                         value={this.props.user.email} 
@@ -48,7 +56,7 @@ class PureNewCommentModal extends React.Component {
                              </Form>
                     </ModalBody>
                     <ModalFooter>
-                            <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><div>Confirm</div></button>
+                        <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><div>Confirm</div></button>
                         <button onClick={(e) => { this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>
                 </Modal>

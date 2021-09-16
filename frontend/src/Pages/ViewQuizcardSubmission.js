@@ -10,6 +10,7 @@ import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
+import classes from './ViewQuizcardSubmission.module.css'
 
 class ViewQuizcardSubmission extends React.Component {
     constructor(props){
@@ -18,6 +19,8 @@ class ViewQuizcardSubmission extends React.Component {
             backgroundColor: '#F8DF4F'
         }
     }
+
+    
 
     logout = (e) => {
         e.preventDefault();
@@ -28,27 +31,28 @@ class ViewQuizcardSubmission extends React.Component {
 
         return (
             <div>
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar history={this.props.history}/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
+                <NavBar/>
+
+            <div className={classes.viewquizcardsubmission}>
+                {/* 1st row: Header */}
+                <div className="row d-flex p-4">
+                    <div className="col-8">
+                        <h1>{this.props.location.state.card[0].quizcardTitle}</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col col-12">
-                        {/* <Table/> */}
-                        <p>Table</p>
-                    </div>
+
+                <div className="row d-flex p-4">
+                    <table>
+                        <th>Student</th>
+                        <td></td>
+                    </table>
                 </div>
+
+                <div className="row d-flex p-4">
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>View Submission</button>
+                </div>
+            </div>
+
                     <BrowserRouter>
                         <Switch>
                     <PrivateRoute path="/account" component={Account} />
