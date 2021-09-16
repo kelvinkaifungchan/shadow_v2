@@ -9,16 +9,18 @@
     }
 
 .set {
-        width: 28vw;
+        width: 30%;
         height: 20vh;
         border: 1px solid #B6B6B6;
         border-radius: 25px;
         display: flex;
         justify-content: center;
         align-items: center;
-        /* margin: 10px; */
+        margin: 5px 20px;
         padding: 30px;
 }
+
+
 
 .addbtn{
     border: 0px solid;

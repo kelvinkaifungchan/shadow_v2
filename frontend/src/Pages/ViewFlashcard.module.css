@@ -140,3 +140,26 @@ div.feedback {
     border: 1px solid #d7d7ff;
 } */
 
+.buttoncontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewflashcard button {
+    cursor: pointer;
+    width:130px;
+    height:40px;
+    text-align: center;
+    font-size: 15px;
+    color: #FFFFFF;
+    border: 1px solid #5D5FEF;
+    background-color: #5D5FEF;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.viewflashcard button:hover,
+.viewflashcard button:active {
+    background-color: #7879F1;
+  }

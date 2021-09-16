@@ -205,7 +205,9 @@ class ViewFlashCard extends React.Component {
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
                             {this.state.showSubmissionViewer && <VideoPlayer/>}
+                            <div className={classes.buttoncontainer}>
                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
+                            </div>
                         </div>
                     </div>
                 </div>
