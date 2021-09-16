@@ -53,7 +53,6 @@ class ViewClassroom extends React.Component {
             correctTag: correctProps[0].tags,
             correctShare: correctProps[0].shared
         });
-
     }
 
     getclassroom() {

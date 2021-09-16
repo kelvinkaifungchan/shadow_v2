@@ -3,9 +3,6 @@ import ReactPlayer from 'react-player'
 import {connect} from 'react-redux'
 
 //Component
-import { Account } from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 
@@ -13,7 +10,6 @@ import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { VideoPlayer } from '../Component/videoplayer';
 import { Transcript } from '../Component/transcript';
-import FlashcardSubmissions from '../Component/displayflashcardsubmission';
 
 // import FlashcardFeedbacks from '../Component/flashcardFeedbacks';
 import { DisplayFlashcardSubmissionModule } from '../Component/displayflashcardsubmission';
@@ -30,7 +26,7 @@ import classes from './ViewFlashcard.module.css'
 class ViewFlashCard extends React.Component {
     constructor(props){
         super(props)
-       
+
         this.player = React.createRef();
 
         this.state = {
@@ -45,12 +41,29 @@ class ViewFlashCard extends React.Component {
             recording: false,
             submissionRecording: "",
             submissionId: "",
+            onClickShowRecorder:[],
+            correctSubmission:[]
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
+        this.setState({
+            correctSubmission:  this.props.location.state.card[0].submission
+        });
+       
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps, "nextProps<><><><><><><>");
+        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === this.props.location.state.card[0].id)
+        console.log("correctProps VFCCCCCC", correctProps);
+        let nextfc = correctProps[0].submission
+        console.log("nextfcnextfcnextfcnextfc",nextfc);
+        this.setState({
+            correctSubmission: nextfc 
+        });
     }
 
     toggle() {
@@ -164,7 +177,7 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.props.location.state.card[0].submission}/>
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission}/>
                                     {/* {this.props.location.state.card[0].submission && 
                                         this.props.location.state.card[0].submission.length > 0
                                             ? this.props.location.state.card[0].submission.map(
@@ -185,7 +198,7 @@ class ViewFlashCard extends React.Component {
                                 <h5>Feedback</h5>
                                 <div className={classes.scrollfeedback}>
                                 
-                                    <NewCommentModal location={this.props.location} create={this.state} timestamp={this.state.timestamp} toggle={() => this.toggle()} />
+                                    <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
                                     
                                         <div className={classes.addcommentcontainer}>
                                         <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
@@ -256,11 +269,7 @@ class ViewFlashCard extends React.Component {
 
                         </div>
                     </div>
-                                <BrowserRouter>
-                                    <Switch>
-                                <PrivateRoute path="/account" component={Account} />
-                                </Switch>
-                                </BrowserRouter>
+                        
             </div>
             </div>
         )
