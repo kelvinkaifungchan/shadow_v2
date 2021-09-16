@@ -20,7 +20,7 @@ class PureVideoPlayer extends React.Component {
             return
         } else if (this.player === null) {
             return
-        } else if (this.props.type === "flashcard") {
+        } else if (this.props.create.type === "flashcard") {
             setInterval(() => {
                 const stamp = this.player.currentTime
                 var m = Math.floor(stamp / 60);
