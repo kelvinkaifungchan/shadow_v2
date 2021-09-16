@@ -66,11 +66,10 @@ class ViewSet extends React.Component {
         });
         const correctDicts = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
         let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
-            const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictation_id)
+            const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
             return newestState[0]
         });
     
-        console.log("NEXXXTTTTT CARDDD",nextflash,nextquiz, nextdictation);
         this.setState({       
             correctflashCard: nextflash,
             correctquizCard: nextquiz,
@@ -238,7 +237,7 @@ class ViewSet extends React.Component {
                         </div>
                     </div>
 
-                    <DisplayCardModule view={this.state} navigate={(e) => this.navigateCard(e)} />
+                    <DisplayCardModule view={this.state} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                 </div>
             </div>
             </div>
