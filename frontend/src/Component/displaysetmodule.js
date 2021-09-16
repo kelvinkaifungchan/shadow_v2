@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
+
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { addBridgeThunk } from '../Redux/actions/bridgeAction'
-
+// Require Css
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
@@ -27,6 +29,7 @@ class PureDisplaySetModule extends React.Component {
                         </div>
                     )
                 }) : this.props.location && this.props.location.pathname === "/viewclassroom" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
+                    console.log('set',set)
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={set.id}>{set.title} second</h4>

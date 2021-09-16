@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
-// import { Link } from 'react-router-dom';
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
-import '../Component/main.css'
+
+// Require Component
 import { NavBar } from '../Component/navbar'
-import { CreatePopUp } from '../Component/createmodal'
-
-// import { CreateClassBtn } from '../Component/createclassbtn'
-// import { CreateSetBtn } from '../Component/createsetbtn'
-
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 
+// Require Modal Component
+import { CreatePopUp } from '../Component/createmodal'
+
+// Require Css
 import classes from './Dashboard.module.css'
+import '../Component/main.css'
 
 
 class PureDashboard extends React.Component {
