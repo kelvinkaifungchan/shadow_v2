@@ -42,7 +42,8 @@ class ViewFlashCard extends React.Component {
             type: "flashcard",
             correctSet: [],
             show: Boolean(),
-            res: [],
+            timeStamp: "",
+            submissionTime: "",
             recording: false,
             submissionRecording: "",
             submissionId: "",
@@ -66,6 +67,18 @@ class ViewFlashCard extends React.Component {
                 show: !prevState.show
             }
         });
+    }
+
+    handleTimeStamp = (submissionTime) => {
+        this.setState({
+            submissionTime:submissionTime
+        });
+    }
+
+    handleRecording(record){
+        this.setState({
+            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
+        })
     }
 
     getRecorderInitialState(){
@@ -93,30 +106,12 @@ class ViewFlashCard extends React.Component {
             })
         }
 
-    handleRecording(record){
-        this.setState({
-            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
-        })
-    }
-
-    addTimeStamp() {
-        const stamp = this.player.currentTime
-        console.log("STAMP", stamp)
-        var m = Math.floor(stamp / 60);
-        var s = Math.floor(stamp % 60);
-        if (m.toString().length < 2){
-            m = '0' + m;
-        }
-        if (s.toString().length < 2){
-            s = '0' + s;
-        }
-        const timeStamp = (m + ':' + s)
-        const timeStamps = this.state.res.concat({timeStamp: timeStamp})
-        console.log("timeStamp", timeStamp)
-        console.log("timeStamps", timeStamps)
-
-        this.setState({
-            res: timeStamps
+    async navigateFlashcard(e){
+        e.preventDefault()
+        await this.addSubmission()
+        this.props.history.push({
+            pathname:`/viewflashcard`,
+            state: { card: this.props.location.state.card }
         })
     }
 
@@ -131,6 +126,12 @@ class ViewFlashCard extends React.Component {
         })
     }
 
+    addTimeStamp() {
+        this.setState({
+            timeStamp: this.state.submissionTime
+        })
+    }
+
     render() {
         console.log("i want to see the props",this.props);
         console.log("i want to see the state",this.state);
@@ -141,7 +142,6 @@ class ViewFlashCard extends React.Component {
                 <div className={classes.viewflashcard}>
 
             {/* 1st row: Header */}
-                    <div classNmae="row d-flex p-4">
                     <div className="col-8">
                         <h1>{this.props.location.state.card[0].flashcardTitle}</h1>
                     </div>
@@ -152,7 +152,7 @@ class ViewFlashCard extends React.Component {
                             <Transcript title={this.state} transcript={this.state}/>
                         </div>
                         <div className="col-6">
-                            <VideoPlayer src={this.props.location.state.card[0].flashcardRecording}/>
+                            <VideoPlayer type={"display"} src={this.props.location.state.card[0].flashcardRecording}/>
                         </div>
                     </div>
 
@@ -208,9 +208,13 @@ class ViewFlashCard extends React.Component {
                                             return (
                                             <div data-key={j} className={classes.scrollfeedbackcard}>
                                             <table>
-                                                <th>{feedback.flashcardFeedbackTime}</th>
+                                                <tbody>
+                                                <tr>
+                                                <td>{feedback.flashcardFeedbackTime}</td>
                                                 <td>{feedback.flashcardFeedbackBody}</td>
                                                 <td className={classes.commentinguser}><img src={feedback.picture} alt="Avatar"></img></td>
+                                                </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                             )
@@ -245,7 +249,7 @@ class ViewFlashCard extends React.Component {
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer ref={b => { this.player = b }} src={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer time={this.handleTimeStamp} src={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}> 
                              <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
@@ -260,7 +264,6 @@ class ViewFlashCard extends React.Component {
                                 </Switch>
                                 </BrowserRouter>
             </div>
-            </div>;
             </div>
         )
 }
