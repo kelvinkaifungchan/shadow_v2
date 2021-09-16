@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/actions/classroomAction'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { DisplaySetModule } from '../Component/displaysetmodule'
+// Require Action
 import { getdataThunk } from "../Redux/actions/action"
+// Require Component
+import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayCardModule } from './displaycardmodule';
 
 

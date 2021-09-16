@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import {createClassThunk } from '../Redux/getdata/action'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+
+// Require Modal Component
 import { AddExistPopUp } from '../Component/addexistmodal';
 import { SelectCardPopUp } from '../Component/selectcardmodal';
 import { CreatePopUp } from '../Component/createmodal';
-
+// Require Css
 import classes from './addnewmodal.module.css'
 
 class PureModel extends React.Component {
