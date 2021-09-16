@@ -35,7 +35,7 @@ export const addCard = (card) => async (dispatch) => {
     }).then(() => {
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {dictationcard_id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
         })
     }).then(() => {
         dispatch({
@@ -61,7 +61,7 @@ export const addCard = (card) => async (dispatch) => {
     }).then(() => {
         dispatch({
             type: ADD_FLASHCARD,
-            payload: {flashcard_id: newId, user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardRecording: card.flashcardRecording}
+            payload: {id: newId, user_id: card.userEmail, flashcardTitle: card.flashcardTitle, flashcardRecording: card.flashcardRecording}
         })
     }).then(() => {
         dispatch({
@@ -87,7 +87,7 @@ export const addCard = (card) => async (dispatch) => {
     }).then(() => {
         dispatch({
             type: ADD_QUIZCARD,
-            payload: {quizcard_id: newId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
+            payload: {id: newId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
         })
     }).then(() => {
         dispatch({
