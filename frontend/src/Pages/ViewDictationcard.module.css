@@ -14,3 +14,10 @@
     border-radius: 4px;
     margin: 4px
 }
+
+.qr-code{
+   
+        max-width: 200px;
+        margin: 10px;
+ 
+}
