@@ -11,22 +11,13 @@ class PureNewCommentModal extends React.Component {
         super(props);
         this.state = {
             email: "",
-            flashcardTitle: "",
-            flashcardComment: ""
+            flashcardSubmissionBody: ""
         };
     }
 
-    // newFeedback(){
-    //     this.props.addFeedbackThunk({
-    //         type: this.state.type,
-    //         flashcardFeedbackTitle: this.state.flashcardTitle,
-    //         flashcardFeedbackBody: this.state.flashcardFeedbackBody,
-    //     })
-    // }
-
     submit = (e) => {
         e.preventDefault();
-        this.props.addFeedbackThunk(this.props.create.type, this.state.flashcardFeedbackTitle, this.state.flashcardFeedbackBody)
+        this.props.addFeedbackThunk(this.props.create.type, this.props.create.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
     }
 
     onChangeField = (field, e) => {
@@ -39,7 +30,7 @@ class PureNewCommentModal extends React.Component {
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}>Add new comment @Timestamp</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add new comment</ModalHeader>
                     <ModalBody>
                         <Form>
                         <input 
@@ -50,8 +41,7 @@ class PureNewCommentModal extends React.Component {
                         hidden={true}/>
 
                             <input 
-                            onChange={this.onChangeField.bind(this, this.props.flashcardComment)} 
-                            // value={this.state.flashcardComment} 
+                            onChange={this.onChangeField.bind(this, this.props.flashcardSubmissionBody)} 
                             type="text" 
                             className="form-control mb-4" 
                             placeholder="Insert new comment." />
@@ -79,7 +69,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addFeedbackThunk: (feedback) => {
+        addFeedbackThunk: (type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime) => {
+            let feedback = {
+                type: type,
+                email: email,
+                submissionId: flashcardSubmissionId,
+                body: flashcardFeedbackBody,
+                timestamp: flashcardFeedbackTime
+            }
             dispatch(addFeedbackThunk(feedback))
         },
     }
