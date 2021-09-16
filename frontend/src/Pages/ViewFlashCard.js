@@ -96,16 +96,6 @@ class ViewFlashCard extends React.Component {
         })
     }
 
-
-    async navigateFlashcard(e){
-        e.preventDefault()
-        await this.addSubmission()
-        this.props.history.push({
-            pathname:`/viewflashcard`,
-            state: { card: this.props.location.state.card }
-        })
-    }
-
     addTimeStamp() {
         const stamp = this.player.currentTime
         var m = Math.floor(stamp / 60);
@@ -250,7 +240,7 @@ class ViewFlashCard extends React.Component {
                             {this.state.showSubmissionViewer &&  <VideoPlayer src={this.props.location.state.card[0].submission[this.state.submissionid - 1].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}>
-                             <button onClick={(e)=>{this.addSubmission(e); this.navigateFlashcard(e)}}>Add Submission</button>
+                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
                             </div> 
                             }
 
