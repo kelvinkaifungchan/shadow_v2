@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
+import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
+// Require Action
 import { addSharingThunk } from '../Redux/actions/sharingAction';
 
-import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 class PureShareModal extends React.Component{
     constructor(props){
