@@ -66,7 +66,7 @@ class ViewSet extends React.Component {
         });
         const correctDicts = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
         let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
-            const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictation_id)
+            const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
             return newestState[0]
         });
     
