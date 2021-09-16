@@ -14,9 +14,6 @@ class PureDisplaySetModule extends React.Component {
             setId: parseInt(e.target.attributes["data-key"].value),
         })
       }
-      componentDidUpdate(nextProps){
-        this.setState({ correctClass: nextProps.data })
-      }
     render() {
         console.log("props in display set module", this.props);
         return (
@@ -29,7 +26,6 @@ class PureDisplaySetModule extends React.Component {
                         </div>
                     )
                 }) : this.props.location && this.props.location.pathname === "/viewclassroom" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
-                    console.log("WOW", set)
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={set.id}>{set.title} second</h4>
