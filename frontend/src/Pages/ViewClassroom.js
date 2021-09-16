@@ -41,16 +41,12 @@ class ViewClassroom extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps<<<<<<', nextProps.classrooms)
-        console.log("location state", this.props.location.state.classroom[0].id)
         const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
-        console.log('correctProps<><><><><><><><><>', correctProps)
         let nextlmao = correctProps[0].bridge.map((changed) => {
             // console.log("inside map", changed)
             const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
             return newestState[0]
         });
-        console.log('nextlmao<<<<<<', nextlmao);
         this.setState({ correctSet: nextlmao});  
       }
 

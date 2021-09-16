@@ -53,11 +53,21 @@ class ViewSet extends React.Component {
     }
  
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps!!!!!', nextProps)
-        const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
-            const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+        console.log("nextpropsss", nextProps);
+        const correctProps = nextProps.sets.filter(filter => filter.id === this.props.location.state.set[0].id)
+        console.log(" correctProps<><><><><><>",  correctProps);
+        
+        let nextflash = correctProps[0].bridge_flashcard.map((changed) => {
+            console.log("inside map", changed)
+            const newestState = nextProps.cards.flashcard.filter(flashcard => flashcard.id === changed.flashcard_id)
+            console.log("newestState", newestState)
             return newestState[0]
         });
+
+        // const nextflash = this.props.location.state.set[0].bridge_flashcard.map((flashCard) => {
+        //     const newestState = nextProps.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+        //     return newestState[0]
+        // });
         const nextquiz = this.props.location.state.set[0].bridge_quizcard.map((quizCard) => {
             const newestState = nextProps.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
             return newestState[0]
