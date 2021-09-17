@@ -14,7 +14,7 @@ class RecordingRouter {
   }
 
   postVideo(req, res) {
-    console.log("Requesting creating video recording",req.files);
+    console.log("Requesting creating video recording");
     return this.recordingService
       .addVideo(req.files.file.name, req.files.file.data)
       .then(() => {

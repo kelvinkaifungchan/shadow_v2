@@ -33,35 +33,21 @@ class Card {
             })
             .returning("id")
             .then((quizcardId)=>{
-                if(body.multipleChoice != null){
-                    return body.multipleChoice.map((mcData)=>{
-                        return this.knex("multipleChoice")
+                if(body.quizcardQuestion != null){
+                    return body.quizcardQuestion.map((data)=>{
+                        return this.knex("quizcardQuestion")
                         .insert({
                             quizcard_id: quizcardId,
-                            multipleChoiceBody: mcData.multipleChoiceBody,
-                            multipleChoiceAnswer: mcData.multipleChoiceAnswer,
-                            multipleChoiceA: mcData.a,
-                            multipleChoiceB: mcData.b,
-                            multipleChoiceC: mcData.c,
-                            multipleChoiceD: mcData.d,
-                            multipleChoiceTime: mcData.multipleChoiceTime,
-                            multipleChoiceStatus: true,
+                            questionType: data.questionType,
+                            questionTime: data.questionTime,
+                            questionBody: data.questionBody,
+                            multipleChoiceA: data.a,
+                            multipleChoiceB: data.b,
+                            multipleChoiceC: data.c,
+                            multipleChoiceD: data.d,
+                            multipleChoiceAnswer: data.multipleChoiceAnswer,
+                            trueFalseAnswer: data.trueFalseAnswer,
                         })
-                        .returning("id")
-                    })
-                }
-
-                if(body.trueFalse != null){
-                    body.trueFalse.map((tfData)=>{
-                        return this.knex(trueFalse)
-                        .insert({
-                            quizcard_id: quizcardId,
-                            trueFalseBody: tfData.trueFalseBody,
-                            trueFalseAnswer: tfData.trueFalseAnswer,
-                            trueFalseTime: tfData.trueFalseTime,
-                            trueFalseStatus: true,
-                        })
-                        .returning("id")
                     })
                 }
             })
@@ -488,11 +474,15 @@ class Card {
                         data.multipleChoice.submission = await Promise.all(data.multipleChoice.map((sub)=>{
                             let submission = {}
                             return this.knex("multipleChoiceSubmission")
-                            .where("multipleChoice_id", sub.id)
-                            .where("multipleChoiceStatus", true)
+                            .join("user", "user.id", "multipleChoiceSubmission.user_id")
+                            .where("multipleChoiceSubmission.multipleChoice_id", sub.id)
+                            .where("multipleChoiceSubmission.multipleChoiceStatus", true)
+                            .select("user.displayName", "user.picture", "multipleChoiceSubmission.id", "multipleChoiceSubmission.user_id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
                             .then((mcSub)=>{
                                 sub.submission = mcSub.map((mcSubs)=>{
                                     return {
+                                        displayName: mcSubs.displayName,
+                                        picture: mcSubs.picture,
                                         user_id: mcSubs.user_id,
                                         multipleChoiceSubmission: mcSubs.multipleChoiceSubmission,
                                         multipleChoiceMarking: mcSubs.multipleChoiceMarking
@@ -523,11 +513,15 @@ class Card {
                         data.trueFalse.submission = await Promise.all(data.trueFalse.map((sub)=>{
                             let submission = {}
                             return this.knex("trueFalseSubmission")
-                            .where("trueFalse_id", sub.id)
-                            .where("trueFalseSubmissionStatus", true)
+                            .join("user", "user.id", "trueFalseSubmission.user_id")
+                            .where("trueFalseSubmission.trueFalse_id", sub.id)
+                            .where("trueFalseSubmission.trueFalseSubmissionStatus", true)
+                            .select("user.displayName", "user.picture", "trueFalseSubmission.id", "trueFalseSubmission.user_id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
                             .then((tfSub)=>{
                                 sub.submission = tfSub.map((tfSubs)=>{
                                     return {
+                                        displayName: tfSubs.displayName,
+                                        picture: tfSubs.picture,
                                         user_id: tfSubs.user_id,
                                         trueFalseSubmission: tfSubs.trueFalseSubmission,
                                         trueFalseMarking: tfSubs.trueFalseMarking

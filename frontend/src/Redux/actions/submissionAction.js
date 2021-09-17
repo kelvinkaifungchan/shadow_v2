@@ -11,6 +11,7 @@ export const DELETE_SUBMISSION_MULTIPLECHOICE = "DELETE_SUBMISSION_MULTIPLECHOIC
 export const DELETE_SUBMISSION_TRUEFALSE = "DELETE_SUBMISSION_TRUEFALSE";
 
 export const addSubmissionThunk = (submission) => async (dispatch) => {
+    console.log("TELL ME OUT SIDE");
     return axios.post("http://localhost:8080/api/card/submission", submission)
     .then((data) => {
         console.log("SUBMISSION DATA", data)
@@ -18,23 +19,22 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
         if (submission.type === "dictation") {
             dispatch({
                 type: ADD_SUBMISSION_DICTATIONCARD,
-                payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, dictationcardSubmission_id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true}
+                payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true}
             })
         } else if (submission.type === "flashcard") {
-            console.log( "111111111111111111displayName:", data.data.displayName, "picture:", data.data.picture,  "flashcard_id:", submission.flashcardId, "flashcardSubmission_id:", data.data.flashcardSubmissionId, "flashcardSubmissionRecording:", submission.flashcardSubmissionRecording,);
             dispatch({
                 type: ADD_SUBMISSION_FLASHCARD,
-                payload: {user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmission_id: data.data.flashcardSubmissionId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}
+                payload: {id: data.data.flashcardSubmissionId, content:{user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}}
             })
         } else if (submission.type === "multipleChoice") {
             dispatch({
                 type: ADD_SUBMISSION_MULTIPLECHOICE,
-                payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, multipleChoice_id: submission.multipleChoiceId, multiplechoiceSubmission_id: data.data.multipleChoiceSubmissionId, multipleChoiceSubmission: submission.multipleChoiceSubmission, multipleChoiceMarking: submission.multipleChoiceMarking, multipleChoiceStatus: true}
+                payload: {user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, multipleChoice_id: submission.multipleChoiceId, id: data.data.multipleChoiceSubmissionId, multipleChoiceSubmission: submission.multipleChoiceSubmission, multipleChoiceMarking: submission.multipleChoiceMarking, multipleChoiceStatus: true}
             })
         } else if (submission.type === "trueFalse") {
             dispatch({
                 type: ADD_SUBMISSION_TRUEFALSE,
-                payload: { user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture,  trueFalse_id: submission.trueFalseId, truefalseSubmission_id: data.data.trueFalseSubmissionId, trueFalseSubmission: submission.trueFalseSubmission, trueFalseMarking: submission.trueFalseMarking, trueFalseSubmissionStatus: true}
+                payload: { user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture,  trueFalse_id: submission.trueFalseId, id: data.data.trueFalseSubmissionId, trueFalseSubmission: submission.trueFalseSubmission, trueFalseMarking: submission.trueFalseMarking, trueFalseSubmissionStatus: true}
             })
         }
     })

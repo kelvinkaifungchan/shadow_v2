@@ -57,6 +57,7 @@ class PureDashboard extends React.Component {
             pathname:`/viewset/${e.target.attributes["data-key"].value}`,
 
         })
+        
     }
 
     render() {
