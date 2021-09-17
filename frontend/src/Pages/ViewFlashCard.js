@@ -42,27 +42,44 @@ class ViewFlashCard extends React.Component {
             submissionRecording: "",
             submissionId: "",
             onClickShowRecorder:[],
-            correctSubmission:[]
+            correctSubmission:[],
+            correctFeedback:[],
+            
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
-        this.setState({
-            correctSubmission:  this.props.location.state.card[0].submission
+        this.getinitState()
+    }
+
+    getinitState(){
+    //    const allSub = this.props.location.state.card[0].submission.filter((sub)=>{ return  sub.id === this.state.submissionId });
+    //     const initFeed =allSub.map((feed)=>{ return feed.feedback})
+    console.log("correctfeedback", this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId))    
+    this.setState({
+            correctSubmission:  this.props.location.state.card[0].submission,
+            // correctFeedback: this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].feedback
         });
-       
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("THIS STATE IN NEXT WORLD",this.state);
+        console.log("correctfeedback>>>>>>>", this.props.location.state.card[0].submission.filter(sub => sub.id === this.state.submissionId))    
         console.log(nextProps, "nextProps<><><><><><><>");
-        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === this.props.location.state.card[0].id)
+        console.log("this.state.submissionId 1st",this.state.submissionId);
+
+        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === nextProps.location.state.card[0].id)
         console.log("correctProps VFCCCCCC", correctProps);
-        let nextfc = correctProps[0].submission
-        console.log("nextfcnextfcnextfcnextfc",nextfc);
+        console.log("fuck this filter!!!!!!", correctProps[0].submission);
+        console.log("this.state.submissionId 2nd", this.state.submissionId);
+
+        const nextFeed = correctProps[0].submission.filter(sub => sub.id === this.state.submissionId)
+        console.log("nextFeednextFeednextFeednextFeed",nextFeed);
         this.setState({
-            correctSubmission: nextfc 
+            correctSubmission: correctProps[0].submission,
+            correctFeedback: nextFeed
         });
     }
 
@@ -110,6 +127,7 @@ class ViewFlashCard extends React.Component {
         }
     
     onClickShowSubmissionViewer(id){
+        console.log("onClickShowSubmissionViewer, ID",id);
             this.setState({
                 showRecorder: false,
                 showSubmissionViewer: true,
@@ -144,8 +162,8 @@ class ViewFlashCard extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props",this.props);
-        console.log("i want to see the state",this.state);
+        console.log("see the props IN VFC",this.props);
+        console.log("the state IN VFC!!!!STATE",this.state);
         return (
             <div>
                 <NavBar/>
@@ -177,19 +195,8 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
                                     <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission}/>
-                                    {/* {this.props.location.state.card[0].submission && 
-                                        this.props.location.state.card[0].submission.length > 0
-                                            ? this.props.location.state.card[0].submission.map(
-                                                (submission, j) => {
-                                                    return (
-                                                    <div onClick={() => {this.onClickShowSubmissionViewer(submission.id)}} data-key={j} className={classes.scrollicon}>
-                                                        <img src={submission.picture} alt="Avatar"></img>
-                                                    </div>
-                                                    )
-                                                }
-                                            )
-                                    : null} */}
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)}  submission={this.state.correctSubmission}/>
+                                   
                                 </div>
                             </div>
                             
@@ -210,48 +217,8 @@ class ViewFlashCard extends React.Component {
                                             </div>
                                         </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].feedback}/>}
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback}/>}
 
-                                {/* {this.state.showSubmissionViewer &&
-                                    this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
-                                    this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.map(
-                                        (feedback, j) => {
-                                            return (
-                                            <div data-key={j} className={classes.scrollfeedbackcard}>
-                                            <table>
-                                                <tbody>
-                                                <tr>
-                                                <td>{feedback.flashcardFeedbackTime}</td>
-                                                <td>{feedback.flashcardFeedbackBody}</td>
-                                                <td className={classes.commentinguser}><img src={feedback.picture} alt="Avatar"></img></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                            )
-                                        }
-                                    )
-                                    : null
-                                } */}
-
-                                {/* {this.props.location.state.card[0].submission && 
-                                        this.props.location.state.card[0].submission.length > 0 &&
-                                        this.props.location.state.card[0].submission.feedback &&
-                                        this.props.location.state.card[0].submission.feedback.length > 0
-                                            ? this.props.location.state.card[0].submission.map(
-                                                (submission, j) => {
-                                                    return (
-                                                    <div data-key={j} className={classes.scrollfeedbackcard}>
-                                                        <table>
-                                                            <th>{submission.feedback[0].flashcardFeedbackTime}</th>
-                                                            <td>{submission.feedback[0].flashcardFeedbackBody}</td>
-                                                            <td className={classes.commentinguser}><img src={submission.feedback[0].picture} alt="Avatar"></img></td>
-                                                        </table>
-                                                    </div>
-                                                    )   
-                                                }
-                                            )
-                                    : null} */}
                                 </div>
                             </div>
                             }

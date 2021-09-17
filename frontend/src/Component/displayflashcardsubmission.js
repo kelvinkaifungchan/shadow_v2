@@ -16,18 +16,18 @@ class PureDisplayFlashcardSubmissionModule extends React.Component {
     render() {
         return (
             <>
-                                        {this.props.submission && 
-                                        this.props.submission.length > 0
-                                            ? this.props.submission.map(
-                                                (submission, j) => {
-                                                    return (
-                                                    <div onClick={() => {this.props.subId(submission.id)}} data-key={j} className={classes.scrollicon}>
-                                                        <img src={submission.picture} alt="Avatar"></img>
-                                                    </div>
-                                                    )
-                                                }
-                                            )
-                                    : null}
+                {this.props.submission &&
+                    this.props.submission.length > 0
+                    ? this.props.submission.map(
+                        (submission, j) => {
+                            return (
+                                <div onClick={() => { this.props.subId(submission.id) }} data-key={submission.id} className={classes.scrollicon}>
+                                    <img src={submission.picture} alt="Avatar"></img>
+                                </div>
+                            )
+                        }
+                    )
+                    : null}
             </>
         )
 
