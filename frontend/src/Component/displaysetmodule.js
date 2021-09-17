@@ -44,7 +44,6 @@ class PureDisplaySetModule extends React.Component {
                         </div>
                     )
                 }): <p>4</p>}
-
             </>
         )
 

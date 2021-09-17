@@ -81,30 +81,29 @@ class PureDashboard extends React.Component {
                 
                 <div className={classes.dashboard}>
 
-                        <div className="row d-flex p-4">
+                        <div className="row d-flex p-2">
                                 <h1>My Classroom</h1>
                                 <span className={classes.createclassroombtn}>
                                     <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
                                     </span>
                         </div>
 
-                        <div className="row d-flex pl-4">
+                        <div className="row d-flex pl-2">
                         <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
                         </div>
 
-                        <div className="row d-flex p-4">
+                        <div className="row d-flex p-2">
                                 <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle() } history={this.props.history}/>
                                 <h1>My Set</h1>
                                 <span className={classes.createsetbtn}>
                                     <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                    </span>
-                            </div>
+                                </span>
+                        </div>
 
-                        <div className="row d-flex pl-4">
+                        <div className="row d-flex pl-2">
                         <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
                         </div>
-                        
-
+                    
                         {this.props.loading && <div> Loading...</div>}
                         {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
                         </div>

@@ -28,17 +28,17 @@ h1 {
 	border-radius: 50%; 
 	}
 
-th{
+.account th{
     width: 10%;
     padding: 18px;
 }
 
-td{
+.account td{
     /* width: 30%; */
     padding: 18px;
 }
 
-tr:nth-child(odd) {
+.account tr:nth-child(odd) {
     background-color: hsl(0, 0%, 97%);
 }
 

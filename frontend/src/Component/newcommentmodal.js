@@ -25,7 +25,7 @@ class PureNewCommentModal extends React.Component {
         state[field] = e.currentTarget.value;
         this.setState(state);
     }
-
+            
     render() {
         console.log("NEW COMMNET MODAL PROPS", this.props)
         return (
