@@ -36,7 +36,6 @@ import {
     DELETE_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_FLASHCARD
 } from "../actions/feedbackAction"
-import { Col } from "reactstrap";
 
 
 const initialState = {
@@ -152,10 +151,6 @@ export function cardReducer(state = initialState, action) {
                         console.log("flash",flashcard.id);
                         console.log("action.payload.flashcard_id",action.payload.flashcard_id);
                         if(flashcard.id === action.payload.flashcard_id){
-                            console.log("123123123123123");
-                            console.log("flash.id",flashcard);
-                            console.log("action.id",action);
-                            console.log("action.payload",action.payload);
                             return {
                                 ...flashcard,
                                 submission:[...flashcard.submission, action.payload]
@@ -282,18 +277,24 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     flashcard: state.card.flashcard.map((flashcard) => {
-                        if(flashcard.flashcard_id === action.payload.flashcard_id){
+
+                        if(flashcard.id === action.payload.flashcard_id){
+                            console.log("flashcard",flashcard);
+                            console.log("action.payload",action.payload);
+                            console.log("action.payload.flashcard_id",action.payload.flashcard_id);
                             return {
                                 ...flashcard,
                                 submission: flashcard.submission.map((submission) => {
-                                    if(submission.flashcardSubmission_id === action.payload.flashcardSubmission_id){
+                                    console.log("submission.flashcardSubmission_id",submission.id);
+                                    console.log("action.payload.flashcardSubmission_id",action.payload.id);
+                                    if(submission.id === action.payload.id){
+                                        console.log(" ...submission, ", submission);
                                         return {
                                             ...submission, 
-                                            feedback: action.payload
+                                            feedback: [...submission.feedback, action.payload.content]
                                         }
                                     }
-                                    return flashcard
-                                  
+                                    return submission                                 
                                 })
                             }
                         }
@@ -314,7 +315,7 @@ export function cardReducer(state = initialState, action) {
                                     if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
                                         return {
                                             ...submission, 
-                                            feedback: action.payload
+                                            feedback: [...submission.feedback, action.payload]
                                         }
                                     }
                                   return submission
