@@ -64,8 +64,7 @@ class CreateFlashcard extends React.Component {
         e.preventDefault()
         await this.addFlashCard()
         this.props.history.push({
-            pathname:`/viewset`,
-            state: { set: this.props.location.state.set }
+            pathname:`/viewset/${this.props.match.params.setId}`,
         })
     }
     render() {

@@ -54,20 +54,22 @@ class ViewSet extends React.Component {
             console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             console.log('correctFlashs', correctFlashs[0])
-            if (correctFlashs[0] !== undefined) {
-                let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
-                    const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
-                    return newestState[0]
-                });
-                console.log('CWRP nextflash', nextflash)
-                if(nextflash[0] !== undefined){
-                    this.setState({
-                        correctflashCard: nextflash,
+            if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
+                if( correctFlashs[0].bridge_flashcard.length > 0){
+                    let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
+                        const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
+                        return newestState[0]
                     });
+                    console.log('CWRP nextflash', nextflash)
+                    if(nextflash[0] !== undefined){
+                        this.setState({
+                            correctflashCard: nextflash,
+                        });
+                    }
                 }
             }
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctQuizs[0] !== undefined) {
+            if (correctQuizs[0] !== undefined && correctFlashs[0].bridge_quizcard !== undefined) {
                 let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
                     const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
                     return newestState[0]
@@ -79,7 +81,7 @@ class ViewSet extends React.Component {
             }
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctDicts[0] !== undefined) {
+            if (correctDicts[0] !== undefined && correctFlashs[0].bridge_dictationcard !== undefined) {
                 let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
                     return newestState[0]
