@@ -1,9 +1,9 @@
 import React from 'react';
 import io from 'socket.io-client';
 import FormData from 'form-data';
-const axios = require("axios");
 
-import { submitCanvas } from "../Redux/fillitin"
+
+import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
 
 
