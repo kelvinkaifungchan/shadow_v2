@@ -71,8 +71,9 @@ class FeedbackService {
             console.log("Listing details of flashcardFeedback");
             return this.knex("flashcardFeedback")
             .join("user", "flashcardFeedback.user_id", "=", "user.id")
+            .join("flashcardSubmission", "flashcardFeedback.flashcardSubmission_id", "flashcardSubmission.id")
             .where("flashcardFeedback.id", body.flashcardFeedbackId)
-            .select("user.id as user_id","user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
+            .select("user.id as user_id","user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime", "flashcardSubmission.flashcard_id as fcid")
             .then( (feedback) => {
                     return ({
                         user_id: feedback[0].user_id,
@@ -82,7 +83,11 @@ class FeedbackService {
                         flashcardFeedbackId: feedback[0].id,
                         flashcardFeedbackBody: feedback[0].flashcardFeedbackBody,
                         flashcardFeedbackTime: feedback[0].flashcardFeedbackTime,
+                        flashcard_id: feedback[0].fcid
                     });
+            })
+            .catch((e)=>{
+                console.log(e);
             })
         
         } 

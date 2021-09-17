@@ -12,12 +12,13 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: ADD_FEEDBACK_DICTATIONCARD,
-                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: feedback.dictationcard_id, dictationcardSubmission_id: feedback.dictationcardSubmissionId, dictationcardFeedback_id: data.data.dictationcardFeedbackId, dictationcardFeedbackBody: feedback.dictationcardFeedbackBody}
+                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: data.data.dictationcard_id, dictationcardSubmission_id: data.data.dictationcardSubmissionId, dictationcardFeedback_id: data.data.dictationcardFeedbackId, dictationcardFeedbackBody: data.data.dictationcardFeedbackBody}
             })
         } else if (feedback.type === "flashcard") {
+            console.log("ADD_FEEDBACK_FLASHCARD card",data);
             dispatch({
                 type: ADD_FEEDBACK_FLASHCARD,
-                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: data.data.flashcardFeedbackId, flashcardFeedbackBody: feedback.flashcardFeedbackBody, flashcardFeedbackTime: feedback.flashcardFeedbackTime}
+                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, flashcard_id: data.data.flashcard_id, flashcardSubmission_id: data.data.flashcardSubmissionId, flashcardFeedback_id: data.data.flashcardFeedbackId, flashcardFeedbackBody: data.data.flashcardFeedbackBody, flashcardFeedbackTime: data.data.flashcardFeedbackTime}
             })
         }
     })
@@ -27,7 +28,8 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
 export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
     return axios.delete("http://localhost:8080/api/card/submission/feedback", feedback)
     .then(response => {
-        console.log(response)
+        console.log("feedback IN FA",feedback);
+        console.log("response IN FA",response)
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: DELETE_FEEDBACK_DICTATIONCARD,
