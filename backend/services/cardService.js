@@ -33,35 +33,21 @@ class Card {
             })
             .returning("id")
             .then((quizcardId)=>{
-                if(body.multipleChoice != null){
-                    return body.multipleChoice.map((mcData)=>{
-                        return this.knex("multipleChoice")
+                if(body.quizcardQuestion != null){
+                    return body.quizcardQuestion.map((data)=>{
+                        return this.knex("quizcardQuestion")
                         .insert({
                             quizcard_id: quizcardId,
-                            multipleChoiceBody: mcData.multipleChoiceBody,
-                            multipleChoiceAnswer: mcData.multipleChoiceAnswer,
-                            multipleChoiceA: mcData.a,
-                            multipleChoiceB: mcData.b,
-                            multipleChoiceC: mcData.c,
-                            multipleChoiceD: mcData.d,
-                            multipleChoiceTime: mcData.multipleChoiceTime,
-                            multipleChoiceStatus: true,
+                            questionType: data.questionType,
+                            questionTime: data.questionTime,
+                            questionBody: data.questionBody,
+                            multipleChoiceA: data.a,
+                            multipleChoiceB: data.b,
+                            multipleChoiceC: data.c,
+                            multipleChoiceD: data.d,
+                            multipleChoiceAnswer: data.multipleChoiceAnswer,
+                            trueFalseAnswer: data.trueFalseAnswer,
                         })
-                        .returning("id")
-                    })
-                }
-
-                if(body.trueFalse != null){
-                    body.trueFalse.map((tfData)=>{
-                        return this.knex(trueFalse)
-                        .insert({
-                            quizcard_id: quizcardId,
-                            trueFalseBody: tfData.trueFalseBody,
-                            trueFalseAnswer: tfData.trueFalseAnswer,
-                            trueFalseTime: tfData.trueFalseTime,
-                            trueFalseStatus: true,
-                        })
-                        .returning("id")
                     })
                 }
             })
