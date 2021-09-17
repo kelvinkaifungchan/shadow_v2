@@ -48,13 +48,14 @@ class PureModel extends React.Component {
                     email: this.props.user.email,
                     title: this.state.setTitle,
                     desc: this.state.setDesc,
-                    classroomId: this.props.location.state.classroom[0].id
+                    classroomId: this.props.match.params.id
                 })
             }
         }
     }
 
     render() {
+        console.log('props in create modal', this.props)
         return (
             <div>
                 <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>

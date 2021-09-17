@@ -19,7 +19,7 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
             console.log("classroom_set")
             dispatch({
                 type: ADD_BRIDGE_CLASSROOM_SET,
-                payload: {id:{classroom_id: bridge.classroomId}, content:{set_id: bridge.setId}}
+                payload: {id:{classroom_id: parseInt(bridge.classroomId)}, content:{set_id: parseInt(bridge.setId)}}
             })
         } else if (bridge.type === "set_dictationcard") {
             console.log("action set_dictationcard")

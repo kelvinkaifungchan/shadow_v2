@@ -36,7 +36,6 @@ import {
     DELETE_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_FLASHCARD
 } from "../actions/feedbackAction"
-import { Col } from "reactstrap";
 
 
 const initialState = {

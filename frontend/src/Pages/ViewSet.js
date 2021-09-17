@@ -35,32 +35,24 @@ class ViewSet extends React.Component {
     }
 
     async componentDidMount() {
-        try{
-            var getData = await this.props.getdata( {email: localStorage.getItem('email')} )
-        } catch (err) {
-            console.log(err)
-        } finally {
-            console.log('try success')
-        }
+        await this.props.getdata( {email: localStorage.getItem('email')} )
     }
 
     async componentWillReceiveProps(nextProps) {
+        console.log('Receive Props', nextProps)
         await this.setState({
             correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
         })
         // await this.getSet()
         if(this.state.correctSet[0] !== undefined){
-            console.log('this.state.correctSet[0]', this.state.correctSet[0])
             console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('correctFlashs', correctFlashs[0])
             if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
                 if( correctFlashs[0].bridge_flashcard.length > 0){
                     let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
                     });
-                    console.log('CWRP nextflash', nextflash)
                     if(nextflash[0] !== undefined){
                         this.setState({
                             correctflashCard: nextflash,
@@ -159,45 +151,45 @@ class ViewSet extends React.Component {
         }
         )
     }
-    getSet() {
-        console.log("this.state in get SET func", this.state);
-        this.setState({
-            correctTag: this.state.correctSet[0].tags
-        })
-        if (this.state.correctSet[0].bridge_flashcard != null && this.state.correctSet[0].bridge_flashcard.length > 0) {
-            const flash = this.state.correctSet[0].bridge_flashcard.map((flashCard) => {
-                const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
-                return newestState[0]
-            });
-            this.setState({
-                correctflashCard: flash
-            })
-        } else {
-            return null
-        }
-        if (this.state.correctSet[0].bridge_quizcard != null) {
-            const quiz = this.state.correctSet[0].bridge_quizcard.map((quizCard) => {
-                const newestState = this.props.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
-                return newestState[0]
-            });
-            this.setState({
-                correctquizCard: quiz
-            })
-        } else {
-            return null
-        }
-        if (this.state.correctSet[0].bridge_dictationcard != null) {
-            const dictation = this.state.correctSet[0].bridge_dictationcard.map((dictationCard) => {
-                const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
-                return newestState[0]
-            });
-            this.setState({
-                correctdictationCard: dictation
-            })
-        } else {
-            return null
-        }
-    }
+    // getSet() {
+    //     console.log("this.state in get SET func", this.state);
+    //     this.setState({
+    //         correctTag: this.state.correctSet[0].tags
+    //     })
+    //     if (this.state.correctSet[0].bridge_flashcard != null && this.state.correctSet[0].bridge_flashcard.length > 0) {
+    //         const flash = this.state.correctSet[0].bridge_flashcard.map((flashCard) => {
+    //             const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+    //             return newestState[0]
+    //         });
+    //         this.setState({
+    //             correctflashCard: flash
+    //         })
+    //     } else {
+    //         return null
+    //     }
+    //     if (this.state.correctSet[0].bridge_quizcard != null) {
+    //         const quiz = this.state.correctSet[0].bridge_quizcard.map((quizCard) => {
+    //             const newestState = this.props.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
+    //             return newestState[0]
+    //         });
+    //         this.setState({
+    //             correctquizCard: quiz
+    //         })
+    //     } else {
+    //         return null
+    //     }
+    //     if (this.state.correctSet[0].bridge_dictationcard != null) {
+    //         const dictation = this.state.correctSet[0].bridge_dictationcard.map((dictationCard) => {
+    //             const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
+    //             return newestState[0]
+    //         });
+    //         this.setState({
+    //             correctdictationCard: dictation
+    //         })
+    //     } else {
+    //         return null
+    //     }
+    // }
     render() {
         console.log("View Set the props", this.props);
         console.log("View Set the STTTTTATE", this.state);
@@ -235,7 +227,7 @@ class ViewSet extends React.Component {
                             </div>
                         </div>
 
-                        <DisplayCardModule view={this.state} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
+                        <DisplayCardModule view={this.state} correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                     </div>
                 </div>
             </div>

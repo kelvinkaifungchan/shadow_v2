@@ -48,27 +48,14 @@ class PureDashboard extends React.Component {
     }
 
     navigateClass(e){
-        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
-            pathname:`/viewclassroom`,
-            state: { classroom: this.props.classrooms.filter ((classroom) => {
-                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
-                    console.log('in if')
-                    return classroom
-                }
-            })
-        }
+            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
+
     })}
     navigateSet(e){
         this.props.history.push({
             pathname:`/viewset/${e.target.attributes["data-key"].value}`,
-        //     state: { set: this.props.sets.filter ((set) => {
-        //         if(set.id === parseInt(e.target.attributes["data-key"].value)){
-        //             console.log('in if')
-        //             return set
-        //         }
-        //     }) 
-        // }
+
         })
     }
 
@@ -114,7 +101,7 @@ class PureDashboard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in dashboard?", state);
 
     return {
         email: state.authStore.email,
