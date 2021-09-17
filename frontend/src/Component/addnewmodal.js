@@ -75,7 +75,7 @@ class PureModel extends React.Component {
                     {this.props.create.type === "class" ?
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp();this.props.toggle() }} location={this.props.location} navigate={(e) => this.navigateSet(e)} /> :
                         <SelectCardPopUp selectCard={this.state} navigate={(e) => { this.props.navigate(e) }} toggle={() => {this.openSelect();this.props.toggle()}} />}
-                    <AddExistPopUp create={this.state} allCard={this.props.allCard} location={this.props.location} toggle={() => {this.toggle();this.props.toggle()}} />
+                    <AddExistPopUp create={this.state} allCard={this.props.allCard} match={this.props.match} toggle={() => {this.toggle();this.props.toggle()}} />
 
                     <div className="d-inline-flex row">
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">

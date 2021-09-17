@@ -61,14 +61,14 @@ class PureDashboard extends React.Component {
     })}
     navigateSet(e){
         this.props.history.push({
-            pathname:`/viewset`,
-            state: { set: this.props.sets.filter ((set) => {
-                if(set.id === parseInt(e.target.attributes["data-key"].value)){
-                    console.log('in if')
-                    return set
-                }
-            }) 
-        }
+            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
+        //     state: { set: this.props.sets.filter ((set) => {
+        //         if(set.id === parseInt(e.target.attributes["data-key"].value)){
+        //             console.log('in if')
+        //             return set
+        //         }
+        //     }) 
+        // }
         })
     }
 

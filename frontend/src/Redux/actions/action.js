@@ -12,8 +12,9 @@ export const GETDATATAGS_FAILURE = 'GETDATATAGS_FAILURE';
 export const GETDATAUSER_FAILURE = 'GETDATAUSER_FAILURE';
 
 export function getdataThunk(email) {
+  console.log('get data emnail',email)
   return (dispatch) => {
-    return axios.post(`${process.env.REACT_APP_API_SERVER}/api/shadow`, email)
+    return axios.post(`${process.env.REACT_APP_API_SERVER}/api/shadow`, {email: "test@test.com"})
     .then(response => {
       console.log("response",response);
       if (response.data == null) {

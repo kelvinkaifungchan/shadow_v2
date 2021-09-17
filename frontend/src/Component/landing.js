@@ -30,17 +30,17 @@ class Landing extends React.Component {
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
-                        <PrivateRoute path="/viewclassroom" component={ViewClassroom} />
-                        <PrivateRoute path="/viewset" component={ViewSet} />
-                        <PrivateRoute path="/createFlashcard" component={CreateFlashcard} />
-                        <PrivateRoute path="/viewflashcard" component={ViewFlashCard} />
-                        <PrivateRoute path="/createQuizcard" component={CreateQuizcard} />
-                        <PrivateRoute path="/viewQuizcard" component={ViewQuizcard} />
-                        <PrivateRoute path="/viewQuizcardSubmission" component={ViewQuizcardSubmission} />
-                        <PrivateRoute path="/createDictationcard" component={CreateDictationcard} />
-                        <PrivateRoute path="/viewDictationcard" component={ViewDictationcard} />
-                        <PrivateRoute path="/viewDictationCardSubmission" component={ViewDictationcardSubmission} />
-                        <PrivateRoute path="/editDictationCard" component={ViewDictationQuestion} />
+                        <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
+                        <PrivateRoute path="/viewset/:id" component={ViewSet} />
+                        <PrivateRoute path="/createFlashcard/:setId" component={CreateFlashcard} />
+                        <PrivateRoute path="/viewflashcard/:id" component={ViewFlashCard} />
+                        <PrivateRoute path="/createquizcard/:setId" component={CreateQuizcard} />
+                        <PrivateRoute path="/viewquizcard/:id" component={ViewQuizcard} />
+                        <PrivateRoute path="/viewquizcardSubmission/:id" component={ViewQuizcardSubmission} />
+                        <PrivateRoute path="/createdictationcard/:setId" component={CreateDictationcard} />
+                        <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
+                        <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
+                        <PrivateRoute path="/editdictationCard" component={ViewDictationQuestion} />
                         <Route path="/login" component={Login} />
                     </Switch>
 

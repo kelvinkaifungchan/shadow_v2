@@ -10,21 +10,21 @@ class PureDisplayCardModule extends React.Component {
     addFlashConnect(e){
         this.props.addBridge({
             type: "set_flashcard",
-            setId: this.props.location.state.set[0].id,
+            setId: this.props.match.params.id,
             flashcardId: e.target.attributes["data-key"].value
         })
     }
     addQuizConnect(e){
         this.props.addBridge({
             type: "set_quizcard",
-            setId: this.props.location.state.set[0].id,
+            setId: this.props.match.params.id,
             quizcardId: e.target.attributes["data-key"].value
         })
     }
     addDictationcardConnect(e){
         this.props.addBridge({
             type: "set_dictationcard",
-            setId: this.props.location.state.set[0].id,
+            setId: this.props.match.params.id,
             dictationcardId: e.target.attributes["data-key"].value
         })
     }

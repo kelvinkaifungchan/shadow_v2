@@ -45,7 +45,7 @@ class PureModel extends React.Component {
                 <ModalBody>
                     <div className="">
                         {this.props.create.type === "class" ? <DisplaySetModule location={this.props.location}  correctClass={this.props.location.state} sets={this.props.sets} toggle={this.props.toggle}/> : 
-                        <DisplayCardModule location={this.props.location} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
+                        <DisplayCardModule match={this.props.match} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }
 
                     </div>
