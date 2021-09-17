@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-
-import classes from './navbar.module.css'
+// Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+// Require Component
 import { Menu } from '../Component/menu'
-import Search from './searchbox'
+// Require Css
+import classes from './navbar.module.css'
 
 
 class PureNavBar extends React.Component {
@@ -28,6 +29,13 @@ class PureNavBar extends React.Component {
         this.props.getdata({ email: this.props.user.email })
     }
 
+    navigateAccount(e){
+        this.props.history.push({
+            pathname:`/account`,
+            state: { user: this.props.user}
+        })
+    }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -41,26 +49,20 @@ class PureNavBar extends React.Component {
                     <ul className={classes.menu}>
                         <li>
                             <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
+                            {modal ?  this.props.classroom ? <Menu classroom={() => this.props.classroom()} history={this.props.history}/> : this.props.set  ? <Menu set={() => this.props.set()} history={this.props.history}/>: <Menu  history={this.props.history}/> : null}
                         </li>
                         <li>
                             <Link to='/' className={classes.logo}>shadow</Link>
                         </li>
-                        <li>
+                        <li className={classes.right}>
                             <button><i className="fas fa-search"></i></button>
                         </li>
-                        <li>
-                            <Link to="/account" className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></Link>
+                        <li className={classes.right}> 
+                            <button onClick={(e) => this.navigateAccount(e)} className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></button>
                         </li>
                     </ul>
 
-                    <div className="d-flex justify-content-center ">
-                        
-                    {/* {modal ? <Menu  history={this.props.history}/> : null}  */}
-                    
-                    {modal ?  this.props.classroom ? <Menu classroom={() => this.props.classroom()} history={this.props.history}/> : this.props.set  ? <Menu set={() => this.props.set()} history={this.props.history}/>: <Menu  history={this.props.history}/> : null}
 
-
-                    </div>
             </div>
         );
     }

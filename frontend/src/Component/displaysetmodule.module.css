@@ -2,8 +2,9 @@
     width: 30%;
     height: 20vh;
     margin: 5px 20px;
-    border: 1px solid #B6B6B6;
+    /* border: 1px solid #B6B6B6; */
     border-radius: 25px;
+    background-color: #F0AE60;
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
@@ -21,9 +22,14 @@
     /* display: flex;  */
     justify-content: center;
     align-items: center;
-    color: #B9B9B9;
+    color: #000000;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.set:hover{
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }

@@ -12,46 +12,56 @@ import {NavBar} from '../Component/navbar';
 import { VideoPlayer } from '../Component/videoplayer';
 // import QuestionModal from '../Component/questionModal'; 
 
-
+import classes from './ViewQuizcard.module.css'
 
 class ViewQuizcard extends React.Component {
     constructor(props){
         super(props)
-        this.bg = {
-            backgroundColor: '#F8DF4F'
+        this.state = {
+            title: ""
         }
     }
 
-
+    navigateSubmission(e){
+        this.props.history.push({
+            pathname:`/viewQuizcardSubmission`,
+            state: { quizcard: this.props.location.state.card[0]}
+        })
+    }
 
     render() {
+        console.log("PROPS IN VIEW QUIZCARD", this.props)
+        console.log("STATE IN VIEW QUIZCARD", this.state)
 
         return (
             <div>
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar history={this.props.history}/>
-                    </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                    <div className="col col-4">
-                    {/* <QuestionProgress/> */}
-                    <p>QuestionProgress</p>
+                <NavBar/>
+
+            <div className={classes.viewquizcard}>
+                {/* 1st row: Header */}
+                <div className="row d-flex p-4">
+                    <div className="col-8">
+                        <h1>{this.props.location.state.card[0].quizcardTitle}</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col col-12">
-                        <VideoPlayer/>
+
+                <div className="row d-flex p-4">
+                    <div className="col col-12 d-flex justify-content-center align-items-center">
+                    <div className={classes.startbtncontainer}>
+                    <span className={classes.startbtn}> Start Quiz</span>
                     </div>
                 </div>
+                </div>
+
+                <div className="row d-flex p-4">
+                    <div className="col col-12 justify-content-center align-items-center">
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
+                </div>
+                </div>
+
+
+            </div>
+
                     <BrowserRouter>
                         <Switch>
                     <PrivateRoute path="/account" component={Account} />

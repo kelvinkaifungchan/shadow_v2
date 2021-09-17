@@ -83,6 +83,7 @@ class CardRouter {
                 .submission(body)
             })
             .then((data) => {
+                console.log("Submission POST",data);
                 return res.json(data)
             })
             .catch((err) => {

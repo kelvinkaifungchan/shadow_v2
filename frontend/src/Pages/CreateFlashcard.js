@@ -1,19 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
-
-import { Account } from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter, Switch } from "react-router-dom";
-import { NavBar } from '../Component/navbar';
-import { HeadingInput } from '../Component/headinginput';
-// import FormSubmit from '../Component/formSubmit';
-import { VideoRecorder } from '../Component/videorecorder';
-import { Transcript } from '../Component/transcript';
-// import { Button } from "reactstrap";
+// Require Action
 import { addCard } from '../Redux/actions/cardAction'
 import { getdataThunk } from '../Redux/actions/action'
-
+// Require Component
+import { NavBar } from '../Component/navbar';
+import { HeadingInput } from '../Component/headinginput';
+import { VideoRecorder } from '../Component/videorecorder';
+import { Transcript } from '../Component/transcript';
+// Require Css
 import classes from './CreateFlashcard.module.css'
 
 class CreateFlashcard extends React.Component {
@@ -103,11 +98,6 @@ class CreateFlashcard extends React.Component {
                         </div>
                     </div>
 
-                    <BrowserRouter>
-                        <Switch>
-                            <PrivateRoute path="/account" component={Account} />
-                        </Switch>
-                    </BrowserRouter>
                 </div>
             </div>
         );
