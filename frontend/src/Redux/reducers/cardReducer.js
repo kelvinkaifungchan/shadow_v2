@@ -282,7 +282,11 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     flashcard: state.card.flashcard.map((flashcard) => {
+                    console.log("flash card IN CREDUCER",flashcard);
                         if(flashcard.flashcard_id === action.payload.flashcard_id){
+                            console.log("flash card IN CREDUCERflashcard.flashcard_id",flashcard.flashcard_id);
+                            console.log("flash card IN Caction.payload.flashcard_id",action.payload.flashcard_id);
+                            
                             return {
                                 ...flashcard,
                                 submission: flashcard.submission.map((submission) => {

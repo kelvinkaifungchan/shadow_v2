@@ -42,27 +42,33 @@ class ViewFlashCard extends React.Component {
             submissionRecording: "",
             submissionId: "",
             onClickShowRecorder:[],
-            correctSubmission:[]
+            correctSubmission:[],
+            correctFeedback:[]
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
+        const initFeedback = this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId).feedback
+        console.log("initFeedback",initFeedback);
         this.setState({
-            correctSubmission:  this.props.location.state.card[0].submission
+            correctSubmission:  this.props.location.state.card[0].submission,
+            correctFeedback: initFeedback
         });
        
     }
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps, "nextProps<><><><><><><>");
-        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === this.props.location.state.card[0].id)
+        console.log("this.state.submissionId",this.state.submissionId);
+
+        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === nextProps.location.state.card[0].id)
         console.log("correctProps VFCCCCCC", correctProps);
-        let nextfc = correctProps[0].submission
-        console.log("nextfcnextfcnextfcnextfc",nextfc);
+      
         this.setState({
-            correctSubmission: nextfc 
+            correctSubmission: correctProps[0].submission,
+            // correctFeedback: correctProps[0].submission.filter(submission => submission.feedback)[0].feedback
         });
     }
 
@@ -110,11 +116,13 @@ class ViewFlashCard extends React.Component {
         }
     
     onClickShowSubmissionViewer(id){
+        console.log("onClickShowSubmissionViewer, ID",id);
             this.setState({
                 showRecorder: false,
                 showSubmissionViewer: true,
                 submissionId: id,
             })
+            console.log("onClickShowSubmissionViewer, ID",this.state);
         }
 
     async navigateFlashcard(e){
@@ -144,8 +152,8 @@ class ViewFlashCard extends React.Component {
     }
 
     render() {
-        console.log("i want to see the props",this.props);
-        console.log("i want to see the state",this.state);
+        console.log("see the props IN VFC",this.props);
+        console.log("the state IN VFC",this.state);
         return (
             <div>
                 <NavBar/>
@@ -210,7 +218,7 @@ class ViewFlashCard extends React.Component {
                                             </div>
                                         </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].feedback}/>}
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback}/>}
 
                                 {/* {this.state.showSubmissionViewer &&
                                     this.props.location.state.card[0].submission[this.state.submissionid - 1].feedback.length > 0 ?
