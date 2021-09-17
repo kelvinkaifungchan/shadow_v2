@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import classes from './shareusermodal.module.css'
+import classes from './displayshareuser.module.css'
 
 
 class PureDisplayShareUser extends React.Component {
