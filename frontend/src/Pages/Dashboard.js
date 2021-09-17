@@ -70,6 +70,7 @@ class PureDashboard extends React.Component {
             }) 
         }
         })
+        
     }
 
     render() {
