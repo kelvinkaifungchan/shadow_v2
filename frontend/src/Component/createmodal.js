@@ -48,7 +48,7 @@ class PureModel extends React.Component {
                     email: this.props.user.email,
                     title: this.state.setTitle,
                     desc: this.state.setDesc,
-                    classroomId: this.props.match.params.id
+                    classroomId: parseInt(this.props.match.params.id)
                 })
             }
         }
