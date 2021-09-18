@@ -60,21 +60,21 @@ class ViewClassroom extends React.Component {
         }
     }
 
-    // getclassroom() {
-    //     if (this.state.correctClass[0].bridge != null) {
-    //         const lmao = this.state.correctClass[0].bridge.map((setId) => {
-    //             const newestState = this.props.sets.filter(set => set.id === setId.set_id)
-    //             return newestState[0]
-    //         });
-    //         this.setState({
-    //             correctSet: lmao,
-    //             correctTag: this.state.correctClass[0].tags,
-    //             correctShare: this.state.correctClass[0].shared
-    //         })
-    //     } else {
-    //         return null
-    //     }
-    // }
+    getclassroom() {
+        if (this.state.correctClass[0].bridge != null) {
+            const lmao = this.state.correctClass[0].bridge.map((setId) => {
+                const newestState = this.props.sets.filter(set => set.id === setId.set_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctSet: lmao,
+                correctTag: this.state.correctClass[0].tags,
+                correctShare: this.state.correctClass[0].shared
+            })
+        } else {
+            return null
+        }
+    }
 
     handleHeading(title) {
         this.setState({

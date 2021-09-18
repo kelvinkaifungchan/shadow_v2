@@ -151,45 +151,45 @@ class ViewSet extends React.Component {
         }
         )
     }
-    // getSet() {
-    //     console.log("this.state in get SET func", this.state);
-    //     this.setState({
-    //         correctTag: this.state.correctSet[0].tags
-    //     })
-    //     if (this.state.correctSet[0].bridge_flashcard != null && this.state.correctSet[0].bridge_flashcard.length > 0) {
-    //         const flash = this.state.correctSet[0].bridge_flashcard.map((flashCard) => {
-    //             const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
-    //             return newestState[0]
-    //         });
-    //         this.setState({
-    //             correctflashCard: flash
-    //         })
-    //     } else {
-    //         return null
-    //     }
-    //     if (this.state.correctSet[0].bridge_quizcard != null) {
-    //         const quiz = this.state.correctSet[0].bridge_quizcard.map((quizCard) => {
-    //             const newestState = this.props.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
-    //             return newestState[0]
-    //         });
-    //         this.setState({
-    //             correctquizCard: quiz
-    //         })
-    //     } else {
-    //         return null
-    //     }
-    //     if (this.state.correctSet[0].bridge_dictationcard != null) {
-    //         const dictation = this.state.correctSet[0].bridge_dictationcard.map((dictationCard) => {
-    //             const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
-    //             return newestState[0]
-    //         });
-    //         this.setState({
-    //             correctdictationCard: dictation
-    //         })
-    //     } else {
-    //         return null
-    //     }
-    // }
+    getSet() {
+        console.log("this.state in get SET func", this.state);
+        this.setState({
+            correctTag: this.state.correctSet[0].tags
+        })
+        if (this.state.correctSet[0].bridge_flashcard != null && this.state.correctSet[0].bridge_flashcard.length > 0) {
+            const flash = this.state.correctSet[0].bridge_flashcard.map((flashCard) => {
+                const newestState = this.props.cards.flashcard.filter(card => card.id === flashCard.flashcard_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctflashCard: flash
+            })
+        } else {
+            return null
+        }
+        if (this.state.correctSet[0].bridge_quizcard != null) {
+            const quiz = this.state.correctSet[0].bridge_quizcard.map((quizCard) => {
+                const newestState = this.props.cards.quizcard.filter(card => card.id === quizCard.quizcard_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctquizCard: quiz
+            })
+        } else {
+            return null
+        }
+        if (this.state.correctSet[0].bridge_dictationcard != null) {
+            const dictation = this.state.correctSet[0].bridge_dictationcard.map((dictationCard) => {
+                const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
+                return newestState[0]
+            });
+            this.setState({
+                correctdictationCard: dictation
+            })
+        } else {
+            return null
+        }
+    }
     render() {
         console.log("View Set the props", this.props);
         console.log("View Set the STTTTTATE", this.state);
