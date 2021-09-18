@@ -24,7 +24,7 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
         } else if (submission.type === "flashcard") {
             dispatch({
                 type: ADD_SUBMISSION_FLASHCARD,
-                payload: {id: data.data.flashcardSubmissionId, content:{user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}}
+                payload: {id: data.data.flashcardSubmissionId, user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,  flashcard_id: submission.flashcardId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true}
             })
         } else if (submission.type === "multipleChoice") {
             dispatch({
