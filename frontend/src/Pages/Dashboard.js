@@ -48,27 +48,14 @@ class PureDashboard extends React.Component {
     }
 
     navigateClass(e){
-        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         this.props.history.push({
-            pathname:`/viewclassroom`,
-            state: { classroom: this.props.classrooms.filter ((classroom) => {
-                if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
-                    console.log('in if')
-                    return classroom
-                }
-            })
-        }
+            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
+
     })}
     navigateSet(e){
         this.props.history.push({
-            pathname:`/viewset`,
-            state: { set: this.props.sets.filter ((set) => {
-                if(set.id === parseInt(e.target.attributes["data-key"].value)){
-                    console.log('in if')
-                    return set
-                }
-            }) 
-        }
+            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
+
         })
         
     }
@@ -86,7 +73,7 @@ class PureDashboard extends React.Component {
                                 <h1>My Classroom</h1>
                                 <span className={classes.createclassroombtn}>
                                     <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                    </span>
+                                </span>
                         </div>
 
                         <div className="row d-flex pl-2">
@@ -102,7 +89,7 @@ class PureDashboard extends React.Component {
                         </div>
 
                         <div className="row d-flex pl-2">
-                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
+                        <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e)=>{this.navigateSet(e)}}/>
                         </div>
                     
                         {this.props.loading && <div> Loading...</div>}
@@ -115,7 +102,7 @@ class PureDashboard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in dashboard?", state);
 
     return {
         email: state.authStore.email,

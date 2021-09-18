@@ -7,25 +7,22 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
     
 
     render() {
-        console.log("THE PORPS IS HEREEEEEE", this.props.feedback)
+        console.log("THE PORPS IS HEREEEEEE", this.props.feedback[0])
 
         return (
             <>
-                {this.props.feedback &&
-                    this.props.feedback.length > 0 ?
-                    this.props.feedback.map((feedback, j) => {
-                        console.log("feedback",feedback);
+                {this.props.feedback[0].feedback &&
+                    this.props.feedback[0].feedback.length > 0 ?
+                    this.props.feedback[0].feedback.map((fb, j) => {
                             return (
                                 <div key={j} data-key={j} className={classes.scrollfeedbackcard}>
                                     <div>
-                                        <td data-key={j}>{feedback.flashcardFeedbackTime}</td>
-                                        <td data-key={j}>{feedback.flashcardFeedbackBody}</td>
-                                        <td className={classes.commentinguser}><img src={feedback.picture} alt="Avatar"></img></td>
+                                        <td >{fb.flashcardFeedbackTime}</td>
+                                        <td >{fb.flashcardFeedbackBody}</td>
+                                        <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
                                     </div>
                                 </div>
                             )
-                     
-
                     }
                     )
                     : null

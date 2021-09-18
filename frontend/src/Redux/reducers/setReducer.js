@@ -5,7 +5,7 @@ import { GETDATASETS_SUCCESS, GETDATASETS_FAILURE } from "../actions/action";
 import { ADD_TAG_SET, DELETE_TAG_SET } from "../actions/tagAction";
 import { ADD_BRIDGE_SET_FLASHCARD, ADD_BRIDGE_SET_QUIZCARD, ADD_BRIDGE_SET_DICTATIONCARD } from "../actions/bridgeAction";
 import { DELETE_BRIDGE_SET_FLASHCARD, DELETE_BRIDGE_SET_QUIZCARD, DELETE_BRIDGE_SET_DICTATIONCARD } from "../actions/bridgeAction";
-import { ADD_BRIDGE_CLASSROOM_SET } from "../actions/setAction"
+
 const initialState = {
     sets: []
 };
@@ -64,6 +64,8 @@ export function setReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_SET_FLASHCARD:
+            console.log('ADD_BRIDGE_SET_FLASHCARD')
+            console.log('ADD_BRIDGE action.payload',action.payload)
             return {
                 sets: state.sets.map((set) => {
                     if(action.payload.id.set_id === set.id){
