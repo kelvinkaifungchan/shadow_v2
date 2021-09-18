@@ -286,12 +286,13 @@ export function cardReducer(state = initialState, action) {
                                 ...flashcard,
                                 submission: flashcard.submission.map((submission) => {
                                     console.log("submission.flashcardSubmission_id",submission.id);
-                                    console.log("action.payload.flashcardSubmission_id",action.payload.id);
-                                    if(submission.id === action.payload.id){
+                                    console.log("action.payload.flashcardSubmission_id",action.payload.flashcardSubmission_id);
+                                    if(submission.id === action.payload.flashcardSubmission_id){
                                         console.log(" ...submission, ", submission);
+                                        console.log("action.payload.content",action.payload);
                                         return {
                                             ...submission, 
-                                            feedback: [...submission.feedback, action.payload.content]
+                                            feedback: [...submission.feedback, action.payload]
                                         }
                                     }
                                     return submission                                 

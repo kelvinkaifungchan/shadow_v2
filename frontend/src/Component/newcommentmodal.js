@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 
 class PureNewCommentModal extends React.Component {
@@ -15,10 +14,13 @@ class PureNewCommentModal extends React.Component {
         };
     }
 
-    submit = (e) => {
+    submit = async (e) => {
         e.preventDefault();
-        console.log("ADDDDDDDDDDDDDD=>>>>>>>>", this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp);
-        this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+       await this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+        this.setState({
+            flashcardSubmissionBody:""
+        })
+       await this.props.addFeedback(this.props.create.submissionId)
     }
 
     onChangeField = (field, e) => {
@@ -28,7 +30,7 @@ class PureNewCommentModal extends React.Component {
     }
 
     render() {
-        console.log("NEW COMMNET MODAL PROPS", this.props)
+        console.log("STATE IN NCM",this.props.create);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
