@@ -24,6 +24,13 @@ class ViewDictationcard extends React.Component {
         });
     }
 
+    navigateSubmission(e){
+        this.props.history.push({
+            pathname:`/viewDictationCardSubmission`,
+            state: { dictationcard: this.props.location.state.card[0]}
+        })
+    }
+
     render() {
         console.log("Props IN VD", this.props);
 
@@ -33,27 +40,29 @@ class ViewDictationcard extends React.Component {
                 <QRModal modal={this.state} toggle={() => this.toggle()}/>
 
                 <div className={classes.viewdictationcard}>
-                <div className="row d-flex p-4">
-                <div className="col-6">
-                        <h1>{this.props.location.state.card[0].dictationcardTitle}</h1>
+                    <div className="row d-flex p-4">
+                        <div className="col-8">
+                            <h1>{this.props.location.state.card[0].dictationcardTitle}</h1>
+                        </div>
                     </div>
 
-                    <div className="col-6">
-                        {/* <FormSubmit/> */}
-                        <button cards={this.props.cards}>Create Card</button>
-                    </div>
+
+                    <div className="row d-flex p-4">
+                        <div className="col col-12 d-flex justify-content-center align-items-center">
+                            <div className={classes.startbtncontainer}>
+                                <span className={classes.startbtn}> Start Dictation</span>
+                            </div>
+                        </div>
                     </div>
 
-                <div className="row">
-                    <div className="col col-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
-                        {/* <StartDictation/> */}
-                        <div className={classes.startbtncontainer}>
-                        <span className={classes.startbtn}  onClick={() => {  this.toggle(); }}>Start Dictation</span>
-                        </ div>
+                    <div className="row d-flex p-4">
+                        <div className="col col-12 justify-content-center align-items-center">
+                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
+                        </div>
                     </div>
+
                 </div>
-                </div>
-                </div>
+            </div>
         );
     }
 }

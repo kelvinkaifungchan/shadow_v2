@@ -105,7 +105,7 @@ class CreateFlashcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in create flashcard", state);
 
     return {
         email: state.authStore.email,

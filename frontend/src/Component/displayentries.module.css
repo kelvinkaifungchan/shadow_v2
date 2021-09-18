@@ -1,0 +1,13 @@
+.theList li {
+    background-color: rgba(255,255,255,.8);
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    transition: background-color .2s ease-out;
+  }
+   
+.theList li:hover {
+    background-color: rgba(255, 189, 222, 0.4);
+    cursor: pointer;
+  }
+

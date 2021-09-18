@@ -68,13 +68,20 @@ class PureModel extends React.Component {
                 <i className="fas fa-plus" />
             </div>;
         }
+        
         return (
             <Modal isOpen={this.props.create.modal} toggle={this.props.toggle} className={classes.addnewmodal}>
                 <ModalHeader >Add New {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}</ModalHeader>
                 <ModalBody>
                     {this.props.create.type === "class" ?
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp();this.props.toggle() }} match={this.props.match} navigate={(e) => this.navigateSet(e)} /> :
-                        <SelectCardPopUp selectCard={this.state} navigate={(e) => { this.props.navigate(e) }} toggle={() => {this.openSelect();this.props.toggle()}} />}
+                        <SelectCardPopUp 
+                        selectCard={this.state} 
+                        // navigate={(e) => { this.props.navigate(e) }} 
+                        navigateNewFlashcard={(e) => { this.props.navigateNewFlashcard(e) }} 
+                        navigateNewQuizcard={(e) => { this.props.navigateNewQuizcard(e) }} 
+                        navigateNewDictationcard={(e) => { this.props.navigateNewDictationcard(e) }} 
+                        toggle={() => {this.openSelect();this.props.toggle()}} />}
                     <AddExistPopUp create={this.state} allCard={this.props.allCard} correctClass={this.props.correctClass} match={this.props.match} toggle={() => {this.toggle();this.props.toggle()}} />
 
                     <div className="d-inline-flex row">
@@ -106,7 +113,7 @@ class PureModel extends React.Component {
 
                             <div>
                                 <div className="col">
-                                    <strong>
+                                    <strong >
                                         Existing {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : null}
                                     </strong>
                                 </div>
