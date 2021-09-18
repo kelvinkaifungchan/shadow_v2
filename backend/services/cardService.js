@@ -195,17 +195,10 @@ class Card {
         if(body.type === "quizcard"){
             let quizcardData = {}
             return this.knex("quizcard")
-            .join("multipleChoice", "quizcard.id", "multipleChoice.quizcard_id")
-            .join("trueFalse", "quizcard.id", "trueFalse.quizcard_id")
+            .join("quizcardQuestion", "quizcard.id", "quizcardQuestion.quizcard_id")
             .where({
-                id: body.cardId,
+                quizcard_id: body.cardId,
                 quizcardStatus: true,
-                multipleChoiceStatus: true
-            })
-            .orWhere({
-                id: body.cardId,
-                quizcardStatus: true,
-                trueFalseStatus: true
             })
             .select("quizcard.id", "quizcard.user_id", "quizcard.quizcardTitle", "quizcard.quizcardRecording", "multipleChoice.multipleChoiceBody", "multipleChoice.multipleChoiceAnswer", "multipleChoice.multipleChoiceTime", "trueFalse.trueFalseBody", "trueFalse.trueFalseAnswer", "trueFalse.trueFalseTime")
             .then((quizcard)=>{
@@ -213,22 +206,17 @@ class Card {
                 quizcardData.user_id = quizcard[0].user_id,
                 quizcardData.title = quizcard[0].quizcardTitle,
                 quizcardData.recording = quizcard[0].quizcardRecording,
-                quizcardData.multipleChoice = quizcard[0].map((mc)=>{
+                quizcardData.questions = quizcard[0].map((data)=>{
                     return ({
-                        body: mc.multipleChoiceBody,
-                        multipleChoiceA: mc.multipleChoiceA,
-                        multipleChoiceB: mc.multipleChoiceB,
-                        multipleChoiceC: mc.multipleChoiceC,
-                        multipleChoiceD: mc.multipleChoiceD,
-                        answer: mc.multipleChoiceAnswer,
-                        time: mc.multipleChoiceTime
-                    })
-                })
-                quizcardData.trueFalse = quizcard[0].map((tf)=>{
-                    return ({
-                        body: tf.trueFalseBody,
-                        answer: tf.trueFalseAnswer,
-                        time: tf.trueFalseTime
+                        questionType: data.questionType,
+                        questionTime: data.questionTime,
+                        questionBody: data.questionBody,
+                        multipleChoiceA: data.multipleChoiceA,
+                        multipleChoiceB: data.multipleChoiceB,
+                        multipleChoiceC: data.multipleChoiceC,
+                        multipleChoiceD: data.multipleChoiceD,
+                        multipleChoiceAnswer: data.multipleChoiceAnswer,
+                        trueFalseAnswer: data.trueFalseAnswer,
                     })
                 })
             })
@@ -296,10 +284,6 @@ class Card {
         //query for quizcard
         .then(() => {
             return this.knex("set")
-            // .where({
-            //     id: body.setId,
-            //     set_status: true,
-            // })
             .where("set.id", body.setId)
             .andWhere("set.setStatus", true)
             .join("set_quizcard", "set.id", "set_quizcard.set_id")
@@ -316,7 +300,6 @@ class Card {
             })
         })
         
-
         //query for dictationcard
         .then(() => {
             return this.knex("set")
@@ -395,13 +378,13 @@ class Card {
                     .select("user.displayName", "user.picture", "flashcardSubmission.id", "flashcardSubmission.user_id", "flashcardSubmission.flashcardSubmissionRecording")
                 })
                 .then((subs)=>{
-                    data.submission = subs.map((flashcardSub) =>{
+                    data.submission = subs.map((sub) =>{
                         return {
-                            displayName: flashcardSub.displayName,
-                            picture: flashcardSub.picture,
-                            id: flashcardSub.id,
-                            user_id: flashcardSub.user_id,
-                            flashcardSubmissionRecording: flashcardSub.flashcardSubmissionRecording
+                            displayName: sub.displayName,
+                            picture: sub.picture,
+                            id: sub.id,
+                            user_id:sub.user_id,
+                            flashcardSubmissionRecording: sub.flashcardSubmissionRecording
                         }
                     })
                 })
@@ -456,39 +439,38 @@ class Card {
                         return this.knex("quizcardQuestion")
                         .where("quizcard_id", id.id)
                     })
-                    .then((quiz)=>{
-                        data.quizcardQuestion = quiz.map((question) =>{
+                    .then((qzq)=>{
+                        data.question = qzq.map((q) =>{
                             return {
-                                id: question.id,
-                                quizcard_id: id.id,
-                                questionType: question.questionType,
-                                questionTime: question.questionTime,
-                                questionBody: question.questionBody,
-                                multipleChoiceA: question.multipleChoiceA,
-                                multipleChoiceB: question.multipleChoiceB,
-                                multipleChoiceC: question.multipleChoiceC,
-                                multipleChoiceD: question.multipleChoiceD,
-                                multipleChoiceAnswer: question.multipleChoiceAnswer,
-                                trueFalseAnswer: question.trueFalseAnswer
+                                id: q.id,
+                                questionType: q.questionType,
+                                questionBody: q.questionBody,
+                                questionTime: q.questionTime,
+                                multipleChoiceA: q.multipleChoiceA,
+                                multipleChoiceB: q.multipleChoiceB,
+                                multipleChoiceC: q.multipleChoiceC,
+                                multipleChoiceD: q.multipleChoiceD,
+                                multipleChoiceAnswer: q.multipleChoiceAnswer,
+                                trueFalseAnswer: q.trueFalseAnswer
                             }
                         })
                     })
                     .then(async()=>{
-                        data.quizcardQuestion.submission = await Promise.all(data.quizcardQuestion.map((quizquest)=>{
+                        data.question.submission = await Promise.all(data.question.map((question)=>{
                             let submission = {}
                             return this.knex("quizcardQuestionSubmission")
-                            .join("user", "user.id", "quizcardQuestionSubmission.user_id")
-                            .where("quizcardQuestionSubmission.quizcardQuestion_id", quizquest.id)
-                            .select("user.displayName", "user.picture", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.user_id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
-                            .then((mcSub)=>{
-                                console.log('mcsub', mcSub)
-                                quizquest.submission = mcSub.map((mcSubs)=>{
+                            .join("user", "user.id", "multipleChoiceSubmission.user_id")
+                            .where("quizcardQuestionSubmission.quizcardQuestion_id", question.id)
+                            .where("quizcardQuestionSubmission.quizcardQuestionSubmissionStatus", true)
+                            .select("user.displayName", "user.picture", "multipleChoiceSubmission.id", "multipleChoiceSubmission.user_id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+                            .then((qSubs)=>{
+                                question.submission = qSubs.map((qSub)=>{
                                     return {
-                                        displayName: mcSubs.displayName,
-                                        picture: mcSubs.picture,
-                                        user_id: mcSubs.user_id,
-                                        quizcardQuestionSubmission: mcSubs.quizcardQuestionSubmission,
-                                        quizcardQuestionMarking: mcSubs.quizcardQuestionMarking
+                                        displayName: qSub.displayName,
+                                        picture: qSub.picture,
+                                        user_id: qSub.user_id,
+                                        quizcardQuestionSubmission: qSub.quizcardQuestionSubmission,
+                                        quizcardQuestionMarking: qSub.quizcardQuestionMarking
                                     }
                                 })
                             })
@@ -513,16 +495,18 @@ class Card {
             .then(async (dictationcards)=>{
                 allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
                     let data = {}
+                    data.dictationcardTitle = id.dictationcardTitle
                     return this.knex("dictation")
                     .where("dictationcard_id", id.id)
                     .where("dictationStatus", true)
-                    .select("id", "dictationBody", "dictationRecording")
-                    .then((dcdata)=>{
-                        console.log(dcdata, '<<<<<<<<<<<<,dcdata')
-                        data.id = id.id
-                        data.dictationcardTitle = id.dictationcardTitle
-                        data.dictationBody = dcdata[0].dictationBody
-                        data.dictationRecording = dcdata[0].dictationRecording
+                    .then((dictation)=>{
+                        return (data.questions = dictation.map((question) => {
+                            return {
+                                id: question.id,
+                                dictationBody: question.dictationBody,
+                                dictationRecording: question.dictationRecording,
+                            }
+                        }))
                     })
                     .then(()=>{
                         return this.knex("dictationSubmission")
@@ -533,6 +517,7 @@ class Card {
                         data.submission = subs.map((sub) =>{
                             return {
                                 id: sub.id,
+                                dictation_id: sub.dictation_id,
                                 user_id:sub.user_id,
                                 dictationSubmissionPath: sub.dictationSubmissionPath
                             }
