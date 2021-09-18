@@ -9,7 +9,9 @@ import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import FormSubmit from '../Component/formSubmit';
 import {VideoRecorder} from '../Component/videorecorder';
-// import {QuizcardQuestionsCreate} from '../Component/quizcardQuestionCreate';
+import { CreatequizcardQuestion } from '../Component/createquizcardQuestion';
+import classes from './CreateFlashcard.module.css'
+import { HeadingInput } from '../Component/headinginput';
 
 
 class CreateQuizcard extends React.Component {
@@ -29,23 +31,17 @@ class CreateQuizcard extends React.Component {
 
         return (
             <div>
-                    <div className="row" style={this.bg}>
-                        <div className="col col-8">
-                        <NavBar history={this.props.history}/>
+                <NavBar history={this.props.history}/>
+                {/* Page Container */}
+                <div className={classes.createflashcard}>
+                    {/* Header Row */}
+                    <div className="row d-flex p-4">
+                        <div className="col-8">
+                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state}/>
                         </div>
-                        <div className="col col-4">
-                        <Link to="/account">Account</Link>
-                        <Link onClick={this.logout} to="/login">Logout</Link>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col col-8">
-                        {/* <HeadingInput/> */}
-                        <p>HeadingInput</p>
-                        </div>
-                        <div className="col col-4">
-                        {/* <FormSubmit/> */}
-                        <p>FormSubmit</p>
+                        <div className="col-4">
+                            {/* <FormSubmit/> */}
+                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
                         </div>
                     </div>
                     <div className="row">
@@ -53,15 +49,11 @@ class CreateQuizcard extends React.Component {
                             <VideoRecorder/>
                         </div>
                         <div className="col col-6">
-                            {/* <QuizcardQuestionsCreate/> */}
-                            <p>QuizcardQuestionsCreate</p>
+                            <CreatequizcardQuestion/>
+                            {/* <p>QuizcardQuestionsCreate</p> */}
                         </div>
                     </div>
-                <BrowserRouter>
-                    <Switch>
-                <PrivateRoute path="/account" component={Account} />
-                </Switch>
-                </BrowserRouter>
+                </div>
             </div>
         );
     }

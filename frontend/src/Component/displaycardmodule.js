@@ -7,24 +7,25 @@ import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import classes from './displaycardmodule.module.css'
 
 class PureDisplayCardModule extends React.Component {
+
     addFlashConnect(e){
         this.props.addBridge({
             type: "set_flashcard",
-            setId: this.props.location.state.set[0].id,
+            setId: parseInt(this.props.match.params.id),
             flashcardId: e.target.attributes["data-key"].value
         })
     }
     addQuizConnect(e){
         this.props.addBridge({
             type: "set_quizcard",
-            setId: this.props.location.state.set[0].id,
+            setId:  parseInt(this.props.match.params.id),
             quizcardId: e.target.attributes["data-key"].value
         })
     }
     addDictationcardConnect(e){
         this.props.addBridge({
             type: "set_dictationcard",
-            setId: this.props.location.state.set[0].id,
+            setId:  parseInt(this.props.match.params.id),
             dictationcardId: e.target.attributes["data-key"].value
         })
     }
@@ -56,8 +57,7 @@ class PureDisplayCardModule extends React.Component {
 
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
                     return (
-                                                                                                    // insert add bridge function here
-                        <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
+                        <div data-key={card.id} data-type="quizcard" className={classes.card} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle}</h4>
                             <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
