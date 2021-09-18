@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 //Component
 import { NavBar } from '../Component/navbar';
@@ -19,12 +19,13 @@ import { NewCommentModal } from '../Component/newcommentmodal';
 //Actions
 import { getdataThunk } from '../Redux/actions/action'
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
+import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
 
 
 import classes from './ViewFlashcard.module.css'
 
 class ViewFlashCard extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.player = React.createRef();
@@ -58,7 +59,8 @@ class ViewFlashCard extends React.Component {
     getinitState(){
     console.log()
     this.setState({
-            correctSubmission:  this.state.correctFlashcard[0].submission
+            correctSubmission:  this.state.correctFlashcard[0].submission,
+            correctFeedback: this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)
         });
     }
     //this.location.state.card[0].id === this.props.match.params.id
@@ -70,11 +72,9 @@ class ViewFlashCard extends React.Component {
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            const nextFeed = correctProps[0].submission.filter(sub => sub.id === this.state.submissionId)
-            console.log("nextFeednextFeednextFeednextFeed",nextFeed);
+            
             this.setState({
                 correctSubmission: correctProps[0].submission,
-                correctFeedback: nextFeed
             });
         }
     }
@@ -95,45 +95,52 @@ class ViewFlashCard extends React.Component {
 
     handleTimeStamp = (submissionTime) => {
         this.setState({
-            submissionTime:submissionTime
+            submissionTime: submissionTime
         });
     }
 
-    handleRecording(record){
+    handleRecording(record) {
         this.setState({
             submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
         })
     }
 
-    getRecorderInitialState(){
-            return { showRecorder: false};
-        }
-    
-    onClickShowRecorder(){
-            this.setState({
-                showRecorder: true,
-                showSubmissionViewer: false
-            })
-        }
-    
-    getSubmissionViewInitialState(){
-            return { 
-                showSubmissionViewer: false, 
-            };
-        }
-    
-    onClickShowSubmissionViewer(id){
-        console.log("onClickShowSubmissionViewer, ID",id);
-            this.setState({
-                showRecorder: false,
-                showSubmissionViewer: true,
-                submissionId: id,
-            })
-        }
+    getRecorderInitialState() {
+        return { showRecorder: false };
+    }
+
+    onClickShowRecorder() {
+        this.setState({
+            showRecorder: true,
+            showSubmissionViewer: false
+        })
+    }
+
+    getSubmissionViewInitialState() {
+        return {
+            showSubmissionViewer: false,
+        };
+    }
+
+    onClickShowSubmissionViewer(id) {
+        console.log("onClickShowSubmissionViewer, ID", id);
+        const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
+        console.log("cooresFeed2",cooresFeed2)
+        const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
+        console.log("cooresFeed3", cooresFeed3);
+
+        this.setState({
+            showRecorder: false,
+            showSubmissionViewer: true,
+            submissionId: id,
+            correctFeedback: cooresFeed3
+        })
+    }
 
     addSubmission(e) {
         e.preventDefault()
-        console.log("adding submission!!!!!",this.state);
+        console.log("adding submission!!!!!", this.state);
+
         this.props.addSubmission({
             type: this.state.type,
             email: localStorage.getItem('email'),
@@ -147,67 +154,70 @@ class ViewFlashCard extends React.Component {
             timeStamp: this.state.submissionTime
         })
     }
+    addFeedback = (id) =>  {
+      this.onClickShowSubmissionViewer(id)
+    }
 
     render() {
-        console.log("see the props IN VFC",this.props);
-        console.log("the state IN VFC!!!!STATE",this.state);
+        console.log("see the props IN VFC", this.props);
+        console.log("the state IN VFC!!!!STATE", this.state);
         return (
             <div>
-                <NavBar/>
+                <NavBar />
 
                 <div className={classes.viewflashcard}>
 
-            {/* 1st row: Header */}
+                    {/* 1st row: Header */}
                     <div className="col-8">
                         <h1>{this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardTitle : null}</h1>
                     </div>
 
-            {/* 2nd row: Transcript & Video Player */}
-                <div className="row d-flex p-4">
+                    {/* 2nd row: Transcript & Video Player */}
+                    <div className="row d-flex p-4">
                         <div className="col-6">
-                            <Transcript title={this.state} transcript={this.state}/>
+                            <Transcript title={this.state} transcript={this.state} />
                         </div>
                         <div className="col-6">
                             <VideoPlayer type={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
                         </div>
                     </div>
 
-            {/* 3rd row: Submission & Feedback & VideoRecorder / VideoPlayer */}
+                    {/* 3rd row: Submission & Feedback & VideoRecorder / VideoPlayer */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
                                 <h5>Submissions</h5>
                                 <div className={classes.scrollsubmission}>
-                                    <div onClick={() => {this.onClickShowRecorder()}} className={classes.scrollplusicon}> 
-                                    <i className="fas fa-plus"></i>
+                                    <div onClick={() => { this.onClickShowRecorder() }} className={classes.scrollplusicon}>
+                                        <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)}  submission={this.state.correctSubmission}/>
-                                   
-                                </div>
-                            </div>
-                            
-                            {this.state.showSubmissionViewer && 
-                            <div className={classes.feedback}>
-                                <h5>Feedback</h5>
-                                <div className={classes.scrollfeedback}>
-                                
-                                    <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} />
-                                    
-                                        <div className={classes.addcommentcontainer}>
-                                        <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
-                                            <div className={classes.addbtn}>
-                                                <i className="fas fa-plus" />
-                                            </div>
-                                            <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
-                                                <span>Add new comment</span>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback}/>}
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} />
 
                                 </div>
                             </div>
+
+                            {this.state.showSubmissionViewer &&
+                                <div className={classes.feedback}>
+                                    <h5>Feedback</h5>
+                                    <div className={classes.scrollfeedback}>
+
+                                        <NewCommentModal location={this.props.location} create={this.state} toggle={() => this.toggle()} addFeedback={this.addFeedback} />
+
+                                        <div className={classes.addcommentcontainer}>
+                                            <div onClick={() => { this.addTimeStamp(); this.toggle(); }} className={classes.addcommentbox}>
+                                                <div className={classes.addbtn}>
+                                                    <i className="fas fa-plus" />
+                                                </div>
+                                                <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center justify-content-center">
+                                                    <span>Add new comment</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback} />}
+
+                                    </div>
+                                </div>
                             }
 
                         </div>
@@ -223,11 +233,11 @@ class ViewFlashCard extends React.Component {
 
                         </div>
                     </div>
-                        
-            </div>
+
+                </div>
             </div>
         )
-}
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -239,17 +249,20 @@ const mapStateToProps = (state) => {
         tags: state.tagStore.tags,
     }
 }
-const mapDispatchToProps  = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
         addSubmission: (submission) => {
             dispatch(addSubmissionThunk(submission))
-        }
+        },
+        addfeedback: (feedback) => {
+            dispatch(addFeedbackThunk(feedback))
+        },
     }
 }
 
 
-const connectedViewFlashCard= connect(mapStateToProps, mapDispatchToProps)(ViewFlashCard)
+const connectedViewFlashCard = connect(mapStateToProps, mapDispatchToProps)(ViewFlashCard)
 export { connectedViewFlashCard as ViewFlashCard };
