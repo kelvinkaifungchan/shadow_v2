@@ -142,7 +142,7 @@ class ViewSet extends React.Component {
         }
 
     }
-    navigateNewCard(e) {
+    navigateNewFlashcard(e) {
         this.props.history.push({
             pathname: `/createflashcard/${this.props.match.params.id}`,
             state: {
@@ -151,6 +151,27 @@ class ViewSet extends React.Component {
         }
         )
     }
+
+    navigateNewQuizcard(e) {
+        this.props.history.push({
+            pathname: `/createquizcard/${this.props.match.params.id}`,
+            state: {
+                set: this.state.correctSet
+            }
+        }
+        )
+    }
+
+    navigateNewDictationcard(e) {
+        this.props.history.push({
+            pathname: `/createdictationcard/${this.props.match.params.id}`,
+            state: {
+                set: this.state.correctSet
+            }
+        }
+        )
+    }
+
     getSet() {
         console.log("this.state in get SET func", this.state);
         this.setState({
@@ -207,17 +228,7 @@ class ViewSet extends React.Component {
                     </div>
 
 
-<<<<<<< HEAD
-                        <div className="row d-flex pl-4 pr-4 m-2">
-                            <DisplaySetTag tags={this.state.correctTag} />
-                            <NewTagPopUp addTag={this.state} location={this.props.location.state.set[0]} toggle={() => this.tagToggle()} />
-                            <span className="d-inline-flex ">
-                                <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
-                            </span>
-                        </div>
-=======
                     <div className="row d-flex pl-4 pr-4 m-2">
->>>>>>> bba9e9c9e9b05024d19c2126c50cf30b1847d5cf
 
                         <DisplaySetTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
@@ -227,7 +238,15 @@ class ViewSet extends React.Component {
                     </div>
 
                     <div className="row d-flex m-3">
-                        <AddnewPopUp match={this.props.match} create={this.state} allCard={this.props.cards} navigate={(e) => { this.navigateNewCard(e) }} toggle={() => this.toggle()} />
+                        <AddnewPopUp 
+                        match={this.props.match} 
+                        create={this.state} 
+                        allCard={this.props.cards} 
+                        navigateNewFlashcard={(e) => { this.navigateNewFlashcard(e) }} 
+                        navigateNewQuizcard={(e) => { this.navigateNewQuizcard(e) }} 
+                        navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
+                        toggle={() => this.toggle()} />
+                        
                         <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
