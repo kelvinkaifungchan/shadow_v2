@@ -437,7 +437,6 @@ class Card {
                     .then(()=>{
                         return this.knex("quizcardQuestion")
                         .where("quizcard_id", id.id)
-                        .where("multipleChoiceStatus", true)
                     })
                     .then((qzq)=>{
                         data.question = qzq.map((q) =>{
@@ -459,10 +458,9 @@ class Card {
                         data.question.submission = await Promise.all(data.question.map((question)=>{
                             let submission = {}
                             return this.knex("quizcardQuestionSubmission")
-                            .join("user", "user.id", "multipleChoiceSubmission.user_id")
+                            .join("user", "user.id", "quizcardQuestionSubmission.user_id")
                             .where("quizcardQuestionSubmission.quizcardQuestion_id", question.id)
-                            .where("quizcardQuestionSubmission.quizcardQuestionSubmissionStatus", true)
-                            .select("user.displayName", "user.picture", "multipleChoiceSubmission.id", "multipleChoiceSubmission.user_id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+                            .select("user.displayName", "user.picture", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.user_id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
                             .then((qSubs)=>{
                                 question.submission = qSubs.map((qSub)=>{
                                     return {
@@ -499,29 +497,31 @@ class Card {
                     .where("dictationcard_id", id.id)
                     .where("dictationStatus", true)
                     .then((dictation)=>{
-                        return (data.questions = dictation.map((question) => {
+                        data.questions = dictation.map((question) => {
                             return {
                                 id: question.id,
                                 dictationBody: question.dictationBody,
                                 dictationRecording: question.dictationRecording,
                             }
-                        }))
-                    })
-                    .then(()=>{
-                        return this.knex("dictationSubmission")
-                        .where("dictation_id", data.id)
-                        .where("dictationSubmissionStatus", true)
-                    })
-                    .then((subs)=>{
-                        data.submission = subs.map((sub) =>{
-                            return {
-                                id: sub.id,
-                                dictation_id: sub.dictation_id,
-                                user_id:sub.user_id,
-                                dictationSubmissionPath: sub.dictationSubmissionPath
-                            }
                         })
                     })
+                    .then(async()=>{
+                        data.questions.submission = await Promise.all(data.questions.map((question)=>{
+                            return this.knex("dictationSubmission")
+                            .where("dictation_id", question.id)
+                            .where("dictationSubmissionStatus", true)
+                            .then((subs)=>{
+                                data.submission = subs.map((sub) =>{
+                                    return {
+                                        id: sub.id,
+                                        dictation_id: sub.dictation_id,
+                                        user_id:sub.user_id,
+                                        dictationSubmissionPath: sub.dictationSubmissionPath
+                                    }
+                                })
+                            })
+                        })
+                    )})
                     .then(async()=>{
                         data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
                             let feedback = {}

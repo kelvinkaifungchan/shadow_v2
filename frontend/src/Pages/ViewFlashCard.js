@@ -52,22 +52,10 @@ class ViewFlashCard extends React.Component {
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
-        console.log('this.props in VFC CDM', this.props)
-        // this.getinitState()
     }
 
-    getinitState(){
-    console.log()
-    this.setState({
-            correctSubmission:  this.state.correctFlashcard[0].submission,
-            correctFeedback: this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)
-        });
-    }
-    //this.location.state.card[0].id === this.props.match.params.id
     componentWillReceiveProps(nextProps) {
         if(this.props.cards.flashcard.length > 0 ){
-            console.log('nextporpspspopsops', nextProps)
-            console.log('props in next props', this.props)
             this.setState({
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
@@ -123,11 +111,8 @@ class ViewFlashCard extends React.Component {
     }
 
     onClickShowSubmissionViewer(id) {
-        console.log("onClickShowSubmissionViewer, ID", id);
         const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
-        console.log("cooresFeed2",cooresFeed2)
         const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
-        console.log("cooresFeed3", cooresFeed3);
 
         this.setState({
             showRecorder: false,
@@ -139,8 +124,6 @@ class ViewFlashCard extends React.Component {
 
     addSubmission(e) {
         e.preventDefault()
-        console.log("adding submission!!!!!", this.state);
-
         this.props.addSubmission({
             type: this.state.type,
             email: localStorage.getItem('email'),

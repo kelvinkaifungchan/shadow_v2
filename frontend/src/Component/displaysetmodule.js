@@ -8,7 +8,7 @@ import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
-    
+
     addSetConnect(e){
         console.log('addSetConnect')
         this.props.addBridge({
@@ -25,26 +25,28 @@ class PureDisplaySetModule extends React.Component {
                     console.log('display first set moduel')
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.addSetConnect(e); this.props.toggle()}}>
-                            <h4 data-key={set.id}>{set.title} first</h4>
+                            <h4 data-key={set.id}>{set.title} Exist Modal</h4>
                             <p data-key={set.id}>{set.description}</p>
                         </div>
                     )
-                }) : this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
-                    console.log('set',set)
+                }) : this.props.correctSets && this.props.correctSets.length > 0 && this.props.correctSets[0] !== undefined ? this.props.correctSets.map(set => {
+                    console.log('correct sets', set)
+                        return (
+                            <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
+                                <h4 data-key={set.id}>{set.title} View Class</h4>
+                                <p data-key={set.id}>{set.description} </p>
+                            </div>
+                        )
+                }) 
+                : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={set.id}>{set.title} second</h4>
+                            <h4 data-key={set.id}>{set.title} Dashboard</h4>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )
-                }) : this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
-                    return (
-                        <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={set.id}>{set.title} Third</h4>
-                            <p data-key={set.id}>{set.description} </p>
-                        </div>
-                    )
-                }): null}
+                })
+                : null}
             </>
         )
 
