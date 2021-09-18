@@ -426,7 +426,6 @@ class Card {
             .then(async(qcId)=>{
                 allCard.quizcard = await Promise.all(qcId.map((id)=>{
                     let data = {}
-                    console.log('id.id 446', id)
                     return this.knex("quizcard")
                     .where("quizcard.id", id.id)
                     .select("id", "quizcardTitle", "quizcardRecording")
@@ -482,7 +481,6 @@ class Card {
                         return data
                     })
                 }))
-                console.log('allCard.quiz', allCard.quizcard)
                 return allCard.quizcard
             })
         })
