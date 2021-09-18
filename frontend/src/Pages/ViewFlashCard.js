@@ -33,7 +33,7 @@ class ViewFlashCard extends React.Component {
         this.state = {
             title: "classroomTitle",
             read: "readonly",
-            transcript: this.props.location.state.card[0].flashcardBody,
+            transcript: "",
             type: "flashcard",
             correctSet: [],
             show: Boolean(),
@@ -41,34 +41,42 @@ class ViewFlashCard extends React.Component {
             submissionTime: "",
             recording: false,
             submissionRecording: "",
-            submissionId: [],
-            onClickShowRecorder: [],
-            correctSubmission: [],
-            correctFeedback: [],
-
+            submissionId: "",
+            onClickShowRecorder:[],
+            correctSubmission:[],
+            correctFeedback:[],
+            correctFlashcard: [],
         }
         this.handleRecording = this.handleRecording.bind(this);
     }
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
-        this.getinitState()
+        console.log('this.props in VFC CDM', this.props)
+        // this.getinitState()
     }
 
-    getinitState() {
-        this.setState({
-            correctSubmission: this.props.location.state.card[0].submission,
-            correctFeedback: this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)
+    getinitState(){
+    console.log()
+    this.setState({
+            correctSubmission:  this.state.correctFlashcard[0].submission,
+            correctFeedback: this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)
         });
     }
-
+    //this.location.state.card[0].id === this.props.match.params.id
     componentWillReceiveProps(nextProps) {
-        const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === nextProps.location.state.card[0].id)
-
-        this.setState({
-            correctSubmission: correctProps[0].submission,
-            // correctFeedback:  this.props.card[0].submission.filter(sub => sub.id ===this.state.submissionId)
-        });
+        if(this.props.cards.flashcard.length > 0 ){
+            console.log('nextporpspspopsops', nextProps)
+            console.log('props in next props', this.props)
+            this.setState({
+                correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
+            })
+            const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            
+            this.setState({
+                correctSubmission: correctProps[0].submission,
+            });
+        }
     }
 
     toggle() {
@@ -116,7 +124,8 @@ class ViewFlashCard extends React.Component {
 
     onClickShowSubmissionViewer(id) {
         console.log("onClickShowSubmissionViewer, ID", id);
-        const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === this.props.location.state.card[0].id })
+        const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
+        console.log("cooresFeed2",cooresFeed2)
         const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
         console.log("cooresFeed3", cooresFeed3);
 
@@ -128,15 +137,6 @@ class ViewFlashCard extends React.Component {
         })
     }
 
-    async navigateFlashcard(e) {
-        e.preventDefault()
-        await this.addSubmission()
-        this.props.history.push({
-            pathname: `/viewflashcard`,
-            state: { card: this.props.location.state.card }
-        })
-    }
-
     addSubmission(e) {
         e.preventDefault()
         console.log("adding submission!!!!!", this.state);
@@ -144,7 +144,7 @@ class ViewFlashCard extends React.Component {
         this.props.addSubmission({
             type: this.state.type,
             email: localStorage.getItem('email'),
-            flashcardId: this.props.location.state.card[0].id,
+            flashcardId: this.state.correctFlashcard[0].id,
             flashcardSubmissionRecording: this.state.submissionRecording
         })
     }
@@ -169,7 +169,7 @@ class ViewFlashCard extends React.Component {
 
                     {/* 1st row: Header */}
                     <div className="col-8">
-                        <h1>{this.props.location.state.card[0].flashcardTitle}</h1>
+                        <h1>{this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardTitle : null}</h1>
                     </div>
 
                     {/* 2nd row: Transcript & Video Player */}
@@ -178,7 +178,7 @@ class ViewFlashCard extends React.Component {
                             <Transcript title={this.state} transcript={this.state} />
                         </div>
                         <div className="col-6">
-                            <VideoPlayer type={"display"} src={this.props.location.state.card[0].flashcardRecording} />
+                            <VideoPlayer type={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
                         </div>
                     </div>
 
@@ -223,12 +223,12 @@ class ViewFlashCard extends React.Component {
                         </div>
 
                         <div className="col-6">
-                            {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording} />}
-                            {this.state.showSubmissionViewer && <VideoPlayer create={this.state} time={this.handleTimeStamp} src={this.props.location.state.card[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording} />}
-                            {this.state.showRecorder &&
-                                <div className={classes.buttoncontainer}>
-                                    <button onClick={(e) => { this.addSubmission(e) }}>Add Submission</button>
-                                </div>
+                            {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer create={this.state} time={this.handleTimeStamp} src={ this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
+                            {this.state.showRecorder && 
+                            <div className={classes.buttoncontainer}> 
+                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
+                            </div> 
                             }
 
                         </div>

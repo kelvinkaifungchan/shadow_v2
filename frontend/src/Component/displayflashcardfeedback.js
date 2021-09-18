@@ -14,7 +14,6 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
                 {this.props.feedback[0].feedback &&
                     this.props.feedback[0].feedback.length > 0 ?
                     this.props.feedback[0].feedback.map((fb, j) => {
-                        console.log("feedback",fb);
                             return (
                                 <div key={j} data-key={j} className={classes.scrollfeedbackcard}>
                                     <div>
