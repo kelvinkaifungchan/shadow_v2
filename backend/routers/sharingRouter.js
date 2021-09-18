@@ -19,7 +19,6 @@ class SharingRouter {
 
         return this.sharingService.add(req.body)
         .then((data) => {
-            console.log("TELL ME STH BOY",data);
             return res.json(data)
         })
         .catch((err) => {

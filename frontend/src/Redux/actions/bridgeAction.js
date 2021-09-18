@@ -13,8 +13,6 @@ export const DELETE_BRIDGE_SET_QUIZCARD = "DELETE_BRIDGE_SET_QUIZCARD";
 export const addBridgeThunk = (bridge) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/bridge", bridge)
     .then(response => {
-        console.log('addBridgeThunk', bridge)
-        console.log('response in bridge action', response)
         if (bridge.type === "classroom_set") {
             console.log("classroom_set")
             dispatch({

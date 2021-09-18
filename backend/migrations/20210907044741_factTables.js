@@ -129,7 +129,7 @@ exports.down = function (knex) {
         .dropTable("dictationSubmission")
         .dropTable("dictation")
         .dropTable("dictationcard")
-        .dropTable("quizcardQuestionSubmissiion")
+        .dropTable("quizcardQuestionSubmission")
         .dropTable("quizcardQuestion")
         .dropTable("quizcard")
         .dropTable("flashcardFeedback")

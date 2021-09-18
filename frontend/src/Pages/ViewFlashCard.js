@@ -114,7 +114,6 @@ class ViewFlashCard extends React.Component {
     onClickShowSubmissionViewer(id) {
         const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
         const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
-
         this.setState({
             showRecorder: false,
             showSubmissionViewer: true,
@@ -139,11 +138,7 @@ class ViewFlashCard extends React.Component {
         })
     }
     addFeedback = (id) =>  {
-    //   this.onClickShowSubmissionViewer(id)
-    
-    this.child.current.foo(() => { this.props.subId(id) })
-
-    console.log("CALL CHILD PLSSS");
+      this.onClickShowSubmissionViewer(id)
     }
 
     render() {
