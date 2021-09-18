@@ -29,6 +29,7 @@ class ViewFlashCard extends React.Component {
         super(props)
 
         this.player = React.createRef();
+        this.child = React.createRef()
 
         this.state = {
             title: "classroomTitle",
@@ -113,7 +114,6 @@ class ViewFlashCard extends React.Component {
     onClickShowSubmissionViewer(id) {
         const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
         const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
-
         this.setState({
             showRecorder: false,
             showSubmissionViewer: true,
@@ -175,7 +175,7 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => { this.onClickShowRecorder() }} className={classes.scrollplusicon}>
                                         <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} />
+                                    <DisplayFlashcardSubmissionModule ref={this.child} subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} />
 
                                 </div>
                             </div>

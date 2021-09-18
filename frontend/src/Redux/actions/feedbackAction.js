@@ -28,8 +28,6 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
 export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
     return axios.delete("http://localhost:8080/api/card/submission/feedback", feedback)
     .then(response => {
-        console.log("feedback IN FA",feedback);
-        console.log("response IN FA",response)
         if (feedback.type === "dictationcard") {
             dispatch({
                 type: DELETE_FEEDBACK_DICTATIONCARD,

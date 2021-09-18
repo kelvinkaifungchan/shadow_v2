@@ -23,7 +23,6 @@ export const addCard = (card) => async (dispatch) => {
         await axios.post("http://localhost:8080/api/card", card)
     .then((data) => {
         newId = data.data[0];
-        console.log("card ID", newId)
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
@@ -49,7 +48,6 @@ export const addCard = (card) => async (dispatch) => {
         await axios.post("http://localhost:8080/api/card", card)
     .then((data) => {
         newId = data.data[0];
-        console.log("card ID", newId)
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
