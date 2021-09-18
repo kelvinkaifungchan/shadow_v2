@@ -395,13 +395,13 @@ class Card {
                     .select("user.displayName", "user.picture", "flashcardSubmission.id", "flashcardSubmission.user_id", "flashcardSubmission.flashcardSubmissionRecording")
                 })
                 .then((subs)=>{
-                    data.submission = subs.map((fuck) =>{
+                    data.submission = subs.map((flashcardSub) =>{
                         return {
-                            displayName: fuck.displayName,
-                            picture: fuck.picture,
-                            id: fuck.id,
-                            user_id:fuck.user_id,
-                            flashcardSubmissionRecording: fuck.flashcardSubmissionRecording
+                            displayName: flashcardSub.displayName,
+                            picture: flashcardSub.picture,
+                            id: flashcardSub.id,
+                            user_id: flashcardSub.user_id,
+                            flashcardSubmissionRecording: flashcardSub.flashcardSubmissionRecording
                         }
                     })
                 })
@@ -443,6 +443,7 @@ class Card {
             .then(async(qcId)=>{
                 allCard.quizcard = await Promise.all(qcId.map((id)=>{
                     let data = {}
+                    console.log('id.id 446', id)
                     return this.knex("quizcard")
                     .where("quizcard.id", id.id)
                     .select("id", "quizcardTitle", "quizcardRecording")
@@ -452,79 +453,42 @@ class Card {
                         data.quizcardRecording = qcdata[0].quizcardRecording
                     })
                     .then(()=>{
-                        return this.knex("multipleChoice")
+                        return this.knex("quizcardQuestion")
                         .where("quizcard_id", id.id)
-                        .where("multipleChoiceStatus", true)
                     })
-                    .then((mcs)=>{
-                        data.multipleChoice = mcs.map((mc) =>{
+                    .then((quiz)=>{
+                        data.quizcardQuestion = quiz.map((question) =>{
                             return {
-                                id: mc.id,
-                                multipleChoiceBody: mc.multipleChoiceBody,
-                                multipleChoiceA: mc.multipleChoiceA,
-                                multipleChoiceB: mc.multipleChoiceB,
-                                multipleChoiceC: mc.multipleChoiceC,
-                                multipleChoiceD: mc.multipleChoiceD,
-                                multipleChoiceAnswer: mc.multipleChoiceAnswer,
-                                multipleChoiceTime: mc.multipleChoiceTime
+                                id: question.id,
+                                quizcard_id: id.id,
+                                questionType: question.questionType,
+                                questionTime: question.questionTime,
+                                questionBody: question.questionBody,
+                                multipleChoiceA: question.multipleChoiceA,
+                                multipleChoiceB: question.multipleChoiceB,
+                                multipleChoiceC: question.multipleChoiceC,
+                                multipleChoiceD: question.multipleChoiceD,
+                                multipleChoiceAnswer: question.multipleChoiceAnswer,
+                                trueFalseAnswer: question.trueFalseAnswer
                             }
                         })
                     })
                     .then(async()=>{
-                        data.multipleChoice.submission = await Promise.all(data.multipleChoice.map((sub)=>{
+                        data.quizcardQuestion.submission = await Promise.all(data.quizcardQuestion.map((quizquest)=>{
                             let submission = {}
-                            return this.knex("multipleChoiceSubmission")
-                            .join("user", "user.id", "multipleChoiceSubmission.user_id")
-                            .where("multipleChoiceSubmission.multipleChoice_id", sub.id)
-                            .where("multipleChoiceSubmission.multipleChoiceStatus", true)
-                            .select("user.displayName", "user.picture", "multipleChoiceSubmission.id", "multipleChoiceSubmission.user_id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+                            return this.knex("quizcardQuestionSubmission")
+                            .join("user", "user.id", "quizcardQuestionSubmission.user_id")
+                            .where("quizcardQuestionSubmission.quizcardQuestion_id", quizquest.id)
+                            .select("user.displayName", "user.picture", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.user_id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
                             .then((mcSub)=>{
-                                sub.submission = mcSub.map((mcSubs)=>{
+                                console.log('mcsub', mcSub)
+                                quizquest.submission = mcSub.map((mcSubs)=>{
                                     return {
                                         displayName: mcSubs.displayName,
                                         picture: mcSubs.picture,
                                         user_id: mcSubs.user_id,
-                                        multipleChoiceSubmission: mcSubs.multipleChoiceSubmission,
-                                        multipleChoiceMarking: mcSubs.multipleChoiceMarking
-                                    }
-                                })
-                            })
-                            .then(()=>{
-                                return submission
-                            })
-                        }))
-                    })
-                    .then(()=>{
-                        return this.knex("trueFalse")
-                        .where("quizcard_id", id.id)
-                        .where("trueFalseStatus", true)
-                    })
-                    .then((tfs)=>{
-                        data.trueFalse = tfs.map((tf) =>{
-                            return {
-                                id: tf.id,
-                                trueFalseBody: tf.trueFalseBody,
-                                trueFalseAnswer: tf.trueFalseAnswer,
-                                trueFalseTime: tf.trueFalseTime
-                            }
-                        })
-                    })
-                    .then(async()=>{
-                        data.trueFalse.submission = await Promise.all(data.trueFalse.map((sub)=>{
-                            let submission = {}
-                            return this.knex("trueFalseSubmission")
-                            .join("user", "user.id", "trueFalseSubmission.user_id")
-                            .where("trueFalseSubmission.trueFalse_id", sub.id)
-                            .where("trueFalseSubmission.trueFalseSubmissionStatus", true)
-                            .select("user.displayName", "user.picture", "trueFalseSubmission.id", "trueFalseSubmission.user_id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
-                            .then((tfSub)=>{
-                                sub.submission = tfSub.map((tfSubs)=>{
-                                    return {
-                                        displayName: tfSubs.displayName,
-                                        picture: tfSubs.picture,
-                                        user_id: tfSubs.user_id,
-                                        trueFalseSubmission: tfSubs.trueFalseSubmission,
-                                        trueFalseMarking: tfSubs.trueFalseMarking
+                                        quizcardQuestionSubmission: mcSubs.quizcardQuestionSubmission,
+                                        quizcardQuestionMarking: mcSubs.quizcardQuestionMarking
                                     }
                                 })
                             })
@@ -537,6 +501,7 @@ class Card {
                         return data
                     })
                 }))
+                console.log('allCard.quiz', allCard.quizcard)
                 return allCard.quizcard
             })
         })
