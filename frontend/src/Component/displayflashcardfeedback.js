@@ -31,7 +31,7 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in display flashcardfeedback", state);
 
     return {
         cards: state.cardStore.card,
