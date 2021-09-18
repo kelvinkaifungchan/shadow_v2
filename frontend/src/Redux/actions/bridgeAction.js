@@ -19,22 +19,22 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
             console.log("classroom_set")
             dispatch({
                 type: ADD_BRIDGE_CLASSROOM_SET,
-                payload: {id:{classroom_id: bridge.classroomId}, content:{set_id: bridge.setId}}
+                payload: {id:{classroom_id: parseInt(bridge.classroomId)}, content:{set_id: parseInt(bridge.setId)}}
             })
         } else if (bridge.type === "set_dictationcard") {
-            console.log("set_dictationcard")
+            console.log("action set_dictationcard")
             dispatch({
                 type: ADD_BRIDGE_SET_DICTATIONCARD,
                 payload: {id:{set_id: bridge.setId}, content:{dictationcard_id: parseInt(bridge.dictationcardId)}}
             })
         } else if (bridge.type === "set_flashcard") {
-            console.log("set_flashcard")
+            console.log("action set_flashcard")
             dispatch({
                 type: ADD_BRIDGE_SET_FLASHCARD,
                 payload: {id:{set_id: bridge.setId}, content:{flashcard_id: parseInt(bridge.flashcardId)}}
             })
         } else if (bridge.type === "set_quizcard") {
-            console.log("set_quizcard")
+            console.log("action set_quizcard")
             dispatch({
                 type: ADD_BRIDGE_SET_QUIZCARD,
                 payload: {id:{set_id: bridge.setId}, content:{quizcard_id: parseInt(bridge.quizcardId)}}

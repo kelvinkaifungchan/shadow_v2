@@ -44,8 +44,8 @@ class PureModel extends React.Component {
                 <ModalHeader >Add Exist {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : "Classroom"}</ModalHeader>
                 <ModalBody>
                     <div className="">
-                        {this.props.create.type === "class" ? <DisplaySetModule location={this.props.location}  correctClass={this.props.location.state} sets={this.props.sets} toggle={this.props.toggle}/> : 
-                        <DisplayCardModule location={this.props.location} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
+                        {this.props.create.type === "class" ? <DisplaySetModule display="3" match={this.props.match} correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> : 
+                        <DisplayCardModule match={this.props.match} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }
 
                     </div>

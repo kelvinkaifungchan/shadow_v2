@@ -34,22 +34,26 @@ class ViewDictationcard extends React.Component {
 
                 <div className={classes.viewdictationcard}>
                 <div className="row d-flex p-4">
-                    <div className="col-8">
-                        <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state} />
+                <div className="col-6">
+                        <h1>{this.props.location.state.card[0].dictationcardTitle}</h1>
                     </div>
-                    <div className="col-4">
+
+                    <div className="col-6">
                         {/* <FormSubmit/> */}
                         <button cards={this.props.cards}>Create Card</button>
                     </div>
-                </div>
+                    </div>
+
                 <div className="row">
                     <div className="col col-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
                         {/* <StartDictation/> */}
-                        <button className="p-5"  onClick={() => {  this.toggle(); }}>StartDictation</button>
+                        <div className={classes.startbtncontainer}>
+                        <span className={classes.startbtn}  onClick={() => {  this.toggle(); }}>Start Dictation</span>
+                        </ div>
                     </div>
                 </div>
                 </div>
-            </div>
+                </div>
         );
     }
 }

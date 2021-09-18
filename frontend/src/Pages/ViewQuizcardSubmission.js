@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+// Require Action
+import { getdataThunk } from '../Redux/actions/action'
+
 import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import {Account} from './Account';
@@ -15,19 +18,24 @@ import classes from './ViewQuizcardSubmission.module.css'
 class ViewQuizcardSubmission extends React.Component {
     constructor(props){
         super(props)
-        this.bg = {
-            backgroundColor: '#F8DF4F'
+        this.state={
+
         }
     }
 
-    
+    async componentDidMount() {
+        await this.props.getdata({ email: localStorage.getItem("email") })
+    }
+
+
 
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
     render() {
-        console.log("i want to see the props",this.props);
+        console.log("i want to see the props in VIEW QUIZCARD SUBMISSION",this.props);
+        console.log("i want to see the STATES in VIEW QUIZCARD SUBMISSION",this.state);
 
         return (
             <div>
@@ -37,19 +45,72 @@ class ViewQuizcardSubmission extends React.Component {
                 {/* 1st row: Header */}
                 <div className="row d-flex p-4">
                     <div className="col-8">
-                        <h1>{this.props.location.state.card[0].quizcardTitle}</h1>
+                        <h1>{this.props.location.state.quizcard.quizcardTitle}</h1>
                     </div>
                 </div>
 
                 <div className="row d-flex p-4">
+                    <div className="col">
                     <table>
-                        <th>Student</th>
-                        <td></td>
-                    </table>
-                </div>
+                    <th></th>
+                    {this.props.location.state.quizcard && 
+                    this.props.location.state.quizcard.multipleChoice.length > 0 
+                    ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
+                    return (
+                        <th>Question {question.id}</th>
+                    )
+                }) : null
+                }
 
-                <div className="row d-flex p-4">
-                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>View Submission</button>
+                {/* Correct Answer Row */}
+                <tr>
+                    <th>Correct Answer</th>
+                {this.props.location.state.quizcard && 
+                    this.props.location.state.quizcard.multipleChoice.length > 0 
+                    ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
+                    return (
+                        
+                        <td data-key={i} className={classes.correctAnswer}>
+                            {question.multipleChoiceAnswer}
+                        </td>
+
+                    )
+                }) : null
+                }
+                </tr>
+
+                {/* Submission Answer Row */}
+                {
+                this.props.location.state.quizcard.multipleChoice[0].submission.length > 0
+                ? this.props.location.state.quizcard.multipleChoice[0].submission.map((submission, i) => {
+                    return (
+                        <tr data-key={i} className={classes.submission}>
+                            <th>Student {submission.user_id}</th>
+                            <td style={{background: submission.multipleChoiceMarking ? "#F4FFB4" : "#FCDDEC"}}>{submission.multipleChoiceSubmission}</td>
+                            </tr>
+                    )
+                }) : null}
+
+                {/* <tr>
+                    <th>{this.props.location.state.quizcard.multipleChoice[0].submission[0].user_id}</th>
+                {this.props.location.state.quizcard && 
+                    this.props.location.state.quizcard.multipleChoice.length > 0 
+                    ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
+                    return (
+                        
+                        <td data-key={i} className={classes.correctAnswer}>
+                            {question.multipleChoiceAnswer}
+                        </td>
+
+                    )
+                }) : null
+                }
+                </tr> */}
+</table>
+</div>
+
+
+
                 </div>
             </div>
 
@@ -66,14 +127,19 @@ class ViewQuizcardSubmission extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps  = dispatch => {
     return {
-        logout: () => {
-            dispatch(logoutNowThunk())
-        }
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
     }
 }
 

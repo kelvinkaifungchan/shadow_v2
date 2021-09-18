@@ -28,7 +28,7 @@ class PureNewCommentModal extends React.Component {
         state[field] = e.currentTarget.value;
         this.setState(state);
     }
-
+            
     render() {
         console.log("STATE IN NCM",this.props.create);
         return (
