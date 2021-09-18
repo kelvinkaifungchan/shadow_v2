@@ -226,132 +226,105 @@ exports.seed = function (knex) {
           quizcardStatus: true,
         }])
       })
-      .then(() => {
-        return knex('multipleChoice').del();
+      .then(()=>{
+        return knex('quizcardQuestion').del();
       })
-      .then(() => {
-        return knex('multipleChoice').insert([{
+      .then(()=>{
+        return knex('quizcardQuestion').insert([{
           quizcard_id: 1,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckingA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }, {
+          questionType: "multipleChoice",
+          questionTime: "00:03",
+          questionBody: "lmao what do you want me to ask",
+          multipleChoiceA: "smthAss",
+          multipleChoiceB: "smthBoobs",
+          multipleChoiceC: "smthCock",
+          multipleChoiceD: "smthDick",
+          multipleChoiceAnswer: "a",
+        },{
           quizcard_id: 1,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckingB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }, {
+          questionType: "trueFalse",
+          questionTime: "00:04",
+          questionBody: "second ft",
+          trueFalseAnswer: "true",
+        },{
+          quizcard_id: 1,
+          questionType: "multipleChoice",
+          questionTime: "00:03",
+          questionBody: "3 mc",
+          multipleChoiceA: "3Ass",
+          multipleChoiceB: "3Boobs",
+          multipleChoiceC: "3Cock",
+          multipleChoiceD: "3Dick",
+          multipleChoiceAnswer: "a",
+        },{
+          quizcard_id: 1,
+          questionType: "trueFalse",
+          questionTime: "00:03",
+          questionBody: "4 question tf",
+          trueFalseAnswer: "true",
+        },{
           quizcard_id: 2,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckingC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }, {
-          quizcard_id: 3,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckDing",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }, {
-          quizcard_id: 4,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckingA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }])
-      })
-      .then(() => {
-        return knex('multipleChoiceSubmission').del();
-      })
-      .then(() => {
-        return knex('multipleChoiceSubmission').insert([{
-          user_id: 1,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }, {
-          user_id: 1,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }, {
-          user_id: 2,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }])
-      })
-      .then(() => {
-        return knex('trueFalse').del();
-      })
-      .then(() => {
-        return knex('trueFalse').insert([{
-          quizcard_id: 1,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
-        }, {
-          quizcard_id: 1,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
-        }, {
+          questionType: "multipleChoice",
+          questionTime: "00:03",
+          questionBody: "qc2 lmao what do you want me to ask qc2",
+          multipleChoiceA: "smthAss",
+          multipleChoiceB: "smthBoobs",
+          multipleChoiceC: "smthCock",
+          multipleChoiceD: "smthDick",
+          multipleChoiceAnswer: "a",
+        },{
           quizcard_id: 2,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
+          questionType: "trueFalse",
+          questionTime: "00:04",
+          questionBody: "qc2 second ft",
+          trueFalseAnswer: "true",
+        },{
+          quizcard_id: 2,
+          questionType: "multipleChoice",
+          questionTime: "00:03",
+          questionBody: "qc2 3 mc",
+          multipleChoiceA: "3Ass",
+          multipleChoiceB: "3Boobs",
+          multipleChoiceC: "3Cock",
+          multipleChoiceD: "3Dick",
+          multipleChoiceAnswer: "b",
+        },{
+          quizcard_id: 2,
+          questionType: "trueFalse",
+          questionTime: "00:03",
+          questionBody: "qc2 4 question tf",
+          trueFalseAnswer: "true",
         }])
       })
-      .then(() => {
-        return knex('trueFalseSubmission').del();
+      .then(()=>{
+        return knex('quizcardQuestionSubmission').del();
       })
-      .then(() => {
-        return knex('trueFalseSubmission').insert([{
+      .then(()=>{
+        return knex('quizcardQuestionSubmission').insert([{
           user_id: 1,
-          trueFalse_id: 1,
-          trueFalseSubmission: true,
-          trueFalseMarking: true,
-          trueFalseSubmissionStatus: true,
-        }, {
+          quizcardQuestion_id: 1,
+          quizcardQuestionSubmission: "a",
+          quizcardQuestionMarking: true,
+        },{
+          user_id: 1,
+          quizcardQuestion_id: 2,
+          quizcardQuestionSubmission: "true",
+          quizcardQuestionMarking: true,
+        },{
+          user_id: 1,
+          quizcardQuestion_id: 3,
+          quizcardQuestionSubmission: "a",
+          quizcardQuestionMarking: true,
+        },{
+          user_id: 1,
+          quizcardQuestion_id: 4,
+          quizcardQuestionSubmission: "true",
+          quizcardQuestionMarking: true,
+        },{
           user_id: 2,
-          trueFalse_id: 2,
-          trueFalseSubmission: false,
-          trueFalseMarking: true,
-          trueFalseSubmissionStatus: true,
-        }, {
-          user_id: 2,
-          trueFalse_id: 2,
-          trueFalseSubmission: true,
-          trueFalseMarking: false,
-          trueFalseSubmissionStatus: true,
+          quizcardQuestion_id: 1,
+          quizcardQuestionSubmission: "a",
+          quizcardQuestionMarking: true,
         }])
       })
       .then(() => {

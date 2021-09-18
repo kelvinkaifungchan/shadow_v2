@@ -23,7 +23,6 @@ import{
     ADD_SUBMISSION_DICTATIONCARD,
     ADD_SUBMISSION_FLASHCARD,
     ADD_SUBMISSION_MULTIPLECHOICE,
-    ADD_SUBMISSION_TRUEFALSE,
     DELETE_SUBMISSION_DICTATIONCARD,
     DELETE_SUBMISSION_FLASHCARD,
     DELETE_SUBMISSION_MULTIPLECHOICE,
@@ -192,21 +191,21 @@ export function cardReducer(state = initialState, action) {
                 }
             }
 
-        case ADD_SUBMISSION_TRUEFALSE:
-            return {
-                card:{
-                    ...state.card,
-                    trueFalse: state.card.quizcard.trueFalse.map((trueFalse) => {
-                        if(trueFalse.trueFalse_id === action.payload.trueFalse_id){
-                            return {
-                                ...trueFalse,
-                                submission:[...trueFalse.submission, action.payload]
-                            }
-                        }
-                        return trueFalse
-                    })
-                }
-            }
+        // case ADD_SUBMISSION_TRUEFALSE:
+        //     return {
+        //         card:{
+        //             ...state.card,
+        //             trueFalse: state.card.quizcard.trueFalse.map((trueFalse) => {
+        //                 if(trueFalse.trueFalse_id === action.payload.trueFalse_id){
+        //                     return {
+        //                         ...trueFalse,
+        //                         submission:[...trueFalse.submission, action.payload]
+        //                     }
+        //                 }
+        //                 return trueFalse
+        //             })
+        //         }
+        //     }
     
         case DELETE_SUBMISSION_FLASHCARD:
             return {

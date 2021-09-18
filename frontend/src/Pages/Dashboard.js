@@ -73,7 +73,7 @@ class PureDashboard extends React.Component {
                                 <h1>My Classroom</h1>
                                 <span className={classes.createclassroombtn}>
                                     <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                    </span>
+                                </span>
                         </div>
 
                         <div className="row d-flex pl-2">
@@ -89,7 +89,7 @@ class PureDashboard extends React.Component {
                         </div>
 
                         <div className="row d-flex pl-2">
-                        <DisplaySetModule sets={this.props.sets} navigate={(e)=>{this.navigateSet(e)}}/>
+                        <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e)=>{this.navigateSet(e)}}/>
                         </div>
                     
                         {this.props.loading && <div> Loading...</div>}
