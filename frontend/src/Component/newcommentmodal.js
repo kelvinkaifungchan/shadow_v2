@@ -14,13 +14,12 @@ class PureNewCommentModal extends React.Component {
         };
     }
 
-    submit = async (e) => {
+    submit = (e) => {
         e.preventDefault();
-       await this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+      this.props.addFeedback(this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp)
         this.setState({
             flashcardSubmissionBody:""
         })
-       await this.props.addFeedback(this.props.create.submissionId)
     }
 
     onChangeField = (field, e) => {
@@ -30,7 +29,6 @@ class PureNewCommentModal extends React.Component {
     }
             
     render() {
-        console.log("STATE IN NCM",this.props.create);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
@@ -80,16 +78,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addFeedbackThunk: (type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime) => {
-            let feedback = {
-                type: type,
-                email: email,
-                submissionId: flashcardSubmissionId,
-                body: flashcardFeedbackBody,
-                timestamp: flashcardFeedbackTime
-            }
-            dispatch(addFeedbackThunk(feedback))
-        },
+        // addFeedbackThunk: (type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime) => {
+        //     let feedback = {
+        //         type: type,
+        //         email: email,
+        //         submissionId: flashcardSubmissionId,
+        //         body: flashcardFeedbackBody,
+        //         timestamp: flashcardFeedbackTime
+        //     }
+        //     dispatch(addFeedbackThunk(feedback))
+        // },
     }
 }
 

@@ -14,7 +14,6 @@ const initialState = {
 };
 
 export function classroomReducer(state = initialState, action){
-    console.log('12345')
     switch(action.type){
         case GETDATACLASSROOMS_SUCCESS:
             return {
