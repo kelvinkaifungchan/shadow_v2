@@ -278,17 +278,10 @@ export function cardReducer(state = initialState, action) {
                     flashcard: state.card.flashcard.map((flashcard) => {
 
                         if(flashcard.id === action.payload.flashcard_id){
-                            console.log("flashcard",flashcard);
-                            console.log("action.payload",action.payload);
-                            console.log("action.payload.flashcard_id",action.payload.flashcard_id);
                             return {
                                 ...flashcard,
                                 submission: flashcard.submission.map((submission) => {
-                                    console.log("submission.flashcardSubmission_id",submission.id);
-                                    console.log("action.payload.flashcardSubmission_id",action.payload.flashcardSubmission_id);
                                     if(submission.id === action.payload.flashcardSubmission_id){
-                                        console.log(" ...submission, ", submission);
-                                        console.log("action.payload.content",action.payload);
                                         return {
                                             ...submission, 
                                             feedback: [...submission.feedback, action.payload]

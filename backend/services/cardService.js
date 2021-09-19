@@ -495,6 +495,7 @@ class Card {
             .then(async (dictationcards)=>{
                 allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
                     let data = {}
+                    data.id = id.id
                     data.dictationcardTitle = id.dictationcardTitle
                     data.id = id.id
                     return this.knex("dictation")
