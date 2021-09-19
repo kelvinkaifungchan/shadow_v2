@@ -9,9 +9,12 @@ class PureVIewQuizcardQuestionModule extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            type: 'mc'
+            type: 'mc',
         }
     }
+
+
+   
     mcToggle() {
         console.log('mc')
         this.setState({
@@ -25,11 +28,19 @@ class PureVIewQuizcardQuestionModule extends React.Component {
         })
     }
 
+    onClickShowQuestionViewer(id) {
+        this.setState({
+            showQuestionViewer: true,
+            questionId: id,
+        })
+    }
+
     render() {
+
         return (
             <>
 
-                <div className={classes.scrollicon}>
+                <div  subId={(id) => this.onClickShowQuestionViewer(id)} className={classes.scrollicon}>
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
@@ -51,7 +62,7 @@ class PureVIewQuizcardQuestionModule extends React.Component {
                                             <UncontrolledDropdown>
                                                 <DropdownToggle caret>
                                                     Question type
-                            </DropdownToggle>
+                                                </DropdownToggle>
                                                 <DropdownMenu right>
                                                     <DropdownItem onClick={() => this.mcToggle()}>Multiple Choice</DropdownItem>
                                                     <DropdownItem onClick={() => this.tfToggle()}>True or False</DropdownItem>

@@ -29,7 +29,11 @@ class ViewQuizcard extends React.Component {
             this.setState({
                 correctQuizcard: this.props.cards.quizcard.filter(quiz => quiz.id === parseInt(this.props.match.params.id))
             })
-           
+            const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            console.log("correctProps VIEW QUIZCARD",correctProps);
+            // this.setState({
+            //     correctQuestion: correctProps[0].submission,
+            // });
         }
     }
 
@@ -63,7 +67,7 @@ class ViewQuizcard extends React.Component {
                 </div>
                 </div>
 
-                <VIewQuizcardQuestionModule />
+                <VIewQuizcardQuestionModule question={this.state.correctQuestion} />
             </div>
 
             </div>
