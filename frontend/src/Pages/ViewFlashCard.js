@@ -58,7 +58,6 @@ class ViewFlashCard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("THIS IS NEXT PROPS<><><><><>",nextProps);
         if(this.props.cards.flashcard.length > 0 ){
             this.setState({
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
