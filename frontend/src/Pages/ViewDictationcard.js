@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import {QRModal} from '../Component/qrcode'
+import { Canvas } from '../Component/canvas'
 import classes from './ViewDictationcard.module.css'
 
 
@@ -29,11 +30,14 @@ class ViewDictationcard extends React.Component {
 
         return (
             <div>
-                <NavBar history={this.props.history} />
+                
+                <NavBar user={this.props.user} history={this.props.history} />
                 <QRModal modal={this.state} toggle={() => this.toggle()}/>
-
+                
                 <div className={classes.viewdictationcard}>
+                    
                 <div className="row d-flex p-4">
+                
                 <div className="col-6">
                         <h1>{this.props.location.state.card[0].dictationcardTitle}</h1>
                     </div>
@@ -47,7 +51,9 @@ class ViewDictationcard extends React.Component {
                 <div className="row">
                     <div className="col col-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
                         {/* <StartDictation/> */}
+                        
                         <div className={classes.startbtncontainer}>
+                        <Canvas/>
                         <span className={classes.startbtn}  onClick={() => {  this.toggle(); }}>Start Dictation</span>
                         </ div>
                     </div>
