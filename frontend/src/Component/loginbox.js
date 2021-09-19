@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { loginUserThunk , loginFacebookThunk } from '../Redux/actions/loginboxAction'
 
-import FacebookLogin from 'react-facebook-login';
-
 class PureLoginBox extends React.Component {
     constructor(props) {
         super(props);

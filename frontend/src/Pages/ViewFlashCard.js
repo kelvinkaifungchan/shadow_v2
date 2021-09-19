@@ -58,13 +58,11 @@ class ViewFlashCard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("THIS IS NEXT PROPS<><><><><>",nextProps);
         if(this.props.cards.flashcard.length > 0 ){
             this.setState({
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            
             this.setState({
                 correctSubmission: correctProps[0].submission,
                 correctFeedback:correctProps[0].submission
@@ -203,7 +201,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback} />}
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} />}
 
                                     </div>
                                 </div>
