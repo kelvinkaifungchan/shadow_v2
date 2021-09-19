@@ -24,6 +24,7 @@ class Card {
             });
         }
         if(body.type === "quizcard"){
+            console.log('quizcardservice adding')
             return this.knex("quizcard")
             .insert({
                 user_id: userId[0].id,
@@ -493,6 +494,7 @@ class Card {
                 allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
                     let data = {}
                     data.dictationcardTitle = id.dictationcardTitle
+                    data.id = id.id
                     return this.knex("dictation")
                     .where("dictationcard_id", id.id)
                     .where("dictationStatus", true)
