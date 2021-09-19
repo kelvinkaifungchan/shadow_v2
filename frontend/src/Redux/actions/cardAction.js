@@ -72,8 +72,7 @@ export const addCard = (card) => async (dispatch) => {
     if(card.type === "quizcard"){
         await axios.post("http://localhost:8080/api/card", card)
     .then((data) => {
-        newId = data.data[0];
-        console.log("card ID", newId)
+        newId = data.data;
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {

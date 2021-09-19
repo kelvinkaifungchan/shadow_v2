@@ -20,7 +20,6 @@ class PureModel extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
@@ -37,15 +36,12 @@ class PureModel extends React.Component {
     }
 
     openSelect() {
-        console.log("cls");
         this.setState({
             selectModal: !this.state.selectModal,
         })
     }
 
     setCreatePopUp() {
-        console.log("fml");
-
         this.setState({
             setCreatePopUp: !this.state.setCreatePopUp,
             type: "set"
@@ -54,8 +50,8 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log("this.props in ANM", this.props);
-        console.log("state in addnewmodal", this.state)
+        // console.log("this.props in ANM", this.props);
+        // console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
         let button
