@@ -40,20 +40,12 @@ class PureModel extends React.Component {
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
                 <ModalHeader >Add Exist {this.props.create.type === "class" ? "Set" : this.props.create.type === "set" ? "Card" : "Classroom"}</ModalHeader>
                 <ModalBody>
-                        {this.props.create.type === "class" ? 
-                        <DisplaySetModule 
-                        display="3" 
-                        match={this.props.match} 
-                        correctClass={this.props.correctClass} 
-                        sets={this.props.sets} 
-                        toggle={this.props.toggle}/> : 
-
-                        <DisplayCardModule 
-                        match={this.props.match} 
-                        allCard={this.props.allCard} 
-                        connect={(e)=>this.connect(e)} 
-                        toggle={this.props.toggle}/>
+                    <div className="">
+                        {this.props.create.type === "class" ? <DisplaySetModule display="3" match={this.props.match} correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> : 
+                        <DisplayCardModule match={this.props.match} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }
+
+                    </div>
                 </ModalBody>
             </Modal>
         )

@@ -40,6 +40,13 @@ class ViewQuizcard extends React.Component {
         }
     }
 
+    async navigateSubmission(e){
+        e.preventDefault()
+        this.props.history.push({
+            pathname:`/viewquizcardSubmission/${this.props.match.params.id}`,
+        })
+    }
+
     render() {
         console.log("PROPS IN VIEW QUIZCARD", this.props)
         console.log("STATE IN VIEW QUIZCARD", this.state)

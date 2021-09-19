@@ -19,8 +19,6 @@ class ViewQuizcardSubmission extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            title: "classroomTitle",
-            read: "readonly",
             type: "quizcard",
             correctSet: [],
             show: Boolean(),
@@ -74,7 +72,7 @@ class ViewQuizcardSubmission extends React.Component {
                         {/* 1st row: Header */}
                         <div className="row d-flex p-4">
                             <div className="col-8">
-                                {/* <h1>{this.props.location.state.quizcard.quizcardTitle}</h1> */}
+                                <h1>{this.state.correctQuizcard.quizcardTitle}</h1>
                             </div>
                         </div>
 
