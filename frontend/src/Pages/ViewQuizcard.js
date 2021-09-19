@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 //Component
 import {NavBar} from '../Component/navbar';
-import {VIewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
+import {ViewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
 
 import { getdataThunk } from '../Redux/actions/action'
 
@@ -17,7 +17,8 @@ class ViewQuizcard extends React.Component {
         this.state = {
             title: "",
             type: "quizcard",
-            correctQuizcard:[]
+            correctQuizcard:[],
+            correctQuestion:[]
         }
     }
     componentDidMount() {
@@ -31,9 +32,11 @@ class ViewQuizcard extends React.Component {
             })
             const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
             console.log("correctProps VIEW QUIZCARD",correctProps);
-            // this.setState({
-            //     correctQuestion: correctProps[0].submission,
-            // });
+            this.setState({
+                correctQuestion: correctProps[0]
+            })
+            console.log("correctState VIEW QUIZCARD",this.state);
+
         }
     }
 
@@ -67,7 +70,7 @@ class ViewQuizcard extends React.Component {
                 </div>
                 </div>
 
-                <VIewQuizcardQuestionModule question={this.state.correctQuestion} />
+                <ViewQuizcardQuestionModule question={this.state.correctQuestion} />
             </div>
 
             </div>
