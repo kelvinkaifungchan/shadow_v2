@@ -133,7 +133,7 @@ class ViewSet extends React.Component {
             })
         } else if (e.target.attributes["data-type"].value === "quizcard") {
             this.props.history.push({
-                pathname: `/viewquizcard${e.target.attributes["data-key"].value}`
+                pathname: `/viewquizcard/${e.target.attributes["data-key"].value}`
             })
         } else if (e.target.attributes["data-type"].value === "dictationcard") {
             this.props.history.push({

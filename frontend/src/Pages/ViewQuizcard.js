@@ -36,7 +36,7 @@ class ViewQuizcard extends React.Component {
 
         return (
             <div>
-                <NavBar/>
+                <NavBar user={this.props.user} history={this.props.history}/>
 
             <div className={classes.viewquizcard}>
                 {/* 1st row: Header */}
