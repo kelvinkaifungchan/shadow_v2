@@ -45,7 +45,7 @@ class ViewDictationQuestion extends React.Component {
             </div>
             <div className="row">
                 <div className="col col-12">
-                    <Canvas/>
+                    <Canvas canvasId={this.props.match.params.id}/>
                     <p>Canvas</p>
                 </div>
             </div>
