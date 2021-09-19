@@ -41,6 +41,7 @@ class BridgeService {
             }
         }
         if (body.type === "set_quizcard") {
+            console.log('in set_quiz body', body)
             const share = await this.knex("set_quizcard").where({
                 set_id: body.setId,
                 quizcard_id: body.quizcardId

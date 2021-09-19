@@ -18,26 +18,23 @@ class PureModel extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
     }
     changeTypeClass() {
-        console.log('ctc')
         this.setState({
             type: "class"
         })
     }
     changeTypeSet() {
-        console.log('cts')
         this.setState({
             type: "set"
         })
     }
 
     render() {
-        console.log('props in add exist modal', this.props)
+        // console.log('props in add exist modal', this.props)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
