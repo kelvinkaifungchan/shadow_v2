@@ -74,14 +74,10 @@ class ViewSet extends React.Component {
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             if (correctDicts[0] !== undefined && correctFlashs[0].bridge_dictationcard !== undefined) {
-                console.log('show me big', correctDicts)
                 let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
-                    console.log('changed', changed)
-                    console.log('nextProps', nextProps)
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
                     return newestState[0]
                 });
-                console.log('nextdictation',nextdictation)
                 if(nextdictation[0] !== undefined){
                     this.setState({
                     correctdictationCard: nextdictation,
@@ -204,7 +200,6 @@ class ViewSet extends React.Component {
             return null
         }
         if (this.state.correctSet[0].bridge_dictationcard != null) {
-            console.log('show me bug', this.state.correctSet[0])
             const dictation = this.state.correctSet[0].bridge_dictationcard.map((dictationCard) => {
                 const newestState = this.props.cards.dictationcard.filter(card => card.id === dictationCard.dictationcard_id)
                 return newestState[0]
