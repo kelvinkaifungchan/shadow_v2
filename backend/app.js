@@ -4,6 +4,9 @@ require("dotenv").config();
 const fileUpload = require("express-fileupload");
 const express = require("express");
 const app = express();
+const http = require('http').createServer(app);
+
+
 //Setup Database
 require("dotenv").config();
 const knexConfig = require("./knexfile").development
@@ -66,7 +69,26 @@ app.use("/api/tag", new tagRouter(tagService).router());
 const UserRouter = require("./routers/userRouter");
 app.use("/api/user", new UserRouter(userService).router());
 
+const io = require('socket.io')(http,{
+  cors: {
+            origin:"*"
+  }
+});
+
+io.on('connection', (socket)=> {
+  console.log('User Online');
+  
+  socket.on('canvas-data', (data)=> {
+        socket.broadcast.emit('canvas-data', data);
+        
+  })
+  socket.on('clear', (data)=> {
+        console.log("DIU")
+        socket.broadcast.emit('clear', data);   
+  })
+})
+
 //Setup Server
-app.listen(8080, () => {
+http.listen(8080, () => {
   console.log("app listening on port 8080");
 });

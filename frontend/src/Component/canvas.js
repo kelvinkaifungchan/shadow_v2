@@ -7,7 +7,7 @@ import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
 
 
-class Canvas extends React.Component{
+class PureCanvas extends React.Component{
 
     timeout;
 
@@ -17,7 +17,7 @@ class Canvas extends React.Component{
 constructor(props){
     super(props);
 
-    this.socket = io.connect("server");
+    this.socket = io.connect("http://localhost:8080");
 
 
     this.socket.on("clear", () => {
@@ -48,18 +48,20 @@ constructor(props){
 
 componentDidMount() {
     this.drawOnCanvas();
+    this.ctx.strokeStyle = "#00000";
+    this.ctx.lineWidth = "1";
 }
 
-componentWillReceiveProps(newProps) {
-    this.ctx.strokeStyle = newProps.color;
-    this.ctx.lineWidth = newProps.size;
-}
+// componentWillReceiveProps(newProps) {
+//     this.ctx.strokeStyle = newProps.color;
+//     this.ctx.lineWidth = "5";
+// }
 
 drawOnCanvas() {
     var canvas = document.querySelector('#board');
     this.ctx = canvas.getContext('2d');
     var ctx = this.ctx;
-
+    
     var sketch = document.querySelector('#sketch');
     var sketch_style = getComputedStyle(sketch);
     canvas.width = parseInt(sketch_style.getPropertyValue('width'));
@@ -79,18 +81,22 @@ drawOnCanvas() {
     canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
     function onMouseDown(e) {
+        console.log("FUCK YOUR MOM MOUSEDOWN")
         drawing = true;
         current.x = e.clientX || e.touches[0].clientX;
         current.y = e.clientY || e.touches[0].clientY;
     }
 
     function onMouseUp(e) {
+        console.log("YESSSSS MOUSEUP ")
         if (!drawing) { return; }
         drawing = false;
         drawLine(current.x, current.y, e.clientX || e.touches.clientX, e.clientY || e.touches.clientY, current.color, true);
     }
 
     function onMouseMove(e) {
+        console.log('FUCK ME DADDY MOUSEMOVE')
+
         if (!drawing) { return; }
         drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
         current.x = e.clientX || e.touches[0].clientX;
@@ -111,13 +117,20 @@ drawOnCanvas() {
     var root = this;
     //onPaint
     var drawLine = function (x0, y0, x1, y1) {
+        console.log("FUCK YEA DRAWING")
+        console.log(ctx.strokeStyle)
+        console.log(ctx.lineWidth)
+        console.log(x0, y0, x1, y1)
+        
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         ctx.stroke();
         ctx.closePath();
 
+       
         var base64ImageData = canvas.toDataURL("image/png");
+        console.log(base64ImageData)
         root.socket.emit("canvas-data", base64ImageData);
 
     };
@@ -125,6 +138,7 @@ drawOnCanvas() {
 
 }
 clearcanvas() {
+    console.log("CLEAR ")
     var canvas = document.querySelector('#board');
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -169,7 +183,7 @@ submit(){
 render() {
     return (
         <div>
-            <div class="sketch" id="sketch">
+            <div className="sketch" id="sketch">
 
                 <canvas className="board" id="board"></canvas>
 
@@ -191,4 +205,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(null, mapDispatchToProps)(Canvas)
+export const Canvas = connect(null, mapDispatchToProps)(PureCanvas)

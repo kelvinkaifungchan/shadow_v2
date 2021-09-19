@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import {QRModal} from '../Component/qrcode'
+import { Canvas } from '../Component/canvas'
 import classes from './ViewDictationcard.module.css'
 
 
@@ -36,9 +37,10 @@ class ViewDictationcard extends React.Component {
 
         return (
             <div>
-                <NavBar history={this.props.history} />
+                
+                <NavBar user={this.props.user} history={this.props.history} />
                 <QRModal modal={this.state} toggle={() => this.toggle()}/>
-
+                <Canvas/>
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
