@@ -493,6 +493,7 @@ class Card {
                 allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
                     let data = {}
                     data.dictationcardTitle = id.dictationcardTitle
+                    data.id = id.id
                     return this.knex("dictation")
                     .where("dictationcard_id", id.id)
                     .where("dictationStatus", true)
