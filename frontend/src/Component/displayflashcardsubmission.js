@@ -5,14 +5,6 @@ import classes from './displayflashcardsubmission.module.css'
 
 class PureDisplayFlashcardSubmissionModule extends React.Component {
 
-    // onClickShowSubmissionViewer(id){
-    //     this.setState({
-    //         showRecorder: false,
-    //         showSubmissionViewer: true,
-    //         submissionid: id,
-    //     })
-    // }
-
     render() {
         return (
             <>
