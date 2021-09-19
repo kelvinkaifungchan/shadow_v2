@@ -4,42 +4,35 @@ import { connect } from 'react-redux'
 import classes from './displayflashcardfeedback.module.css'
 
 class PureDisplayFlashcardFeedbackModule extends React.Component {
-    constructor(props){
-        super(props);
-        this.state ={
-            flashcardid: "1",
-            flashcard: this.props.cards.flashcard.filter(flashcard => flashcard.id === 1)
-        }
-    }
     
+
     render() {
-        console.log("THE PORPS IS HEREEEEEE",this.props)
+        console.log("THE PORPS IS HEREEEEEE", this.props.feedback[0])
 
         return (
             <>
-                {this.props.feedback &&
-                    this.props.feedback.length > 0 ?
-                        this.props.feedback.map(
-                                        (feedback, j) => {
-                                            return (
-                                            <div data-key={j} className={classes.scrollfeedbackcard}>
-                                            <table>
-                                                <th>{feedback.flashcardFeedbackTime}</th>
-                                                <td>{feedback.flashcardFeedbackBody}</td>
-                                                <td className={classes.commentinguser}><img src={feedback.picture} alt="Avatar"></img></td>
-                                            </table>
-                                        </div>
-                                            )
-                                        }
-                                    )
-                                    : null
-                                }
+                {this.props.feedback[0].feedback &&
+                    this.props.feedback[0].feedback.length > 0 ?
+                    this.props.feedback[0].feedback.map((fb, j) => {
+                            return (
+                                <div key={j} data-key={j} className={classes.scrollfeedbackcard}>
+                                    <div>
+                                        <td >{fb.flashcardFeedbackTime}</td>
+                                        <td >{fb.flashcardFeedbackBody}</td>
+                                        <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
+                                    </div>
+                                </div>
+                            )
+                    }
+                    )
+                    : null
+                }
             </>
         );
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in display flashcardfeedback", state);
 
     return {
         cards: state.cardStore.card,

@@ -5,11 +5,14 @@ class FeedbackService {
 
     //Method to add feedback
     async add(body) {
+        console.log("BODY INSIDE FEEDBACK SERVICE",body);
         if (body.type === "flashcard") {
             console.log("Adding feedback to flashcard")
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
+        console.log(" I AM <><> INSIDE FEEDBACK SERVICE");
+
             return this.knex
             .insert({
                 user_id: user_id[0].id,
@@ -68,17 +71,23 @@ class FeedbackService {
             console.log("Listing details of flashcardFeedback");
             return this.knex("flashcardFeedback")
             .join("user", "flashcardFeedback.user_id", "=", "user.id")
+            .join("flashcardSubmission", "flashcardFeedback.flashcardSubmission_id", "flashcardSubmission.id")
             .where("flashcardFeedback.id", body.flashcardFeedbackId)
-            .select("user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
-            .then((feedback) => {
+            .select("user.id as user_id","user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime", "flashcardSubmission.flashcard_id as fcid")
+            .then( (feedback) => {
                     return ({
-                        displayName: feedback.displayName,
-                        picture: feedback.picture,
-                        flashcardSubmissionId: feedback.flashcardSubmission_id,
-                        flashcardFeedbackId: feedback.id,
-                        flashcardFeedbackBody: feedback.flashcardFeedbackBody,
-                        flashcardFeedbackTime: feedback.flashcardFeedbackTime,
+                        user_id: feedback[0].user_id,
+                        displayName: feedback[0].displayName,
+                        picture: feedback[0].picture,
+                        flashcardSubmissionId: feedback[0].flashcardSubmission_id,
+                        flashcardFeedbackId: feedback[0].id,
+                        flashcardFeedbackBody: feedback[0].flashcardFeedbackBody,
+                        flashcardFeedbackTime: feedback[0].flashcardFeedbackTime,
+                        flashcard_id: feedback[0].fcid
                     });
+            })
+            .catch((e)=>{
+                console.log(e);
             })
         
         } 
@@ -87,15 +96,16 @@ class FeedbackService {
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
             .where("dictationFeedback.id", body.dictationFeedbackId)
-            .select("user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody", "dictationFeedback.dictationFeedbackTime")
+            .select("user.id as user_id", "user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody", "dictationFeedback.dictationFeedbackTime")
             .then((feedback) => {
                     return ({
-                        displayName: feedback.displayName,
-                        picture: feedback.picture,
-                        dictationSubmissionId: feedback.dictationSubmission_id,
-                        dictationFeedbackId: feedback.id,
-                        dictationFeedbackBody: feedback.dictationFeedbackBody,
-                        dictationFeedbackTime: feedback.dictationFeedbackTime,
+                        user_id: feedback[0].user_id,
+                        displayName: feedback[0].displayName,
+                        picture: feedback[0].picture,
+                        dictationSubmissionId: feedback[0].dictationSubmission_id,
+                        dictationFeedbackId: feedback[0].id,
+                        dictationFeedbackBody: feedback[0].dictationFeedbackBody,
+                        dictationFeedbackTime: feedback[0].dictationFeedbackTime,
                     });
             })
         

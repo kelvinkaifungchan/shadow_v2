@@ -5,7 +5,7 @@ class SubmissionService {
 
     //Method to add submission
     async add(body){
-        console.log("submissionService body",body);
+        console.log("submissionService body");
         if (body.type === "flashcard"){
             console.log("Adding submission to flashcard");
             let user_id = await this.knex("user").where({
@@ -36,36 +36,20 @@ class SubmissionService {
             .into("dictationSubmission")
             .returning("id");
         }
-        else if (body.type === "multipleChoice"){
-            console.log("Adding submission to multipleChoice");
+        else if (body.type === "quizcard"){
+            console.log("Adding submission to quizcard");
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
             return this.knex
             .insert({
                 user_id: user_id[0].id,
-                multipleChoice_id: body.multipleChoiceId,
-                multipleChoiceSubmission: body.multipleChoiceSubmission,
-                multipleChoiceMarking: body.multipleChoiceMarking,
-                multipleChoiceStatus: true
+                quizcardQuestion_id: body.quizcardQuestionId,
+                quizcardQuestionSubmission: body.quizcardQuestionSubmission,
+                quizcardQuestionMarking: body.quizcardQuestionMarking,
+                quizcardQuestionSubmissionStatus: true
             })
-            .into("multipleChoiceSubmission")
-            .returning("id");
-        }
-        else if (body.type === "trueFalse") {
-            console.log ("Adding submission to trueFalse")
-            let user_id = await this.knex("user").where({
-                email: body.email
-            }).select("id");
-            return this.knex
-            .insert({
-                user_id: user_id[0].id,
-                trueFalse_id: body.trueFalseId,
-                trueFalseSubmission: body.trueFalseSubmission,
-                trueFalseMarking: body.trueFalseMarking,
-                trueFalseSubmissionStatus: true
-            })
-            .into("trueFalseSubmission")
+            .into("quizcardQuestionSubmission")
             .returning("id");
         }
         else {
@@ -92,20 +76,12 @@ class SubmissionService {
                 dictationcardSubmissionStatus: false
             });
         }
-        else if (body.type === "multipleChoice"){
-            console.log("Deleting submission from multipleChoice");
-            return this.knex("multipleChoiceSubmission")
-            .where("multipleChoiceSubmission.id", body.multipleChoiceSubmissionId)
+        else if (body.type === "quizcard"){
+            console.log("Deleting submission from quizcard");
+            return this.knex("quizcardQuestionSubmission")
+            .where("quizcardQuestionSubmission.id", body.quizcardQuestionSubmissionId)
             .update({
-                multipleChoiceSubmissionStatus: false
-            });
-        }
-        else if (body.type === "trueFalse") {
-            console.log("Deleting submission from trueFalse");
-            return this.knex("trueFalseSubmission")
-            .where("trueFalseSubmission.id", body.trueFalseSubmissionId)
-            .update({
-                trueFalseSubmissionStatus: false
+                quizcardQuestionSubmissionStatus: false
             });
         }
         else {
@@ -153,37 +129,20 @@ class SubmissionService {
         
         } 
         
-        else if (body.type === "multipleChoice"){
-            console.log("Listing details of multipleChoiceSubmission");
-            return this.knex("multipleChoiceSubmission")
-            .join("user", "multipleChoiceSubmission.user_id", "=", "user.id")
-            .where("multipleChoiceSubmission.id", body.multipleChoiceSubmissionId)
-            .select("user.displayName", "user.picture", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+        else if (body.type === "quizcardQuestion"){
+            console.log("Listing details of quizcardQuestionSubmission");
+            return this.knex("quizcardQuestionSubmission")
+            .join("user", "quizcardQuestionSubmission.user_id", "=", "user.id")
+            .where("quizcardQuestionSubmission.id", body.quizcardQuestionSubmissionId)
+            .select("user.displayName", "user.picture", "quizcardQuestionSubmission.quizcardQuestion_id", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
             .then((submission) => {
                     return ({
                         displayName: submission[0].displayName,
                         picture: submission[0].picture,
-                        multipleChoiceId: submission[0].multipleChoice_id,
-                        multipleChoiceSubmissionId: submission[0].id,
-                        multipleChoiceSubmission: submission[0].multipleChoiceSubmission,
-                        multipleChoiceSubmissionMarking: submission[0].multipleChoiceMarking
-                    });
-            })
-        }
-        else if (body.type === "trueFalse") {
-            console.log("Listing details of trueFalseSubmission");
-            return this.knex("trueFalseSubmission")
-            .join("user", "trueFalseSubmission.user_id", "=", "user.id")
-            .where("trueFalseSubmission.id", body.trueFalseSubmissionId)
-            .select("user.displayName", "user.picture", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
-            .then((submission) => {
-                    return ({
-                        displayName: submission[0].displayName,
-                        picture: submission[0].picture,
-                        trueFalseId: submission[0].trueFalse_id,
-                        trueFalseSubmissionId: submission[0].id,
-                        trueFalseSubmission: submission[0].trueFalseSubmission,
-                        trueFalseSubmissionMarking: submission[0].trueFalseMarking
+                        quizcardQuestionId: submission[0].quizcardQuestion_id,
+                        quizcardQuestionSubmissionId: submission[0].id,
+                        quizcardQuestionSubmission: submission[0].quizcardQuestionSubmission,
+                        quizcardQuestionSubmissionMarking: submission[0].quizcardQuestionMarking
                     });
             })
         }
@@ -239,44 +198,23 @@ class SubmissionService {
         
         } 
         
-        else if (body.type === "multipleChoice"){
-            console.log("Listing all submissions of multipleChoice");
-            return this.knex("multipleChoiceSubmission")
-            .join("user", "multipleChoiceSubmission.user_id", "=", "user.id")
-            .join("multipleChoice", "multipleChoice.id", "=", "multipleChoiceSubmission.multipleChoice_id")
-            .where("multipleChoice.id", body.multipleChoiceId)
-            .andWhere("multipleChoiceSubmission.multipleChoiceSubmissionStatus", true)
-            .select("user.displayName", "user.picture", "multipleChoiceSubmission.multipleChoice_id", "multipleChoiceSubmission.id", "multipleChoiceSubmission.multipleChoiceSubmission", "multipleChoiceSubmission.multipleChoiceMarking")
+        else if (body.type === "quizcard"){
+            console.log("Listing all submissions of quizcard");
+            return this.knex("quizcardQuestionSubmission")
+            .join("user", "quizcardQuestionSubmission.user_id", "=", "user.id")
+            .join("quizcardQuestion", "quizcardQuestion.id", "=", "quizcardQuestionSubmission.quizcardQuestion_id")
+            .where("quizcardQuestion.id", body.quizcardQuestionId)
+            .andWhere("quizcardQuestionSubmission.quizcardQuestionSubmissionStatus", true)
+            .select("user.displayName", "user.picture", "quizcardQuestionSubmission.quizcardQuestion_id", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
             .then((submissions) => {
                 return submissions.map((submission) => {
                     return ({
                         picture: submission.picture,
                         displayName: submission.displayName,
-                        multipleChoiceId: submission.multipleChoice_id,
-                        multipleChoiceSubmissionId: submission.id,
-                        multipleChoiceSubmission: submission.multipleChoiceSubmission,
-                        multipleChoiceSubmissionMarking: submission.multipleChoiceMarking
-                    });
-                })
-            })
-        }
-        else if (body.type === "trueFalse") {
-            console.log("Listing all submissions of trueFalse");
-            return this.knex("trueFalseSubmission")
-            .join("user", "trueFalseSubmission.user_id", "=", "user.id")
-            .join("trueFalse", "trueFalse.id", "=", "trueFalseSubmission.trueFalse_id")
-            .where("trueFalse.id", body.trueFalseId)
-            .andWhere("trueFalseSubmission.trueFalseSubmissionStatus", true)
-            .select("user.displayName", "user.picture", "trueFalseSubmission.trueFalse_id", "trueFalseSubmission.id", "trueFalseSubmission.trueFalseSubmission", "trueFalseSubmission.trueFalseMarking")
-            .then((submissions) => {
-                return submissions.map((submission) => {
-                    return ({
-                        picture: submission.picture,
-                        displayName: submission.displayName,
-                        trueFalseId: submission.trueFalse_id,
-                        trueFalseSubmissionId: submission.id,
-                        trueFalseSubmission: submission.trueFalseSubmission,
-                        trueFalseSubmissionMarking: submission.trueFalseMarking
+                        quizcardQuestionId: submission.quizcardQuestion_id,
+                        quizcardQuestionSubmissionId: submission.id,
+                        quizcardQuestionSubmission: submission.quizcardQuestionSubmission,
+                        quizcardQuestionSubmissionMarking: submission.quizcardQuestionMarking
                     });
                 })
             })
@@ -284,8 +222,6 @@ class SubmissionService {
         else {
             return "card type not recognized";
         }
-
-
     }
 }
 

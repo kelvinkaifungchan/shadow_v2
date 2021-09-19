@@ -201,159 +201,264 @@ exports.seed = function (knex) {
       .then(() => {
         return knex('quizcard').insert([{
           user_id: 1,
-          quizcardTitle: "Test Wong's Card",
+          quizcardTitle: "Test Wong's Quiz Card 1",
           quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           quizcardStatus: true,
         }, {
           user_id: 1,
-          quizcardTitle: "User Chan's Card",
+          quizcardTitle: "Test Wong's Quiz Card 2",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
+          quizcardStatus: true,
+        }, {
+          user_id: 1,
+          quizcardTitle: "Test Wong's Quiz Card 3",
           quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169736469.webm",
           quizcardStatus: true,
         }, {
           user_id: 2,
-          quizcardTitle: "User Philip's Card",
+          quizcardTitle: "User Philip's Quiz Card 1",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
+          quizcardStatus: true,
+        }, {
+          user_id: 2,
+          quizcardTitle: "User Philip's Quiz Card 2",
           quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           quizcardStatus: true,
         }, {
           user_id: 3,
-          quizcardTitle: "John Cheng's Card",
+          quizcardTitle: "John Cheng's Quiz Card 1",
+          quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
+          quizcardStatus: true,
+        }, {
+          user_id: 3,
+          quizcardTitle: "John Cheng's Quiz Card 2",
           quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/14bb4e8f-4af2-4c2e-9243-402460c17887",
           quizcardStatus: true,
         }, {
           user_id: 4,
-          quizcardTitle: "Jack Wynn's Card",
+          quizcardTitle: "Jack Wynn's Quiz Card",
           quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
           quizcardStatus: true,
         }])
       })
       .then(() => {
-        return knex('multipleChoice').del();
+        return knex('quizcardQuestion').del();
       })
       .then(() => {
-        return knex('multipleChoice').insert([{
+        return knex('quizcardQuestion').insert([{
           quizcard_id: 1,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckingA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
+          questionType: "multipleChoice",
+          questionTime: "00:02",
+          questionBody: "What is this? 1",
+          multipleChoiceA: "A",
+          multipleChoiceB: "B",
+          multipleChoiceC: "C",
+          multipleChoiceD: "D",
           multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
+          trueFalseAnswer: null,
         }, {
           quizcard_id: 1,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckingB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
+          questionType: "multipleChoice",
+          questionTime: "00:04",
+          questionBody: "What is this? 2",
+          multipleChoiceA: "A",
+          multipleChoiceB: "B",
+          multipleChoiceC: "C",
+          multipleChoiceD: "D",
+          multipleChoiceAnswer: "B",
+          trueFalseAnswer: null,
         }, {
-          quizcard_id: 2,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckingC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
+          quizcard_id: 1,
+          questionType: "trueFalse",
+          questionTime: "00:06",
+          questionBody: "Is this true? 3",
+          multipleChoiceA: null,
+          multipleChoiceB: null,
+          multipleChoiceC: null,
+          multipleChoiceD: null,
+          multipleChoiceAnswer: null,
+          trueFalseAnswer: false,
         }, {
-          quizcard_id: 3,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckDing",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
-        }, {
-          quizcard_id: 4,
-          multipleChoiceBody: "Which one is apple?",
-          multipleChoiceA: "fuckingA",
-          multipleChoiceB: "fuckB",
-          multipleChoiceC: "fuckC",
-          multipleChoiceD: "fuckD",
-          multipleChoiceAnswer: "A",
-          multipleChoiceTime: "00:05",
-          multipleChoiceStatus: true,
+          quizcard_id: 1,
+          questionType: "multipleChoice",
+          questionTime: "00:08",
+          questionBody: "What is this? 4",
+          multipleChoiceA: "A",
+          multipleChoiceB: "B",
+          multipleChoiceC: "C",
+          multipleChoiceD: "D",
+          multipleChoiceAnswer: "D",
+          trueFalseAnswer: null,
         }])
       })
       .then(() => {
-        return knex('multipleChoiceSubmission').del();
+        return knex('quizcardQuestionSubmission').del();
       })
       .then(() => {
-        return knex('multipleChoiceSubmission').insert([{
-          user_id: 1,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }, {
-          user_id: 1,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }, {
-          user_id: 2,
-          multipleChoice_id: 1,
-          multipleChoiceSubmission: "A",
-          multipleChoiceMarking: true,
-          multipleChoiceStatus: true,
-        }])
-      })
-      .then(() => {
-        return knex('trueFalse').del();
-      })
-      .then(() => {
-        return knex('trueFalse').insert([{
-          quizcard_id: 1,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
+        return knex('quizcardQuestionSubmission').insert([{
         }, {
           quizcard_id: 1,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
+          questionType: "multipleChoice",
+          questionTime: "00:04",
+          questionBody: "What is this? 2",
+          multipleChoiceA: "A",
+          multipleChoiceB: "B",
+          multipleChoiceC: "C",
+          multipleChoiceD: "D",
+          multipleChoiceAnswer: "B",
+          trueFalseAnswer: null,
         }, {
-          quizcard_id: 2,
-          trueFalseBody: "Is this an apple?",
-          trueFalseAnswer: true,
-          trueFalseTime: "00:05",
-          trueFalseStatus: true,
+          quizcard_id: 1,
+          questionType: "trueFalse",
+          questionTime: "00:06",
+          questionBody: "Is this true? 3",
+          multipleChoiceA: null,
+          multipleChoiceB: null,
+          multipleChoiceC: null,
+          multipleChoiceD: null,
+          multipleChoiceAnswer: null,
+          trueFalseAnswer: false,
+        }, {
+          quizcard_id: 1,
+          questionType: "multipleChoice",
+          questionTime: "00:08",
+          questionBody: "What is this? 4",
+          multipleChoiceA: "A",
+          multipleChoiceB: "B",
+          multipleChoiceC: "C",
+          multipleChoiceD: "D",
+          multipleChoiceAnswer: "D",
+          trueFalseAnswer: null,
         }])
       })
-      .then(() => {
-        return knex('trueFalseSubmission').del();
-      })
-      .then(() => {
-        return knex('trueFalseSubmission').insert([{
-          user_id: 1,
-          trueFalse_id: 1,
-          trueFalseSubmission: true,
-          trueFalseMarking: true,
-          trueFalseSubmissionStatus: true,
-        }, {
-          user_id: 2,
-          trueFalse_id: 2,
-          trueFalseSubmission: false,
-          trueFalseMarking: true,
-          trueFalseSubmissionStatus: true,
-        }, {
-          user_id: 2,
-          trueFalse_id: 2,
-          trueFalseSubmission: true,
-          trueFalseMarking: false,
-          trueFalseSubmissionStatus: true,
-        }])
-      })
+      // .then(() => {
+      //   return knex('multipleChoice').del();
+      // })
+      // .then(() => {
+      //   return knex('multipleChoice').insert([{
+      //     quizcard_id: 1,
+      //     multipleChoiceBody: "Which one is apple?",
+      //     multipleChoiceA: "fuckingA",
+      //     multipleChoiceB: "fuckB",
+      //     multipleChoiceC: "fuckC",
+      //     multipleChoiceD: "fuckD",
+      //     multipleChoiceAnswer: "A",
+      //     multipleChoiceTime: "00:05",
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     quizcard_id: 1,
+      //     multipleChoiceBody: "Which one is apple?",
+      //     multipleChoiceA: "fuckA",
+      //     multipleChoiceB: "fuckingB",
+      //     multipleChoiceC: "fuckC",
+      //     multipleChoiceD: "fuckD",
+      //     multipleChoiceAnswer: "A",
+      //     multipleChoiceTime: "00:05",
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     quizcard_id: 2,
+      //     multipleChoiceBody: "Which one is apple?",
+      //     multipleChoiceA: "fuckA",
+      //     multipleChoiceB: "fuckB",
+      //     multipleChoiceC: "fuckingC",
+      //     multipleChoiceD: "fuckD",
+      //     multipleChoiceAnswer: "A",
+      //     multipleChoiceTime: "00:05",
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     quizcard_id: 3,
+      //     multipleChoiceBody: "Which one is apple?",
+      //     multipleChoiceA: "fuckA",
+      //     multipleChoiceB: "fuckB",
+      //     multipleChoiceC: "fuckC",
+      //     multipleChoiceD: "fuckDing",
+      //     multipleChoiceAnswer: "A",
+      //     multipleChoiceTime: "00:05",
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     quizcard_id: 4,
+      //     multipleChoiceBody: "Which one is apple?",
+      //     multipleChoiceA: "fuckingA",
+      //     multipleChoiceB: "fuckB",
+      //     multipleChoiceC: "fuckC",
+      //     multipleChoiceD: "fuckD",
+      //     multipleChoiceAnswer: "A",
+      //     multipleChoiceTime: "00:05",
+      //     multipleChoiceStatus: true,
+      //   }])
+      // })
+      // .then(() => {
+      //   return knex('multipleChoiceSubmission').del();
+      // })
+      // .then(() => {
+      //   return knex('multipleChoiceSubmission').insert([{
+      //     user_id: 1,
+      //     multipleChoice_id: 1,
+      //     multipleChoiceSubmission: "A",
+      //     multipleChoiceMarking: true,
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     user_id: 1,
+      //     multipleChoice_id: 1,
+      //     multipleChoiceSubmission: "A",
+      //     multipleChoiceMarking: true,
+      //     multipleChoiceStatus: true,
+      //   }, {
+      //     user_id: 2,
+      //     multipleChoice_id: 1,
+      //     multipleChoiceSubmission: "A",
+      //     multipleChoiceMarking: true,
+      //     multipleChoiceStatus: true,
+      //   }])
+      // })
+      // .then(() => {
+      //   return knex('trueFalse').del();
+      // })
+      // .then(() => {
+      //   return knex('trueFalse').insert([{
+      //     quizcard_id: 1,
+      //     trueFalseBody: "Is this an apple?",
+      //     trueFalseAnswer: true,
+      //     trueFalseTime: "00:05",
+      //     trueFalseStatus: true,
+      //   }, {
+      //     quizcard_id: 1,
+      //     trueFalseBody: "Is this an apple?",
+      //     trueFalseAnswer: true,
+      //     trueFalseTime: "00:05",
+      //     trueFalseStatus: true,
+      //   }, {
+      //     quizcard_id: 2,
+      //     trueFalseBody: "Is this an apple?",
+      //     trueFalseAnswer: true,
+      //     trueFalseTime: "00:05",
+      //     trueFalseStatus: true,
+      //   }])
+      // })
+      // .then(() => {
+      //   return knex('trueFalseSubmission').del();
+      // })
+      // .then(() => {
+      //   return knex('trueFalseSubmission').insert([{
+      //     user_id: 1,
+      //     trueFalse_id: 1,
+      //     trueFalseSubmission: true,
+      //     trueFalseMarking: true,
+      //     trueFalseSubmissionStatus: true,
+      //   }, {
+      //     user_id: 2,
+      //     trueFalse_id: 2,
+      //     trueFalseSubmission: false,
+      //     trueFalseMarking: true,
+      //     trueFalseSubmissionStatus: true,
+      //   }, {
+      //     user_id: 2,
+      //     trueFalse_id: 2,
+      //     trueFalseSubmission: true,
+      //     trueFalseMarking: false,
+      //     trueFalseSubmissionStatus: true,
+      //   }])
+      // })
       .then(() => {
         return knex('dictationcard').del();
       })
@@ -422,17 +527,42 @@ exports.seed = function (knex) {
         return knex('dictationSubmission').insert([{
           user_id: 1,
           dictation_id: 1,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://mk0designbombsg12amh.kinstacdn.com/wp-content/uploads/2016/05/rochester.png",
           dictationSubmissionStatus: true
         }, {
           user_id: 2,
           dictation_id: 1,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://mk0designbombsg12amh.kinstacdn.com/wp-content/uploads/2016/05/rochester.png",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 3,
+          dictation_id: 1,
+          dictationSubmissionPath: "https://mk0designbombsg12amh.kinstacdn.com/wp-content/uploads/2016/05/rochester.png",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 4,
+          dictation_id: 1,
+          dictationSubmissionPath: "https://mk0designbombsg12amh.kinstacdn.com/wp-content/uploads/2016/05/rochester.png",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 1,
+          dictation_id: 2,
+          dictationSubmissionPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi0d1lO6pGGgzEaGYV6QIPQrH_ZPGxuIaBxYrJeAneAMobRGSw5BbvhLmr3DM2AXGbPQ&usqp=CAU",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 2,
+          dictation_id: 2,
+          dictationSubmissionPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi0d1lO6pGGgzEaGYV6QIPQrH_ZPGxuIaBxYrJeAneAMobRGSw5BbvhLmr3DM2AXGbPQ&usqp=CAU",
           dictationSubmissionStatus: true
         }, {
           user_id: 3,
           dictation_id: 2,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi0d1lO6pGGgzEaGYV6QIPQrH_ZPGxuIaBxYrJeAneAMobRGSw5BbvhLmr3DM2AXGbPQ&usqp=CAU",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 4,
+          dictation_id: 2,
+          dictationSubmissionPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi0d1lO6pGGgzEaGYV6QIPQrH_ZPGxuIaBxYrJeAneAMobRGSw5BbvhLmr3DM2AXGbPQ&usqp=CAU",
           dictationSubmissionStatus: true
         }])
       })

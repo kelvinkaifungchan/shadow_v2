@@ -9,42 +9,47 @@ import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
+import classes from './ViewDictationCardSubmission.module.css'
 
 class ViewDictationcardSubmission extends React.Component {
-    constructor(props){
-        super(props)
-        this.bg = {
-            backgroundColor: '#F8DF4F'
-        }
-    }
 
 
     render() {
-        console.log("i want to see the props",this.props);
+        console.log("i want to see the props in DICTATION SUBMISSION",this.props);
 
         return (
             <div>
-                <div className="row" style={this.bg}>
-                    <div className="col col-8">
-                    <NavBar user={this.props.user} history={this.props.history}/>
+                <NavBar/>
+
+                    <div className={classes.viewdictationcardsubmission}>
+                        {/* 1st row: Header */}
+                        <div className="row d-flex p-4">
+                            <div className="col-8">
+                                <h1>{this.props.location.state.dictationcard.dictationcardTitle}</h1>
+                            </div>
+                        </div>
+
+                        <div className="row d-flex p-4">
+                            <div className="col">
+                            <table>
+                            <th></th>
+                            {this.props.location.state.dictationcard && 
+                            this.props.location.state.dictationcard.submissionlength > 0 
+                            ? this.props.location.state.dictationcard.map((question, i) => {
+                                return (
+                                    <th>Question {question.id}</th>
+                                )
+                            }) : null
+                            }
+
+                            </table>
+                        </div>
+
+
+
+                        </div>
                     </div>
-                    <div className="col col-4">
-                    <Link to="/account">Account</Link>
-                    <Link onClick={this.logout} to="/login">Logout</Link>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-8">
-                    {/* <HeadingInput/> */}
-                    <p>HeadingInput</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col-12">
-                        {/* <Table/> */}
-                        <p>Table</p>
-                    </div>
-                </div>
+
                     <BrowserRouter>
                         <Switch>
                     <PrivateRoute path="/account" component={Account} />

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 
 class PureNewCommentModal extends React.Component {
@@ -15,9 +14,13 @@ class PureNewCommentModal extends React.Component {
         };
     }
 
-    submit = (e) => {
+    submit = async (e) => {
         e.preventDefault();
-        this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId,  this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+       await this.props.addFeedbackThunk(this.props.create.type, this.props.user.email, this.props.create.submissionId, this.state.flashcardSubmissionBody, this.props.create.timeStamp)
+        this.setState({
+            flashcardSubmissionBody:""
+        })
+       await this.props.addFeedback(this.props.create.submissionId)
     }
 
     onChangeField = (field, e) => {
@@ -27,37 +30,37 @@ class PureNewCommentModal extends React.Component {
     }
             
     render() {
-        console.log("NEW COMMNET MODAL PROPS", this.props)
+        console.log("STATE IN NCM",this.props.create);
         return (
             <div>
                 <Modal isOpen={this.props.create.modal} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Add new comment @{this.props.create.timeStamp}</ModalHeader>
                     <ModalBody>
                         <Form>
-                        <input  
-                        onChange={this.onChangeField.bind(this, this.props.create.timeStamp)} 
-                        value={this.props.create.timeStamp} 
-                        type="text" 
-                        className="form-control mb-4" 
-                        hidden={true}/>
+                            <input
+                                onChange={this.onChangeField.bind(this, this.props.create.timeStamp)}
+                                value={this.props.create.timeStamp}
+                                type="text"
+                                className="form-control mb-4"
+                                hidden={true} />
 
-                        <input 
-                        onChange={this.onChangeField.bind(this, 'email')} 
-                        value={this.props.user.email} 
-                        type="text" 
-                        className="form-control mb-4" 
-                        hidden={true}/>
+                            <input
+                                onChange={this.onChangeField.bind(this, 'email')}
+                                value={this.props.user.email}
+                                type="text"
+                                className="form-control mb-4"
+                                hidden={true} />
 
-                            <input 
-                            onChange={this.onChangeField.bind(this, this.props.flashcardSubmissionBody)} 
-                            type="text" 
-                            className="form-control mb-4" 
-                            placeholder="Insert new comment." />
-                             </Form>
+                            <input
+                                onChange={this.onChangeField.bind(this, "flashcardSubmissionBody")} value={this.state.flashcardSubmissionBody}
+                                type="text"
+                                className="form-control mb-4"
+                                placeholder="Insert new comment." />
+                        </Form>
                     </ModalBody>
                     <ModalFooter>
                         <button onClick={(e) => { this.submit(e); this.props.toggle() }} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2"><div>Confirm</div></button>
-                        <button onClick={(e) => { this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
+                        <button onClick={(e) => { this.props.toggle() }} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>
                 </Modal>
             </div>

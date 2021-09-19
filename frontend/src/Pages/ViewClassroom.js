@@ -31,40 +31,47 @@ class ViewClassroom extends React.Component {
             classroomDesc: "",
             correctSet: [],
             correctTag: [],
-            correctShare: []
+            correctShare: [],
+            correctClass: [],
         };
     }
 
     async componentDidMount() {
         await this.props.getdata({ email: localStorage.getItem("email") });
-        this.getclassroom()
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps, "nextProps<><><><><><><>");
-        const correctProps = nextProps.classrooms.filter(filter => filter.id === this.props.location.state.classroom[0].id)
-        console.log("correctProps", correctProps);
-        let nextlmao = correctProps[0].bridge.map((changed) => {
-            const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
-            return newestState[0]
-        });
-        this.setState({
-            correctSet: nextlmao,
-            correctTag: correctProps[0].tags,
-            correctShare: correctProps[0].shared
-        });
+    async componentWillReceiveProps(nextProps) {
+        await this.setState({
+            correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
+        })
+        if(this.state.correctClass[0] !== undefined){
+            const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
+            if(correctProps[0]!== undefined){
+                if(correctProps[0].bridge.length > 0){
+                    let correctSets = correctProps[0].bridge.map((changed) => {
+                        const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
+                        return newestState[0]
+                    });
+                    this.setState({
+                        correctSet: correctSets,
+                        correctTag: correctProps[0].tags,
+                        correctShare: correctProps[0].shared
+                    });
+                }
+            }
+        }
     }
 
     getclassroom() {
-        if (this.props.location.state.classroom[0].bridge != null) {
-            const lmao = this.props.location.state.classroom[0].bridge.map((setId) => {
+        if (this.state.correctClass[0].bridge != null) {
+            const lmao = this.state.correctClass[0].bridge.map((setId) => {
                 const newestState = this.props.sets.filter(set => set.id === setId.set_id)
                 return newestState[0]
             });
             this.setState({
                 correctSet: lmao,
-                correctTag: this.props.location.state.classroom[0].tags,
-                correctShare: this.props.location.state.classroom[0].shared
+                correctTag: this.state.correctClass[0].tags,
+                correctShare: this.state.correctClass[0].shared
             })
         } else {
             return null
@@ -107,33 +114,12 @@ class ViewClassroom extends React.Component {
             shareModal: !this.state.shareModal
         })
     }
-    navigateClass(e) {
-        this.props.history.push({
-            pathname: `/viewclassroom`,
-            state: {
-                classroom: this.props.classrooms.filter((classroom) => {
-                    if (classroom.id === parseInt(e.target.attributes["data-key"].value)) {
-                        console.log('in if')
-                        return classroom
-                    }
-                })
-            }
-        })
-    }
+
     navigateSet(e) {
         this.props.history.push({
-            pathname: `/viewset`,
-            state: {
-                set: this.props.sets.filter((set) => {
-                    if (set.id === parseInt(e.target.attributes["data-key"].value)) {
-                        console.log('in if')
-                        return set
-                    }
-                })
-            }
+            pathname: `/viewset/${e.target.attributes["data-key"].value}`,
         })
     }
-
 
     logout = (e) => {
         e.preventDefault();
@@ -151,8 +137,8 @@ class ViewClassroom extends React.Component {
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            <h1>{this.props.location.state.classroom[0].title}</h1>
-                            <h6>{this.props.location.state.classroom[0].description}</h6>
+                            <h1>{this.state.correctClass.length > 0 ? this.state.correctClass[0].title : null}</h1>
+                            <h6>{this.state.correctClass.length > 0 ? this.state.correctClass[0].description : null}</h6>
                         </div>
                     </div>
 
@@ -163,7 +149,7 @@ class ViewClassroom extends React.Component {
 
 
                         {/* share user add button */}
-                        <NewSharePopUp share={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.shareToggle()} />
+                        <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
                             <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
                         </span>
@@ -171,7 +157,7 @@ class ViewClassroom extends React.Component {
                     {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
                         <DisplayClassroomTag tags={this.state.correctTag} />
-                        <NewTagPopUp addTag={this.state} location={this.props.location.state.classroom[0]} toggle={() => this.tagToggle()} />
+                        <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
                         </span>
@@ -180,7 +166,7 @@ class ViewClassroom extends React.Component {
 
                     {/* Add button */}
                     <div className="row d-flex m-3">
-                        <AddnewPopUp location={this.props.location} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
+                        <AddnewPopUp match={this.props.match} correctClass={this.state.correctClass} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
                         <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
@@ -190,7 +176,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div>
 
-                        <DisplaySetModule location={this.props.location} classroom={this.props.classrooms} sets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                    <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>

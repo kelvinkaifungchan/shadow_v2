@@ -64,8 +64,7 @@ class CreateFlashcard extends React.Component {
         e.preventDefault()
         await this.addFlashCard()
         this.props.history.push({
-            pathname:`/viewset`,
-            state: { set: this.props.location.state.set }
+            pathname:`/viewset/${this.props.match.params.setId}`,
         })
     }
     render() {
@@ -106,7 +105,7 @@ class CreateFlashcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    console.log("state in create flashcard", state);
 
     return {
         email: state.authStore.email,
