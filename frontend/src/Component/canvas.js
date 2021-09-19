@@ -16,18 +16,19 @@ class PureCanvas extends React.Component{
 
 constructor(props){
     super(props);
-
-    this.socket = io.connect("http://localhost:8080");
-
-
+    //may need to use a different id for room, for example, rooms are limited to each user instead of card
+    this.room = this.props.canvasId;
+    this.socket = io.connect(`http://localhost:8080/`);
+    this.socket.emit("newUser", this.room)
     this.socket.on("clear", () => {
+        console.log("Receiving clear event")
         var canvas = document.querySelector('#board');
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 
     this.socket.on("canvas-data", function (data) {
-
+        console.log("Receiving canvas data")
         var root = this;
         var interval = setInterval(function () {
             if (root.isDrawing) return;
@@ -47,6 +48,7 @@ constructor(props){
 }
 
 componentDidMount() {
+    
     this.drawOnCanvas();
     this.ctx.strokeStyle = "#00000";
     this.ctx.lineWidth = "1";
@@ -58,6 +60,7 @@ componentDidMount() {
 // }
 
 drawOnCanvas() {
+    var room = this.room;
     var canvas = document.querySelector('#board');
     this.ctx = canvas.getContext('2d');
     var ctx = this.ctx;
@@ -83,24 +86,24 @@ drawOnCanvas() {
     function onMouseDown(e) {
         console.log("FUCK YOUR MOM MOUSEDOWN")
         drawing = true;
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        current.x = e.offsetX || e.touches[0].offsetX;
+        current.y = e.offsetY || e.touches[0].offsetY;
     }
 
     function onMouseUp(e) {
         console.log("YESSSSS MOUSEUP ")
         if (!drawing) { return; }
         drawing = false;
-        drawLine(current.x, current.y, e.clientX || e.touches.clientX, e.clientY || e.touches.clientY, current.color, true);
+        drawLine(current.x, current.y, e.offsetX || e.touches.offsetX, e.offsetY || e.touches.offsetY, current.color, true);
     }
 
     function onMouseMove(e) {
-        console.log('FUCK ME DADDY MOUSEMOVE')
-
+        console.log('FUCK ME DADDY MOUSEMOVE') 
+        
         if (!drawing) { return; }
-        drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        drawLine(current.x, current.y, e.offsetX || e.touches[0].offsetX, e.offsetY || e.touches[0].offsetY, current.color, true);
+        current.x = e.offsetX || e.touches[0].offsetX;
+        current.y = e.offsetY || e.touches[0].offsetY;
     }
     function throttle(callback, delay) {
         var previousCall = new Date().getTime();
@@ -117,6 +120,7 @@ drawOnCanvas() {
     var root = this;
     //onPaint
     var drawLine = function (x0, y0, x1, y1) {
+        
         console.log("FUCK YEA DRAWING")
         console.log(ctx.strokeStyle)
         console.log(ctx.lineWidth)
@@ -131,7 +135,7 @@ drawOnCanvas() {
        
         var base64ImageData = canvas.toDataURL("image/png");
         console.log(base64ImageData)
-        root.socket.emit("canvas-data", base64ImageData);
+        root.socket.emit("canvas-data", room, base64ImageData);
 
     };
 
@@ -143,7 +147,7 @@ clearcanvas() {
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var base64ImageData = canvas.toDataURL("image/png");
-    this.socket.emit("clear", base64ImageData);
+    this.socket.emit("clear", this.room, base64ImageData);
 }
 
 submit(){
