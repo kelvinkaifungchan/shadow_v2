@@ -10,7 +10,7 @@ import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
-// import Canvas from '../Component/canvas';
+import { Canvas } from '../Component/canvas'
 
 class ViewDictationQuestion extends React.Component {
     
@@ -45,7 +45,7 @@ class ViewDictationQuestion extends React.Component {
             </div>
             <div className="row">
                 <div className="col col-12">
-                    {/* <Canvas/> */}
+                    <Canvas/>
                     <p>Canvas</p>
                 </div>
             </div>
