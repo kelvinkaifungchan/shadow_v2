@@ -4,7 +4,7 @@ import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Butto
 
 import classes from './viewquizcardpage.module.css'
 
-class PureVIewQuizcardQuestionModule extends React.Component {
+class PureViewQuizcardQuestionModule extends React.Component {
 
     constructor(props) {
         super(props)
@@ -14,7 +14,6 @@ class PureVIewQuizcardQuestionModule extends React.Component {
     }
 
 
-   
     mcToggle() {
         console.log('mc')
         this.setState({
@@ -31,20 +30,33 @@ class PureVIewQuizcardQuestionModule extends React.Component {
     onClickShowQuestionViewer(id) {
         this.setState({
             showQuestionViewer: true,
-            questionId: id,
+            questionNumId: id,
+
         })
+        console.log("this.state.questionNumId", this.state.questionNumId);
     }
 
     render() {
-
+        console.log(this.props.question.question, "PROPS IN VQQ");
         return (
             <>
 
-                <div  subId={(id) => this.onClickShowQuestionViewer(id)} className={classes.scrollicon}>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
+                <div className={classes.scrollicon}>
+                    {this.props.question.question &&
+                        this.props.question.question.length > 0 ?
+                        this.props.question.question.map(
+
+                            (question, i) => {
+
+                                return (
+                                    <span onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
+                                )
+                            }
+                        )
+
+                        : null}
                 </div>
+
                 <div className={classes.viewquizcardquestion}>
 
                     {/* List of words & recording */}
@@ -56,63 +68,77 @@ class PureVIewQuizcardQuestionModule extends React.Component {
                                 <Form>
                                     <div className="row">
                                         <div className="col col-8">
-                                            <p>Question 1</p>
+                                            <p>Question {this.state.questionNumId + 1}</p>
                                         </div>
-                                        <div className="col col-4">
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle caret>
-                                                    Question type
-                                                </DropdownToggle>
-                                                <DropdownMenu right>
-                                                    <DropdownItem onClick={() => this.mcToggle()}>Multiple Choice</DropdownItem>
-                                                    <DropdownItem onClick={() => this.tfToggle()}>True or False</DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </div>
+
                                     </div>
-                                    <div className="row">
-                                        <textarea style={{ width: "100%", height: "20vh", margin: "1px", resize: "none" }} />
-                                    </div>
-                                    {this.state.type === "mc" ?
-                                        <div>
-                                            <div className="row">
-                                                <div className="col col-6">
-                                                    <FormGroup>
-                                                        <Label for="A">A</Label>
-                                                        <Input type="text" name="A" id="A" placeholder="input an option here" />
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col col-6">
-                                                    <FormGroup>
-                                                        <Label for="B">B</Label>
-                                                        <Input type="text" name="B" id="B" placeholder="input an option here" />
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col col-6">
-                                                    <FormGroup>
-                                                        <Label for="C">C</Label>
-                                                        <Input type="text" name="C" id="C" placeholder="input an option here" />
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col col-6">
-                                                    <FormGroup>
-                                                        <Label for="D">D</Label>
-                                                        <Input type="text" name="D" id="D" placeholder="input an option here" />
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
-                                        </div> :
-                                        <div>
-                                            <p>Select the correct answer:</p>
-                                            <div className="row">
-                                                <Button color="primary"> True </Button>
-                                            </div>
-                                            <div className="row">
-                                                <Button color="primary"> False </Button>
-                                            </div>
-                                        </div>}
+
+
+                                    {this.props.question.question &&
+                                        this.props.question.question.length > 0 ?
+                                        this.props.question.question.map((question, i) => {
+
+                                            if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
+                                                console.log("question inside the map", question)
+
+                                                return (
+                                                    <div>
+                                                        <div className="row">
+                                                            <input readOnly style={{ width: "100%", margin: "20px" }} value={question.questionBody} />
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col col-6">
+                                                                <FormGroup>
+                                                                    <Label for="A">A</Label>
+                                                                    <Input readOnly type="text" name="A" id="A" value={question.multipleChoiceA} />
+                                                                </FormGroup>
+                                                            </div>
+                                                            <div className="col col-6">
+                                                                <FormGroup>
+                                                                    <Label for="B">B</Label>
+                                                                    <Input readOnly type="text" name="B" id="B" value={question.multipleChoiceB} />
+                                                                </FormGroup>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col col-6">
+                                                                <FormGroup>
+                                                                    <Label for="C">C</Label>
+                                                                    <Input readOnly type="text" name="C" id="C" value={question.multipleChoiceC} />
+                                                                </FormGroup>
+                                                            </div>
+                                                            <div className="col col-6">
+                                                                <FormGroup>
+                                                                    <Label for="D">D</Label>
+                                                                    <Input readOnly type="text" name="D" id="D" value={question.multipleChoiceD} />
+                                                                </FormGroup>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            } else if (question.questionType === "trueFalse" && i === this.state.questionNumId) {
+
+                                                return (
+                                                    <div>
+                                                        <p>Select the correct answer:</p>
+                                                        <div className="row">
+                                                            <Button color="primary"> True </Button>
+                                                        </div>
+                                                        <div className="row">
+                                                            <Button color="primary"> False </Button>
+                                                        </div>
+                                                    </div>
+                                                )
+
+                                            }
+                                        }
+                                        )
+                                        : null
+
+                                    }
+
+
+
                                 </Form>
                             </div>
 
@@ -131,4 +157,4 @@ class PureVIewQuizcardQuestionModule extends React.Component {
 }
 
 
-export const VIewQuizcardQuestionModule = connect(null, null)(PureVIewQuizcardQuestionModule)
+export const ViewQuizcardQuestionModule = connect(null, null)(PureViewQuizcardQuestionModule)
