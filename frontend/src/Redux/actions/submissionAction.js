@@ -11,11 +11,8 @@ export const DELETE_SUBMISSION_MULTIPLECHOICE = "DELETE_SUBMISSION_MULTIPLECHOIC
 export const DELETE_SUBMISSION_TRUEFALSE = "DELETE_SUBMISSION_TRUEFALSE";
 
 export const addSubmissionThunk = (submission) => async (dispatch) => {
-    console.log("TELL ME OUT SIDE");
     return axios.post("http://localhost:8080/api/card/submission", submission)
     .then((data) => {
-        console.log("SUBMISSION DATA", data)
-        console.log("SUBMISSION submission", submission);
         if (submission.type === "dictation") {
             dispatch({
                 type: ADD_SUBMISSION_DICTATIONCARD,

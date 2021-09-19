@@ -24,6 +24,7 @@ class Card {
             });
         }
         if(body.type === "quizcard"){
+            console.log('quizcardservice adding')
             return this.knex("quizcard")
             .insert({
                 user_id: userId[0].id,
@@ -33,11 +34,12 @@ class Card {
             })
             .returning("id")
             .then((quizcardId)=>{
-                if(body.quizcardQuestion != null){
+                console.log('body.smthlong', body.quizcardQuestion)
+                if(body.quizcardQuestion.length > 0){
                     return body.quizcardQuestion.map((data)=>{
                         return this.knex("quizcardQuestion")
                         .insert({
-                            quizcard_id: quizcardId,
+                            quizcard_id: quizcardId[0],
                             questionType: data.questionType,
                             questionTime: data.questionTime,
                             questionBody: data.questionBody,
@@ -50,6 +52,7 @@ class Card {
                         })
                     })
                 }
+                return quizcardId[0]
             })
             .catch((err) => {
                 console.log(err)
@@ -492,6 +495,7 @@ class Card {
             .then(async (dictationcards)=>{
                 allCard.dictationcard = await Promise.all(dictationcards.map((id)=>{
                     let data = {}
+                    data.id = id.id
                     data.dictationcardTitle = id.dictationcardTitle
                     data.id = id.id
                     return this.knex("dictation")

@@ -49,6 +49,8 @@ class ViewFlashCard extends React.Component {
             correctFlashcard: [],
         }
         this.handleRecording = this.handleRecording.bind(this);
+        this.addFeedback = this.addFeedback.bind(this);
+        
     }
 
     componentDidMount() {
@@ -61,12 +63,13 @@ class ViewFlashCard extends React.Component {
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            
             this.setState({
                 correctSubmission: correctProps[0].submission,
+                correctFeedback:correctProps[0].submission
             });
         }
     }
+ 
 
     toggle() {
         this.setState({
@@ -137,10 +140,11 @@ class ViewFlashCard extends React.Component {
             timeStamp: this.state.submissionTime
         })
     }
-    addFeedback = (id) =>  {
-      this.onClickShowSubmissionViewer(id)
-    }
 
+    addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
+        this.props.addFeedbackThunk(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime)
+    }
+    
     render() {
         console.log("see the props IN VFC", this.props);
         console.log("the state IN VFC!!!!STATE", this.state);
@@ -175,7 +179,7 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => { this.onClickShowRecorder() }} className={classes.scrollplusicon}>
                                         <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule ref={this.child} subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} />
+                                    <DisplayFlashcardSubmissionModule  subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} addFeedback={this.addFeedback()}/>
 
                                 </div>
                             </div>
@@ -197,7 +201,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback feedback={this.state.correctFeedback} />}
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} />}
 
                                     </div>
                                 </div>
@@ -240,9 +244,16 @@ const mapDispatchToProps = dispatch => {
         addSubmission: (submission) => {
             dispatch(addSubmissionThunk(submission))
         },
-        addfeedback: (feedback) => {
+        addFeedbackThunk: (type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime) => {
+            let feedback = {
+                type: type,
+                email: email,
+                submissionId: flashcardSubmissionId,
+                body: flashcardFeedbackBody,
+                timestamp: flashcardFeedbackTime
+            }
             dispatch(addFeedbackThunk(feedback))
-        },
+        }
     }
 }
 

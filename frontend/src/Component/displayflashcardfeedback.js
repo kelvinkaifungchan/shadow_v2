@@ -7,7 +7,6 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
     
 
     render() {
-        console.log("THE PORPS IS HEREEEEEE", this.props.feedback[0])
 
         return (
             <>
