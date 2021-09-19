@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import {QRModal} from '../Component/qrcode'
-import { Canvas } from '../Component/canvas'
+
 import classes from './ViewDictationcard.module.css'
 
 
@@ -27,9 +27,15 @@ class ViewDictationcard extends React.Component {
 
     navigateSubmission(e){
         this.props.history.push({
-            pathname:`/viewDictationCardSubmission`,
-            state: { dictationcard: this.props.location.state.card[0]}
+            pathname:`/viewDictationCardSubmission/${e.target.attributes["data-key"].value}`,
+            // state: { dictationcard: this.props.location.state.card[0]}
         })
+    }
+    navigateCanvas(e){
+        this.props.history.push({
+            pathname:`/viewdictationQuestion`
+        })
+
     }
 
     render() {
@@ -39,12 +45,11 @@ class ViewDictationcard extends React.Component {
             <div>
                 
                 <NavBar user={this.props.user} history={this.props.history} />
-                <QRModal modal={this.state} toggle={() => this.toggle()}/>
-                <Canvas/>
+                <QRModal modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            <h1>{this.props.location.state.card[0].dictationcardTitle}</h1>
+                            {/* <h1>{this.props.location.state.card[0].dictationcardTitle}</h1> */}
                         </div>
                     </div>
 
@@ -52,13 +57,14 @@ class ViewDictationcard extends React.Component {
                     <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>
-                                <span className={classes.startbtn}> Start Dictation</span>
+                                <span onClick={() => this.toggle()} className={classes.startbtn}> Start Dictation</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="row d-flex p-4">
                         <div className="col col-12 justify-content-center align-items-center">
+                            {/* need to add data-key */}
                             <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
                         </div>
                     </div>

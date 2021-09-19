@@ -137,7 +137,8 @@ class ViewSet extends React.Component {
             })
         } else if (e.target.attributes["data-type"].value === "dictationcard") {
             this.props.history.push({
-                pathname: `/viewDictationcard/${e.target.attributes["data-key"].value}`
+                pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
+
             })
         }
 

@@ -1,17 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import { Link } from 'react-router-dom';
-import {Account} from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
-
+//Component
 import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
-// import QuestionProgress from '../Component/questionProgress';
-import { VideoPlayer } from '../Component/videoplayer';
-// import QuestionModal from '../Component/questionModal'; 
+import {VIewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
 
+import { getdataThunk } from '../Redux/actions/action'
+
+
+//CSS
 import classes from './ViewQuizcard.module.css'
 
 class ViewQuizcard extends React.Component {
@@ -20,14 +17,24 @@ class ViewQuizcard extends React.Component {
         this.state = {
             title: "",
             type: "quizcard",
+            correctQuizcard:[]
         }
     }
+    componentDidMount() {
+        this.props.getdata({ email: localStorage.getItem('email') })
+    }
 
-    navigateSubmission(e){
-        this.props.history.push({
-            pathname:`/viewQuizcardSubmission`,
-            state: { quizcard: this.props.location.state.card[0]}
-        })
+    componentWillReceiveProps(nextProps) {
+        if(this.props.cards.quizcard.length > 0 ){
+            this.setState({
+                correctQuizcard: this.props.cards.quizcard.filter(quiz => quiz.id === parseInt(this.props.match.params.id))
+            })
+            const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            console.log("correctProps VIEW QUIZCARD",correctProps);
+            // this.setState({
+            //     correctQuestion: correctProps[0].submission,
+            // });
+        }
     }
 
     render() {
@@ -42,7 +49,7 @@ class ViewQuizcard extends React.Component {
                 {/* 1st row: Header */}
                 <div className="row d-flex p-4">
                     <div className="col-8">
-                        <h1>{this.props.location.state.card[0].quizcardTitle}</h1>
+                        <h1>{this.state.correctQuizcard.length > 0 ? this.state.correctQuizcard[0].quizcardTitle : null}</h1>
                     </div>
                 </div>
 
@@ -60,14 +67,9 @@ class ViewQuizcard extends React.Component {
                 </div>
                 </div>
 
-
+                <VIewQuizcardQuestionModule question={this.state.correctQuestion} />
             </div>
 
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
             </div>
         );
     }
@@ -76,11 +78,23 @@ class ViewQuizcard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
+      
     }
 }
 
 
-
-const connectedViewQuizcard= connect(mapStateToProps, null)(ViewQuizcard)
+const connectedViewQuizcard= connect(mapStateToProps, mapDispatchToProps)(ViewQuizcard)
 export { connectedViewQuizcard as ViewQuizcard };

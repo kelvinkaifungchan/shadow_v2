@@ -8,7 +8,6 @@ import classes from './qrcode.module.css'
 const QRCode = require('qrcode.react');
 
 class PureQRModal extends React.Component {
-
     render() {
         console.log("PROPS IN SCM", this.props);
         return (
@@ -22,7 +21,7 @@ class PureQRModal extends React.Component {
                             </div>
                         </div>
                         <div className="row text-center">
-                        <button onClick={this.props.toggle} className="btn btn-outline-dark waves-effect w-100 m-2">Done</button>
+                        <button onClick={(e) => {this.props.toggle(); this.props.navigate(e)}} className="btn btn-outline-dark waves-effect w-100 m-2">Done</button>
                         </div>
                     </ModalBody>
                 </Modal>
