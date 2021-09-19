@@ -67,6 +67,7 @@ class ViewFlashCard extends React.Component {
             
             this.setState({
                 correctSubmission: correctProps[0].submission,
+                correctFeedback:correctProps[0].submission
             });
         }
     }
