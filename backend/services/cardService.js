@@ -34,11 +34,12 @@ class Card {
             })
             .returning("id")
             .then((quizcardId)=>{
-                if(body.quizcardQuestion != null){
+                console.log('body.smthlong', body.quizcardQuestion)
+                if(body.quizcardQuestion.length > 0){
                     return body.quizcardQuestion.map((data)=>{
                         return this.knex("quizcardQuestion")
                         .insert({
-                            quizcard_id: quizcardId,
+                            quizcard_id: quizcardId[0],
                             questionType: data.questionType,
                             questionTime: data.questionTime,
                             questionBody: data.questionBody,
@@ -51,6 +52,7 @@ class Card {
                         })
                     })
                 }
+                return quizcardId[0]
             })
             .catch((err) => {
                 console.log(err)
