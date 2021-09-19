@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 
 import classes from './qrcode.module.css'
+
+const QRCode = require('qrcode.react');
 
 class PureQRModal extends React.Component {
 
@@ -16,11 +18,11 @@ class PureQRModal extends React.Component {
                     <ModalBody>
                         <div className="row justify-content-center">
                             <div className={classes.qrcode}>
-                            <img src="https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0" />
+                            <QRCode value="http://facebook.github.io/react/" />
                             </div>
                         </div>
                         <div className="row text-center">
-                        <button className="btn btn-outline-dark waves-effect w-100 m-2">Done</button>
+                        <button onClick={this.props.toggle} className="btn btn-outline-dark waves-effect w-100 m-2">Done</button>
                         </div>
                     </ModalBody>
                 </Modal>
