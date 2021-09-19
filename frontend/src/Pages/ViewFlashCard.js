@@ -21,7 +21,7 @@ import { getdataThunk } from '../Redux/actions/action'
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
 
-
+//CSS
 import classes from './ViewFlashcard.module.css'
 
 class ViewFlashCard extends React.Component {
