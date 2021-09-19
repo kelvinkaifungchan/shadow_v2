@@ -39,7 +39,7 @@ class Landing extends React.Component {
                         <PrivateRoute path="/viewquizcardSubmission/:id" component={ViewQuizcardSubmission} />
                         <PrivateRoute path="/createdictationcard/:setId" component={CreateDictationcard} />
                         <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
-                        <PrivateRoute path="/viewdictationQuestion" component = {ViewDictationQuestion}/>
+                        <PrivateRoute path="/viewdictationQuestion/:id" component = {ViewDictationQuestion}/>
                         <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
                         <PrivateRoute path="/editdictationCard" component={ViewDictationQuestion} />
                         <Route path="/login" component={Login} />
