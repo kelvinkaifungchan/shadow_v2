@@ -28,10 +28,18 @@ class PureDisplaySetModule extends React.Component {
         this.deleteBridge(setId)
     }
     deleteBridge(setId){
-        this.props.deleteBridge({
-            type: "classroom_set",
-            setId: setId
-        })
+        if(this.props.dash === "dashSet"){
+            this.props.deleteBridge({
+                type: "classroom_set",
+                setId: setId
+            })
+        } else {
+            this.props.deleteBridge({
+                type: "classroom_set",
+                setId: setId,
+                classroomId: this.props.match.params.id
+            })
+        }
     }
     render() {
         console.log("props in display set module", this.props);
@@ -50,7 +58,7 @@ class PureDisplaySetModule extends React.Component {
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
                             <h4 data-key={set.id}>{set.title} View Set</h4>
-                            <span className={classes.deletebtn}><i onClick={()=>this.deleteBridge(set.id)} class="fas fa-times"></i></span>
+                            <span data-key="delete" className={classes.deletebtn}><i data-key="delete" onClick={()=>this.deleteBridge(set.id)} class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )

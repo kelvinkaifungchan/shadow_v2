@@ -113,7 +113,7 @@ export function classroomReducer(state = initialState, action){
             console.log("DELETE_BRIDGE_CLASSROOM_SET", action) 
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.set_id === classroom.id){
+                    if(action.payload.classroom_id === classroom.id){
                         return {
                             ...classroom, bridge:classroom.bridge.filter((bridges) => bridges.set_id !== action.payload.set_id)
                         }
