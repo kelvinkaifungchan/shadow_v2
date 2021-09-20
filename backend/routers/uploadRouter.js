@@ -3,7 +3,7 @@ const express = require("express");
 
 class UploadRouter {
   constructor(uploadService) {
-    this.uploadService = uplaoadService;
+    this.uploadService = uploadService;
   }
 
   router() {

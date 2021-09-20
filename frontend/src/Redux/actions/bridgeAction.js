@@ -40,20 +40,27 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
         } else {
             console.log('none of above')
         }
-        console.log('above')
     })
     .catch(err => console.log("Error: ", err))
 }
 
 export const deleteBridgeThunk = (bridge) => async (dispatch) => {
-    return axios.delete("http://localhost:8080/api/bridge", bridge)
+    return axios.post("http://localhost:8080/api/bridge/delete", bridge)
     .then(response => {
         console.log(response)
         if (bridge.type === "classroom_set") {
-            dispatch({
-                type: DELETE_BRIDGE_CLASSROOM_SET,
-                payload: {classroom_id: bridge.classroomId, set_id: bridge.setId}
-            })
+            if(bridge.classroomId === "" || bridge.classroomId === undefined){
+                dispatch({
+                    type: DELETE_BRIDGE_CLASSROOM_SET,
+                    payload: {set_id: bridge.setId}
+                })
+            } else {
+                console.log('lmao2', bridge)
+                dispatch({
+                    type: DELETE_BRIDGE_CLASSROOM_SET,
+                    payload: {classroom_id: bridge.classroomId, set_id: bridge.setId}
+                })
+            }
         } else if (bridge.type === "set_dictationcard") {
             dispatch({
                 type: DELETE_BRIDGE_SET_DICTATIONCARD,
