@@ -3,7 +3,7 @@ const express = require("express");
 
 class UploadRouter {
   constructor(uploadService) {
-    this.uploadService = uplaoadService;
+    this.uploadService = uploadService;
   }
 
   router() {
@@ -44,7 +44,7 @@ class UploadRouter {
   postCanvas(req, res){
     console.log("Requesting to post canvas data");
     console.log(req.files)
-    return this.canvasService
+    return this.uploadService
         .addCanvas(req.files.img.name, req.files.img.data)
         .then(() => {
             return res.send("Canvas data posted");
