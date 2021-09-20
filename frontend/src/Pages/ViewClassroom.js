@@ -47,7 +47,7 @@ class ViewClassroom extends React.Component {
         if(this.state.correctClass[0] !== undefined){
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
             if(correctProps[0]!== undefined){
-                if(correctProps[0].bridge.length > 0){
+                if(correctProps[0].bridge.length >= 0){
                     let correctSets = correctProps[0].bridge.map((changed) => {
                         const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
                         return newestState[0]
@@ -116,9 +116,13 @@ class ViewClassroom extends React.Component {
     }
 
     navigateSet(e) {
-        this.props.history.push({
-            pathname: `/viewset/${e.target.attributes["data-key"].value}`,
-        })
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
+            this.props.history.push({
+                pathname: `/viewset/${e.target.attributes["data-key"].value}`,
+            })
+        }
     }
 
     logout = (e) => {
