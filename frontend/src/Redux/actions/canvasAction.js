@@ -7,7 +7,7 @@ export const submitCanvas = (data) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'multipart/form-data' }
     }
-    return axios.post("http://localhost:8080/api/canvas", data, config)
+    return axios.post("http://localhost:8080/api/upload/canvas", data, config)
     .then(response => {
         console.log(response)
     })

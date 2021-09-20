@@ -5,7 +5,7 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 })
 
-class RecordingService {
+class UploadService {
     constructor(knex) {
         this.knex = knex
     }
@@ -46,6 +46,29 @@ class RecordingService {
             console.log(err)
         }
     }
+
+    async addCanvas(fileName, fileData){
+        console.log("Uploading Canvas data to AWS")
+
+        const params = {
+            Bucket: process.env.AWS_CANVAS_BUCKET,
+            Key: fileName,
+            ContentType: 'image/png',
+            Body: fileData
+        };
+
+        console.log("PARAMS", params)
+
+        try{
+            let submission = await s3.upload(params).promise()
+            console.log("Uploaded Data", submission)
+            console.log("Canvas upload successful")
+        } catch (err) {
+            console.log(err)
+        }
+
+
+    }
 }
 
-module.exports = RecordingService
+module.exports = UploadService
