@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 //Component
 import {NavBar} from '../Component/navbar';
 import {ViewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
+import { VideoPlayer } from '../Component/videoplayer';
 
 import { getdataThunk } from '../Redux/actions/action'
 
@@ -35,9 +36,16 @@ class ViewQuizcard extends React.Component {
             this.setState({
                 correctQuestion: correctProps[0]
             })
-            console.log("correctState VIEW QUIZCARD",this.state);
+            console.log("correctQuestion VIEW QUIZCARD",this.state.correctQuestion);
 
         }
+    }
+    onClickViewQuizcardQuestion(){
+        this.setState({
+           
+            showQuizcardQuestion: true,
+          
+        })
     }
 
     render() {
@@ -57,11 +65,11 @@ class ViewQuizcard extends React.Component {
                 </div>
 
                 <div className="row d-flex p-4">
-                    <div className="col col-12 d-flex justify-content-center align-items-center">
-                    <div className={classes.startbtncontainer}>
+                {!this.state.showQuizcardQuestion && <div className="col col-12 d-flex justify-content-center align-items-center">
+                    <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
                     <span className={classes.startbtn}> Start Quiz</span>
                     </div>
-                </div>
+                </div>}
                 </div>
 
                 <div className="row d-flex p-4">
@@ -69,8 +77,9 @@ class ViewQuizcard extends React.Component {
                     <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
                 </div>
                 </div>
+                {this.state.showQuizcardQuestion &&  <VideoPlayer  src={ this.state.correctQuestion.question.quizcardRecording}/>}
 
-                <ViewQuizcardQuestionModule question={this.state.correctQuestion} />
+                {this.state.showQuizcardQuestion && <ViewQuizcardQuestionModule question={this.state.correctQuestion} />}
             </div>
 
             </div>

@@ -15,7 +15,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
 
     mcToggle() {
-        console.log('mc')
         this.setState({
             type: "mc"
         })
@@ -49,7 +48,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                             (question, i) => {
 
                                 return (
-                                    <span onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
+                                    <span key={i} onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
                                 )
                             }
                         )
@@ -83,8 +82,8 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
                                                 return (
                                                     <div>
-                                                        <div className="row">
-                                                            <input readOnly style={{ width: "100%", margin: "20px" }} value={question.questionBody} />
+                                                        <div key={i} className="row">
+                                                            <input  readOnly style={{ width: "100%", margin: "20px" }} value={question.questionBody} />
                                                         </div>
                                                         <div className="row">
                                                             <div className="col col-6">
