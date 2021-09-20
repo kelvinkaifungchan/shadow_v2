@@ -47,38 +47,39 @@ class ViewSet extends React.Component {
         if(this.state.correctSet[0] !== undefined){
             console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
-                if( correctFlashs[0].bridge_flashcard.length > 0){
+            console.log('try flash', correctFlashs)
+            if (correctFlashs[0] !== undefined) {
+                if( correctFlashs[0].bridge_flashcard.length >= 0){
                     let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
                     });
-                    if(nextflash[0] !== undefined){
-                        this.setState({
-                            correctflashCard: nextflash,
-                        });
-                    }
-                }
+                    this.setState({
+                        correctflashCard: nextflash,
+                    });
+                } 
             }
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctQuizs[0] !== undefined && correctFlashs[0].bridge_quizcard !== undefined) {
-                let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
-                    const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
-                    return newestState[0]
-                });
-                if(nextquiz[0] !== undefined){
+            console.log('try flash', correctQuizs)
+            if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
+                if( correctQuizs[0].bridge_quizcard.length >= 0){
+                    let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
+                        const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
+                        return newestState[0]
+                    });
                     this.setState({
-                    correctquizCard: nextquiz,
-                });
-            }
+                        correctquizCard: nextquiz,
+                    });
+                }
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctDicts[0] !== undefined && correctFlashs[0].bridge_dictationcard !== undefined) {
-                let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
+            console.log('try flash', correctDicts)
+            if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
+                if( correctDicts[0].bridge_dictationcard.length >= 0){
+                    let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
                     return newestState[0]
                 });
-                if(nextdictation[0] !== undefined){
                     this.setState({
                     correctdictationCard: nextdictation,
                 });
@@ -125,7 +126,7 @@ class ViewSet extends React.Component {
     }
 
     navigateCard(e) {
-        if (e.target.attributes["data-key"].value === "delete") {
+        if (e.target.attributes["data-del"].value === "delete") {
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
             console.log('nav card func props', this.props.cards.flashcard)
@@ -257,7 +258,7 @@ class ViewSet extends React.Component {
                             </div>
                         </div>
 
-                        <DisplayCardModule view={this.state} 
+                        <DisplayCardModule view={this.state} match={this.props.match}
                         correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                     </div>
                 </div>
