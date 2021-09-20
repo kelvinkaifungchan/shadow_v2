@@ -88,8 +88,7 @@ class CreateQuizcard extends React.Component {
                             <VideoRecorder handleRecording={(e)=>this.handleRecording(e)}/>
                         </div>
                         <div className="col col-6">
-                            <CreatequizcardQuestion time={()=>this.getTime()} submit={(e, question)=> this.addQuestion(e, question)}/>
-                            {/* <p>QuizcardQuestionsCreate</p> */}
+                            <CreatequizcardQuestion time={()=>this.getTime()} questions={this.state.quizcardQuestion} submit={(e, question)=> this.addQuestion(e, question)}/>
                         </div>
                     </div>
                 </div>

@@ -100,9 +100,9 @@ class PureCreateQuiz extends React.Component{
         return (
             <>
             <div className={classes.scrollicon}>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
+                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
+                    <span>{i + 1}</span>
+                }) : null}
                 {this.state.question === "" && this.state.answer === "" && this.state.time === "" ? 
                 <span onClick={()=>{this.getTime()}}>+</span>
                 :<span onClick={()=>{this.getTime()}}>+</span>}
