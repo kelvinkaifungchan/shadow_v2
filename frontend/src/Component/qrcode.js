@@ -10,6 +10,7 @@ const QRCode = require('qrcode.react');
 class PureQRModal extends React.Component {
     render() {
         console.log("PROPS IN SCM", this.props);
+        let link = `https://localhost:3000/viewdictationQuestion/${this.props.pageId}`
         return (
             <div>
                 <Modal isOpen={this.props.modal.modal} toggle={this.props.toggle} >
@@ -17,7 +18,7 @@ class PureQRModal extends React.Component {
                     <ModalBody>
                         <div className="row justify-content-center">
                             <div className={classes.qrcode}>
-                            <QRCode value="http://facebook.github.io/react/" />
+                            <QRCode value={link} />
                             </div>
                         </div>
                         <div className="row text-center">
