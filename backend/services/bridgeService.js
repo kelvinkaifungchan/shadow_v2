@@ -7,22 +7,22 @@ class BridgeService {
     async add(body) {
         console.log("adding bridge", body)
         if (body.type === "classroom_set") {
-                console.log('body.type === set')
-                const share = await this.knex("classroom_set").where({
-                    classroom_id: body.classroomId,
-                    set_id: body.setId
-                })
-                if (share.length > 0) {
-                    return "already shared"
-                } else {
-                    return this.knex
-                        .insert({
-                            classroom_id: body.classroomId,
-                            set_id: body.setId
-                        })
-                        .into("classroom_set")
-                        .returning('set_id')
-                }
+            console.log('body.type === set')
+            const share = await this.knex("classroom_set").where({
+                classroom_id: body.classroomId,
+                set_id: body.setId
+            })
+            if (share.length > 0) {
+                return "already shared"
+            } else {
+                return this.knex
+                    .insert({
+                        classroom_id: body.classroomId,
+                        set_id: body.setId
+                    })
+                    .into("classroom_set")
+                    .returning('set_id')
+            }
         }
         if (body.type === "set_flashcard") {
             const share = await this.knex("set_flashcard").where({
@@ -78,43 +78,66 @@ class BridgeService {
             return "bridge type not recognised"
         }
 
-        
+
     }
 
     //Delete user permission to set
     delete(body) {
         console.log("removing classroom sharing with user")
         if (body.type === "classroom_set") {
-            if(body.classroomId === undefined){
+            if (body.classroomId === undefined) {
                 console.log('body in class se t', body)
                 return this.knex("classroom_set")
-                .where("classroom_set.set_id", body.setId)
-                .del()
+                    .where("classroom_set.set_id", body.setId)
+                    .del()
             } else {
                 console.log('body in class se t', body)
                 return this.knex("classroom_set")
-                .where("classroom_set.classroom_id", body.classroomId)
-                .where("classroom_set.set_id", body.setId)
-                .del()
+                    .where("classroom_set.classroom_id", body.classroomId)
+                    .where("classroom_set.set_id", body.setId)
+                    .del()
             }
         }
         if (body.type === "set_flashcard") {
-            return this.knex("set_flashcard")
-            .where("set_flashcard.set_id", body.setId)
-            .where("set_flashcard.flashcard_id", body.flashcardId)
-            .del()
+            console.log('body in class card', body)
+            if (body.setId === undefined) {
+                return this.knex("set_flashcard")
+                    .where("set_flashcard.flashcard_id", body.cardId)
+                    .del()
+            }
+            else {
+                console.log('body in class set', body)
+                return this.knex("set_flashcard")
+                    .where("set_flashcard.set_id", body.setId)
+                    .where("set_flashcard.flashcard_id", body.cardId)
+                    .del()
+            }
         }
         if (body.type === "set_quizcard") {
-            return this.knex("set_quizcard")
-            .where("set_quizcard.set_id", body.setId)
-            .where("set_quizcard.quizcard_id", body.quizcardId)
-            .del()
+            if (body.setId === undefined) {
+                return this.knex("set_quizcard")
+                    .where("set_quizcard.quizcard_id", body.cardId)
+                    .del()
+            }
+            else {
+                return this.knex("set_quizcard")
+                    .where("set_quizcard.set_id", body.setId)
+                    .where("set_quizcard.quizcard_id", body.cardId)
+                    .del()
+            }
         }
         if (body.type === "set_dictationcard") {
-            return this.knex("set_dictationcard")
-            .where("set_dictationcard.set_id", body.setId)
-            .where("set_dictationcard.dictationcard_id", body.dictationcardId)
-            .del()
+            if (body.setId === undefined) {
+                return this.knex("set_dictationcard")
+                    .where("set_dictationcard.dictationcard_id", body.cardId)
+                    .del()
+            }
+            else {
+                return this.knex("set_dictationcard")
+                    .where("set_dictationcard.set_id", body.setId)
+                    .where("set_dictationcard.dictationcard_id", body.cardId)
+                    .del()
+            }
         }
         else {
             return "bridge relationship not found"

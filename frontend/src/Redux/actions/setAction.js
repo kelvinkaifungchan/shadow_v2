@@ -50,13 +50,7 @@ export const deleteSet = (set) => async (dispatch) => {
 }
 
 export const addSetBridge = (set) => async (dispatch) => {
-    // console.log("adding set" , set)
-    // const { data } = await axios.post("http://localhost:8080/api/set", set)
-    // const newId = data[0]
-    // console.log('addSetBridge MDP newId', newId)
-    // console.log('this is the set post return', newId)
-    // dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title} });
-    // console.log('post dispatch')
+   
     console.log(set)
     const { bridge } = await axios.post("http://localhost:8080/api/bridge", {
         type: set.type,
