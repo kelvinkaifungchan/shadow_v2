@@ -31,7 +31,7 @@ class CreateQuizcard extends React.Component {
     }
     handleRecording(record){
         this.setState({
-            quizcardRecording: record
+            quizcardRecording: `https://${process.env.REACT_APP_AWS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + record
         })
     }
     addQuizCard(){

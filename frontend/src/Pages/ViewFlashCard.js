@@ -92,8 +92,9 @@ class ViewFlashCard extends React.Component {
     }
 
     handleRecording(record) {
+        console.log("http:", process.env.REACT_APP_AWS_BUCKET)
         this.setState({
-            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
+            submissionRecording: `https://${process.env.REACT_APP_AWS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + record
         })
     }
 
