@@ -53,7 +53,15 @@ class PureDisplayCardModule extends React.Component {
                         </div>
                     )
                 })
-                : null
+                : this.props.dash === "dashSet" && this.props.cards.flashcard && this.props.cards.flashcard.length > 0 ? this.props.cards.flashcard.map((card)=>{
+                    return (
+                        <div data-key={card.id} data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
+                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} </h4>
+                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
+                        </div>
+                    )
+                }) : null
                 }
 
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
@@ -69,11 +77,18 @@ class PureDisplayCardModule extends React.Component {
                         <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle} </h4>
                             <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
-                            <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
                 })
-                : null
+                : this.props.dash === "dashSet" && this.props.cards.quizcard && this.props.cards.quizcard.length > 0 ? this.props.cards.quizcard.map((card)=>{
+                    return (
+                        <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
+                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle} </h4>
+                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
+                        </div>
+                    )
+                }) : null
                 }
                 {this.props.allCard && this.props.allCard.dictationcard.length > 0 ? this.props.allCard.dictationcard.map((card, i) => {
                     return (
@@ -92,7 +107,15 @@ class PureDisplayCardModule extends React.Component {
                         </div>
                     )
                 })
-                : null
+                : this.props.dash === "dashSet" && this.props.cards.dictationcard && this.props.cards.dictationcard.length > 0 ? this.props.cards.dictationcard.map((card)=>{
+                    return (
+                        <div data-key={card.id} data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
+                            <h4 data-key={card.id} data-type="dictationcard">{card.dictationcardTitle} </h4>
+                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <p data-key={card.id} data-type="dictationcard">{card.dictationBody}</p>
+                        </div>
+                    )
+                }) : null
                 }
             </>
 

@@ -7,6 +7,7 @@ import { getdataThunk } from '../Redux/actions/action'
 import { NavBar } from '../Component/navbar'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
+import { DisplayCardModule } from '../Component/displaycardmodule';
 
 // Require Modal Component
 import { CreatePopUp } from '../Component/createmodal'
@@ -47,25 +48,36 @@ class PureDashboard extends React.Component {
         })
     }
 
-
-
-    navigateClass(e) {
-        console.log(e)
+    navigateClass(e){
         if (e.target.attributes["data-key"].value === "delete") {
             return
         } else {
+        this.props.history.push({
+            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
+        })
+    }}
+    navigateSet(e){
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
+        this.props.history.push({
+            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
+        })
+    }}
+    navigateCard(e) {
+        if (e.target.attributes["data-type"].value === "flashcard") {
+            console.log('nav card func props', this.props.cards.flashcard)
+            console.log('nav card func value', e.target.attributes["data-key"].value)
             this.props.history.push({
-                pathname: `/viewclassroom/${e.target.attributes["data-key"].value}`,
+                pathname: `/viewflashcard/${e.target.attributes["data-key"].value}`
             })
-        }
-    }
-    navigateSet(e) {
-        if (e.target.attributes["data-key"].value === "delete") {
-            return
-        } else {
+        } else if (e.target.attributes["data-type"].value === "quizcard") {
             this.props.history.push({
-                pathname: `/viewset/${e.target.attributes["data-key"].value}`,
-
+                pathname: `/viewquizcard/${e.target.attributes["data-key"].value}`
+            })
+        } else if (e.target.attributes["data-type"].value === "dictationcard") {
+            this.props.history.push({
+                pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
             })
         }
     }
@@ -100,6 +112,14 @@ class PureDashboard extends React.Component {
 
                     <div className="row d-flex pl-2">
                         <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                    </div>
+
+                    <div className="row d-flex p-2">
+                            <h1>My Card</h1>
+                    </div>
+
+                    <div className="row d-flex pl-2">
+                    <DisplayCardModule dash={this.state.dashSet} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}
