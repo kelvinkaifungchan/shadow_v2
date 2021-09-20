@@ -77,7 +77,6 @@ class PureDisplayCardModule extends React.Component {
                         <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle} </h4>
                             <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
-                            <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
                 })
