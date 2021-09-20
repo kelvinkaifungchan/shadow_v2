@@ -22,9 +22,10 @@ export const editClassroom = (classroom) => async (dispatch) => {
 }
 
 export const deleteClassroom = (classroom) => async (dispatch) => {
-    console.log("deleting classroom")
 
-   const { data } = await axios.delete("http://localhost:8080/api/classroom", classroom)
+    await axios.post("http://localhost:8080/api/classroom/delete", classroom)
+   .then(()=>{
+       dispatch({type: DELETE_CLASSROOM, payload: {classroom_id: classroom.id}});
+   })
    
-    dispatch({type: DELETE_CLASSROOM, payload: {classroom_id: classroom.classroomId, description: classroom.description, title: classroom.title}});
 }

@@ -38,10 +38,11 @@ class Set {
     //Make a specific set inactive
     delete(body) {
         return this.knex("set")
-            .where("id", body.setId)
+            .where("id", body.id)
             .update({
                 setStatus: false,
             })
+            .returning(body.id)
             .catch((err) => {
                 console.log(err)
             });

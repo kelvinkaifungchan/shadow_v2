@@ -28,6 +28,8 @@ app.use(fileUpload());
 // Services
 const BridgeService = require("./services/bridgeService")
 const bridgeService = new BridgeService(knex)
+const CanvasService = require("./services/canvasService")
+const canvasService = new CanvasService(knex)
 const CardService = require("./services/cardService")
 const cardService = new CardService(knex)
 const ClassroomService = require("./services/classroomService")
@@ -52,6 +54,8 @@ const AuthRouter = require("./routers/authRouter");
 app.use("/api/auth", new AuthRouter(knex).router());
 const BridgeRouter = require("./routers/bridgeRouter");
 app.use("/api/bridge", new BridgeRouter(bridgeService).router());
+const CanvasRouter = require("./routers/canvasRouter")
+app.use("/api/canvas", new CanvasRouter(canvasService).router());
 const CardRouter = require("./routers/cardRouter");
 app.use("/api/card", new CardRouter(cardService, submissionService, feedbackService).router());
 const ClassroomRouter = require("./routers/classroomRouter");
