@@ -50,6 +50,10 @@ export const deleteSet = (set) => async (dispatch) => {
         .then(() => {
             dispatch({ type: DELETE_SET, payload: { set_id: set.id } });
         })
+        .then(() => {
+            
+        })
+
 }
 
 export const addSetBridge = (set) => async (dispatch) => {
