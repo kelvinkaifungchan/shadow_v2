@@ -67,7 +67,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                 <Form>
                                     <div className="row">
                                         <div className="col col-8">
-                                            <p>Question {this.state.questionNumId + 1}</p>
+                                            <p>Question {this.state.questionNumId ?this.state.questionNumId + 1 : null}</p>
                                         </div>
 
                                     </div>
@@ -82,6 +82,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
                                                 return (
                                                     <div>
+                                                        
                                                         <div key={i} className="row">
                                                             <input  readOnly style={{ width: "100%", margin: "20px" }} value={question.questionBody} />
                                                         </div>

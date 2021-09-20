@@ -81,12 +81,22 @@ class ViewQuizcard extends React.Component {
 
                 <div className="row d-flex p-4">
                     <div className="col col-12 justify-content-center align-items-center">
-                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>Submit</button>
                 </div>
                 </div>
-                {this.state.showQuizcardQuestion &&  <VideoPlayer  src={ this.state.correctQuestion.question.quizcardRecording}/>}
-
-                {this.state.showQuizcardQuestion && <ViewQuizcardQuestionModule question={this.state.correctQuestion} />}
+                <div className="row">
+                {this.state.showQuizcardQuestion && 
+                <div className="col col-6">
+                <VideoPlayer  src={ this.state.correctQuestion.question.quizcardRecording}/>
+                </div>
+                }
+                {this.state.showQuizcardQuestion && 
+                <div className="col col-6">
+                <ViewQuizcardQuestionModule question={this.state.correctQuestion} />
+                </div>
+                }
+                </div>
+               
             </div>
 
             </div>
