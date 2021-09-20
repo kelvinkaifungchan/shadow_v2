@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { addBridgeThunk } from '../Redux/actions/bridgeAction'
+import { deleteCard } from '../Redux/actions/cardAction';
+import { deleteBridgeThunk } from '../Redux/actions/bridgeAction';
 // Require Css
 import classes from './displaycardmodule.module.css'
 
@@ -29,6 +31,24 @@ class PureDisplayCardModule extends React.Component {
             dictationcardId: e.target.attributes["data-key"].value
         })
     }
+    deleteCard(e, cardId) {
+        console.log('delete card func',e.target.attributes)
+        if(e.target.attributes['data-type'].value === "flashcard"){
+            console.log('inif delete card')
+            this.props.deleteCard({
+                type: "flashcard",
+                id: cardId,
+            })
+            this.deleteBridge(cardId)
+        } 
+    }
+    deleteBridge(cardId) {
+        this.props.deleteBridge({
+            type: "set_flashcard",
+            cardId: cardId
+        })
+    }
+
     render() {
         console.log("props in display card module",this.props)
 
@@ -57,7 +77,7 @@ class PureDisplayCardModule extends React.Component {
                     return (
                         <div data-key={card.id} data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} </h4>
-                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteCard(e, card.id)} class="fas fa-times"></i></span>
                             <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
@@ -84,7 +104,7 @@ class PureDisplayCardModule extends React.Component {
                     return (
                         <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle} </h4>
-                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i onClick={()=>this.deleteCard(card.id)} class="fas fa-times"></i></span>
                             <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
@@ -102,7 +122,7 @@ class PureDisplayCardModule extends React.Component {
                     return (
                         <div data-key={card.id} data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-type="dictationcard">{card.dictationcardTitle} </h4>
-                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i onClick={()=>this.deleteCard(card.id)} class="fas fa-times"></i></span>
                             <p data-key={card.id} data-type="dictationcard">{card.dictationBody}</p>
                         </div>
                     )
@@ -129,6 +149,12 @@ const mapDispatchToProps = dispatch => {
         },
         getdata: (email) => {
             dispatch(getdataThunk(email))
+        },
+        deleteCard: (card) => {
+            dispatch(deleteCard(card))
+        },
+        deleteBridge: (link) => {
+            dispatch(deleteBridgeThunk(link))
         }
     }
 }

@@ -85,28 +85,29 @@ class BridgeService {
     delete(body) {
         console.log("removing classroom sharing with user")
         if (body.type === "classroom_set") {
-            console.log('body in class se t', body)
             return this.knex("classroom_set")
             // .where("classroom_set.classroom_id", body.classroomId)
             .where("classroom_set.set_id", body.setId)
             .del()
         }
         if (body.type === "set_flashcard") {
+            console.log('body in class card', body)
+
             return this.knex("set_flashcard")
             .where("set_flashcard.set_id", body.setId)
-            .where("set_flashcard.flashcard_id", body.flashcardId)
+            .where("set_flashcard.flashcard_id", body.cardId)
             .del()
         }
         if (body.type === "set_quizcard") {
             return this.knex("set_quizcard")
             .where("set_quizcard.set_id", body.setId)
-            .where("set_quizcard.quizcard_id", body.quizcardId)
+            .where("set_quizcard.quizcard_id", body.cardId)
             .del()
         }
         if (body.type === "set_dictationcard") {
             return this.knex("set_dictationcard")
             .where("set_dictationcard.set_id", body.setId)
-            .where("set_dictationcard.dictationcard_id", body.dictationcardId)
+            .where("set_dictationcard.dictationcard_id", body.cardId)
             .del()
         }
         else {

@@ -126,25 +126,25 @@ export const editCard = (card) => async (dispatch) => {
 
 export const deleteCard = (card) => async (dispatch) => {
     console.log("deleting card")
-    return axios.delete("http://localhost:8080/api/card", card)
+    return axios.post("http://localhost:8080/api/card/delete", card)
         .then(response => {
             console.log(response)
             if (card.type === "dictationcard") {
                 dispatch({
                     type: DELETE_DICTATIONCARD,
-                    payload: { dictationcard_id: card.dictationcardId }
+                    payload: { dictationcard_id: card.id }
                 })
             }
             else if (card.type === "flashcard") {
                 dispatch({
                     type: DELETE_FLASHCARD,
-                    payload: { flashcard_id: card.flashcardId }
+                    payload: { flashcard_id: card.id }
                 })
             }
             else if (card.type === "quizcard") {
                 dispatch({
                     type: DELETE_QUIZCARD,
-                    payload: { quizcard_id: card.quizcardId }
+                    payload: { quizcard_id: card.id }
                 })
             }
         })

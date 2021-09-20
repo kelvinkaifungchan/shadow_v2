@@ -12,7 +12,7 @@ class CardRouter {
 
         router.post("/", this.post.bind(this))
         router.put("/", this.put.bind(this))
-        router.delete("/", this.delete.bind(this))
+        router.post("/delete", this.delete.bind(this))
         router.post("/submission", this.postSubmission.bind(this))
         router.delete("/submission", this.deleteSubmission.bind(this))
         router.post("/submission/feedback", this.postFeedback.bind(this))
@@ -53,10 +53,6 @@ class CardRouter {
         console.log("Requesting deleting card")
         return this.cardService
             .delete(req.body)
-            .then(() => {
-                return this.cardService
-                .card(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })

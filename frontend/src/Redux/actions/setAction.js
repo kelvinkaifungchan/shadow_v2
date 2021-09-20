@@ -47,23 +47,12 @@ export const deleteSet = (set) => async (dispatch) => {
         .then(() => {
             dispatch({ type: DELETE_SET, payload: { set_id: set.id } });
         })
-        // .then(async() => {
-        //     await axios.post("http://localhost:8080/api/bridge/delete", {type: "classroom_set", setId: set.id })
-        //     .then(()=>{
-        //         dispatch({ type: DELETE_BRIDGE_CLASSROOM_SET, payload: { set_id: set.id }} )
-        //     })
-        // })
+       
 
 }
 
 export const addSetBridge = (set) => async (dispatch) => {
-    // console.log("adding set" , set)
-    // const { data } = await axios.post("http://localhost:8080/api/set", set)
-    // const newId = data[0]
-    // console.log('addSetBridge MDP newId', newId)
-    // console.log('this is the set post return', newId)
-    // dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title} });
-    // console.log('post dispatch')
+   
     console.log(set)
     const { bridge } = await axios.post("http://localhost:8080/api/bridge", {
         type: set.type,
