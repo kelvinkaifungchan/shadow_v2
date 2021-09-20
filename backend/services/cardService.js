@@ -29,7 +29,7 @@ class Card {
             .insert({
                 user_id: userId[0].id,
                 quizcardTitle: body.quizcardTitle,
-                quizcardRecording: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/" + body.quizcardRecording,
+                quizcardRecording: body.quizcardRecording,
                 quizcardStatus: true,
             })
             .returning("id")

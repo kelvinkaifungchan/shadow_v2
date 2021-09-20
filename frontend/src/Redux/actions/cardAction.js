@@ -83,13 +83,9 @@ export const addCard = (card) => async (dispatch) => {
             quizcardId: newId
         })
     }).then((bridgeReturn) => {
-        console.log("bridgeReturn", bridgeReturn)
-        console.log('cardin dispatch', card)
-        let url = "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/" + card.quizcardRecording
-        console.log('url', url)
         dispatch({
             type: ADD_QUIZCARD,
-            payload: {id: bridgeReturn.data[0], quizcardTitle: card.quizcardTitle, quizcardRecording: url, quizcardQuestion: card.quizcardQuestion}
+            payload: {id: bridgeReturn.data[0], quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording, quizcardQuestion: card.quizcardQuestion}
         })
     }).then(() => {
         dispatch({
