@@ -87,7 +87,7 @@ class ViewQuizcard extends React.Component {
                 <div className="row">
                 {this.state.showQuizcardQuestion && 
                 <div className="col col-6">
-                <VideoPlayer  src={ this.state.correctQuestion.question.quizcardRecording}/>
+                <VideoPlayer  src={ this.state.correctQuestion.quizcardRecording}/>
                 </div>
                 }
                 {this.state.showQuizcardQuestion && 
