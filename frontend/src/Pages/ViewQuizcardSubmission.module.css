@@ -1,15 +1,26 @@
 .viewquizcardsubmission {
     margin: 2% 5%
 }
+.viewquizcardsubmission table{
+    border-collapse: collapse;
+    border: 1px solid;
+}
+
+.viewquizcardsubmission tr{
+    display: block; float: left;
+    /* width: 18px; */
+}
 
 .viewquizcardsubmission th{
-    width: 12vw;
+    /* width: 12vw; */
     padding: 18px;
     border: 1px solid;
+    display: block;
 }
 
 .viewquizcardsubmission td{
     /* width: 30%; */
     padding: 18px;
     border: 1px solid;
+    display: block;
 }

@@ -27,7 +27,7 @@ class ViewDictationcard extends React.Component {
 
     navigateSubmission(e){
         this.props.history.push({
-            pathname:`/viewDictationCardSubmission/${e.target.attributes["data-key"].value}`,
+            pathname:`/viewdictationCardSubmission/${this.props.match.params.id}`,
             // state: { dictationcard: this.props.location.state.card[0]}
         })
     }
