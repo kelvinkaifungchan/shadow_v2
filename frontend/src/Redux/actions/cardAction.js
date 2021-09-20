@@ -70,9 +70,11 @@ export const addCard = (card) => async (dispatch) => {
     }
 
     if(card.type === "quizcard"){
+        console.log('in action')
         await axios.post("http://localhost:8080/api/card", card)
-    .then((data) => {
-        newId = data.data;
+        .then((data) => {
+        console.log('data', data)
+        let newId = data.data;
         return newId
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
@@ -80,11 +82,12 @@ export const addCard = (card) => async (dispatch) => {
             setId: card.setId,
             quizcardId: newId
         })
-
-    }).then(() => {
+    }).then((bridgeReturn) => {
+        console.log("bridgeReturn", bridgeReturn)
+        console.log('cardin dispatch', card)
         dispatch({
             type: ADD_QUIZCARD,
-            payload: {id: newId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording}
+            payload: {id: bridgeReturn.data[0], quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording, quizcardQuestion: card.quizcardQuestion}
         })
     }).then(() => {
         dispatch({

@@ -16,6 +16,7 @@
     font-size: 20px;
     font-weight: bold;
     color: #FFFFFF;
+    float: left;
 }
 
 .classroom p{
@@ -35,3 +36,14 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
+.deletebtn{
+    float: right;
+    margin-right: 5px; 
+    color: #FFFFFF;
+}
+
+.deletebtn:hover{
+    float: right;
+    margin-right: 5px; 
+    color: #ffc7c3;
+}

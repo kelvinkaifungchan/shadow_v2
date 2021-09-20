@@ -19,7 +19,14 @@ class ViewQuizcardSubmission extends React.Component {
     constructor(props){
         super(props)
         this.state={
-
+            type: "quizcard",
+            correctSet: [],
+            show: Boolean(),
+            timeStamp: "",
+            submissionTime: "",
+            submissionId: "",
+            correctSubmission:[],
+            correctQuizcard: [],
         }
     }
 
@@ -27,7 +34,27 @@ class ViewQuizcardSubmission extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") })
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.cards.quizcard.length > 0 ){
+            this.setState({
+                correctQuizcard: this.props.cards.quizcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
+            })
+            const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            console.log("THIS IS THE CORRECT PROPS in View Quizcard Submission", correctProps)
 
+            // const correctSub = this.state.correctQuizcard[0] && 
+            //     this.state.correctQuizcard[0].question.length > 0
+            //     ? this.state.correctQuizcard[0].question.map((question,i) => {
+            //         return (
+            //             question.submission.filter(sub => sub.user_id === question)
+            //         )
+            //     }) : null
+            
+            this.setState({
+                correctSubmission: correctProps[0].submission,
+            });
+        }
+    }
 
     logout = (e) => {
         e.preventDefault();
@@ -45,25 +72,62 @@ class ViewQuizcardSubmission extends React.Component {
                         {/* 1st row: Header */}
                         <div className="row d-flex p-4">
                             <div className="col-8">
-                                <h1>{this.props.location.state.quizcard.quizcardTitle}</h1>
+                                <h1>{this.state.correctQuizcard.quizcardTitle}</h1>
                             </div>
                         </div>
 
                         <div className="row d-flex p-4">
                             <div className="col">
                             <table>
+
+                        {/* First row of question number */}
+                        <tr>
                             <th></th>
-                            {this.props.location.state.quizcard && 
-                            this.props.location.state.quizcard.multipleChoice.length > 0 
-                            ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
-                            return (
-                                <th>Question {question.id}</th>
-                            )
-                        }) : null
+                            {this.state.correctQuizcard[0] &&
+                                this.state.correctQuizcard[0].question.length > 0 
+                                ? this.state.correctQuizcard[0].question.map((question, i) => {
+                                    return (
+                                        <th data-key={i}>Question {question.id}</th>
+                                    )
+                                }) : null
+                        } 
+                        </tr>
+
+                        {/* Second row of correct answer */}
+                        <tr> 
+                            <th>Correct Answer</th>
+                            {this.state.correctQuizcard[0] &&
+                                this.state.correctQuizcard[0].question.length > 0 
+                                ? this.state.correctQuizcard[0].question.map((question, i) => {
+                                    return (
+                                        <td data-key={i}>{question.questionType === "multipleChoice" 
+                                        ? question.multipleChoiceAnswer 
+                                            : question.trueFalseAnswer 
+                                            ? "Ture" : "False" } </td>
+                                    )
+                                }) : null
+                        } 
+                        </tr>
+
+
+                        {/* Third row of submission answer */}
+                        {this.state.correctQuizcard[0] && 
+                            this.state.correctQuizcard[0].question[0].submission.length > 0
+                            ? this.state.correctQuizcard[0].question[0].submission.map((submission,i) => {
+                                return (
+                                    <tr data-key={i}>
+                                        <th>{submission.displayName}</th>
+                                    </tr>
+                                )
+                            }) : null
                         }
 
+                        
+
+                        
+
                         {/* Correct Answer Row */}
-                        <tr>
+                        {/* <tr>
                             <th>Correct Answer</th>
                         {this.props.location.state.quizcard && 
                             this.props.location.state.quizcard.multipleChoice.length > 0 
@@ -77,10 +141,10 @@ class ViewQuizcardSubmission extends React.Component {
                             )
                         }) : null
                         }
-                        </tr>
+                        </tr> */}
 
                         {/* Submission Answer Row */}
-                        {
+                        {/* {
                         this.props.location.state.quizcard.multipleChoice[0].submission.length > 0
                         ? this.props.location.state.quizcard.multipleChoice[0].submission.map((submission, i) => {
                             return (
@@ -89,7 +153,7 @@ class ViewQuizcardSubmission extends React.Component {
                                     <td style={{background: submission.multipleChoiceMarking ? "#F4FFB4" : "#FCDDEC"}}>{submission.multipleChoiceSubmission}</td>
                                     </tr>
                             )
-                        }) : null}
+                        }) : null} */}
 
                         {/* <tr>
                             <th>{this.props.location.state.quizcard.multipleChoice[0].submission[0].user_id}</th>

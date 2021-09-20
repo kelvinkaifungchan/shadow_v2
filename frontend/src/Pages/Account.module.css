@@ -28,6 +28,10 @@ h1 {
 	border-radius: 50%; 
 	}
 
+.icon:hover{
+    cursor: pointer;
+}
+
 .account th{
     width: 10%;
     padding: 18px;

@@ -5,7 +5,7 @@
     margin: 5px 10px;
     /* border: 1px solid #B6B6B6; */
     border-radius: 25px;
-    background-color: #B1B1FA;
+    background-color: #7878fa;
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
@@ -21,6 +21,8 @@
 .flashcard h4{
     font-size: 20px;
     font-weight: bold;
+    color: #FFFFFF;
+    float: left;
 }
 
 .flashcard p{
@@ -28,7 +30,7 @@
     /* display: flex;  */
     justify-content: center;
     align-items: center;
-    color: #000000;
+    color: #FFFFFF;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -41,7 +43,7 @@
     margin: 5px 10px;
     /* border: 1px solid #B6B6B6; */
     border-radius: 25px;
-    background-color: #9BBF9B;
+    background-color: #407e40;
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
@@ -57,6 +59,8 @@
 .quizcard h4{
     font-size: 20px;
     font-weight: bold;
+    color: #FFFFFF;
+    float: left;
 }
 
 .quizcard p{
@@ -64,7 +68,7 @@
     /* display: flex;  */
     justify-content: center;
     align-items: center;
-    color: #000000;
+    color: #FFFFFF;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -77,7 +81,7 @@
     margin: 5px 10px;
     /* border: 1px solid #B6B6B6; */
     border-radius: 25px;
-    background-color: #01B2FE;
+    background-color: #03a0e4;
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
@@ -93,6 +97,8 @@
 .dictationcard h4{
     font-size: 20px;
     font-weight: bold;
+    color: #FFFFFF;
+    float: left;
 }
 
 .dictationcard p{
@@ -100,9 +106,21 @@
     /* display: flex;  */
     justify-content: center;
     align-items: center;
-    color: #000000;
+    color: #FFFFFF;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.deletebtn{
+    float: right;
+    margin-right: 5px; 
+    color: #FFFFFF;
+}
+
+.deletebtn:hover{
+    float: right;
+    margin-right: 5px; 
+    color: #ffc7c3;
 }
