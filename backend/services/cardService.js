@@ -33,10 +33,11 @@ class Card {
                 quizcardStatus: true,
             })
             .returning("id")
-            .then((quizcardId)=>{
+            .then( async (quizcardId)=>{
                 console.log('body.smthlong', body.quizcardQuestion)
                 if(body.quizcardQuestion.length > 0){
-                    return body.quizcardQuestion.map((data)=>{
+                    console.log('adding question', quizcardId)
+                    await Promise.all(body.quizcardQuestion.map((data)=>{
                         return this.knex("quizcardQuestion")
                         .insert({
                             quizcard_id: quizcardId[0],
@@ -50,8 +51,16 @@ class Card {
                             multipleChoiceAnswer: data.multipleChoiceAnswer,
                             trueFalseAnswer: data.trueFalseAnswer,
                         })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                    }))
+                    .then(()=>{
+                        console.log('lin59', quizcardId)
+                        return quizcardId
                     })
                 }
+                console.log("quizcardId", quizcardId)
                 return quizcardId[0]
             })
             .catch((err) => {
