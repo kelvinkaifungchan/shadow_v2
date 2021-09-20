@@ -31,7 +31,7 @@ class CreateQuizcard extends React.Component {
     }
     handleRecording(record){
         this.setState({
-            quizcardRecording: record
+            quizcardRecording: `https://${process.env.REACT_APP_AWS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + record
         })
     }
     addQuizCard(){
@@ -53,13 +53,19 @@ class CreateQuizcard extends React.Component {
     }
     addQuestion(e, question){
         e.preventDefault()
-        this.setState({
-            quizcardQuestion: this.state.quizcardQuestion.concat(question)
-        })
+        if(question.questionType === 'multipleChoice' && question.questionBody !== "" && question.multipleChoiceAnswer !== "" && question.questionTime !== ""){
+            this.setState({
+                quizcardQuestion: this.state.quizcardQuestion.concat(question)
+            })
+        } else if(question.questionType === 'trueFalse' && question.questionBody !== "" && question.trueFalseAnswer !== "" && question.questionTime !== ""){
+            this.setState({
+                quizcardQuestion: this.state.quizcardQuestion.concat(question)
+            })
+        } else {
+            alert("please fill in the required boxes")
+        }
     }
-    getTime(){
-        document.getElementById("preview")
-    }
+
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -88,7 +94,7 @@ class CreateQuizcard extends React.Component {
                             <VideoRecorder handleRecording={(e)=>this.handleRecording(e)}/>
                         </div>
                         <div className="col col-6">
-                            <CreatequizcardQuestion time={()=>this.getTime()} questions={this.state.quizcardQuestion} submit={(e, question)=> this.addQuestion(e, question)}/>
+                            <CreatequizcardQuestion questions={this.state.quizcardQuestion} submit={(e, question)=> this.addQuestion(e, question)}/>
                         </div>
                     </div>
                 </div>

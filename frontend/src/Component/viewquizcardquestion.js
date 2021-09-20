@@ -134,7 +134,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                         }
                                         )
                                         : null
-
                                     }
 
 
