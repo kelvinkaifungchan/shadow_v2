@@ -17,7 +17,8 @@ class ViewQuizcard extends React.Component {
         this.state = {
             title: "",
             type: "quizcard",
-            correctQuizcard:[]
+            correctQuizcard:[],
+            correctQuestion:[]
         }
     }
     componentDidMount() {
@@ -31,10 +32,19 @@ class ViewQuizcard extends React.Component {
             })
             const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
             console.log("correctProps VIEW QUIZCARD",correctProps);
-            // this.setState({
-            //     correctQuestion: correctProps[0].submission,
-            // });
+            this.setState({
+                correctQuestion: correctProps[0]
+            })
+            console.log("correctState VIEW QUIZCARD",this.state);
+
         }
+    }
+
+    async navigateSubmission(e){
+        e.preventDefault()
+        this.props.history.push({
+            pathname:`/viewquizcardSubmission/${this.props.match.params.id}`,
+        })
     }
 
     render() {

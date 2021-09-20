@@ -33,7 +33,7 @@ class ViewDictationcard extends React.Component {
     }
     navigateCanvas(e){
         this.props.history.push({
-            pathname:`/viewdictationQuestion`
+            pathname:`/viewdictationQuestion/${this.props.match.params.id}`
         })
 
     }

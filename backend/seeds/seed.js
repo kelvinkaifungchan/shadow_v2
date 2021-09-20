@@ -395,17 +395,17 @@ exports.seed = function (knex) {
         return knex('dictationSubmission').insert([{
           user_id: 1,
           dictation_id: 1,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://thumbs.dreamstime.com/z/calligraphic-handwriting-text-word-english-stroke-vector-executed-pen-137007202.jpg",
           dictationSubmissionStatus: true
         }, {
           user_id: 2,
           dictation_id: 1,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://cdn4.vectorstock.com/i/1000x1000/46/68/english-calligraphy-template-text-for-your-design-vector-24604668.jpg",
           dictationSubmissionStatus: true
         }, {
           user_id: 3,
           dictation_id: 2,
-          dictationSubmissionPath: "https://shadowvideo.s3.ap-southeast-1.amazonaws.com/1629169637786.webm",
+          dictationSubmissionPath: "https://thumbs.dreamstime.com/b/giraffe-calligraphy-template-text-your-design-illustration-concept-handwritten-lettering-title-vector-words-white-isolated-143433981.jpg",
           dictationSubmissionStatus: true
         }])
       })

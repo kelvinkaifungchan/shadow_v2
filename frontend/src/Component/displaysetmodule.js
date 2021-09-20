@@ -26,6 +26,7 @@ class PureDisplaySetModule extends React.Component {
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.addSetConnect(e); this.props.toggle()}}>
                             <h4 data-key={set.id}>{set.title} Exist Modal</h4>
+                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description}</p>
                         </div>
                     )
@@ -33,7 +34,8 @@ class PureDisplaySetModule extends React.Component {
                     console.log('correct sets', set)
                         return (
                             <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
-                                <h4 data-key={set.id}>{set.title} View Class</h4>
+                                <h4 data-key={set.id}>{set.title}</h4>
+                                <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
                                 <p data-key={set.id}>{set.description} </p>
                             </div>
                         )
@@ -41,7 +43,8 @@ class PureDisplaySetModule extends React.Component {
                 : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={set.id}>{set.title} Dashboard</h4>
+                            <h4 data-key={set.id}>{set.title}</h4>
+                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )

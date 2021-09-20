@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+// Require Action
+import { getdataThunk } from '../Redux/actions/action'
+
 import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
@@ -12,10 +15,48 @@ import {NavBar} from '../Component/navbar';
 import classes from './ViewDictationCardSubmission.module.css'
 
 class ViewDictationcardSubmission extends React.Component {
+    constructor(props){
+        super(props)
+        this.state={
+            type: "dictationcard",
+            correctSet: [],
+            show: Boolean(),
+            timeStamp: "",
+            submissionTime: "",
+            submissionId: "",
+            correctSubmission:[],
+            correctDictationcard: [],
+        }
+    }
 
+    async componentDidMount() {
+        await this.props.getdata({ email: localStorage.getItem("email") })
+    }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.cards.dictationcard.length > 0 ){
+            this.setState({
+                correctDictationcard: this.props.cards.dictationcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
+            })
+            const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            console.log("THIS IS THE CORRECT PROPS in View DictationCard Submission", correctProps)
+
+            // const correctSub = this.state.correctQuizcard[0] && 
+            //     this.state.correctQuizcard[0].question.length > 0
+            //     ? this.state.correctQuizcard[0].question.map((question,i) => {
+            //         return (
+            //             question.submission.filter(sub => sub.user_id === question)
+            //         )
+            //     }) : null
+            
+            this.setState({
+                // correctSubmission: correctProps[0].submission,
+            });
+        }
+    }
     render() {
         console.log("i want to see the props in DICTATION SUBMISSION",this.props);
+        console.log("i want to see the state in DICTATION SUBMISSION",this.state);
 
         return (
             <div>
@@ -25,13 +66,13 @@ class ViewDictationcardSubmission extends React.Component {
                         {/* 1st row: Header */}
                         <div className="row d-flex p-4">
                             <div className="col-8">
-                                <h1>{this.props.location.state.dictationcard.dictationcardTitle}</h1>
+                                {/* <h1>{this.correctProps[0].dictationcardTitle}</h1> */}
                             </div>
                         </div>
 
                         <div className="row d-flex p-4">
                             <div className="col">
-                            <table>
+                            {/* <table>
                             <th></th>
                             {this.props.location.state.dictationcard && 
                             this.props.location.state.dictationcard.submissionlength > 0 
@@ -42,7 +83,7 @@ class ViewDictationcardSubmission extends React.Component {
                             }) : null
                             }
 
-                            </table>
+                            </table> */}
                         </div>
 
 
@@ -61,13 +102,26 @@ class ViewDictationcardSubmission extends React.Component {
 }
 
 
+
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+const mapDispatchToProps  = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
     }
 }
 
 
 
-const connectedViewDictationcardSubmission = connect(mapStateToProps, null)(ViewDictationcardSubmission)
+const connectedViewDictationcardSubmission = connect(mapStateToProps, mapDispatchToProps)(ViewDictationcardSubmission)
 export { connectedViewDictationcardSubmission as ViewDictationcardSubmission };

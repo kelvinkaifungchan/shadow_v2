@@ -6,11 +6,24 @@ import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
 import { NavBar } from '../Component/navbar';
+import { iconModal } from '../Component/iconmodal';
 
 import classes from './Account.module.css'
 
 class Account extends React.Component {
     
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: "",
+            modal: false,
+            type: "",
+            iconModal: false,
+            passwordModal: false,
+        };
+    }
+
     componentDidMount() {
         console.log("componentDidMount", this.props)
         this.props.getdata({ email: localStorage.getItem('email') })
@@ -19,6 +32,20 @@ class Account extends React.Component {
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
+    }
+
+    icontoggle() {
+        this.setState({
+            iconModal: !this.state.iconModal,
+        });
+        alert("Do you want to change your icon? WTF?")
+    }
+
+    passwordtoggle() {
+        this.setState({
+            passwordModal: !this.state.passwordModal,
+        });
+        alert("Do you want to change your password? WTF?")
     }
 
     render() {  
@@ -35,7 +62,7 @@ class Account extends React.Component {
 
                 <div className="row p-4">
                     <div className="col-4 d-flex justify-content-center">
-                        <div className={classes.icon}> 
+                        <div onClick={() => this.icontoggle()} className={classes.icon}> 
                     <img src={this.props.user.picture} alt="Avatar"></img>
                     </div>
                     </div>
@@ -65,7 +92,7 @@ class Account extends React.Component {
                             <tr>
                                 <th>Password</th>
                                 <td>*******</td>
-                                <td><button>Change password</button></td>
+                                <td><button onClick={() => this.passwordtoggle()}>Change password</button></td>
                             </tr>
                             <tr onClick={this.logout}> 
                             <th> <Link to="/login">Logout</Link></th>
