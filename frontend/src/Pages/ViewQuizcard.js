@@ -60,8 +60,8 @@ class ViewQuizcard extends React.Component {
         console.log("STATE IN VIEW QUIZCARD", this.state)
 
         return (
-            <div>
-                <NavBar user={this.props.user} history={this.props.history}/>
+            <div className="page">
+                {/* <NavBar user={this.props.user} history={this.props.history}/> */}
 
             <div className={classes.viewquizcard}>
                 {/* 1st row: Header */}

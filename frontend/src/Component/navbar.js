@@ -19,7 +19,6 @@ class PureNavBar extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
@@ -29,12 +28,12 @@ class PureNavBar extends React.Component {
         this.props.getdata({ email: this.props.user.email })
     }
 
-    navigateAccount(e){
-        this.props.history.push({
-            pathname:`/account`,
-            state: { user: this.props.user}
-        })
-    }
+    // navigateAccount(e){
+    //     this.props.history.push({
+    //         pathname:`/account`,
+    //         // state: { user: this.props.user}
+    //     })
+    // }
 
     logout = (e) => {
         e.preventDefault();
@@ -58,7 +57,7 @@ class PureNavBar extends React.Component {
                             <button><i className="fas fa-search"></i></button>
                         </li>
                         <li className={classes.right}> 
-                            <button onClick={(e) => this.navigateAccount(e)} className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></button>
+                            <button  className={classes.icon}><Link to="/account"><img src={this.props.user.picture} alt="Avatar"></img></Link></button>
                         </li>
                     </ul>
 

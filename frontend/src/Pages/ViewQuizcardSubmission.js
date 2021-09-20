@@ -67,8 +67,8 @@ class ViewQuizcardSubmission extends React.Component {
 
 
         return (
-            <div>
-                <NavBar/>
+            <div className="page">
+                {/* <NavBar/> */}
 
                     <div className={classes.viewquizcardsubmission}>
                         {/* 1st row: Header */}
@@ -103,7 +103,7 @@ class ViewQuizcardSubmission extends React.Component {
                                             <td>{question.questionType === "multipleChoice" 
                                                     ? question.multipleChoiceAnswer 
                                                     : question.trueFalseAnswer 
-                                                    ? "Ture" : "False" }</td>
+                                                    ? "ture" : "false" }</td>
                                                 
                                             {question.submission.map((sub, index) => {
                                                 return <td style={{

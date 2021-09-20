@@ -69,8 +69,8 @@ class CreateQuizcard extends React.Component {
         console.log('state in create quizcard',this.state);
 
         return (
-            <div>
-                <NavBar history={this.props.history}/>
+            <div className="page">
+                {/* <NavBar history={this.props.history}/> */}
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}

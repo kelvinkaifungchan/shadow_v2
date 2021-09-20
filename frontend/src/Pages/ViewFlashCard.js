@@ -163,8 +163,8 @@ class ViewFlashCard extends React.Component {
         console.log("see the props IN VFC", this.props);
         console.log("the state IN VFC!!!!STATE", this.state);
         return (
-            <div>
-                <NavBar user={this.props.user} history={this.props.history}/>
+            <div className="page">
+                {/* <NavBar user={this.props.user} history={this.props.history}/> */}
 
                 <div className={classes.viewflashcard}>
 
