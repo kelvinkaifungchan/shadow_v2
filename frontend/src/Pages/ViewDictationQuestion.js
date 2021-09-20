@@ -8,12 +8,16 @@ import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
+import MediaQuery from 'react-responsive'
 
 import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
 import { Canvas } from '../Component/canvas'
+
+//CSS
+import classes from './ViewDictationQuestion.module.css'
 
 class ViewDictationQuestion extends React.Component {
     constructor(props){
@@ -30,9 +34,10 @@ class ViewDictationQuestion extends React.Component {
         console.log("props in VDQ",this.props);
 
         return (
-            <div>
-            <div className="row" style={this.bg}>
-            <div className="col col-8">
+            <div >
+            <MediaQuery minWidth={1050}>
+            <div  className="row" style={this.bg}>
+            <div  className="col col-8">
                 <NavBar history={this.props.history}/>
                 </div>
                 <div className="col col-4">
@@ -46,6 +51,7 @@ class ViewDictationQuestion extends React.Component {
                     <p>HeadingInput</p>
                 </div>
             </div>
+           
             <div className="row">
                 <div className="col col-12">
                     {/* <QuestionProgress/> */}
@@ -54,10 +60,10 @@ class ViewDictationQuestion extends React.Component {
                     <p>AudioPlayer</p>
                 </div>
             </div>
+            </MediaQuery>
             <div className="row">
                 <div className="col col-12">
-                    <Canvas user={this.props.user} canvasId={this.props.match.params.id}/>
-                    <p>Canvas</p>
+                    <Canvas user={this.props.user} canvasId={this.props.match.params.id} />
                 </div>
             </div>
             <BrowserRouter>
