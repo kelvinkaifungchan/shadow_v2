@@ -2,7 +2,7 @@ import React from 'react';
 import io from 'socket.io-client';
 import FormData from 'form-data';
 
-
+import { v4 as uuidv4 } from 'uuid';
 import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
 
@@ -16,8 +16,12 @@ class PureCanvas extends React.Component{
 
 constructor(props){
     super(props);
-    //may need to use a different id for room, for example, rooms are limited to each user instead of card
-    this.room = this.props.canvasId;
+    console.log("USER DATA", this.props.user.id.toString())
+    console.log("TYPE CANVASID", this.props.canvasId)
+
+    this.room = this.props.user.id.toString() + "-" + this.props.canvasId;
+    console.log("ROOM ID", this.room)
+
     this.socket = io.connect(`http://localhost:8080/`);
     this.socket.emit("newUser", this.room)
     this.socket.on("clear", () => {
@@ -48,7 +52,6 @@ constructor(props){
 }
 
 componentDidMount() {
-    
     this.drawOnCanvas();
     this.ctx.strokeStyle = "#00000";
     this.ctx.lineWidth = "1";
@@ -157,7 +160,8 @@ submit(){
     var base64ImageData = canvas.toDataURL("image/png");
     //console.log(base64ImageData)
 
-    const dataURLtoFile = (dataurl, filename) => {
+    const dataURLtoFile = (dataurl) => {
+        let fileName = uuidv4();
         const arr = dataurl.split(',')
         const mime = arr[0].match(/:(.*?);/)[1]
         const bstr = Buffer.from(arr[1], 'base64').toString('utf-8')
@@ -168,7 +172,7 @@ submit(){
           u8arr[n - 1] = bstr.charCodeAt(n - 1)
           n -= 1 // to make eslint happy
         }
-        return new File([u8arr], filename, { type: mime })
+        return new File([u8arr], fileName, { type: mime })
       }
       
       // generate file from base64 string
