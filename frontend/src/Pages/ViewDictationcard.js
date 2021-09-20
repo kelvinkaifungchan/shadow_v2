@@ -45,7 +45,7 @@ class ViewDictationcard extends React.Component {
             <div>
                 
                 <NavBar user={this.props.user} history={this.props.history} />
-                <QRModal modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+                <QRModal pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
