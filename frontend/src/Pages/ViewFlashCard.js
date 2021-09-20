@@ -85,15 +85,10 @@ class ViewFlashCard extends React.Component {
         });
     }
 
-    handleTimeStamp = (submissionTime) => {
-        this.setState({
-            submissionTime: submissionTime
-        });
-    }
 
     handleRecording(record) {
         this.setState({
-            submissionRecording: "https://" + process.env.AWS_BUCKET + ".s3.ap-southeast-1.amazonaws.com/" + record
+            submissionRecording: `https://${process.env.REACT_APP_AWS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + record
         })
     }
 
@@ -135,10 +130,29 @@ class ViewFlashCard extends React.Component {
         })
     }
 
-    addTimeStamp() {
+    handleTimeStamp = (submissionTime) => {
         this.setState({
-            timeStamp: this.state.submissionTime
+            submissionTime: submissionTime
+        });
+    }
+
+    addTimeStamp() {
+        const stamp = document.getElementById('submission').currentTime
+        var m = Math.floor(stamp / 60);
+                    var s = Math.floor(stamp % 60);
+                    if (m.toString().length < 2) {
+                        m = '0' + m;
+                    }
+                    if (s.toString().length < 2) {
+                        s = '0' + s;
+                    }
+                    const timeStamp = (m + ':' + s)
+                    // this.props.time(timeStamp)
+                    console.log("this is inside the player", timeStamp)
+        this.setState({
+            timeStamp: timeStamp
         })
+        console.log(document.getElementById('submission').currentTime)
     }
 
     addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
@@ -165,7 +179,7 @@ class ViewFlashCard extends React.Component {
                             <Transcript title={this.state} transcript={this.state} />
                         </div>
                         <div className="col-6">
-                            <VideoPlayer type={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
+                            <VideoPlayer dtype={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
                         </div>
                     </div>
 
@@ -211,7 +225,7 @@ class ViewFlashCard extends React.Component {
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer create={this.state} time={this.handleTimeStamp} src={ this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer dtype={"submission"} create={this.state} src={ this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}> 
                              <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>

@@ -5,47 +5,43 @@ import { deleteClassroom } from '../Redux/actions/classroomAction';
 import classes from './displayclassmodule.module.css'
 
 class PureDisplayClassModule extends React.Component {
-  
-    deleteClassroom(e){
+
+    //   async navigateBack(e){
+    //     e.preventDefault()
+    //     await this.deleteClassroom(e)
+    //     this.props.history.push({
+    //         pathname:`/`,
+    //     })
+    // }
+
+    deleteClassroom(classroomId) {
         this.props.deleteClassroom({
-                    id: `${e.target.attributes["data-key"].value}`,
-                    description: this.state.classroomStore.classrooms.filter(classroom => classroom.id === `${e.target.attributes["data-key"].value}`).description, 
-                    title: this.state.classroomStore.classrooms.filter(classroom => classroom.id === `${e.target.attributes["data-key"].value}`).title,
-              })
-         
-      }
-    
-      async navigateBack(e){
-        e.preventDefault()
-        await this.deleteClassroom(e)
-        this.props.history.push({
-            pathname:`/`,
+            id: classroomId,
         })
     }
-
+    
     render() {
-        
+
         return (
             <>
-            {/* <div className="row "> */}
                 {this.props.classrooms.map((classroom, i) => {
+                    console.log("classroomclassroomclassroomclassroom", classroom);
                     return (
-                        <div data-key={classroom.id} className={classes.classroom} onClick={(e=>{this.props.navigate(e)})}>
-                            <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4> 
-                            <span data-key={classroom.id} onClick={(e)=>{this.navigateBack(e)}} className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                        <div data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
+                            <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
+                            <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" class="fas fa-times"></i></span>
                             <p data-key={classroom.id}>{classroom.description}</p>
                             <div data-key={classroom.id}>
                                 {classroom.tag && classroom.tag.length > 0 ? classroom.tags.map((tag, j) => {
                                     return (
                                         <span key={j} className="pl-3 pr-3 p-1 rounded-pill bg-dark text-light">#{tag.body}</span>
                                     )
-                                }): null}
+                                }) : null}
                             </div>
-                            
+
                         </div>
                     )
                 })}
-            {/* </div> */}
             </>
 
         );

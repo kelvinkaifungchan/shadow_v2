@@ -9,7 +9,7 @@ class ClassroomRouter {
 
         router.post("/", this.post.bind(this));
         router.put("/", this.put.bind(this));
-        router.delete("/", this.delete.bind(this));
+        router.post("/delete", this.delete.bind(this));
 
         return router
     }
@@ -35,9 +35,12 @@ class ClassroomRouter {
     }
     
     delete(req, res){
-        console.log("Delete request to delete a classroom");
+        console.log("Delete request to delete a classroom",req.body);
 
         return this.classroomService.delete(req.body)
+        .then((data)=>{
+            res.json(data)
+        })
         .catch((err) => {
             return res.status(500).json(err);
         })

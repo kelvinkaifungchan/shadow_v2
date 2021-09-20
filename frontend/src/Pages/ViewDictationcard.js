@@ -78,7 +78,8 @@ class ViewDictationcard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        isAuthenticatedMSP: state.authStore.isAuthenticated,
+        user: state.userStore.user
     }
 }
 
