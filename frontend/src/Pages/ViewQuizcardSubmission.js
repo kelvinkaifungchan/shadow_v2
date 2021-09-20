@@ -101,19 +101,16 @@ class ViewQuizcardSubmission extends React.Component {
                                         <tr data-key={i}>
                                             <th>Question {question.id}</th>
                                             <td>{question.questionType === "multipleChoice" 
-                                                    ? question.multipleChoiceAnswer 
-                                                    : question.trueFalseAnswer 
-                                                    ? "ture" : "false" }</td>
+                                                    ? question.multipleChoiceAnswer :
+                                                    question.questionType === "trueFalse" 
+                                                    ? question.trueFalseAnswer : null }</td>
                                                 
                                             {question.submission.map((sub, index) => {
                                                 return <td style={{
                                                 background: 
-                                                question.questionType === "multipleChoice" 
-                                                    ? sub.quizcardQuestionSubmission === question.multipleChoiceAnswer 
-                                                        ? "#F4FFB4" : "#FCDDEC" 
-                                                    : 
-                                                    sub.quizcardQuestionSubmission === question.trueFalseAnswer.toString()
-                                                    ? "#F4FFB4" : "#FCDDEC"}} >
+                                                // question.questionType === "multipleChoice" 
+                                                     sub.quizcardQuestionSubmission === question.multipleChoiceAnswer ||  sub.quizcardQuestionSubmission === question.trueFalseAnswer
+                                                        ? "#F4FFB4" : "#FCDDEC"}} >
                                                     {sub.quizcardQuestionSubmission}
                                                 </td>
                                             })}

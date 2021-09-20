@@ -43,7 +43,7 @@ class App extends React.Component {
                 <TransitionGroup>
                 <CSSTransition
                 key={location.key}
-                timeout={450}
+                timeout={250}
                 classNames="fade">
                     <Switch location={location}>
                         <PrivateRoute exact path="/" component={Dashboard} />

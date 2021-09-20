@@ -73,17 +73,10 @@ class PureDashboard extends React.Component {
     render() {
         console.log('props in dashboard', this.props)
         return (
-<<<<<<< HEAD
             <div className="page">
                 {/* <NavBar  user={this.props.user} history={this.props.history}/> */}
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 
-=======
-            <div >
-                <NavBar user={this.props.user} history={this.props.history} />
-                <CreatePopUp create={this.state} toggle={() => this.toggle()} />
-
->>>>>>> e504ffb5b316984f4447582f4ce69c18b91bda40
                 <div className={classes.dashboard}>
 
                     <div className="row d-flex p-2">
