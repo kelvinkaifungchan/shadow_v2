@@ -49,6 +49,7 @@ exports.seed = function (knex) {
         displayName: 'Mark Chan',
         email: "mark@mark.com",
         passwordHash: await hashFunction.hashPassword("thisisamark"),
+        picture: "https://gamingtrend.com/wp-content/uploads/2021/02/https___hypebeast.com_wp-content_blogs.dir_6_files_2017_01_sanrio-new-character-aggretsuko-angry-red-panda-1.jpg",
         role: "student",
         tier: "basic",
         userStatus: true
@@ -56,6 +57,7 @@ exports.seed = function (knex) {
         displayName: 'Mike Lau',
         email: "mike@mike.com",
         passwordHash: await hashFunction.hashPassword("thisisamike"),
+        picture: "http://www.pajiba.com/assets_c/2018/03/Aggretsuko-Netflix-PV-1000x600-thumb-700xauto-194804.png",
         role: "student",
         tier: "basic",
         userStatus: true
