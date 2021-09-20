@@ -9,7 +9,7 @@ class SetRouter {
         let router = express.Router();
         router.post("/", this.post.bind(this))
         router.put("/", this.put.bind(this))
-        router.delete("/", this.delete.bind(this))
+        router.post("/delete", this.delete.bind(this))
 
         return router
     }
@@ -46,12 +46,8 @@ class SetRouter {
         console.log("Requesting deleting set")
         return this.setService
             .delete(req.body)
-            .then(() => {
-                return this.setService
-                .set(req.body)
-            })
             .then((data) => {
-                return res.json(data)
+                 res.json(data)
             })
             .catch((err) => {
                 return res.status(500).json(err)

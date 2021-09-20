@@ -42,7 +42,7 @@ export function classroomReducer(state = initialState, action){
         case DELETE_CLASSROOM:
             return {
                 classrooms: state.classrooms.filter((classroom) => {
-                    return classroom.classroom_id !== action.payload.classroom_id;
+                    return classroom.id !== action.payload.classroom_id;
                 })
             }
         case ADD_TAG_CLASSROOM:
