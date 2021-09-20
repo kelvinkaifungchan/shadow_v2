@@ -1,42 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import classes from './viewquizcardpage.module.css'
 
 class PureCreateQuiz extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            type: 'mc',
-            question: "",
-            answer: "",
+            questionType: 'multipleChoice',
+            questionBody: "",
+            multipleChoiceAnswer: "",
+            trueFalseAnswer: "",
             a: "",
             b: "",
             c: "",
             d: "",
+            questionTime: "00:00",
         }
     }
     mcToggle(){
         console.log('mc')
         this.setState({
-            type: "mc",
-            question: "",
-            answer: "",
+            questionType: 'multipleChoice',
+            questionBody: "",
+            multipleChoiceAnswer: "",
+            trueFalseAnswer: "",
             a: "",
             b: "",
             c: "",
             d: "",
+            questionTime: "00:00",
         })
     }
     tfToggle(){
         console.log('tf')
         this.setState({
-            type: "tf",
-            question: "",
-            answer: "",
+            questionType: 'trueFalse',
+            questionBody: "",
+            multipleChoiceAnswer: "",
+            trueFalseAnswer: "",
             a: "",
             b: "",
             c: "",
             d: "",
+            questionTime: "00:00",
         })
     }
     changeOpt(e){
@@ -58,23 +65,53 @@ class PureCreateQuiz extends React.Component{
             })
         } else if(e.target.attributes["id"].value === "question"){
             this.setState({
-                question: e.currentTarget.value
+                questionBody: e.currentTarget.value
             })
         }
     }
     selectAns(e){
+        if(this.state.questionType === "multipleChoice"){
+            this.setState({
+                multipleChoiceAnswer: e.target.attributes["id"].value
+            })
+        } else {
+            this.setState({
+                trueFalseAnswer: e.target.attributes["id"].value
+            })
+        }
+    }
+    getTime(){
+        console.log(document.getElementById("preview"))
         this.setState({
-            answer: e.target.attributes["id"].value
+            questionTime: document.getElementById("preview").currentTime
+        })
+    }
+    clear(){
+        this.setState({            
+            questionBody: "",
+            a: "",
+            b: "",
+            c: "",
+            d: "",
         })
     }
     render(){
         console.log("create quizcard question state", this.state)
         return (
             <>
+            <div className={classes.scrollicon}>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                {this.state.question === "" && this.state.answer === "" && this.state.time === "" ? 
+                <span onClick={()=>{this.getTime()}}>+</span>
+                :<span onClick={()=>{this.getTime()}}>+</span>}
+            </div>
+            <div className={classes.viewquizcardquestion}></div>
             <Form>
                 <div className="row">
                     <div className="col col-8">
-                        <p>Question 1</p>
+                        <p>Question 1 {this.state.time}</p>
                     </div>
                     <div className="col col-4">
                         <UncontrolledDropdown>
@@ -89,39 +126,40 @@ class PureCreateQuiz extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <textarea id="question" onChange={(e)=> this.changeOpt(e)} style={{width: "100%", height: "20vh", margin:"1px", resize:"none"}}/>
+                    <textarea id="question" className="input" onChange={(e)=> this.changeOpt(e)} style={{width: "100%", height: "20vh", margin:"1px", resize:"none"}}/>
                 </div>
-                {this.state.type === "mc" ? 
+                {this.state.questionType === "multipleChoice" ? 
                 <div>
                     <p>Choose a correct answer:</p>
                     <div className="row">
                         <div className="col col-6">
                             <FormGroup>
-                                <Label for="a"><Button id="a" onClick={(e)=>this.selectAns(e)}>A</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="a" id="a" placeholder="input an option here" />
+                                <Label for="a"><Button id="a" className="input" onClick={(e)=>this.selectAns(e)}>A</Button></Label>
+                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="a" id="a" value={this.state.a} />
                             </FormGroup>
                         </div>
                         <div className="col col-6">
                             <FormGroup>
-                                <Label for="b"><Button id="b" onClick={(e)=>this.selectAns(e)}>B</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="b" id="b" placeholder="input an option here" />
+                                <Label for="b"><Button id="b" className="input" onClick={(e)=>this.selectAns(e)}>B</Button></Label>
+                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="b" id="b" value={this.state.b} />
                             </FormGroup>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col col-6">
                             <FormGroup>
-                                <Label for="c"><Button id="c" onClick={(e)=>this.selectAns(e)}>C</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="c" id="c" placeholder="input an option here" />
+                                <Label for="c"><Button id="c" className="input" onClick={(e)=>this.selectAns(e)}>C</Button></Label>
+                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="c" id="c" value={this.state.c} />
                             </FormGroup>
                         </div>
                         <div className="col col-6">
                             <FormGroup>
-                                <Label for="d"><Button id="d" onClick={(e)=>this.selectAns(e)}>D</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="d" id="d" placeholder="input an option here" />
+                                <Label for="d"><Button id="d" className="input" onClick={(e)=>this.selectAns(e)}>D</Button></Label>
+                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="d" id="d" value={this.state.d} />
                             </FormGroup>
                         </div>
                     </div> 
+                <button onClick={(e)=>this.props.submit(e,this.state)}>Add Question</button>
                 </div> : 
                 <div>
                     <p>Select the correct answer:</p>
@@ -131,6 +169,7 @@ class PureCreateQuiz extends React.Component{
                     <div className="row">
                         <Button color="primary" onClick={(e)=>this.selectAns(e)} id="false"> False </Button>
                     </div>
+                <button onClick={(e)=>this.props.submit(e, this.state)}>Add Question</button>
                 </div>}
             </Form>
             </>

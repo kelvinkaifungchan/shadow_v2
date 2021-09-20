@@ -40,7 +40,7 @@ class PureVIewQuizcardQuestionModule extends React.Component {
         return (
             <>
 
-                <div  subId={(id) => this.onClickShowQuestionViewer(id)} className={classes.scrollicon}>
+                <div subId={(id) => this.onClickShowQuestionViewer(id)} className={classes.scrollicon}>
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
@@ -131,4 +131,4 @@ class PureVIewQuizcardQuestionModule extends React.Component {
 }
 
 
-export const VIewQuizcardQuestionModule = connect(null, null)(PureVIewQuizcardQuestionModule)
+export const ViewQuizcardQuestionModule = connect(null, null)(PureVIewQuizcardQuestionModule)

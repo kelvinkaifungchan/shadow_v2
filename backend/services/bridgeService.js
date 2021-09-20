@@ -55,6 +55,7 @@ class BridgeService {
                         quizcard_id: body.quizcardId
                     })
                     .into("set_quizcard")
+                    .returning("quizcard_id")
             }
         }
         if (body.type === "set_dictationcard") {

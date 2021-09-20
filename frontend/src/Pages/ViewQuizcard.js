@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 //Component
 import {NavBar} from '../Component/navbar';
-import {VIewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
+import {ViewQuizcardQuestionModule} from '../Component/viewquizcardquestion';
 
 import { getdataThunk } from '../Redux/actions/action'
 
@@ -67,7 +67,7 @@ class ViewQuizcard extends React.Component {
                 </div>
                 </div>
 
-                <VIewQuizcardQuestionModule question={this.state.correctQuestion} />
+                <ViewQuizcardQuestionModule question={this.state.correctQuestion} />
             </div>
 
             </div>
