@@ -58,7 +58,7 @@ export const deleteBridgeThunk = (bridge) => async (dispatch) => {
                 console.log('lmao2', bridge)
                 dispatch({
                     type: DELETE_BRIDGE_CLASSROOM_SET,
-                    payload: {classroom_id: bridge.classroomId, set_id: bridge.setId}
+                    payload: {classroom_id: parseInt(bridge.classroomId), set_id: bridge.setId}
                 })
             }
         } else if (bridge.type === "set_dictationcard") {

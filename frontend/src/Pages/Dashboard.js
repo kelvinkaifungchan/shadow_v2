@@ -119,7 +119,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                    <DisplayCardModule dash={this.state.dashSet} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
+                        <DisplayCardModule dash={this.state.dashSet} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}
