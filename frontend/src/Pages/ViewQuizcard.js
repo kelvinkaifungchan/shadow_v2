@@ -81,7 +81,7 @@ class ViewQuizcard extends React.Component {
 
                 <div className="row d-flex p-4">
                     <div className="col col-12 justify-content-center align-items-center">
-                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>Submit</button>
+                    <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
                 </div>
                 </div>
                 <div className="row">
