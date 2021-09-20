@@ -21,10 +21,7 @@ export const addSet = (set) => async (dispatch) => {
             classroomId: set.classroomId,
             setId: newId
         })
-        console.log('newId in ', newId)
         const newBridge = bridge.data
-        console.log('newbridge', newBridge)
-        console.log('bridge', newBridge[0])
         dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title } });
         dispatch({
             type: ADD_BRIDGE_CLASSROOM_SET,
@@ -50,9 +47,12 @@ export const deleteSet = (set) => async (dispatch) => {
         .then(() => {
             dispatch({ type: DELETE_SET, payload: { set_id: set.id } });
         })
-        .then(() => {
-            
-        })
+        // .then(async() => {
+        //     await axios.post("http://localhost:8080/api/bridge/delete", {type: "classroom_set", setId: set.id })
+        //     .then(()=>{
+        //         dispatch({ type: DELETE_BRIDGE_CLASSROOM_SET, payload: { set_id: set.id }} )
+        //     })
+        // })
 
 }
 

@@ -57,10 +57,13 @@ class PureDashboard extends React.Component {
         })
     }}
     navigateSet(e){
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
         this.props.history.push({
             pathname:`/viewset/${e.target.attributes["data-key"].value}`,
         })
-    }
+    }}
     navigateCard(e) {
         if (e.target.attributes["data-type"].value === "flashcard") {
             console.log('nav card func props', this.props.cards.flashcard)

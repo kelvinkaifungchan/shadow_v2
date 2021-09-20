@@ -86,7 +86,7 @@ class BridgeService {
         console.log("removing classroom sharing with user")
         if (body.type === "classroom_set") {
             return this.knex("classroom_set")
-            .where("classroom_set.classroom_id", body.classroomId)
+            // .where("classroom_set.classroom_id", body.classroomId)
             .where("classroom_set.set_id", body.setId)
             .del()
         }
