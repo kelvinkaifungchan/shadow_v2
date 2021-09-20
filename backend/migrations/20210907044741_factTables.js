@@ -78,7 +78,7 @@ exports.up = function (knex) {
             quizcardQuestion.string("multipleChoiceC");
             quizcardQuestion.string("multipleChoiceD");
             quizcardQuestion.string("multipleChoiceAnswer");
-            quizcardQuestion.boolean("trueFalseAnswer");
+            quizcardQuestion.string("trueFalseAnswer");
             quizcardQuestion.timestamps(false, true);
         })
         .createTable("quizcardQuestionSubmission", (quizcardQuestionSubmission) => {

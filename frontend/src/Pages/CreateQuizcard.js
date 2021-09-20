@@ -41,7 +41,7 @@ class CreateQuizcard extends React.Component {
             quizcardTitle: this.state.quizcardTitle,
             quizcardRecording: this.state.quizcardRecording,
             quizcardQuestion: this.state.quizcardQuestion,
-            setId: this.props.location.state.set[0].id
+            setId: this.props.match.params.setId
         })
     }
     async navigateSet(e){
@@ -50,6 +50,15 @@ class CreateQuizcard extends React.Component {
         this.props.history.push({
             pathname:`/viewset/${this.props.match.params.setId}`,
         })
+    }
+    addQuestion(e, question){
+        e.preventDefault()
+        this.setState({
+            quizcardQuestion: this.state.quizcardQuestion.concat(question)
+        })
+    }
+    getTime(){
+        document.getElementById("preview")
     }
     logout = (e) => {
         e.preventDefault();
@@ -79,8 +88,7 @@ class CreateQuizcard extends React.Component {
                             <VideoRecorder handleRecording={(e)=>this.handleRecording(e)}/>
                         </div>
                         <div className="col col-6">
-                            <CreatequizcardQuestion/>
-                            {/* <p>QuizcardQuestionsCreate</p> */}
+                            <CreatequizcardQuestion time={()=>this.getTime()} questions={this.state.quizcardQuestion} submit={(e, question)=> this.addQuestion(e, question)}/>
                         </div>
                     </div>
                 </div>
