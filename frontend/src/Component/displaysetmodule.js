@@ -4,19 +4,27 @@ import { connect } from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { addBridgeThunk } from '../Redux/actions/bridgeAction'
+import { deleteSet } from '../Redux/actions/setAction';
+
 // Require Css
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
 
-    addSetConnect(e){
+    addSetConnect(e) {
         console.log('addSetConnect')
         this.props.addBridge({
             type: "classroom_set",
             classroomId: this.props.match.params.id,
             setId: parseInt(e.target.attributes["data-key"].value),
         })
-      }
+    }
+
+    deleteSet(setId) {
+        this.props.deleteSet({
+            id: setId,
+        })
+    }
     render() {
         console.log("props in display set module", this.props);
         return (
@@ -24,7 +32,7 @@ class PureDisplaySetModule extends React.Component {
                 { this.props.display === "3" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     console.log('display first set moduel')
                     return (
-                        <div data-key={set.id} className={classes.set} onClick={(e)=>{this.addSetConnect(e); this.props.toggle()}}>
+                        <div data-key={set.id} className={classes.set} onClick={(e) => { this.addSetConnect(e); this.props.toggle() }}>
                             <h4 data-key={set.id}>{set.title} Exist Modal</h4>
                             <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description}</p>
@@ -32,24 +40,24 @@ class PureDisplaySetModule extends React.Component {
                     )
                 }) : this.props.correctSets && this.props.correctSets.length > 0 && this.props.correctSets[0] !== undefined ? this.props.correctSets.map(set => {
                     console.log('correct sets', set)
-                        return (
-                            <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
-                                <h4 data-key={set.id}>{set.title}</h4>
-                                <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
-                                <p data-key={set.id}>{set.description} </p>
-                            </div>
-                        )
-                }) 
-                : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                     return (
-                        <div data-key={set.id} className={classes.set} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
                             <h4 data-key={set.id}>{set.title}</h4>
                             <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )
                 })
-                : null}
+                    : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
+                        return (
+                            <div data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
+                                <h4 data-key={set.id}>{set.title}</h4>
+                                <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                                <p data-key={set.id}>{set.description} </p>
+                            </div>
+                        )
+                    })
+                        : null}
             </>
         )
 
@@ -63,6 +71,9 @@ const mapDispatchToProps = dispatch => {
         },
         getdata: (email) => {
             dispatch(getdataThunk(email))
+        },
+        deleteSet: (set) => {
+            dispatch(deleteSet(set))
         }
     }
 }

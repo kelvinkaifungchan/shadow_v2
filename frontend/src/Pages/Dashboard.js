@@ -46,12 +46,19 @@ class PureDashboard extends React.Component {
             type: "set"
         })
     }
-
+      
+    
+    
     navigateClass(e){
-        this.props.history.push({
-            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
-
-    })}
+        console.log(e)
+        if(e.target.attributes["data-key"].value === "delete"){
+            return
+        } else {
+            this.props.history.push({
+                pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
+            })
+        }
+    }
     navigateSet(e){
         this.props.history.push({
             pathname:`/viewset/${e.target.attributes["data-key"].value}`,
@@ -77,7 +84,7 @@ class PureDashboard extends React.Component {
                         </div>
 
                         <div className="row d-flex pl-2">
-                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
+                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e, classId)=>{this.navigateClass(e, classId)}}/>
                         </div>
 
                         <div className="row d-flex p-2">
@@ -117,7 +124,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
-        }
+        },        
     }
 }
 
