@@ -1,15 +1,16 @@
 const express = require("express");
 
 
-class RecordingRouter {
-  constructor(recordingService) {
-    this.recordingService = recordingService;
+class UploadRouter {
+  constructor(uploadService) {
+    this.uploadService = uplaoadService;
   }
 
   router() {
     let router = express.Router();
     router.post("/video", this.postVideo.bind(this));
     router.post("/audio", this.postAudio.bind(this));
+    router.post("/canvas", this.postCanvas.bind(this));
     return router;
   }
 
@@ -39,6 +40,20 @@ class RecordingRouter {
         console.log(err);
       });
   }
+
+  postCanvas(req, res){
+    console.log("Requesting to post canvas data");
+    console.log(req.files)
+    return this.canvasService
+        .addCanvas(req.files.img.name, req.files.img.data)
+        .then(() => {
+            return res.send("Canvas data posted");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+}
 }
 
-module.exports = RecordingRouter;
+module.exports = UploadRouter;
