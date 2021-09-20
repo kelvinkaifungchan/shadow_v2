@@ -39,7 +39,8 @@ class ClassroomService {
     console.log("Deleting a classroom", body);
     return this.knex("classroom").where("id", body.id).update({
       classroomStatus: "false",
-    }).returning(body.id)
+    })
+    .returning(body.id)
     .catch((err)=>{
       console.log(err)
     })
