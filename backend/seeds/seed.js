@@ -283,8 +283,8 @@ exports.seed = function (knex) {
           flashcardFeedbackStatus: true
         }, {
           user_id: 3,
-          flashcardSubmission_id: "Ristretto pronounced as Ree-streh-toh",
-          flashcardFeedbackBody: "Speak faster",
+          flashcardSubmission_id: 3,
+          flashcardFeedbackBody: "Ristretto pronounced as Ree-streh-toh",
           flashcardFeedbackTime: "01:00",
           flashcardFeedbackStatus: true
         }])
@@ -663,18 +663,18 @@ exports.seed = function (knex) {
       })
       .then(() => {
         return knex('dictationFeedback').insert([{
-          user_id: 3,
-          dictationSubmission_id: 15,
+          user_id: 1,
+          dictationSubmission_id: 1,
           dictationFeedbackBody: "Stroke wrong",
           dictationFeedbackStatus: true
         }, {
-          user_id: 3,
-          dictationSubmission_id: 16,
+          user_id: 1,
+          dictationSubmission_id: 2,
           dictationFeedbackBody: "Stroke wrong",
           dictationFeedbackStatus: true
         }, {
-          user_id: 3,
-          dictationSubmission_id: 17,
+          user_id: 1,
+          dictationSubmission_id: 3,
           dictationFeedbackBody: "Stroke wrong",
           dictationFeedbackStatus: true
         }])
