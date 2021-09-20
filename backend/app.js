@@ -34,8 +34,8 @@ const ClassroomService = require("./services/classroomService")
 const classroomService = new ClassroomService(knex)
 const FeedbackService = require("./services/feedbackService")
 const feedbackService = new FeedbackService(knex)
-const RecordingService = require("./services/recordingService")
-const recordingService = new RecordingService(knex)
+const UploadService = require("./services/uploadService")
+const uploadService = new UploadService(knex)
 const SetService = require("./services/setService")
 const setService = new SetService(knex)
 const SharingService = require("./services/sharingService")
@@ -56,8 +56,8 @@ const CardRouter = require("./routers/cardRouter");
 app.use("/api/card", new CardRouter(cardService, submissionService, feedbackService).router());
 const ClassroomRouter = require("./routers/classroomRouter");
 app.use("/api/classroom", new ClassroomRouter(classroomService).router());
-const RecordingRouter = require("./routers/recordingRouter");
-app.use("/api/recording", new RecordingRouter(recordingService).router());
+const UploadRouter = require("./routers/uploadRouter");
+app.use("/api/upload", new UploadRouter(uploadService).router());
 const SetRouter = require("./routers/setRouter");
 app.use("/api/set", new SetRouter(setService).router());
 const ShadowRouter = require("./routers/shadowRouter");

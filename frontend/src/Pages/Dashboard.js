@@ -28,7 +28,7 @@ class PureDashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getdata({ email: localStorage.getItem('email')})
+        this.props.getdata({ email: localStorage.getItem('email') })
     }
 
     toggle() {
@@ -36,66 +36,83 @@ class PureDashboard extends React.Component {
             modal: !this.state.modal,
         });
     }
-    changeTypeClass(){
+    changeTypeClass() {
         this.setState({
             type: "class"
         })
     }
-    changeTypeSet(){
+    changeTypeSet() {
         this.setState({
             type: "set"
         })
     }
 
-    navigateClass(e){
-        this.props.history.push({
-            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
 
-    })}
-    navigateSet(e){
-        this.props.history.push({
-            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
 
-        })
-        
+    navigateClass(e) {
+        console.log(e)
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
+            this.props.history.push({
+                pathname: `/viewclassroom/${e.target.attributes["data-key"].value}`,
+            })
+        }
+    }
+    navigateSet(e) {
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
+            this.props.history.push({
+                pathname: `/viewset/${e.target.attributes["data-key"].value}`,
+
+            })
+        }
     }
 
     render() {
         console.log('props in dashboard', this.props)
         return (
+<<<<<<< HEAD
             <div className="page">
                 {/* <NavBar  user={this.props.user} history={this.props.history}/> */}
                 <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 
+=======
+            <div >
+                <NavBar user={this.props.user} history={this.props.history} />
+                <CreatePopUp create={this.state} toggle={() => this.toggle()} />
+
+>>>>>>> e504ffb5b316984f4447582f4ce69c18b91bda40
                 <div className={classes.dashboard}>
 
-                        <div className="row d-flex p-2">
-                                <h1>My Classroom</h1>
-                                <span className={classes.createclassroombtn}>
-                                    <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                </span>
-                        </div>
+                    <div className="row d-flex p-2">
+                        <h1>My Classroom</h1>
+                        <span className={classes.createclassroombtn}>
+                            <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                        </span>
+                    </div>
 
-                        <div className="row d-flex pl-2">
-                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e)=>{this.navigateClass(e)}}/>
-                        </div>
+                    <div className="row d-flex pl-2">
+                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e, classId) => { this.navigateClass(e, classId) }} />
+                    </div>
 
-                        <div className="row d-flex p-2">
-                                <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle() } history={this.props.history}/>
-                                <h1>My Set</h1>
-                                <span className={classes.createsetbtn}>
-                                    <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
-                                </span>
-                        </div>
+                    <div className="row d-flex p-2">
+                        <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
+                        <h1>My Set</h1>
+                        <span className={classes.createsetbtn}>
+                            <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                        </span>
+                    </div>
 
-                        <div className="row d-flex pl-2">
-                        <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e)=>{this.navigateSet(e)}}/>
-                        </div>
-                    
-                        {this.props.loading && <div> Loading...</div>}
-                        {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
-                        </div>
+                    <div className="row d-flex pl-2">
+                        <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                    </div>
+
+                    {this.props.loading && <div> Loading...</div>}
+                    {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
                 </div>
+            </div>
         );
     }
 }
@@ -117,7 +134,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
-        }
+        },
     }
 }
 

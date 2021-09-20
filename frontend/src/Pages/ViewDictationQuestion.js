@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+// Require Action
+import { getdataThunk } from '../Redux/actions/action'
+
 import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
@@ -13,10 +16,18 @@ import {NavBar} from '../Component/navbar';
 import { Canvas } from '../Component/canvas'
 
 class ViewDictationQuestion extends React.Component {
-    
+    constructor(props){
+        super(props)
+        this.state={
+            user:{}
+        }
+    }
+    async componentDidMount() {
+        await this.props.getdata({ email: localStorage.getItem("email") });
+    }
 
     render() {
-        console.log("i want to see the props",this.props);
+        console.log("props in VDQ",this.props);
 
         return (
             <div className="page">
@@ -45,7 +56,7 @@ class ViewDictationQuestion extends React.Component {
             </div>
             <div className="row">
                 <div className="col col-12">
-                    <Canvas canvasId={this.props.match.params.id}/>
+                    <Canvas user={this.props.user} canvasId={this.props.match.params.id}/>
                     <p>Canvas</p>
                 </div>
             </div>
@@ -62,11 +73,19 @@ class ViewDictationQuestion extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        isAuthenticatedMSP: state.authStore.isAuthenticated,
+        user: state.userStore.user,
+        sets: state.setStore.sets,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
     }
 }
 
 
-
-const connectedViewDictationQuestion= connect(mapStateToProps, null)(ViewDictationQuestion)
+const connectedViewDictationQuestion= connect(mapStateToProps, mapDispatchToProps)(ViewDictationQuestion)
 export { connectedViewDictationQuestion as ViewDictationQuestion };

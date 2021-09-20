@@ -15,7 +15,7 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "00:00",
+            questionTime: "",
         }
     }
     mcToggle(){
@@ -81,9 +81,8 @@ class PureCreateQuiz extends React.Component{
         }
     }
     getTime(){
-        console.log(document.getElementById("preview"))
         this.setState({
-            questionTime: document.getElementById("preview").currentTime
+            questionTime: Math.floor(document.getElementById("preview").currentTime)
         })
     }
     clear(){
@@ -101,17 +100,20 @@ class PureCreateQuiz extends React.Component{
             <>
             <div className={classes.scrollicon}>
                 {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
-                    <span>{i + 1}</span>
+                    return (
+                        <div>
+                            <span key={i}>{i + 1}</span>
+                        </div>
+                    )
                 }) : null}
-                {this.state.question === "" && this.state.answer === "" && this.state.time === "" ? 
-                <span onClick={()=>{this.getTime()}}>+</span>
-                :<span onClick={()=>{this.getTime()}}>+</span>}
+                <span onClick={(e)=>{this.getTime(); this.props.submit(e,this.state) ; this.clear()}}>+</span>
             </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
                 <div className="row">
                     <div className="col col-8">
-                        <p>Question 1 {this.state.time}</p>
+                        <p>Question 1</p>
+                        <p>{this.state.time}</p>
                     </div>
                     <div className="col col-4">
                         <UncontrolledDropdown>
@@ -159,7 +161,6 @@ class PureCreateQuiz extends React.Component{
                             </FormGroup>
                         </div>
                     </div> 
-                <button onClick={(e)=>this.props.submit(e,this.state)}>Add Question</button>
                 </div> : 
                 <div>
                     <p>Select the correct answer:</p>
@@ -169,7 +170,6 @@ class PureCreateQuiz extends React.Component{
                     <div className="row">
                         <Button color="primary" onClick={(e)=>this.selectAns(e)} id="false"> False </Button>
                     </div>
-                <button onClick={(e)=>this.props.submit(e, this.state)}>Add Question</button>
                 </div>}
             </Form>
             </>

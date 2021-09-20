@@ -44,8 +44,13 @@ class ViewDictationcard extends React.Component {
         return (
             <div className="page">
                 
+<<<<<<< HEAD
                 {/* <NavBar user={this.props.user} history={this.props.history} /> */}
                 <QRModal modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+=======
+                <NavBar user={this.props.user} history={this.props.history} />
+                <QRModal pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+>>>>>>> e504ffb5b316984f4447582f4ce69c18b91bda40
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
@@ -78,7 +83,8 @@ class ViewDictationcard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated
+        isAuthenticatedMSP: state.authStore.isAuthenticated,
+        user: state.userStore.user
     }
 }
 
