@@ -104,7 +104,6 @@ class PureVideoRecorder extends React.Component {
         preview.setAttribute("src", videoURL)
 
         // Upload to S3
-        console.log("this is blob:", blob);
         this.props.videorecordingMDP(formData)
     }
 
