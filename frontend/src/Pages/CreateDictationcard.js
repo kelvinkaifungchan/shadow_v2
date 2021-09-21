@@ -84,8 +84,8 @@ class CreateDictationcard extends React.Component {
 
         return (
             
-        <div>
-                <NavBar history={this.props.history}/>
+        <div className="page">
+                {/* <NavBar history={this.props.history}/> */}
                 {/* Page Container */}
                 <div className={classes.createdictationcard}>
                     {/* Header Row */}

@@ -1,9 +1,11 @@
-
-
 .viewflashcard {
     margin: 2% 5%
     }
-    
+
+.viewflashcard h5{
+    display: flex;
+}
+
 video, iframe {
     width: 40vw;
     height: 40vh;
@@ -85,9 +87,9 @@ div.feedback {
   
 .scrollfeedback {
     background-color:transparent;
-    overflow: auto;
+    overflow: scroll;
     white-space: nowrap;
-    height: 18vh;
+    max-height: 20vh;
 }
 
 .scrollfeedbackcard {
