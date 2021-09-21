@@ -16,6 +16,7 @@ import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 //CSS
 import classes from './ViewQuizcard.module.css'
 
+
 class ViewQuizcard extends React.Component {
     constructor(props) {
         super(props)
@@ -25,7 +26,7 @@ class ViewQuizcard extends React.Component {
             correctQuizcard: [],
             correctQuestion: [],
             quizcardQuestionSubmission: [],
-            sub:{}
+            sub: {}
         }
     }
     componentDidMount() {
@@ -49,12 +50,12 @@ class ViewQuizcard extends React.Component {
             showQuizcardQuestion: true,
         })
     }
-    handleSubmission (questionId ,submission){
+    handleSubmission(questionId, submission) {
         this.setState({
-           sub: {
-               questionId: questionId,
-               submission: submission
-        },
+            sub: {
+                questionId: questionId,
+                submission: submission
+            },
         })
     }
 
@@ -66,16 +67,7 @@ class ViewQuizcard extends React.Component {
             quizcardId: parseInt(this.props.match.params.id)
         })
     }
-    submit() {
-        this.props.submitAnswer({
-            email: localStorage.getItem('email'),
-            type: this.state.type,
-            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission,
-        })
-    }
-
-    
-
+   
     async navigateSubmission(e) {
         e.preventDefault()
         this.props.history.push({
@@ -94,43 +86,31 @@ class ViewQuizcard extends React.Component {
                 <div className={classes.viewquizcard}>
                     {/* 1st row: Header */}
                     <div className="row d-flex p-4">
-                        <div className="col-8">
+                        <div className="col-6">
                             <h1>{this.state.correctQuizcard.length > 0 ? this.state.correctQuizcard[0].quizcardTitle : null}</h1>
-                        </div>
-                    </div>
 
-                    <div className="row d-flex p-4">
-                        {!this.state.showQuizcardQuestion && 
-                        <div className="col col-12 d-flex justify-content-center align-items-center">
-                            <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
-                                <span className={classes.startbtn}> Start Quiz</span>
-                            </div>
-                        </div>}
-                    </div>
-
-                    <div className="row d-flex p-4">
-                        <div className="col col-12 justify-content-center align-items-center">
-                            <button className="sumbit" cards={this.props.cards} onClick={() => { this.submit() }}>Submit</button>
+                            {this.state.showQuizcardQuestion &&
+                                <div >
+                                    <VideoPlayer src={this.state.correctQuestion.quizcardRecording} />
+                                </div>
+                            }
                         </div>
-                    </div>
-                    <div className="row">
                         {this.state.showQuizcardQuestion &&
                             <div className="col col-6">
-                                <VideoPlayer src={this.state.correctQuestion.quizcardRecording} />
-                            </div>
-                        }
-                        {this.state.showQuizcardQuestion &&
-                            <div className="col col-6">
-                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} handleSubmission={(questionId ,submission)=>this.handleSubmission(questionId , submission)} addAnswer={()=>this.addAnswer(this.state.sub)}/>
+                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} handleSubmission={(questionId, submission) => this.handleSubmission(questionId, submission)} addAnswer={() => this.addAnswer(this.state.sub)} navigate={(e)=>this.navigateSubmission(e)}/>
                             </div>
                         }
                     </div>
 
                     <div className="row d-flex p-4">
-                        <div className="col col-12 justify-content-center align-items-center">
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
-                        </div>
+                        {!this.state.showQuizcardQuestion &&
+                            <div className="col col-12 d-flex justify-content-center align-items-center">
+                                <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
+                                    <span className={classes.startbtn}> Start Quiz</span>
+                                </div>
+                            </div>}
                     </div>
+                   
 
                 </div>
             </div>
