@@ -15,6 +15,7 @@ import {NavBar} from '../Component/navbar';
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
 import { Canvas } from '../Component/canvas'
+import { AudioRecorder } from '../Component/audiorecorder';
 
 //CSS
 import classes from './ViewDictationQuestion.module.css'
@@ -57,6 +58,7 @@ class ViewDictationQuestion extends React.Component {
                     {/* <QuestionProgress/> */}
                     <p>QuestionProgress</p>
                     {/* <AudioPlayer/> */}
+                    <AudioRecorder/>
                     <p>AudioPlayer</p>
                 </div>
             </div>
