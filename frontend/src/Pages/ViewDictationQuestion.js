@@ -30,10 +30,10 @@ class ViewDictationQuestion extends React.Component {
         console.log("props in VDQ",this.props);
 
         return (
-            <div>
+            <div className="page">
             <div className="row" style={this.bg}>
             <div className="col col-8">
-                <NavBar history={this.props.history}/>
+                {/* <NavBar history={this.props.history}/> */}
                 </div>
                 <div className="col col-4">
                 <Link to="/account">Account</Link>

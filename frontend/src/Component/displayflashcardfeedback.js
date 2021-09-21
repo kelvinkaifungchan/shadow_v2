@@ -16,9 +16,18 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
                             return (
                                 <div key={j} data-key={j} className={classes.scrollfeedbackcard}>
                                     <div>
-                                        <td >{fb.flashcardFeedbackTime}</td>
-                                        <td >{fb.flashcardFeedbackBody}</td>
-                                        <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
+                                        <table>
+                                        <tr className={classes.scrollfeedbackrow}>
+                                             <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
+
+                                            <td className={classes.feedback}>{fb.flashcardFeedbackBody}</td>
+                                            
+                                            <th className={classes.feedbacktime}>{fb.flashcardFeedbackTime}</th>
+                                            
+                                            <td className={classes.removingfeedback}><span className={classes.removingfeedbackbtn}><i className="fa fa-trash" aria-hidden="true"></i></span></td>
+                                           
+                                        </tr>
+                                        </table>
                                     </div>
                                 </div>
                             )

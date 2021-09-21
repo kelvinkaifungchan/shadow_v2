@@ -89,7 +89,7 @@ class ViewQuizcard extends React.Component {
 
         return (
             <div>
-                <NavBar user={this.props.user} history={this.props.history} />
+                {/* <NavBar user={this.props.user} history={this.props.history} /> */}
 
                 <div className={classes.viewquizcard}>
                     {/* 1st row: Header */}
@@ -100,7 +100,8 @@ class ViewQuizcard extends React.Component {
                     </div>
 
                     <div className="row d-flex p-4">
-                        {!this.state.showQuizcardQuestion && <div className="col col-12 d-flex justify-content-center align-items-center">
+                        {!this.state.showQuizcardQuestion && 
+                        <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
                                 <span className={classes.startbtn}> Start Quiz</span>
                             </div>
@@ -125,10 +126,15 @@ class ViewQuizcard extends React.Component {
                         }
                     </div>
 
-                </div>
+                    <div className="row d-flex p-4">
+                        <div className="col col-12 justify-content-center align-items-center">
+                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
+                        </div>
+                    </div>
 
+                </div>
             </div>
-        );
+        )
     }
 }
 
