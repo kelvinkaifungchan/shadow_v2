@@ -15,6 +15,7 @@ const initialState = {
 };
 
 export function authReducer(state = initialState, action) {
+  console.log('authReducer')
   switch (action.type) {
     case SIGN_UP_REQUEST:
       return {
@@ -24,6 +25,7 @@ export function authReducer(state = initialState, action) {
       };
     case LOGIN_SUCCESS_ACTION:
     case SIGN_UP_SUCCESS:
+      console.log('login success action')
       return {
         ...state,
         loading: false,

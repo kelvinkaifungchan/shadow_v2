@@ -4,7 +4,7 @@ import React from 'react'
 
 
 import { NavBar } from '../src/Component/navbar';
-
+import Landing from './Component/landing'
 import { Login } from '../src/Pages/Login';
 import { Dashboard } from '../src/Pages/Dashboard';
 import { Account } from '../src/Pages/Account';
@@ -39,8 +39,8 @@ class App extends React.Component {
         <div className="nav">
         <Route exact to="/" activeClassName="active"><NavBar history={this.props.history}/></Route>
         </div>
-         
-            {/* Empty Route for getting the location key */}
+        <Landing/>
+            {/* Empty Route for getting the location key
             <Route render={({location}) => (
                 <TransitionGroup>
                 <CSSTransition
@@ -66,7 +66,7 @@ class App extends React.Component {
                     </Switch>
                 </CSSTransition>
                 </TransitionGroup>
-            )} />       
+            )} />        */}
             </Router >
     </div>
     )};
