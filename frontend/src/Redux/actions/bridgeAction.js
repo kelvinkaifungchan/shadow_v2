@@ -62,19 +62,22 @@ export const deleteBridgeThunk = (bridge) => async (dispatch) => {
                 })
             }
         } else if (bridge.type === "set_dictationcard") {
+            console.log("set_dictationcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_DICTATIONCARD,
-                payload: {set_id: bridge.setId, dictationcard_id: bridge.dictationcardId}
+                payload: {set_id: bridge.setId, dictationcard_id: bridge.cardId}
             })
         } else if (bridge.type === "set_flashcard") {
+            console.log("set_flashcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_FLASHCARD,
-                payload: {set_id: bridge.setId, flashcard_id: bridge.flashcardId}
+                payload: {set_id: bridge.setId, flashcard_id: bridge.cardId}
             })
         } else if (bridge.type === "set_quizcard") {
+            console.log("set_quizcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_QUIZCARD,
-                payload: {set_id: bridge.setId, quizcard_id: bridge.quizcardId}
+                payload: {set_id: bridge.setId, quizcard_id: bridge.cardId}
             })
         }
     })
