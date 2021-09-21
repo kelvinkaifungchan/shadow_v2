@@ -125,21 +125,22 @@ export function cardReducer(state = initialState, action) {
             return {
                 card: {
                     ...state.card,
-                    dictationcard: state.card.dictationcard.filter((dictationcard) => dictationcard.dictationcard_id !== action.payload.dictationcard_id)
+                    dictationcard: state.card.dictationcard.filter((dictationcard) => dictationcard.id !== action.payload.dictationcard_id)
                 }
             };
         case DELETE_FLASHCARD:
+            console.log('del flash actino in reducer', action.payload)
             return {
                 card: {
                     ...state.card,
-                    flashcard: state.card.flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.flashcard_id)
+                    flashcard: state.card.flashcard.filter((flashcard) => flashcard.id !== action.payload.flashcard_id)
                 }
             };
         case DELETE_QUIZCARD:
             return {
                 card: {
                     ...state.card,
-                    quizcard: state.card.quizcard.filter((quizcard) => quizcard.quizcard_id !== action.payload.quizcard_id)
+                    quizcard: state.card.quizcard.filter((quizcard) => quizcard.id !== action.payload.quizcard_id)
                 }
             };
         case ADD_SUBMISSION_FLASHCARD:

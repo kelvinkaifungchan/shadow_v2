@@ -18,6 +18,20 @@ class PureCreateQuiz extends React.Component{
             questionTime: "",
         }
     }
+    displayQuestion(e, i){
+        e.preventDefault()
+        this.setState({
+            questionType: this.props.questions[i].questionType,
+            questionBody: this.props.questions[i].questionBody,
+            multipleChoiceAnswer: this.props.questions[i].multipleChoiceAnswer,
+            trueFalseAnswer: this.props.questions[i].trueFalseAnswer,
+            a: this.props.questions[i].a,
+            b: this.props.questions[i].b,
+            c: this.props.questions[i].c,
+            d: this.props.questions[i].d,
+            questionTime:this.props.questions[i].questionTime,
+        })
+    }
     mcToggle(){
         console.log('mc')
         this.setState({
@@ -102,11 +116,11 @@ class PureCreateQuiz extends React.Component{
                 {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
                     return (
                         <div>
-                            <span key={i}>{i + 1}</span>
+                            <span onClick={(e) => this.displayQuestion(e, i)} key={i}>{i + 1}</span>
                         </div>
                     )
                 }) : null}
-                <span onClick={(e)=>{this.getTime(); this.props.submit(e,this.state) ; this.clear()}}>+</span>
+                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
             </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
@@ -128,7 +142,7 @@ class PureCreateQuiz extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <textarea id="question" className="input" onChange={(e)=> this.changeOpt(e)} style={{width: "100%", height: "20vh", margin:"1px", resize:"none"}}/>
+                    <textarea id="question" value={this.state.questionBody} className="input" onChange={(e)=> this.changeOpt(e)} style={{width: "100%", height: "20vh", margin:"1px", resize:"none"}}/>
                 </div>
                 {this.state.questionType === "multipleChoice" ? 
                 <div>

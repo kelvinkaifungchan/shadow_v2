@@ -125,7 +125,9 @@ class ViewSet extends React.Component {
     }
 
     navigateCard(e) {
-        if (e.target.attributes["data-type"].value === "flashcard") {
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else if (e.target.attributes["data-type"].value === "flashcard") {
             console.log('nav card func props', this.props.cards.flashcard)
             console.log('nav card func value', e.target.attributes["data-key"].value)
             this.props.history.push({
@@ -138,10 +140,8 @@ class ViewSet extends React.Component {
         } else if (e.target.attributes["data-type"].value === "dictationcard") {
             this.props.history.push({
                 pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
-
             })
         }
-
     }
     navigateNewFlashcard(e) {
         this.props.history.push({

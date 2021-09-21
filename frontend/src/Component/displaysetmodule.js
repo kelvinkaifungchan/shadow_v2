@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/actions/action'
 import { addBridgeThunk } from '../Redux/actions/bridgeAction'
 import { deleteSet } from '../Redux/actions/setAction';
+import { deleteBridgeThunk } from '../Redux/actions/bridgeAction';
 
 // Require Css
 import classes from './displaysetmodule.module.css'
@@ -24,6 +25,21 @@ class PureDisplaySetModule extends React.Component {
         this.props.deleteSet({
             id: setId,
         })
+        this.deleteBridge(setId)
+    }
+    deleteBridge(setId){
+        if(this.props.dash === "dashSet"){
+            this.props.deleteBridge({
+                type: "classroom_set",
+                setId: setId
+            })
+        } else {
+            this.props.deleteBridge({
+                type: "classroom_set",
+                setId: setId,
+                classroomId: this.props.match.params.id
+            })
+        }
     }
     render() {
         console.log("props in display set module", this.props);
@@ -41,8 +57,8 @@ class PureDisplaySetModule extends React.Component {
                     console.log('correct sets', set)
                     return (
                         <div data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
-                            <h4 data-key={set.id}>{set.title}</h4>
-                            <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
+                            <h4 data-key={set.id}>{set.title} View Set</h4>
+                            <span data-key="delete" className={classes.deletebtn}><i data-key="delete" onClick={()=>this.deleteBridge(set.id)} class="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )
@@ -50,7 +66,7 @@ class PureDisplaySetModule extends React.Component {
                     : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                         return (
                             <div data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
-                                <h4 data-key={set.id}>{set.title}</h4>
+                                <h4 data-key={set.id}>{set.title} Dash</h4>
                                 <span className={classes.deletebtn}><i  onClick={()=>this.deleteSet(set.id)} data-key="delete" class="fas fa-times"></i></span>
                                 <p data-key={set.id}>{set.description} </p>
                             </div>
@@ -73,6 +89,9 @@ const mapDispatchToProps = dispatch => {
         },
         deleteSet: (set) => {
             dispatch(deleteSet(set))
+        },
+        deleteBridge: (link) => {
+            dispatch(deleteBridgeThunk(link))
         }
     }
 }

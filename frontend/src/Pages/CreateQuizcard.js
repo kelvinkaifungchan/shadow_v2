@@ -53,11 +53,11 @@ class CreateQuizcard extends React.Component {
     }
     addQuestion(e, question){
         e.preventDefault()
-        if(question.questionType === 'multipleChoice' && question.questionBody !== "" && question.multipleChoiceAnswer !== "" && question.questionTime !== ""){
+        if(question.questionType === 'multipleChoice' && question.questionBody !== "" && question.multipleChoiceAnswer !== ""){
             this.setState({
                 quizcardQuestion: this.state.quizcardQuestion.concat(question)
             })
-        } else if(question.questionType === 'trueFalse' && question.questionBody !== "" && question.trueFalseAnswer !== "" && question.questionTime !== ""){
+        } else if(question.questionType === 'trueFalse' && question.questionBody !== "" && question.trueFalseAnswer !== ""){
             this.setState({
                 quizcardQuestion: this.state.quizcardQuestion.concat(question)
             })
