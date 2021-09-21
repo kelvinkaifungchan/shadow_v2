@@ -66,7 +66,7 @@ class ViewFlashCard extends React.Component {
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
             this.setState({
                 correctSubmission: correctProps[0].submission,
-                correctFeedback:correctProps[0].submission,
+                correctFeedback:correctProps[0].submission.filter((sub) => { return sub.id === this.state.submissionId })
             });
         }
     }
