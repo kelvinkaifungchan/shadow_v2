@@ -28,12 +28,6 @@ class PureNavBar extends React.Component {
         this.props.getdata({ email: this.props.user.email })
     }
 
-    // navigateAccount(e){
-    //     this.props.history.push({
-    //         pathname:`/account`,
-    //         // state: { user: this.props.user}
-    //     })
-    // }
 
     logout = (e) => {
         e.preventDefault();
@@ -41,8 +35,6 @@ class PureNavBar extends React.Component {
     }
     
     render() {
-        console.log('nav props', this.props)
-        console.log('nav state', this.state)
         return (
             <div className={classes.header}>
                     <ul className={classes.menu}>
