@@ -12,16 +12,8 @@ class PureMenu extends React.Component {
 
     
     async navigateClass(e){
-        // data = this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.location.state.classroom)),
         await this.props.history.push({
             pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
-        //     state: { classroom: this.props.classrooms.filter ((classroom) => {
-        //         if(classroom.id === parseInt(e.target.attributes["data-key"].value)){
-        //             console.log('in if')
-        //             return classroom
-        //         }
-        //     }) 
-        // }
         })
         this.props.classroom ? this.props.classroom() : console.log("hi")
     
@@ -31,13 +23,6 @@ class PureMenu extends React.Component {
         console.log("FUCK ME DADDY SET")
         await this.props.history.push({
             pathname:`/viewset/${e.target.attributes["data-key"].value}`,
-        //     state: { set: this.props.sets.filter ((set) => {
-        //         if(set.id === parseInt(e.target.attributes["data-key"].value)){
-        //             console.log('in if')
-        //             return set
-        //         }
-        //     }) 
-        // }
         })
         console.log("CLASSSS", this.props.class)
         console.log("SETTT", this.props.set)
