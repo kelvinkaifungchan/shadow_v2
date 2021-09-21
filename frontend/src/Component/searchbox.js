@@ -11,7 +11,6 @@ export default class Search extends React.Component {
 
     }
     render() {
-        console.log("this is from srchbox", this.props);
 
         const filteredItems = this.props.classrooms.map((i) => {
             console.log(i);

@@ -106,7 +106,6 @@ class PureVideoRecorder extends React.Component {
 
         let formData = new FormData();
         formData.append("file", blob, fileName)
-        console.log("PLS TELL ME WT IS FORMDATA",formData);
 
         const videoURL = window.URL.createObjectURL(blob);
         this.props.handleRecording(fileName)

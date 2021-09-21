@@ -73,7 +73,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                         this.props.question.question.map((question, i) => {
 
                                             if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-                                                console.log("question inside the map", question)
 
                                                 return (
                                                     <div  key={i}>

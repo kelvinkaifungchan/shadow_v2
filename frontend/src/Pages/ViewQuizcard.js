@@ -83,8 +83,6 @@ class ViewQuizcard extends React.Component {
     }
 
     render() {
-        console.log("PROPS IN VIEW QUIZCARD", this.props)
-        console.log("STATE IN VIEW QUIZCARD", this.state)
 
         return (
             <div>

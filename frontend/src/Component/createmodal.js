@@ -26,7 +26,6 @@ class PureModel extends React.Component {
     submit = async (e) => {
         e.preventDefault();
         if (this.props.create.type === "class") {
-            console.log('this.props.creat.type=== class')
             this.props.createClassMDP({
                 email: this.props.user.email,
                 title: this.state.classroomTitle,
@@ -34,7 +33,6 @@ class PureModel extends React.Component {
             })
         } else {
             if (this.props.dash === "dashSet"){
-                console.log('create Set MDP')
                 await this.props.createSetMDP({
                     type: this.props.create.type,
                     email: this.props.user.email,
@@ -42,7 +40,6 @@ class PureModel extends React.Component {
                     desc: this.state.setDesc,
                 })
             } else {
-                console.log('creatSetBridge MDP')
                 await this.props.createSetMDP({
                     type: "classroom_set",
                     email: this.props.user.email,
@@ -61,7 +58,6 @@ class PureModel extends React.Component {
     }
 
     render() {
-        console.log('props in create modal', this.props)
         return (
             <div>
                 <Modal isOpen={this.props.create.modal || this.props.create.setCreatePopUp} toggle={this.props.toggle}>
