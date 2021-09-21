@@ -192,7 +192,7 @@ render() {
         <div>
             <div className="sketch" id="sketch">
 
-                <canvas className="board" id="board"></canvas>
+                <canvas className="board" id="board" ></canvas>
 
             </div>
             <button onClick={() => this.clearcanvas()}> Clear </button>
