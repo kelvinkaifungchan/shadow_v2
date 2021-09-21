@@ -33,7 +33,6 @@ class ViewQuizcardSubmission extends React.Component {
                 correctQuizcard: this.props.cards.quizcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-
             this.setState({
                 correctSubmission: correctProps[0].submission,
             });
@@ -45,8 +44,6 @@ class ViewQuizcardSubmission extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log("i want to see the props in VIEW QUIZCARD SUBMISSION", this.props);
-        console.log("i want to see the STATES in VIEW QUIZCARD SUBMISSION", this.state);
 
 
         return (

@@ -70,8 +70,6 @@ class CreateQuizcard extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log('props in create quizcard',this.props);
-        console.log('state in create quizcard',this.state);
 
         return (
             <div className="page">
@@ -103,7 +101,6 @@ class CreateQuizcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in create quizcard", state);
 
     return {
         email: state.authStore.email,

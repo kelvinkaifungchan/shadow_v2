@@ -34,7 +34,6 @@ class PureModel extends React.Component {
     }
 
     render() {
-        // console.log('props in add exist modal', this.props)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
@@ -53,7 +52,6 @@ class PureModel extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
 
     return {
         user: state.userStore.user,

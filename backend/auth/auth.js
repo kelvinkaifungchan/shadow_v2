@@ -11,7 +11,6 @@ module.exports = (knex) => {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       },
       async (payload, done) => {
-        console.log(payload);
         let user = await knex("users").where({
           email: payload.email,
         });

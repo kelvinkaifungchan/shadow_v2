@@ -17,7 +17,6 @@ class ShadowRouter {
 
     //Router to get all data for a user
     post (req, res) {
-        console.log("req.body",req.body);
         console.log("Requesting getting all data for a user")
         if(req.body.email!==undefined){
             let data = {}
@@ -60,7 +59,7 @@ class ShadowRouter {
                 return data.cards = cards
             })
             .then(() => {
-                // console.log("Data in shadow router", data)
+                console.log("Data in shadow router")
                 return res.json(data)
             })
             .catch((err) => {

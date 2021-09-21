@@ -62,7 +62,6 @@ class ViewFlashCard extends React.Component {
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
             if (this.props.user.role === "teacher") {
-                console.log("FILTERED", )
                 this.setState({
                     correctSubmission: correctProps[0].submission,
                     correctFeedback:correctProps[0].submission,
@@ -159,7 +158,6 @@ class ViewFlashCard extends React.Component {
         this.setState({
             timeStamp: timeStamp
         })
-        console.log(document.getElementById('submission').currentTime)
     }
 
     addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
@@ -167,8 +165,6 @@ class ViewFlashCard extends React.Component {
     }
     
     render() {
-        console.log("see the props IN VFC", this.props);
-        console.log("the state IN VFC!!!!STATE", this.state);
         return (
             <div className="page">
                 {/* <NavBar user={this.props.user} history={this.props.history}/> */}

@@ -18,7 +18,6 @@ class UploadService {
             ContentType: 'video/mp4',
             Body: fileData
         };
-        console.log("LET ME KNOW PARAMS",params);
         try {
             let submission = await s3.upload(params).promise()
             console.log("Uploaded Data", submission)
@@ -29,13 +28,13 @@ class UploadService {
         }
     }
 
-    async addAudio(body) {
+    async addAudio(fileName, fileData) {
         console.log("Uploading audio to AWS")
         const params = {
-            Bucket: process.env.AWS_BUCKET,
-            Key: body.fileName,
-            ContentType: 'video/mp3',
-            Body: body.fileData
+            Bucket: process.env.AWS_AUDIO_BUCKET,
+            Key: fileName,
+            ContentType: 'audio/mp3',
+            Body: fileData
         };
         try {
             let submission = await s3.upload(params).promise()
@@ -56,8 +55,6 @@ class UploadService {
             ContentType: 'image/png',
             Body: fileData
         };
-
-        console.log("PARAMS", params)
 
         try{
             let submission = await s3.upload(params).promise()

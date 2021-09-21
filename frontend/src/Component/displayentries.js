@@ -32,7 +32,6 @@ class PureDisplayEntries extends React.Component {
 };
  
 const mapStateToProps = (state) => {
-  console.log("state in display entries", state);
 
   return {
       cards: state.cardStore.card,
