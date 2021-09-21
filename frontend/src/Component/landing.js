@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Login } from '../Pages/Login';
+import { NavBar } from '../Component/navbar';
 import { Dashboard } from '../Pages/Dashboard';
 import { Account } from '../Pages/Account';
 import { ViewClassroom } from '../Pages/ViewClassroom';
@@ -17,7 +18,7 @@ import { ViewDictationcardSubmission } from '../Pages/ViewDictationCardSubmissio
 import { ViewDictationQuestion } from '../Pages/ViewDictationQuestion';
 
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter,Router, Route, Switch } from "react-router-dom";
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PrivateRoute from './PrivateRoute'
@@ -30,33 +31,38 @@ class Landing extends React.Component {
         return (
 
             <BrowserRouter>
-            {/* Empty Route for getting the location key */}
-            <Route render={({location}) => (
-                <TransitionGroup>
-                <CSSTransition
-                key={location.key}
-                timeout={30000}
-                className="fade">
-                    <Switch>
-                        <PrivateRoute exact path="/" component={Dashboard} />
-                        <PrivateRoute path="/account" component={Account} />
-                        <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
-                        <PrivateRoute path="/viewset/:id" component={ViewSet} />
-                        <PrivateRoute path="/createFlashcard/:setId" component={CreateFlashcard} />
-                        <PrivateRoute path="/viewflashcard/:id" component={ViewFlashCard} />
-                        <PrivateRoute path="/createquizcard/:setId" component={CreateQuizcard} />
-                        <PrivateRoute path="/viewquizcard/:id" component={ViewQuizcard} />
-                        <PrivateRoute path="/viewquizcardSubmission/:id" component={ViewQuizcardSubmission} />
-                        <PrivateRoute path="/createdictationcard/:setId" component={CreateDictationcard} />
-                        <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
-                        <PrivateRoute path="/viewdictationQuestion/:id" component = {ViewDictationQuestion}/>
-                        <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
-                        <PrivateRoute path="/editdictationCard" component={ViewDictationQuestion} />
-                        <Route path="/login" component={Login} />
-                    </Switch>
-                </CSSTransition>
-                </TransitionGroup>
-            )} />       
+                {/* Empty Route for getting the location key */}
+   \
+                    <div className="nav">
+                        <Route exact to="/" activeClassName="active"><NavBar history={this.props.history} /></Route>
+                    </div>
+                    <Route render={({ location }) => (
+                        <TransitionGroup>
+                            <CSSTransition
+                                key={location.key}
+                                timeout={30000}
+                                className="fade">
+                                <Switch>
+                                    <PrivateRoute exact path="/" component={Dashboard} />
+                                    <PrivateRoute path="/account" component={Account} />
+                                    <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
+                                    <PrivateRoute path="/viewset/:id" component={ViewSet} />
+                                    <PrivateRoute path="/createFlashcard/:setId" component={CreateFlashcard} />
+                                    <PrivateRoute path="/viewflashcard/:id" component={ViewFlashCard} />
+                                    <PrivateRoute path="/createquizcard/:setId" component={CreateQuizcard} />
+                                    <PrivateRoute path="/viewquizcard/:id" component={ViewQuizcard} />
+                                    <PrivateRoute path="/viewquizcardSubmission/:id" component={ViewQuizcardSubmission} />
+                                    <PrivateRoute path="/createdictationcard/:setId" component={CreateDictationcard} />
+                                    <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
+                                    <PrivateRoute path="/viewdictationQuestion/:id" component={ViewDictationQuestion} />
+                                    <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
+                                    <PrivateRoute path="/editdictationCard" component={ViewDictationQuestion} />
+                                    <Route path="/login" component={Login} />
+                                </Switch>
+                            </CSSTransition>
+                        </TransitionGroup>
+                    )} />
+   
             </BrowserRouter >
         )
     }
