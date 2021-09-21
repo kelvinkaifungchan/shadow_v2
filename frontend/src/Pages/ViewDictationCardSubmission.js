@@ -69,19 +69,19 @@ class ViewDictationcardSubmission extends React.Component {
                                 <h1>{this.state.correctDictationcard.length > 0 && this.state.correctDictationcard[0].dictationcardTitle}</h1>
                             </div>
                         </div>
-                            {/* <table>
+                            <table>
                                 <th><br></br></th>
-                                {this.state.correctDictationcard &&
-                                    this.state.correctDictationcardQuizcard[0].questions.length > 0
+                                {this.state.correctDictationcard.length > 0 &&
+                                    this.state.correctDictationcard[0].questions.length > 0
                                     ? this.state.correctDictationcard[0].questions.map((question, i) => {
                                         return(
                                             <tr data-key={i}>
                                                 <th>Question {question.id}</th>
-                                                <td>Question body {question.dictationBody}</td>
+                                                <td>{question.dictationBody}</td>
                                                 </tr>
                                         )
                                     }) : null}
-                                </table> */}
+                                </table>
 
                         <div className="row d-flex p-4">
                             <div className="col">
