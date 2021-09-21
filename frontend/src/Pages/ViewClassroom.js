@@ -135,8 +135,8 @@ class ViewClassroom extends React.Component {
         console.log("state of view classroom", this.state);
 
         return (
-            <div>
-                <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/>
+            <div className="page">
+                {/* <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/> */}
             
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">

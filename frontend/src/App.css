@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+.page{
+  position: absolute;
+  /* top: 100px; */
+  left: 0;
+  right: 0;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #3D4176;
+  display: flex;
+}
+
+h6 {
+  display: flex;
+}
+
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms linear 150ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 150ms linear;
+}

@@ -19,7 +19,10 @@ import { ViewDictationQuestion } from '../Pages/ViewDictationQuestion';
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PrivateRoute from './PrivateRoute'
+
+import './landing.module.css'
 
 class Landing extends React.Component {
 
@@ -27,6 +30,13 @@ class Landing extends React.Component {
         return (
 
             <BrowserRouter>
+            {/* Empty Route for getting the location key */}
+            <Route render={({location}) => (
+                <TransitionGroup>
+                <CSSTransition
+                key={location.key}
+                timeout={30000}
+                className="fade">
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
@@ -44,8 +54,9 @@ class Landing extends React.Component {
                         <PrivateRoute path="/editdictationCard" component={ViewDictationQuestion} />
                         <Route path="/login" component={Login} />
                     </Switch>
-
-               
+                </CSSTransition>
+                </TransitionGroup>
+            )} />       
             </BrowserRouter >
         )
     }

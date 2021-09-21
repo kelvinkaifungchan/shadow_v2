@@ -51,9 +51,9 @@ class Account extends React.Component {
     render() {  
 
         return (
-            <div>
+            <div className="page">
             {/* Navbar */}
-                <NavBar history={this.props.history}/>
+                {/* <NavBar history={this.props.history}/> */}
             <div className={classes.account}>
 
                 <div className="row p-4">
