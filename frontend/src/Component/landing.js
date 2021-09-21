@@ -32,7 +32,6 @@ class Landing extends React.Component {
 
             <BrowserRouter>
                 {/* Empty Route for getting the location key */}
-   \
                     <div className="nav">
                         <Route exact to="/" activeClassName="active"><NavBar history={this.props.history} /></Route>
                     </div>

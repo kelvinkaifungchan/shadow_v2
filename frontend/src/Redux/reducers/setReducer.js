@@ -66,16 +66,16 @@ export function setReducer(state = initialState, action){
         case ADD_BRIDGE_SET_FLASHCARD:
             console.log('ADD_BRIDGE_SET_FLASHCARD')
             console.log('ADD_BRIDGE action.payload',action.payload)
-            return {
-                sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.id){
-                        return {
-                            ...set, bridge_flashcard:[...set.bridge_flashcard, action.payload.content]
+                return {
+                    sets: state.sets.map((set) => {
+                        if(action.payload.id.set_id === set.id){
+                            return {
+                                ...set, bridge_flashcard:[...set.bridge_flashcard, action.payload.content]
+                            }
                         }
-                    }
-                    return set
-                })
-            }
+                        return set
+                    })
+                }
         case ADD_BRIDGE_SET_QUIZCARD:
             return {
                 sets: state.sets.map((set) => {

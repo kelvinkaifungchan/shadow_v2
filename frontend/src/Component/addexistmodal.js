@@ -53,7 +53,7 @@ class PureModel extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state in dashboard", state);
+    // console.log("state in dashboard", state);
 
     return {
         user: state.userStore.user,

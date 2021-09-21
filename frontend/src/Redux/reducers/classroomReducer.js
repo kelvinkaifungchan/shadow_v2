@@ -111,16 +111,26 @@ export function classroomReducer(state = initialState, action){
         case DELETE_BRIDGE_CLASSROOM_SET:
             console.log("DELETE_BRIDGE_CLASSROOM_SET", state.classrooms) 
             console.log("DELETE_BRIDGE_CLASSROOM_SET", action) 
-            return{
-                classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.classroom_id === classroom.id){
+            if(action.payload.classroom_id !== undefined){
+                return{
+                    classrooms: state.classrooms.map((classroom) => {
+                        if(action.payload.classroom_id === classroom.id){
+                            console.log('reducer hit')
+                            return {
+                                ...classroom, bridge:classroom.bridge.filter((bridges) => bridges.set_id !== action.payload.set_id)
+                            }
+                        }
+                        return classroom
+                    })
+                }
+            } else {
+                return{
+                    classrooms: state.classrooms.map((classroom) => {
                         return {
                             ...classroom, bridge:classroom.bridge.filter((bridges) => bridges.set_id !== action.payload.set_id)
                         }
-                    }
-                    return classroom
-                })
-
+                    })
+                }
             }
             
 

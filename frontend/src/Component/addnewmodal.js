@@ -127,7 +127,7 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in createmodal", state);
+    // console.log("state in createmodal", state);
 
     return {
         history: state.authStore.history,

@@ -10,7 +10,6 @@ export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const LOGOUT_NOW_ACTION = 'LOGOUT_NOW_ACTION';
 
 function loginSuccessActionCreator(email) {
-  console.log("loginSuccessActionCreator")
   return {
     type: LOGIN_SUCCESS_ACTION,
     payload: email
@@ -30,7 +29,7 @@ export function loginUserThunk(email, password) {
       email: email,
       password: password
     }).then(response => {
-      console.log('response from login API', response);
+      console.log(response);
       if (response.data == null) {
         dispatch(loginFailureActionCreator('Unknown Error'));
       } else if (!response.data) {
