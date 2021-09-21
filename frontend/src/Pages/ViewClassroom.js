@@ -36,6 +36,7 @@ class ViewClassroom extends React.Component {
     }
 
     async componentDidMount() {
+        console.log('didmount')
         await this.props.getdata({ email: localStorage.getItem("email") });
     }
 
@@ -45,7 +46,7 @@ class ViewClassroom extends React.Component {
         })
         if(this.state.correctClass[0] !== undefined){
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
-            if(correctProps[0]!== undefined){
+            if(correctProps[0].bridge !== undefined){
                 if(correctProps[0].bridge.length >= 0){
                     let correctSets = correctProps[0].bridge.map((changed) => {
                         const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
@@ -108,7 +109,6 @@ class ViewClassroom extends React.Component {
     }
 
     shareToggle() {
-        console.log('share tog')
         this.setState({
             shareModal: !this.state.shareModal
         })
@@ -130,8 +130,6 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("props in view classroom", this.props);
-        console.log("state of view classroom", this.state);
 
         return (
             <div className="page">

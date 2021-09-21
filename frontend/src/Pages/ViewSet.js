@@ -34,21 +34,18 @@ class ViewSet extends React.Component {
     }
 
     async componentDidMount() {
+        console.log('didmount')
         await this.props.getdata( {email: localStorage.getItem('email')} )
     }
 
     async componentWillReceiveProps(nextProps) {
-        console.log('Receive Props', nextProps)
         await this.setState({
             correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
         })
         // await this.getSet()
         if(this.state.correctSet[0] !== undefined){
-            console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('try flash', correctFlashs)
             if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
-                console.log('correctFlashs[0]', correctFlashs)
                 if(correctFlashs[0].bridge_flashcard.length >= 0){
                     let nextflash = await correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
@@ -66,7 +63,6 @@ class ViewSet extends React.Component {
                 } 
             }
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('try quiz', correctQuizs)
             if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
                 if(correctQuizs[0].bridge_quizcard.length >= 0){
                     let nextquiz = await correctQuizs[0].bridge_quizcard.map((changed) => {
@@ -85,10 +81,8 @@ class ViewSet extends React.Component {
                 }
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('try dict', correctDicts)
             if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
                 if(correctDicts[0].bridge_dictationcard.length >= 0){
-                    console.log("waiting start", correctDicts)
                     let nextdictation = await correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
                     if(newestState[0] !== undefined){
@@ -108,7 +102,6 @@ class ViewSet extends React.Component {
             }
             }
             const correctProps = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('this.state.correctSet[0].tags',correctProps)
             if(correctProps[0] !== undefined){
                 this.setState({
                     correctTag: correctProps[0].tags,
@@ -148,7 +141,6 @@ class ViewSet extends React.Component {
     }
 
     navigateCard(e) {
-        console.log(e.target)
         if (e.target.attributes["data-del"].value === "delete") {
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
@@ -196,7 +188,6 @@ class ViewSet extends React.Component {
     }
 
     getSet() {
-        console.log("this.state in get SET func", this.state);
         this.setState({
             correctTag: this.state.correctSet[0].tags
         })
@@ -235,8 +226,7 @@ class ViewSet extends React.Component {
         }
     }
     render() {
-        console.log("View Set the props", this.props);
-        console.log("View Set the STTTTTATE", this.state);
+       
 
         return (
             <div className="page">

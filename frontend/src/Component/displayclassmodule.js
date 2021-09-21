@@ -17,7 +17,6 @@ class PureDisplayClassModule extends React.Component {
         return (
             <>
                 {this.props.classrooms.map((classroom, i) => {
-                    console.log("classroomclassroomclassroomclassroom", classroom);
                     return (
                         <div key={i} data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
                             <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
@@ -41,7 +40,6 @@ class PureDisplayClassModule extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("STATE IN DISPLAY CLASS", state);
     return {
         email: state.authStore.email,
         user: state.userStore.user,

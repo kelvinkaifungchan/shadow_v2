@@ -66,7 +66,6 @@ class PureNewCommentModal extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in NEW COMMENT MODAL", state);
 
     return {
         user: state.userStore.user,

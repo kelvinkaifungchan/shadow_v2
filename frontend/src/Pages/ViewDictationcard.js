@@ -35,7 +35,6 @@ class ViewDictationcard extends React.Component {
     }
 
     render() {
-        console.log("Props IN VD", this.props);
 
         return (
             <div className="page">

@@ -7,13 +7,9 @@ export const DELETE_SET = "DELETE_SET";
 export const ADD_BRIDGE_CLASSROOM_SET = "ADD_BRIDGE_CLASSROOM_SET";
 
 export const addSet = (set) => async (dispatch) => {
-    console.log("adding set", set)
-    console.log('set in action', set)
     const { data } = await axios.post("http://localhost:8080/api/set", set)
     const newId = data[0]
-    console.log('this is the set post return', newId)
     if (set.classroomId === null || set.classroomId === undefined) {
-        console.log('set.classroom null')
         dispatch({ type: ADD_SET, payload: { id: newId, description: set.desc, title: set.title } });
     } else {
         const bridge = await axios.post("http://localhost:8080/api/bridge", {
@@ -58,7 +54,6 @@ export const addSetBridge = (set) => async (dispatch) => {
         setId: set.setId,
     })
     const newBridge = bridge[0]
-    console.log('addSetBridge MDP bridge', bridge)
     dispatch({
         type: ADD_BRIDGE_CLASSROOM_SET,
         payload: { id: { classroom_id: set.classroomId }, content: { set_id: set.setId, newBridge: newBridge } }
