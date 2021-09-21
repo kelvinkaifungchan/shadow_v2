@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
@@ -10,27 +11,6 @@ import classes from './menu.module.css'
 
 class PureMenu extends React.Component {
 
-    
-    async navigateClass(e){
-        await this.props.history.push({
-            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
-        })
-        this.props.classroom ? this.props.classroom() : console.log("hi")
-    
-    }
-
-    async navigateSet(e){
-        console.log("FUCK ME DADDY SET")
-        await this.props.history.push({
-            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
-        })
-        console.log("CLASSSS", this.props.class)
-        console.log("SETTT", this.props.set)
-       
-        this.props.set ? this.props.set() : console.log("hehe")
-        
-    }
-
     render() {
         return (
             <div className={classes.dropdown}>
@@ -38,13 +18,13 @@ class PureMenu extends React.Component {
                     <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
                     {this.props.classrooms.map((classroom, i) => {
                         return (
-                    <ListGroupItem data-key={classroom.id} onClick={(e)=>{this.navigateClass(e)}} tag="a" action>{classroom.title}</ListGroupItem>
+                    <ListGroupItem data-key={classroom.id} tag="a" action onClick={()=>this.props.toggle()}><Link to={'/viewclassroom/'+classroom.id} >{classroom.title}</Link></ListGroupItem>
                         )
                     })}
                     <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
                     {this.props.sets.map((set, i) => {
                         return (
-                    <ListGroupItem data-key={set.id} tag="a" onClick={(e)=>{this.navigateSet(e)}} action>{set.title}</ListGroupItem>
+                    <ListGroupItem data-key={set.id} tag="a" action onClick={()=>this.props.toggle()}><Link to={'/viewset/'+set.id} >{set.title}</Link></ListGroupItem>
                         )
                     })}
                 </ListGroup>
