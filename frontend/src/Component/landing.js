@@ -37,7 +37,6 @@ class Landing extends React.Component {
                         </div>
                         <CSSTransition
                             key={location.key}
-                            timeout={30000}
                             className="fade">
                             <Switch>
                                 <Route path="/login" component={Login} />
