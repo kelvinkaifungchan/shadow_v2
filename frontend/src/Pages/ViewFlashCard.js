@@ -64,7 +64,7 @@ class ViewFlashCard extends React.Component {
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
-                    correctFeedback:correctProps[0].submission,
+                    correctFeedback: correctProps[0].submission,
                 });
             } else if (this.props.user.role === "student") {
                 const student = correctProps[0].submission.filter(filter => filter.user_id === parseInt(this.props.user.id))
