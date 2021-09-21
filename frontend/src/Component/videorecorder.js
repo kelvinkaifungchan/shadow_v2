@@ -10,7 +10,9 @@ class PureVideoRecorder extends React.Component {
         this.state = {
             show: Boolean(),
             recording: false,
-            preview: ""
+            preview: "",
+            showStart: false,
+            showStop: false,
         };
         this.handleshow = this.handleshow.bind(this);
     }
@@ -54,9 +56,16 @@ class PureVideoRecorder extends React.Component {
                 this.chunks.push(e.data);
             }
         };
+        this.setState({
+            showStart:true
+        })
     }
 
     startRecording(e) {
+        this.setState({
+            showStart: false,
+            showStop: true
+        })
         console.log('startiung')
         e.preventDefault();
         // wipe old data chunks
@@ -64,7 +73,9 @@ class PureVideoRecorder extends React.Component {
         // start recorder with 10ms buffer
         this.mediaRecorder.start(10);
         // say that we're recording
-        this.setState({ recording: true });
+        this.setState({ 
+            recording: true 
+        });
     }
 
     stopRecording(e) {
@@ -81,6 +92,9 @@ class PureVideoRecorder extends React.Component {
                 track.stop()
             }
         })
+        this.setState({
+            showStop: false
+        })
     }
 
     async upload() {
@@ -88,8 +102,6 @@ class PureVideoRecorder extends React.Component {
         const blob = new Blob(this.chunks, {
             type: 'video/webm'
         });
-        let time = new Date()
-        let dt = time.getTime()
         let fileName = uuidv4()
 
         let formData = new FormData();
@@ -120,9 +132,9 @@ class PureVideoRecorder extends React.Component {
                 <div className="p-3 ml-auto mr-auto ">
                     {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
                         className="fas fa-power-off"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                    {show && this.state.showStart ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
                         title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                    {show && this.state.showStop ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
                         title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
                 </div>
             </div>

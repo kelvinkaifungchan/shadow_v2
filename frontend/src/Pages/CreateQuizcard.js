@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import { addCard } from '../Redux/actions/cardAction'
 import { getdataThunk } from '../Redux/actions/action'
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { CreatequizcardQuestion } from '../Component/createquizcardQuestion';
@@ -76,7 +75,6 @@ class CreateQuizcard extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar history={this.props.history}/> */}
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}

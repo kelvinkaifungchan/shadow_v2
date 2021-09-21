@@ -30,8 +30,8 @@ export const deleteTag = (tag) => async (dispatch) => {
     console.log("delete tag")
 
    const { data } = await axios.delete(`http://localhost:8080/api/tag/`, tag)
-   
-   dispatch({type: DELETE_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody}});
+   const deleteData = data[0]
+   dispatch({type: DELETE_TAG, payload: {tagId: tag.tagId, tagBody: tag.tagBody, deleteData: deleteData}});
     
    if (tag.type === "class"){
        dispatch({type: DELETE_TAG_CLASSROOM, payload: {id:{classroom_id: tag.classroomId}, content:{tagId: tag.tagId, tagBody: tag.tagBody}}});
