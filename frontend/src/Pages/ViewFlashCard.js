@@ -17,6 +17,7 @@ import { NewCommentModal } from '../Component/newcommentmodal';
 import { getdataThunk } from '../Redux/actions/action'
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
+import { deleteFeedbackThunk } from '../Redux/actions/feedbackAction'
 
 //CSS
 import classes from './ViewFlashcard.module.css'
@@ -165,7 +166,13 @@ class ViewFlashCard extends React.Component {
     addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
         this.props.addFeedbackThunk(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime)
     }
-    
+    handleDelete(id){
+        console.log("deleting", id)
+        this.props.deleteFeedback({
+            type:"flashcard",
+            feedbackId: id
+        })
+    }
     render() {
         console.log('thisstate',this.state)
         console.log('this props',this.props)
@@ -219,7 +226,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} />}
+                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={()=>{this.handleDelete()}}/>}
                                     </div>
                                 </div>
                             }
@@ -270,6 +277,9 @@ const mapDispatchToProps = dispatch => {
                 timestamp: flashcardFeedbackTime
             }
             dispatch(addFeedbackThunk(feedback))
+        },
+        deleteFeedback: (id) => {
+            dispatch(deleteFeedbackThunk(id))
         }
     }
 }

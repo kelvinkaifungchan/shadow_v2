@@ -26,7 +26,8 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
 }
 
 export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
-    return axios.delete("http://localhost:8080/api/card/submission/feedback", feedback)
+    console.log("fb inn action",feedback)
+    return axios.post("http://localhost:8080/api/card/submission/delfeedback", feedback)
     .then(response => {
         if (feedback.type === "dictationcard") {
             dispatch({
