@@ -152,7 +152,7 @@ class ViewClassroom extends React.Component {
                         {/* share user add button */}
                         <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
-                            <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
                     {/* diaplay Tags */}
@@ -160,7 +160,7 @@ class ViewClassroom extends React.Component {
                         <DisplayClassroomTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
-                            <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
 
@@ -168,14 +168,14 @@ class ViewClassroom extends React.Component {
                     {/* Add button */}
                     <div className="row d-flex m-3">
                         <AddnewPopUp match={this.props.match} correctClass={this.state.correctClass} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
-                        <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
+{                        this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
                             <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist set</span>
                             </div>
-                        </div>
+                        </div> : null}
 
                     <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 

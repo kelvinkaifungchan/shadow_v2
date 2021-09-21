@@ -95,7 +95,7 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                         <h1>My Classroom</h1>
                         <span className={classes.createclassroombtn}>
-                            <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
                         </span>
                     </div>
 
@@ -107,7 +107,7 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
                         <h1>My Set</h1>
                         <span className={classes.createsetbtn}>
-                            <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
                         </span>
                     </div>
 
