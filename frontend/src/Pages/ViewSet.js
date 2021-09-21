@@ -5,7 +5,6 @@ import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { DisplayCardModule } from '../Component/displaycardmodule';
 import { DisplaySetTag } from '../Component/displaysettag'
 
@@ -47,9 +46,11 @@ class ViewSet extends React.Component {
         if(this.state.correctSet[0] !== undefined){
             console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
+            console.log('try flash', correctFlashs)
             if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
-                if( correctFlashs[0].bridge_flashcard.length > 0){
-                    let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
+                console.log('correctFlashs[0]', correctFlashs)
+                if(correctFlashs[0].bridge_flashcard.length >= 0){
+                    let nextflash = await correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
                     });
@@ -57,31 +58,53 @@ class ViewSet extends React.Component {
                         this.setState({
                             correctflashCard: nextflash,
                         });
+                    } else {
+                        this.setState({
+                            correctflashCard: [],
+                        });
+                    }
+                } 
+            }
+            const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
+            console.log('try quiz', correctQuizs)
+            if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
+                if(correctQuizs[0].bridge_quizcard.length >= 0){
+                    let nextquiz = await correctQuizs[0].bridge_quizcard.map((changed) => {
+                        const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
+                        return newestState[0]
+                    });
+                    if(nextquiz[0]!== undefined){
+                        this.setState({
+                            correctquizCard: nextquiz,
+                        });
+                    } else {
+                        this.setState({
+                            correctquizCard: [],
+                        });
                     }
                 }
             }
-            const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctQuizs[0] !== undefined && correctFlashs[0].bridge_quizcard !== undefined) {
-                let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
-                    const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
-                    return newestState[0]
-                });
-                if(nextquiz[0] !== undefined){
-                    this.setState({
-                    correctquizCard: nextquiz,
-                });
-            }
-            }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if (correctDicts[0] !== undefined && correctFlashs[0].bridge_dictationcard !== undefined) {
-                let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
+            console.log('try dict', correctDicts)
+            if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
+                if(correctDicts[0].bridge_dictationcard.length >= 0){
+                    console.log("waiting start", correctDicts)
+                    let nextdictation = await correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
-                    return newestState[0]
-                });
-                if(nextdictation[0] !== undefined){
-                    this.setState({
-                    correctdictationCard: nextdictation,
-                });
+                    if(newestState[0] !== undefined){
+                        return newestState[0]
+                    }
+                    return false
+                    });
+                    if(nextdictation[0]!== undefined){
+                        this.setState({
+                            correctdictationCard: nextdictation,
+                        });
+                    } else {
+                        this.setState({
+                            correctdictationCard: []
+                        })
+                    }
             }
             }
             const correctProps = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
@@ -125,9 +148,10 @@ class ViewSet extends React.Component {
     }
 
     navigateCard(e) {
-        if (e.target.attributes["data-type"].value === "flashcard") {
-            console.log('nav card func props', this.props.cards.flashcard)
-            console.log('nav card func value', e.target.attributes["data-key"].value)
+        console.log(e.target)
+        if (e.target.attributes["data-del"].value === "delete") {
+            return
+        } else if (e.target.attributes["data-type"].value === "flashcard") {
             this.props.history.push({
                 pathname: `/viewflashcard/${e.target.attributes["data-key"].value}`
             })
@@ -138,10 +162,8 @@ class ViewSet extends React.Component {
         } else if (e.target.attributes["data-type"].value === "dictationcard") {
             this.props.history.push({
                 pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
-
             })
         }
-
     }
     navigateNewFlashcard(e) {
         this.props.history.push({
@@ -217,11 +239,9 @@ class ViewSet extends React.Component {
         console.log("View Set the STTTTTATE", this.state);
 
         return (
-            <div>
-                <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} />
-
+            <div className="page">
                 <div className={classes.viewset}>
-                    <div classNmae="row d-flex p-4">
+                    <div className="row d-flex p-4">
                         <div className="col-8">
                             <h1>{this.state.correctSet.length > 0 ? this.state.correctSet[0].title : null}</h1>
                             <h6>{this.state.correctSet.length > 0 ? this.state.correctSet[0].description : null}</h6>
@@ -230,11 +250,10 @@ class ViewSet extends React.Component {
 
 
                     <div className="row d-flex pl-4 pr-4 m-2">
-
                         <DisplaySetTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
-                            <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
 
@@ -248,16 +267,16 @@ class ViewSet extends React.Component {
                         navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
                         toggle={() => this.toggle()} />
                         
-                        <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
+{                       this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
                             <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist card</span>
                             </div>
-                        </div>
+                        </div> : null}
 
-                        <DisplayCardModule view={this.state} 
+                        <DisplayCardModule view={this.state} match={this.props.match}
                         correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                     </div>
                 </div>

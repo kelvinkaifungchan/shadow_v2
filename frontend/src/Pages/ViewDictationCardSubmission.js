@@ -4,12 +4,9 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
-import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
 import classes from './ViewDictationCardSubmission.module.css'
@@ -59,31 +56,32 @@ class ViewDictationcardSubmission extends React.Component {
         console.log("i want to see the state in DICTATION SUBMISSION",this.state);
 
         return (
-            <div>
-                <NavBar/>
+            <div className="page">
 
                     <div className={classes.viewdictationcardsubmission}>
                         {/* 1st row: Header */}
                         <div className="row d-flex p-4">
                             <div className="col-8">
-                                {/* <h1>{this.correctProps[0].dictationcardTitle}</h1> */}
+                                <h1>{this.state.correctDictationcard.length > 0 && this.state.correctDictationcard[0].dictationcardTitle}</h1>
                             </div>
                         </div>
+                            {/* <table>
+                                <th><br></br></th>
+                                {this.state.correctDictationcard &&
+                                    this.state.correctDictationcardQuizcard[0].questions.length > 0
+                                    ? this.state.correctDictationcard[0].questions.map((question, i) => {
+                                        return(
+                                            <tr data-key={i}>
+                                                <th>Question {question.id}</th>
+                                                <td>Question body {question.dictationBody}</td>
+                                                </tr>
+                                        )
+                                    }) : null}
+                                </table> */}
 
                         <div className="row d-flex p-4">
                             <div className="col">
-                            {/* <table>
-                            <th></th>
-                            {this.props.location.state.dictationcard && 
-                            this.props.location.state.dictationcard.submissionlength > 0 
-                            ? this.props.location.state.dictationcard.map((question, i) => {
-                                return (
-                                    <th>Question {question.id}</th>
-                                )
-                            }) : null
-                            }
 
-                            </table> */}
                         </div>
 
 

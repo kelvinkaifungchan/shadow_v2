@@ -10,8 +10,6 @@ import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
 import MediaQuery from 'react-responsive'
 
-import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
 import { Canvas } from '../Component/canvas'
@@ -35,11 +33,11 @@ class ViewDictationQuestion extends React.Component {
         console.log("props in VDQ",this.props);
 
         return (
-            <div >
+
+            <div className="page" >
             <MediaQuery minWidth={1050}>
             <div  className="row" style={this.bg}>
-            <div  className="col col-8">
-                <NavBar history={this.props.history}/>
+            <div  className="col col-8">               
                 </div>
                 <div className="col col-4">
                 <Link to="/account">Account</Link>

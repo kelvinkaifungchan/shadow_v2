@@ -10,7 +10,9 @@ export const addVideoRecordingThunk = (formData) => async (dispatch) => {
 }
 
 export const addAudioRecordingThunk = (recording) => async (dispatch) => {
+
     return axios.post("http://localhost:8080/api/upload/audio", recording, {headers: {'Content-Type': 'multipart/form-data' }})
+
     .then(response => {
         console.log(response)
     })

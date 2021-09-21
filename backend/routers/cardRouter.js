@@ -12,7 +12,7 @@ class CardRouter {
 
         router.post("/", this.post.bind(this))
         router.put("/", this.put.bind(this))
-        router.delete("/", this.delete.bind(this))
+        router.post("/delete", this.delete.bind(this))
         router.post("/submission", this.postSubmission.bind(this))
         router.delete("/submission", this.deleteSubmission.bind(this))
         router.post("/submission/feedback", this.postFeedback.bind(this))
@@ -53,10 +53,6 @@ class CardRouter {
         console.log("Requesting deleting card")
         return this.cardService
             .delete(req.body)
-            .then(() => {
-                return this.cardService
-                .card(req.body)
-            })
             .then((data) => {
                 return res.json(data)
             })
@@ -67,6 +63,8 @@ class CardRouter {
 
     postSubmission(req, res) {
         console.log("Requesting adding a submission")
+        console.log("::::::::::",req.body);
+
         let body = req.body;
         return this.submissionService
             .add(body)
@@ -74,14 +72,15 @@ class CardRouter {
                 console.log("card ID >>", data[0])
                 if(body.type === "flashcard"){body.flashcardSubmissionId = data[0]} ;
                 if(body.type === "dictation"){body.dictationSubmissionId = data[0]};
-                if(body.type === "multipleChoice"){body.multipleChoiceSubmissionId = data[0]};
-                if(body.type === "trueFalse"){body.trueFalseSubmissionId = data[0]};
+                if(body.type === "quizcard"){body.quizcardSubmissionId = data[0]};
             })
             .then(() => {
+                console.log('hold up')
                 return this.submissionService
                 .submission(body)
             })
             .then((data) => {
+                console.log(data,"<><><><>data in json");
                 return res.json(data)
             })
             .catch((err) => {

@@ -47,9 +47,11 @@ class SetRouter {
         return this.setService
             .delete(req.body)
             .then((data) => {
+                console.log("after delete set")
                  res.json(data)
             })
             .catch((err) => {
+                console.log(err)
                 return res.status(500).json(err)
             })
     }

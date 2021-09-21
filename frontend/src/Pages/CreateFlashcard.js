@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { addCard } from '../Redux/actions/cardAction'
 import { getdataThunk } from '../Redux/actions/action'
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { Transcript } from '../Component/transcript';
@@ -72,8 +71,7 @@ class CreateFlashcard extends React.Component {
         console.log("this.state in create flash card",this.state);
 
         return (
-            <div>
-                <NavBar history={this.props.history}/>
+            <div className="page">
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}

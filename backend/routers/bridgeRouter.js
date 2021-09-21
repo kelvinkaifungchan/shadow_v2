@@ -9,7 +9,7 @@ class BridgeRouter {
     router() {
         let router = express.Router();
         router.post("/", this.post.bind(this))
-        router.delete("/", this.delete.bind(this))
+        router.post("/delete", this.delete.bind(this))
         return router
     }
 

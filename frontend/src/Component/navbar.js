@@ -19,7 +19,6 @@ class PureNavBar extends React.Component {
         };
     }
     toggle() {
-        console.log('t')
         this.setState({
             modal: !this.state.modal,
         });
@@ -29,12 +28,12 @@ class PureNavBar extends React.Component {
         this.props.getdata({ email: this.props.user.email })
     }
 
-    navigateAccount(e){
-        this.props.history.push({
-            pathname:`/account`,
-            state: { user: this.props.user}
-        })
-    }
+    // navigateAccount(e){
+    //     this.props.history.push({
+    //         pathname:`/account`,
+    //         // state: { user: this.props.user}
+    //     })
+    // }
 
     logout = (e) => {
         e.preventDefault();
@@ -42,14 +41,14 @@ class PureNavBar extends React.Component {
     }
     
     render() {
-
-        const { modal } = this.state
+        console.log('nav props', this.props)
+        console.log('nav state', this.state)
         return (
             <div className={classes.header}>
                     <ul className={classes.menu}>
                         <li>
                             <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
-                            {modal ?  this.props.classroom ? <Menu classroom={() => this.props.classroom()} history={this.props.history}/> : this.props.set  ? <Menu set={() => this.props.set()} history={this.props.history}/>: <Menu  history={this.props.history}/> : null}
+                            {this.state.modal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.toggle()}/> : null}
                         </li>
                         <li>
                             <Link to='/' className={classes.logo}>shadow</Link>
@@ -58,11 +57,9 @@ class PureNavBar extends React.Component {
                             <button><i className="fas fa-search"></i></button>
                         </li>
                         <li className={classes.right}> 
-                            <button onClick={(e) => this.navigateAccount(e)} className={classes.icon}><img src={this.props.user.picture} alt="Avatar"></img></button>
+                            <button  className={classes.icon}><Link to="/account"><img src={this.props.user.picture} alt="Avatar"></img></Link></button>
                         </li>
                     </ul>
-
-
             </div>
         );
     }

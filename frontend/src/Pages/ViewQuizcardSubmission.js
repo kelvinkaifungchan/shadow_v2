@@ -4,13 +4,9 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
-import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
 import classes from './ViewQuizcardSubmission.module.css'
@@ -27,6 +23,7 @@ class ViewQuizcardSubmission extends React.Component {
             submissionId: "",
             correctSubmission:[],
             correctQuizcard: [],
+            submissionArray:[]
         }
     }
 
@@ -64,117 +61,61 @@ class ViewQuizcardSubmission extends React.Component {
         console.log("i want to see the props in VIEW QUIZCARD SUBMISSION",this.props);
         console.log("i want to see the STATES in VIEW QUIZCARD SUBMISSION",this.state);
 
-        return (
-            <div>
-                <NavBar/>
 
+        return (
+            <div className="page">
                     <div className={classes.viewquizcardsubmission}>
                         {/* 1st row: Header */}
                         <div className="row d-flex p-4">
                             <div className="col-8">
-                                <h1>{this.state.correctQuizcard.quizcardTitle}</h1>
+                                <h1>{this.state.correctQuizcard.length > 0 && this.state.correctQuizcard[0].quizcardTitle}</h1>
                             </div>
                         </div>
 
                         <div className="row d-flex p-4">
                             <div className="col">
-                            <table>
-
-                        {/* First row of question number */}
-                        <tr>
-                            <th></th>
-                            {this.state.correctQuizcard[0] &&
-                                this.state.correctQuizcard[0].question.length > 0 
-                                ? this.state.correctQuizcard[0].question.map((question, i) => {
-                                    return (
-                                        <th data-key={i}>Question {question.id}</th>
+                                <table>
+                                    <tr>
+                                        <th><br></br></th>
+                                        <th>Correct Answer</th>
+                                        {this.state.correctQuizcard[0] &&
+                                            this.state.correctQuizcard[0].question.length > 0 
+                                            ? this.state.correctQuizcard[0].question[0].submission.map((submission, i) => {
+                                                return (
+                                        <th data-key={i}>{submission.displayName}</th>
                                     )
                                 }) : null
                         } 
-                        </tr>
+                                        </tr>
 
-                        {/* Second row of correct answer */}
-                        <tr> 
-                            <th>Correct Answer</th>
-                            {this.state.correctQuizcard[0] &&
-                                this.state.correctQuizcard[0].question.length > 0 
-                                ? this.state.correctQuizcard[0].question.map((question, i) => {
-                                    return (
-                                        <td data-key={i}>{question.questionType === "multipleChoice" 
-                                        ? question.multipleChoiceAnswer 
-                                            : question.trueFalseAnswer 
-                                            ? "Ture" : "False" } </td>
+                                        {this.state.correctQuizcard[0] &&
+                                            this.state.correctQuizcard[0].question.length > 0 
+                                            ? this.state.correctQuizcard[0].question.map((question, i) => {
+                                                return (
+                                        <tr data-key={i}>
+                                            <th>Question {question.id}</th>
+                                            <td>{question.questionType === "multipleChoice" 
+                                                    ? question.multipleChoiceAnswer :
+                                                    question.questionType === "trueFalse" 
+                                                    ? question.trueFalseAnswer : null }</td>
+                                                
+                                            {question.submission.map((sub, index) => {
+                                                return <td style={{
+                                                background: 
+                                                // question.questionType === "multipleChoice" 
+                                                     sub.quizcardQuestionSubmission === question.multipleChoiceAnswer ||  sub.quizcardQuestionSubmission === question.trueFalseAnswer
+                                                        ? "#F4FFB4" : "#FCDDEC"}} >
+                                                    {sub.quizcardQuestionSubmission}
+                                                </td>
+                                            })}
+                                            </tr>
                                     )
                                 }) : null
                         } 
-                        </tr>
 
 
-                        {/* Third row of submission answer */}
-                        {this.state.correctQuizcard[0] && 
-                            this.state.correctQuizcard[0].question[0].submission.length > 0
-                            ? this.state.correctQuizcard[0].question[0].submission.map((submission,i) => {
-                                return (
-                                    <tr data-key={i}>
-                                        <th>{submission.displayName}</th>
-                                    </tr>
-                                )
-                            }) : null
-                        }
-
-                        
-
-                        
-
-                        {/* Correct Answer Row */}
-                        {/* <tr>
-                            <th>Correct Answer</th>
-                        {this.props.location.state.quizcard && 
-                            this.props.location.state.quizcard.multipleChoice.length > 0 
-                            ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
-                            return (
-                                
-                                <td data-key={i} className={classes.correctAnswer}>
-                                    {question.multipleChoiceAnswer}
-                                </td>
-
-                            )
-                        }) : null
-                        }
-                        </tr> */}
-
-                        {/* Submission Answer Row */}
-                        {/* {
-                        this.props.location.state.quizcard.multipleChoice[0].submission.length > 0
-                        ? this.props.location.state.quizcard.multipleChoice[0].submission.map((submission, i) => {
-                            return (
-                                <tr data-key={i} className={classes.submission}>
-                                    <th>Student {submission.user_id}</th>
-                                    <td style={{background: submission.multipleChoiceMarking ? "#F4FFB4" : "#FCDDEC"}}>{submission.multipleChoiceSubmission}</td>
-                                    </tr>
-                            )
-                        }) : null} */}
-
-                        {/* <tr>
-                            <th>{this.props.location.state.quizcard.multipleChoice[0].submission[0].user_id}</th>
-                        {this.props.location.state.quizcard && 
-                            this.props.location.state.quizcard.multipleChoice.length > 0 
-                            ? this.props.location.state.quizcard.multipleChoice.map((question, i) => {
-                            return (
-                                
-                                <td data-key={i} className={classes.correctAnswer}>
-                                    {question.multipleChoiceAnswer}
-                                </td>
-
-                            )
-                        }) : null
-                        }
-                        </tr> */}
-                        </table>
-                        </div>
-
-
-
+                                </table>
+                            </div>
                         </div>
                     </div>
 

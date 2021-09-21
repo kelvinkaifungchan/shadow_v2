@@ -10,6 +10,9 @@
     border-radius: 4px;
 }
 
+.transcriptframe h5{
+    display: flex;
+}
 textarea:disabled{
     background-color: #FFFFFF;
 }

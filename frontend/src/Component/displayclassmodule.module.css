@@ -1,7 +1,7 @@
 .classroom{
-    width: 28vw;
+    width: 30%;
     height: 20vh;
-    margin: 20px;
+    margin: 5px 20px;
     /* border: 1px solid #B6B6B6; */
     border-radius: 25px;
     background-color: #1B85C4;
@@ -40,8 +40,6 @@
     float: right;
     margin-right: 5px; 
     color: #FFFFFF;
-    position: relative;
-    z-index: 9999;
 }
 
 .deletebtn:hover{

@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import { addCard } from '../Redux/actions/cardAction'
 import { getdataThunk } from '../Redux/actions/action'
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { CreatequizcardQuestion } from '../Component/createquizcardQuestion';
@@ -53,11 +52,11 @@ class CreateQuizcard extends React.Component {
     }
     addQuestion(e, question){
         e.preventDefault()
-        if(question.questionType === 'multipleChoice' && question.questionBody !== "" && question.multipleChoiceAnswer !== "" && question.questionTime !== ""){
+        if(question.questionType === 'multipleChoice' && question.questionBody !== "" && question.multipleChoiceAnswer !== ""){
             this.setState({
                 quizcardQuestion: this.state.quizcardQuestion.concat(question)
             })
-        } else if(question.questionType === 'trueFalse' && question.questionBody !== "" && question.trueFalseAnswer !== "" && question.questionTime !== ""){
+        } else if(question.questionType === 'trueFalse' && question.questionBody !== "" && question.trueFalseAnswer !== ""){
             this.setState({
                 quizcardQuestion: this.state.quizcardQuestion.concat(question)
             })
@@ -75,8 +74,7 @@ class CreateQuizcard extends React.Component {
         console.log('state in create quizcard',this.state);
 
         return (
-            <div>
-                <NavBar history={this.props.history}/>
+            <div className="page">
                 {/* Page Container */}
                 <div className={classes.createflashcard}>
                     {/* Header Row */}

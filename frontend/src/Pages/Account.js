@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
-import { NavBar } from '../Component/navbar';
-import { iconModal } from '../Component/iconmodal';
-
 import classes from './Account.module.css'
 
 class Account extends React.Component {
@@ -51,9 +48,9 @@ class Account extends React.Component {
     render() {  
 
         return (
-            <div>
+            <div className="page">
             {/* Navbar */}
-                <NavBar history={this.props.history}/>
+                {/* <NavBar history={this.props.history}/> */}
             <div className={classes.account}>
 
                 <div className="row p-4">

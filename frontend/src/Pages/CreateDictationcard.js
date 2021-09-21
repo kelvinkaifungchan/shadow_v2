@@ -1,13 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import { Link } from 'react-router-dom';
-
 // Require Action
 import { addCard } from '../Redux/actions/cardAction'
 import { getdataThunk } from '../Redux/actions/action'
 
-import { NavBar } from '../Component/navbar';
 import { HeadingInput } from '../Component/headinginput';
 // import FormSubmit from '../Component/formSubmit';
 // import DictationQuestionsCreate from '../Component/DictationQuestionsCreate';
@@ -84,8 +81,7 @@ class CreateDictationcard extends React.Component {
 
         return (
             
-        <div>
-                <NavBar history={this.props.history}/>
+        <div className="page">
                 {/* Page Container */}
                 <div className={classes.createdictationcard}>
                     {/* Header Row */}
