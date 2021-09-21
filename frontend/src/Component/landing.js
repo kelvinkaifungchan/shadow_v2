@@ -33,7 +33,7 @@ class Landing extends React.Component {
                 <Route render={({ location }) => (
                     <TransitionGroup>
                         <div className="nav">
-                            {location.pathname != '/login' && location.pathname != '/signup' && <NavBar history={this.props.history} />}
+                            {location.pathname !== '/login' && location.pathname !== '/signup' && <NavBar history={this.props.history} />}
                         </div>
                         <CSSTransition
                             key={location.key}

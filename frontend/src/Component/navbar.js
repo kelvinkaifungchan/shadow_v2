@@ -24,9 +24,9 @@ class PureNavBar extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this.props.getdata({ email: this.props.user.email })
-    }
+    // componentDidMount() {
+    //     this.props.getdata({ email: this.props.user.email })
+    // }
 
 
     logout = (e) => {
