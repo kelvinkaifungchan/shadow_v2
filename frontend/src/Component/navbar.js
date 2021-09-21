@@ -24,11 +24,6 @@ class PureNavBar extends React.Component {
         });
     }
 
-    // componentDidMount() {
-    //     this.props.getdata({ email: this.props.user.email })
-    // }
-
-
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
@@ -59,7 +54,6 @@ class PureNavBar extends React.Component {
 
 
 const mapStateToProps = (state) => {
-                    // console.log("state in dashboard", state);
 
     return {
         user: state.userStore.user,

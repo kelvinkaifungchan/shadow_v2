@@ -37,16 +37,6 @@ class ViewQuizcardSubmission extends React.Component {
                 correctQuizcard: this.props.cards.quizcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.quizcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            console.log("THIS IS THE CORRECT PROPS in View Quizcard Submission", correctProps)
-
-            // const correctSub = this.state.correctQuizcard[0] && 
-            //     this.state.correctQuizcard[0].question.length > 0
-            //     ? this.state.correctQuizcard[0].question.map((question,i) => {
-            //         return (
-            //             question.submission.filter(sub => sub.user_id === question)
-            //         )
-            //     }) : null
-            
             this.setState({
                 correctSubmission: correctProps[0].submission,
             });
@@ -58,8 +48,6 @@ class ViewQuizcardSubmission extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log("i want to see the props in VIEW QUIZCARD SUBMISSION",this.props);
-        console.log("i want to see the STATES in VIEW QUIZCARD SUBMISSION",this.state);
 
 
         return (

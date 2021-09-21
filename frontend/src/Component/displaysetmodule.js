@@ -13,7 +13,6 @@ import classes from './displaysetmodule.module.css'
 class PureDisplaySetModule extends React.Component {
 
     addSetConnect(e) {
-        console.log('addSetConnect')
         this.props.addBridge({
             type: "classroom_set",
             classroomId: this.props.match.params.id,
@@ -27,8 +26,8 @@ class PureDisplaySetModule extends React.Component {
         })
         this.deleteBridge(setId)
     }
-    deleteBridge(setId){
-        if(this.props.dash === "dashSet"){
+    deleteBridge(setId) {
+        if (this.props.dash === "dashSet") {
             this.props.deleteBridge({
                 type: "classroom_set",
                 setId: setId
@@ -42,12 +41,10 @@ class PureDisplaySetModule extends React.Component {
         }
     }
     render() {
-        console.log("props in display set module", this.props);
         return (
             <>  
                     {/* add Exist */}
                 { this.props.display === "3" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
-                    console.log('display first set moduel')
                     return (
                         <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.addSetConnect(e); this.props.toggle() }}>
                             <h4 data-key={set.id}>{set.title}</h4>
@@ -56,7 +53,6 @@ class PureDisplaySetModule extends React.Component {
                     )
                     // view set
                 }) : this.props.correctSets && this.props.correctSets.length > 0 && this.props.correctSets[0] !== undefined ? this.props.correctSets.map((set, i) => {
-                    console.log('correct sets', set)
                     return (
                         <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
                             <h4 data-key={set.id}>{set.title}</h4>

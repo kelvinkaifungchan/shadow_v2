@@ -50,8 +50,6 @@ class PureModel extends React.Component {
 
 
     render() {
-        // console.log("this.props in ANM", this.props);
-        // console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
         let button
@@ -127,7 +125,6 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log("state in createmodal", state);
 
     return {
         history: state.authStore.history,

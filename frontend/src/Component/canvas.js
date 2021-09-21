@@ -154,7 +154,6 @@ clearcanvas() {
 }
 
 submit(){
-    console.log("HELLO")
     var canvas = document.querySelector('#board');
     var base64ImageData = canvas.toDataURL("image/png");
     //console.log(base64ImageData)

@@ -5,13 +5,11 @@ class FeedbackService {
 
     //Method to add feedback
     async add(body) {
-        console.log("BODY INSIDE FEEDBACK SERVICE",body);
         if (body.type === "flashcard") {
             console.log("Adding feedback to flashcard")
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-        console.log(" I AM <><> INSIDE FEEDBACK SERVICE");
 
             return this.knex
             .insert({

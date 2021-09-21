@@ -87,7 +87,6 @@ class PureLoginBox extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("this is state;", state);
     return {
         isAuthenticatedMSP: state.authStore.isAuthenticated
     }

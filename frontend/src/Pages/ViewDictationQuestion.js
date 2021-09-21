@@ -30,7 +30,6 @@ class ViewDictationQuestion extends React.Component {
     }
 
     render() {
-        console.log("props in VDQ",this.props);
 
         return (
 

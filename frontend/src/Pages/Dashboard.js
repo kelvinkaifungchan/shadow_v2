@@ -65,7 +65,6 @@ class PureDashboard extends React.Component {
     }}
     navigateCard(e) {
         if (e.target.attributes["data-del"].value === "delete") {
-            console.log('card')
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
             this.props.history.push({
@@ -85,7 +84,6 @@ class PureDashboard extends React.Component {
     }
 
     render() {
-        // console.log('props in dashboard', this.props)
         return (
             <div className="page">
                 
@@ -133,7 +131,6 @@ class PureDashboard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in dashboard?", state);
 
     return {
         email: state.authStore.email,

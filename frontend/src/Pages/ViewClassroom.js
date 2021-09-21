@@ -109,7 +109,6 @@ class ViewClassroom extends React.Component {
     }
 
     shareToggle() {
-        console.log('share tog')
         this.setState({
             shareModal: !this.state.shareModal
         })
@@ -131,8 +130,6 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("props in view classroom", this.props);
-        console.log("state of view classroom", this.state);
 
         return (
             <div className="page">

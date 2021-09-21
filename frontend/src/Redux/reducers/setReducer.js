@@ -25,7 +25,6 @@ export function setReducer(state = initialState, action){
                 isAuthenticated: false
               };
         case ADD_SET:
-            console.log('adding sets reducer')
             return {
                 sets: [...state.sets, action.payload]
             };
@@ -64,8 +63,6 @@ export function setReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_SET_FLASHCARD:
-            console.log('ADD_BRIDGE_SET_FLASHCARD')
-            console.log('ADD_BRIDGE action.payload',action.payload)
                 return {
                     sets: state.sets.map((set) => {
                         if(action.payload.id.set_id === set.id){

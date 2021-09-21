@@ -36,7 +36,6 @@ class ViewDictationcardSubmission extends React.Component {
                 correctDictationcard: this.props.cards.dictationcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            console.log("THIS IS THE CORRECT PROPS in View DictationCard Submission", correctProps)
 
             // const correctSub = this.state.correctQuizcard[0] && 
             //     this.state.correctQuizcard[0].question.length > 0
@@ -52,8 +51,6 @@ class ViewDictationcardSubmission extends React.Component {
         }
     }
     render() {
-        console.log("i want to see the props in DICTATION SUBMISSION",this.props);
-        console.log("i want to see the state in DICTATION SUBMISSION",this.state);
 
         return (
             <div className="page">

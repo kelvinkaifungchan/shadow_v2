@@ -94,7 +94,6 @@ function signUpFailure(message) {
 export const signUpThunk = (email, password, displayName, role) => {
   return function (dispatch) {
     dispatch(signUpRequest());
-    console.log("email, password, displayName, role", email, password, displayName, role);
     return axios.post(`${process.env.REACT_APP_API_SERVER}/api/auth/signup`, {
       email: email,
       password: password,

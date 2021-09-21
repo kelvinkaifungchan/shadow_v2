@@ -61,7 +61,6 @@ class CreateDictationcard extends React.Component {
           this._inputElement.value = "";
         }
          
-        console.log(this.state.items);
            
         e.preventDefault();
       }
@@ -77,7 +76,6 @@ class CreateDictationcard extends React.Component {
       }
       
     render() {
-        console.log("i want to see the props",this.props);
 
         return (
             
@@ -130,7 +128,6 @@ class CreateDictationcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in CREATE DICTATION", state);
 
     return {
         email: state.authStore.email,

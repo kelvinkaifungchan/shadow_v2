@@ -8,7 +8,6 @@ const QRCode = require('qrcode.react');
 
 class PureQRModal extends React.Component {
     render() {
-        console.log("PROPS IN SCM", this.props);
         let link = `https://localhost:3000/viewdictationQuestion/${this.props.pageId}`
         return (
             <div>

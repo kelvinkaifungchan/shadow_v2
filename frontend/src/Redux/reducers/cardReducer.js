@@ -129,7 +129,6 @@ export function cardReducer(state = initialState, action) {
                 }
             };
         case DELETE_FLASHCARD:
-            console.log('del flash actino in reducer', action.payload)
             return {
                 card: {
                     ...state.card,
