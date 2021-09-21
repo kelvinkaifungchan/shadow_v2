@@ -60,12 +60,13 @@ class ViewFlashCard extends React.Component {
     componentWillReceiveProps(nextProps) {
         if(this.props.cards.flashcard.length > 0 ){
             this.setState({
-                correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
+                correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id)),
+                transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
             this.setState({
                 correctSubmission: correctProps[0].submission,
-                correctFeedback:correctProps[0].submission
+                correctFeedback:correctProps[0].submission,
             });
         }
     }
@@ -148,7 +149,6 @@ class ViewFlashCard extends React.Component {
                     }
                     const timeStamp = (m + ':' + s)
                     // this.props.time(timeStamp)
-                    console.log("this is inside the player", timeStamp)
         this.setState({
             timeStamp: timeStamp
         })
@@ -163,11 +163,10 @@ class ViewFlashCard extends React.Component {
         console.log("see the props IN VFC", this.props);
         console.log("the state IN VFC!!!!STATE", this.state);
         return (
-            <div>
-                <NavBar user={this.props.user} history={this.props.history}/>
+            <div className="page">
+                {/* <NavBar user={this.props.user} history={this.props.history}/> */}
 
                 <div className={classes.viewflashcard}>
-
                     {/* 1st row: Header */}
                     <div className="col-8">
                         <h1>{this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardTitle : null}</h1>
@@ -184,7 +183,7 @@ class ViewFlashCard extends React.Component {
                     </div>
 
                     {/* 3rd row: Submission & Feedback & VideoRecorder / VideoPlayer */}
-                    <div className="row d-flex p-4">
+                    <div className="row d-flex pt-1 pb-1 pl-4 pr-4">
                         <div className="col-6">
                             {/* <div className="flex-col d-flex"> */}
                             <div className={classes.submissions}>
@@ -216,7 +215,6 @@ class ViewFlashCard extends React.Component {
                                             </div>
                                         </div>
                                         {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} />}
-
                                     </div>
                                 </div>
                             }

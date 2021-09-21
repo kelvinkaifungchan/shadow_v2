@@ -218,9 +218,8 @@ class ViewSet extends React.Component {
         console.log("View Set the STTTTTATE", this.state);
 
         return (
-            <div>
-                <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} />
-
+            <div className="page">
+                {/* <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} /> */}
                 <div className={classes.viewset}>
                     <div classNmae="row d-flex p-4">
                         <div className="col-8">
@@ -231,7 +230,6 @@ class ViewSet extends React.Component {
 
 
                     <div className="row d-flex pl-4 pr-4 m-2">
-
                         <DisplaySetTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">

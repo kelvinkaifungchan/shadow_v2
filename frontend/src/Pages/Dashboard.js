@@ -80,16 +80,18 @@ class PureDashboard extends React.Component {
             this.props.history.push({
                 pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
             })
+        } else {
+            return
         }
     }
 
     render() {
         console.log('props in dashboard', this.props)
         return (
-            <div >
-                <NavBar user={this.props.user} history={this.props.history} />
-                <CreatePopUp create={this.state} toggle={() => this.toggle()} />
-
+            <div className="page">
+                {/* <NavBar  user={this.props.user} history={this.props.history}/> */}
+                <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
+                
                 <div className={classes.dashboard}>
 
                     <div className="row d-flex p-2">
@@ -120,7 +122,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayCardModule dash={this.state.dashSet} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
+                        <DisplayCardModule dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}

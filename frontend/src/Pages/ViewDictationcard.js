@@ -27,7 +27,7 @@ class ViewDictationcard extends React.Component {
 
     navigateSubmission(e){
         this.props.history.push({
-            pathname:`/viewDictationCardSubmission/${e.target.attributes["data-key"].value}`,
+            pathname:`/viewdictationCardSubmission/${this.props.match.params.id}`,
             // state: { dictationcard: this.props.location.state.card[0]}
         })
     }
@@ -42,10 +42,10 @@ class ViewDictationcard extends React.Component {
         console.log("Props IN VD", this.props);
 
         return (
-            <div>
+            <div className="page">
                 
-                <NavBar user={this.props.user} history={this.props.history} />
-                <QRModal pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+                {/* <NavBar user={this.props.user} history={this.props.history} /> */}
+                <QRModal modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
