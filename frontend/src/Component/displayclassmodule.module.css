@@ -40,8 +40,6 @@
     float: right;
     margin-right: 5px; 
     color: #FFFFFF;
-    position: relative;
-    z-index: 9999;
 }
 
 .deletebtn:hover{
