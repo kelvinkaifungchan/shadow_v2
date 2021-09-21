@@ -47,8 +47,9 @@ class ViewSet extends React.Component {
             console.log("nextpropsss", nextProps);
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             console.log('try flash', correctFlashs)
-            if (correctFlashs[0] !== undefined) {
-                if( correctFlashs[0].bridge_flashcard.length >= 0){
+            if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
+                console.log('correctFlashs[0]', correctFlashs)
+                if(correctFlashs[0].bridge_flashcard.length >= 0){
                     let nextflash = await correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
@@ -67,7 +68,7 @@ class ViewSet extends React.Component {
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             console.log('try quiz', correctQuizs)
             if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
-                if( correctQuizs[0].bridge_quizcard.length >= 0){
+                if(correctQuizs[0].bridge_quizcard.length >= 0){
                     let nextquiz = await correctQuizs[0].bridge_quizcard.map((changed) => {
                         const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
                         return newestState[0]
@@ -86,7 +87,7 @@ class ViewSet extends React.Component {
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             console.log('try dict', correctDicts)
             if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
-                if( correctDicts[0].bridge_dictationcard.length >= 0){
+                if(correctDicts[0].bridge_dictationcard.length >= 0){
                     console.log("waiting start", correctDicts)
                     let nextdictation = await correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
