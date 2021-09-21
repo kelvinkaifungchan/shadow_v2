@@ -234,7 +234,7 @@ class ViewSet extends React.Component {
                         <DisplaySetTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
-                            <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
 
@@ -248,14 +248,14 @@ class ViewSet extends React.Component {
                         navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
                         toggle={() => this.toggle()} />
                         
-                        <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
+{                       this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
                             <div className="m-2 p-4 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist card</span>
                             </div>
-                        </div>
+                        </div> : null}
 
                         <DisplayCardModule view={this.state} 
                         correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
