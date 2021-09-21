@@ -61,16 +61,17 @@ class ViewFlashCard extends React.Component {
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            console.log( "<><><><><><><>HERE U ARE",correctProps);
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
-                    correctFeedback:correctProps[0].submission,
+                    correctFeedback:correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
                 });
             } else if (this.props.user.role === "student") {
                 const student = correctProps[0].submission.filter(filter => filter.user_id === parseInt(this.props.user.id))
                 this.setState({
                     correctSubmission: student,
-                    correctFeedback:correctProps[0].submission,
+                    correctFeedback:correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId)
                 });
             }
 
