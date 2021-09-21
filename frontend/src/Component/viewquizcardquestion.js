@@ -8,6 +8,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
         super(props)
         this.state = {
             type: 'mc',
+            border: ""
         }
     }
 
@@ -20,9 +21,18 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
     }
 
-    handleAnswerOptionClick(questionId, submission) {
-        this.props.handleSubmission(questionId, submission)
+    handleCorrect(e, marking){
+        if (marking){
+            this.setState({
+                border: "3px solid ##2F922"
+              })
+        }else{
+            this.setState({
+                border: "3px solid #FF3333"
+              })
+        }
     }
+
 
 
 
@@ -45,7 +55,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                         )
                                     } else {
                                         return (
-                                            <span key={i} onClick={() => { this.onClickShowQuestionViewer(i); this.props.addAnswer() }}>{i + 1}</span>
+                                            <span key={i} onClick={() => { this.onClickShowQuestionViewer(i) }}>{i + 1}</span>
                                         )
                                     }
                                 }
@@ -79,7 +89,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     this.props.question.question.map((question, i) => {
 
                                         if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-
+                                                    console.log("questionquestionquestion in lin 80",question.multipleChoiceAnswer === "a");
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
 
@@ -88,22 +98,22 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col col-6">
-                                                            <label for="A">Choice A</label>
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "a")} readOnly type="text" name="A" id="A" >{question.multipleChoiceA}</button>
+                                                            <label htmlFor="A">Choice A</label>
+                                                            <button style={{border: this.state.border}} onClick={(e)=>{this.props.addAnswer(question.id, "a") ; this.handleCorrect(e, question.multipleChoiceAnswer === "a")}} readOnly type="text" name="A" id="A" >{question.multipleChoiceA}</button>
                                                         </div>
                                                         <div className="col col-6">
-                                                            <label for="A">Choice B</label>
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "b")} readOnly type="text" name="B" id="B" >{question.multipleChoiceB}</button>
+                                                            <label htmlFor="A">Choice B</label>
+                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "b");this.handleCorrect(e, question.multipleChoiceAnswer ==="b")}} readOnly type="text" name="B" id="B" >{question.multipleChoiceB}</button>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col col-6">
-                                                            <label for="A">Choice C</label>
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "c")} readOnly type="text" name="C" id="C" >{question.multipleChoiceC}</button>
+                                                            <label htmlFor="A">Choice C</label>
+                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "c");this.handleCorrect(e, question.multipleChoiceAnswer === "c")}} readOnly type="text" name="C" id="C" >{question.multipleChoiceC}</button>
                                                         </div>
                                                         <div className="col col-6">
-                                                            <label for="A">Choice D</label>
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "d")} readOnly type="text" name="D" id="D" >{question.multipleChoiceD}</button>
+                                                            <label htmlFor="A">Choice D</label>
+                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "d");this.handleCorrect(e, question.multipleChoiceAnswer === "d")}} readOnly type="text" name="D" id="D" >{question.multipleChoiceD}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -117,19 +127,19 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col col-6">
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "true")} color="primary"> True </button>
+                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "true", question.multipleChoiceAnswer === "true");this.handleCorrect(e, question.multipleChoiceAnswer === "true")}} color="primary"> True </button>
                                                         </div>
                                                         <div className="col col-6">
-                                                            <button onClick={() => this.handleAnswerOptionClick(question.id, "false")} color="primary"> False </button>
+                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "false", question.multipleChoiceAnswer === "false");this.handleCorrect(e, question.multipleChoiceAnswer === "false")}} color="primary"> False </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
 
-                                            }
-                                            return false
                                         }
-                                    
+                                        return false
+                                    }
+
                                     )
                                     : null
                                 }
