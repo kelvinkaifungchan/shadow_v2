@@ -41,14 +41,14 @@ class PureNavBar extends React.Component {
     }
     
     render() {
-
-        const { modal } = this.state
+        console.log('nav props', this.props)
+        console.log('nav state', this.state)
         return (
             <div className={classes.header}>
                     <ul className={classes.menu}>
                         <li>
                             <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
-                            {modal ?  this.props.classroom ? <Menu classroom={() => this.props.classroom()} history={this.props.history}/> : this.props.set  ? <Menu set={() => this.props.set()} history={this.props.history}/>: <Menu  history={this.props.history}/> : null}
+                            {this.state.modal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.toggle()}/> : null}
                         </li>
                         <li>
                             <Link to='/' className={classes.logo}>shadow</Link>

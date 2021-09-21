@@ -22,7 +22,7 @@ import { ViewDictationcardSubmission } from '../src/Pages/ViewDictationCardSubmi
 import { ViewDictationQuestion } from '../src/Pages/ViewDictationQuestion';
 
 
-import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css'
@@ -31,6 +31,8 @@ import PrivateRoute from '../src/Component/PrivateRoute'
 class App extends React.Component {
 
   render(){
+    console.log('props in app', this.props)
+    console.log('state in app', this.state)
     return (
       <div className="App">
         <Router>

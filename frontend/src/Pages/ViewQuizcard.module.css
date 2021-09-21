@@ -2,7 +2,7 @@
     margin: 2% 5%
 }
 
-.viewquizcard button {
+.submit button {
     cursor: pointer;
     float: right;
     width:150px;
