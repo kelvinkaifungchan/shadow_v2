@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { getdataThunk } from '../Redux/actions/action'
 
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { DisplayShareUser } from '../Component/displayshareduser'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayClassroomTag } from '../Component/displayclassroomtag';
@@ -136,8 +135,6 @@ class ViewClassroom extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/> */}
-            
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
                         <div className="col-8">

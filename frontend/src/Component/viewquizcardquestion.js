@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import classes from './viewquizcardpage.module.css'
 
@@ -126,6 +126,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                 )
 
                                             }
+                                            return false
                                         }
                                         )
                                         : null

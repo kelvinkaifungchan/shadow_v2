@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/actions/action'
 
 // Require Component
-import { NavBar } from '../Component/navbar'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayCardModule } from '../Component/displaycardmodule';
@@ -89,7 +88,6 @@ class PureDashboard extends React.Component {
         console.log('props in dashboard', this.props)
         return (
             <div className="page">
-                {/* <NavBar  user={this.props.user} history={this.props.history}/> */}
                 
                 <div className={classes.dashboard}>
 

@@ -22,7 +22,7 @@ import { ViewDictationcardSubmission } from '../src/Pages/ViewDictationCardSubmi
 import { ViewDictationQuestion } from '../src/Pages/ViewDictationQuestion';
 
 
-import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css'

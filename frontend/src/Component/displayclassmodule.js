@@ -6,14 +6,6 @@ import classes from './displayclassmodule.module.css'
 
 class PureDisplayClassModule extends React.Component {
 
-    //   async navigateBack(e){
-    //     e.preventDefault()
-    //     await this.deleteClassroom(e)
-    //     this.props.history.push({
-    //         pathname:`/`,
-    //     })
-    // }
-
     deleteClassroom(classroomId) {
         this.props.deleteClassroom({
             id: classroomId,
@@ -27,7 +19,7 @@ class PureDisplayClassModule extends React.Component {
                 {this.props.classrooms.map((classroom, i) => {
                     console.log("classroomclassroomclassroomclassroom", classroom);
                     return (
-                        <div data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
+                        <div key={i} data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
                             <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
                             <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" class="fas fa-times"></i></span>
                             <p data-key={classroom.id}>{classroom.description}</p>

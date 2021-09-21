@@ -5,7 +5,6 @@ import { getdataThunk } from '../Redux/actions/action'
 import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { DisplayCardModule } from '../Component/displaycardmodule';
 import { DisplaySetTag } from '../Component/displaysettag'
 
@@ -94,6 +93,7 @@ class ViewSet extends React.Component {
                     if(newestState[0] !== undefined){
                         return newestState[0]
                     }
+                    return false
                     });
                     if(nextdictation[0]!== undefined){
                         this.setState({
@@ -239,9 +239,8 @@ class ViewSet extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar set={() => this.getSet()} user={this.props.user} history={this.props.history} /> */}
                 <div className={classes.viewset}>
-                    <div classNmae="row d-flex p-4">
+                    <div className="row d-flex p-4">
                         <div className="col-8">
                             <h1>{this.state.correctSet.length > 0 ? this.state.correctSet[0].title : null}</h1>
                             <h6>{this.state.correctSet.length > 0 ? this.state.correctSet[0].description : null}</h6>
