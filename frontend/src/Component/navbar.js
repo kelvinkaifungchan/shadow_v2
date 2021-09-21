@@ -60,8 +60,6 @@ class PureNavBar extends React.Component {
                             <button  className={classes.icon}><Link to="/account"><img src={this.props.user.picture} alt="Avatar"></img></Link></button>
                         </li>
                     </ul>
-
-
             </div>
         );
     }
