@@ -126,11 +126,10 @@ class ViewSet extends React.Component {
     }
 
     navigateCard(e) {
+        console.log(e.target)
         if (e.target.attributes["data-del"].value === "delete") {
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
-            console.log('nav card func props', this.props.cards.flashcard)
-            console.log('nav card func value', e.target.attributes["data-key"].value)
             this.props.history.push({
                 pathname: `/viewflashcard/${e.target.attributes["data-key"].value}`
             })
