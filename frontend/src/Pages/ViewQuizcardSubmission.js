@@ -51,8 +51,6 @@ class ViewQuizcardSubmission extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar/> */}
-
                 <div className={classes.viewquizcardsubmission}>
                     {/* 1st row: Header */}
                     <div className="row d-flex p-4">
@@ -60,52 +58,52 @@ class ViewQuizcardSubmission extends React.Component {
                             <h1>{this.state.correctQuizcard.length > 0 && this.state.correctQuizcard[0].quizcardTitle}</h1>
                         </div>
                     </div>
+                </div>
 
-                    <div className="row d-flex p-4">
-                        <div className="col">
-                            <table>
-                                <tr>
-                                    <th><br></br></th>
-                                    <th>Correct Answer</th>
-                                    {this.state.correctQuizcard[0] &&
-                                        this.state.correctQuizcard[0].question.length > 0
-                                        ? this.state.correctQuizcard[0].question[0].submission.map((submission, i) => {
-                                            return (
-                                                <th data-key={i}>{submission.displayName}</th>
-                                            )
-                                        }) : null
-                                    }
-                                </tr>
-
+                <div className="row d-flex p-4">
+                    <div className="col">
+                        <table>
+                            <tr>
+                                <th><br></br></th>
+                                <th>Correct Answer</th>
                                 {this.state.correctQuizcard[0] &&
                                     this.state.correctQuizcard[0].question.length > 0
-                                    ? this.state.correctQuizcard[0].question.map((question, i) => {
+                                    ? this.state.correctQuizcard[0].question[0].submission.map((submission, i) => {
                                         return (
-                                            <tr data-key={i}>
-                                                <th>Question {question.id}</th>
-                                                <td>{question.questionType === "multipleChoice"
-                                                    ? question.multipleChoiceAnswer :
-                                                    question.questionType === "trueFalse"
-                                                        ? question.trueFalseAnswer : null}</td>
-
-                                                {question.submission.map((sub, index) => {
-                                                    return <td style={{
-                                                        background:
-                                                            // question.questionType === "multipleChoice" 
-                                                            sub.quizcardQuestionSubmission === question.multipleChoiceAnswer || sub.quizcardQuestionSubmission === question.trueFalseAnswer
-                                                                ? "#F4FFB4" : "#FCDDEC"
-                                                    }} >
-                                                        {sub.quizcardQuestionSubmission}
-                                                    </td>
-                                                })}
-                                            </tr>
+                                            <th data-key={i}>{submission.displayName}</th>
                                         )
                                     }) : null
                                 }
+                            </tr>
+
+                            {this.state.correctQuizcard[0] &&
+                                this.state.correctQuizcard[0].question.length > 0
+                                ? this.state.correctQuizcard[0].question.map((question, i) => {
+                                    return (
+                                        <tr data-key={i}>
+                                            <th>Question {question.id}</th>
+                                            <td>{question.questionType === "multipleChoice"
+                                                ? question.multipleChoiceAnswer :
+                                                question.questionType === "trueFalse"
+                                                    ? question.trueFalseAnswer : null}</td>
+
+                                            {question.submission.map((sub, index) => {
+                                                return <td style={{
+                                                    background:
+                                                        // question.questionType === "multipleChoice" 
+                                                        sub.quizcardQuestionSubmission === question.multipleChoiceAnswer || sub.quizcardQuestionSubmission === question.trueFalseAnswer
+                                                            ? "#F4FFB4" : "#FCDDEC"
+                                                }} >
+                                                    {sub.quizcardQuestionSubmission}
+                                                </td>
+                                            })}
+                                        </tr>
+                                    )
+                                }) : null
+                            }
 
 
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
             </div>

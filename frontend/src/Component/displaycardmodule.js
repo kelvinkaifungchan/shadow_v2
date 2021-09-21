@@ -103,7 +103,7 @@ class PureDisplayCardModule extends React.Component {
                 {/* flashcard */}
                 {this.props.allCard && this.props.allCard.flashcard.length > 0 ? this.props.allCard.flashcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
+                        <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} Add Exist Flashcard</h4>
                             <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
@@ -113,18 +113,18 @@ class PureDisplayCardModule extends React.Component {
                     console.log("correct card map in display card moudle", card)
                     
                     return (
-                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} ViewSet</h4>
-                            <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteBridge(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteBridge(e, card.id)} className="fas fa-times"></i></span>
                             <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
                 })
-                : this.props.dash === "dashSet" && this.props.cards.flashcard && this.props.cards.flashcard.length > 0 ? this.props.cards.flashcard.map((card)=>{
+                : this.props.dash === "dashSet" && this.props.cards.flashcard && this.props.cards.flashcard.length > 0 ? this.props.cards.flashcard.map((card, i)=>{
                     return (
-                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} </h4>
-                            <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteCard(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteCard(e, card.id)} className="fas fa-times"></i></span>
                             <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
@@ -134,7 +134,7 @@ class PureDisplayCardModule extends React.Component {
                 {/* quizcard */}
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
+                        <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} Add Exist Quizcard</h4>
                             <p data-key={card.id} data-del="" data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
@@ -142,17 +142,17 @@ class PureDisplayCardModule extends React.Component {
                 }): 
                 this.props.view && this.props.view.correctquizCard.length > 0 ? this.props.view.correctquizCard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} ViewSet</h4>
-                            <span className={classes.deletebtn} data-del="" ><i data-del="delete" data-type="quizcard" onClick={(e)=>this.deleteBridge(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn} data-del="" ><i data-del="delete" data-type="quizcard" onClick={(e)=>this.deleteBridge(e, card.id)} className="fas fa-times"></i></span>
                         </div>
                     )
                 })
-                : this.props.dash === "dashSet" && this.props.cards.quizcard && this.props.cards.quizcard.length > 0 ? this.props.cards.quizcard.map((card)=>{
+                : this.props.dash === "dashSet" && this.props.cards.quizcard && this.props.cards.quizcard.length > 0 ? this.props.cards.quizcard.map((card, i)=>{
                     return (
-                        <div data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} </h4>
-                            <span className={classes.deletebtn}><i data-del="delete" data-type="quizcard" onClick={(e)=>this.deleteCard(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="quizcard" onClick={(e)=>this.deleteCard(e, card.id)} className="fas fa-times"></i></span>
                         </div>
                     )
                 }) : null
@@ -160,7 +160,7 @@ class PureDisplayCardModule extends React.Component {
                 {/* dictationcard */}
                 {this.props.allCard && this.props.allCard.dictationcard.length > 0 ? this.props.allCard.dictationcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{ this.addDictationcardConnect(e);this.props.toggle(e) }}>
+                        <div key={i} data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{ this.addDictationcardConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="dictationcard">{card.dictationcardTitle} Add Exist Dictation Crd</h4>
                             <p data-key={card.id} data-del="" data-type="dictationcard">{card.dictationBody}</p>
                         </div>
@@ -168,18 +168,18 @@ class PureDisplayCardModule extends React.Component {
                 }): 
                 this.props.view && this.props.view.correctdictationCard.length > 0 ? this.props.view.correctdictationCard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="dictationcard">{card.dictationcardTitle} ViewSet</h4>
-                            <span className={classes.deletebtn}><i data-del="delete" data-type="dictationcard" onClick={(e)=>this.deleteBridge(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="dictationcard" onClick={(e)=>this.deleteBridge(e, card.id)} className="fas fa-times"></i></span>
                             <p data-key={card.id} data-del="" data-type="dictationcard">{card.dictationBody}</p>
                         </div>
                     )
                 })
-                : this.props.dash === "dashSet" && this.props.cards.dictationcard && this.props.cards.dictationcard.length > 0 ? this.props.cards.dictationcard.map((card)=>{
+                : this.props.dash === "dashSet" && this.props.cards.dictationcard && this.props.cards.dictationcard.length > 0 ? this.props.cards.dictationcard.map((card, i)=>{
                     return (
-                        <div data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
+                        <div key={i} data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="dictationcard">{card.dictationcardTitle} </h4>
-                            <span className={classes.deletebtn}><i data-del="delete" data-type="dictationcard" onClick={(e)=>this.deleteCard(e, card.id)} class="fas fa-times"></i></span>
+                            <span className={classes.deletebtn}><i data-del="delete" data-type="dictationcard" onClick={(e)=>this.deleteCard(e, card.id)} className="fas fa-times"></i></span>
                             <p data-key={card.id} data-del="" data-type="dictationcard">{card.dictationBody}</p>
                         </div>
                     )

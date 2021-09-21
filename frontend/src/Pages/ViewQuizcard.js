@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 
 //Component
-import { NavBar } from '../Component/navbar';
 import { ViewQuizcardQuestionModule } from '../Component/viewquizcardquestion';
 import { VideoPlayer } from '../Component/videoplayer';
 

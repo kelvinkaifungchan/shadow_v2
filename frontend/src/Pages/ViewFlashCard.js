@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
 //Component
-import { NavBar } from '../Component/navbar';
-import { HeadingInput } from '../Component/headinginput';
 
 // import FormSubmit from '../Component/formSubmit';
 import { VideoRecorder } from '../Component/videorecorder';
@@ -64,10 +61,20 @@ class ViewFlashCard extends React.Component {
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            this.setState({
-                correctSubmission: correctProps[0].submission,
-                correctFeedback:correctProps[0].submission.filter((sub) => { return sub.id === this.state.submissionId })
-            });
+            if (this.props.user.role === "teacher") {
+                console.log("FILTERED", )
+                this.setState({
+                    correctSubmission: correctProps[0].submission,
+                    correctFeedback:correctProps[0].submission,
+                });
+            } else if (this.props.user.role === "student") {
+                const student = correctProps[0].submission.filter(filter => filter.user_id === parseInt(this.props.user.id))
+                this.setState({
+                    correctSubmission: student,
+                    correctFeedback:correctProps[0].submission,
+                });
+            }
+
         }
     }
  
@@ -193,7 +200,6 @@ class ViewFlashCard extends React.Component {
                                         <i className="fas fa-plus"></i>
                                     </div>
                                     <DisplayFlashcardSubmissionModule  subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} addFeedback={this.addFeedback()}/>
-
                                 </div>
                             </div>
 

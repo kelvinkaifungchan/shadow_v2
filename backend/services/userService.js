@@ -62,13 +62,15 @@ class UserService {
       .where({
         email: body.email,
       })
-      .then((user) => {
-        console.log('lmao', user)
+      .then((user) => { 
         return {
           id: user[0].id,
           displayName: user[0].displayName,
           email: user[0].email,
           picture: user[0].picture,
+          role: user[0].role,
+          tier: user[0].tier,
+          userStatus: user[0].userStatus,
         };
       });
   }

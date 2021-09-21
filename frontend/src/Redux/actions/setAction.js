@@ -36,8 +36,8 @@ export const editSet = (set) => async (dispatch) => {
     console.log("editing set")
 
     const { data } = await axios.put("http://localhost:8080/api/set", set)
-
-    dispatch({ type: EDIT_SET, payload: { id: set.setId, description: set.description, title: set.title } });
+    const newId = data[0]
+    dispatch({ type: EDIT_SET, payload: {newId: newId, id: set.setId, description: set.description, title: set.title } });
 }
 
 export const deleteSet = (set) => async (dispatch) => {
@@ -61,6 +61,6 @@ export const addSetBridge = (set) => async (dispatch) => {
     console.log('addSetBridge MDP bridge', bridge)
     dispatch({
         type: ADD_BRIDGE_CLASSROOM_SET,
-        payload: { id: { classroom_id: set.classroomId }, content: { set_id: set.setId } }
+        payload: { id: { classroom_id: set.classroomId }, content: { set_id: set.setId, newBridge: newBridge } }
     })
 }
