@@ -51,11 +51,11 @@ constructor(props){
     })
 }
 
-componentDidMount() {
-    this.drawOnCanvas();
-    this.ctx.strokeStyle = "#00000";
-    this.ctx.lineWidth = "1";
-}
+// componentDidMount() {
+//     this.drawOnCanvas();
+//     this.ctx.strokeStyle = "#00000";
+//     this.ctx.lineWidth = "1";
+// }
 
 // componentWillReceiveProps(newProps) {
 //     this.ctx.strokeStyle = newProps.color;

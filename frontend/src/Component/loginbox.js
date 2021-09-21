@@ -22,9 +22,10 @@ class PureLoginBox extends React.Component {
         this.props.handleshow()
     }
 
-    login = (e) => {
+    async login(e){
         e.preventDefault();
-        this.props.loginMDP(this.state.email, this.state.password)
+        await this.props.loginMDP(this.state.email, this.state.password)
+        // this.props.nav(e)
     };
 
     componentClicked() {
@@ -67,7 +68,7 @@ class PureLoginBox extends React.Component {
                                 <input onChange={this.onChangeField.bind(this, 'email')} value={this.state.email} type="text" name="username" className="form-control mb-4" placeholder="Email" />
                                 <input onChange={this.onChangeField.bind(this, 'password')} value={this.state.password} type="password" name="password" className="form-control" placeholder="Password" />
                                 <br />
-                                <button onClick={this.login} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Login</button>
+                                <button onClick={(e)=>this.login(e)} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Login</button>
                             </form>
                             {/* <hr className="pt-2" /> */}
                                 {/* <button  onClick={()=>{this.toggle()}} type="button" className="btn btn-outline-dark waves-effect w-100">

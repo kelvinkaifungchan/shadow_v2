@@ -63,16 +63,16 @@ export function setReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_SET_FLASHCARD:
-            return {
-                sets: state.sets.map((set) => {
-                    if(action.payload.id.set_id === set.id){
-                        return {
-                            ...set, bridge_flashcard:[...set.bridge_flashcard, action.payload.content]
+                return {
+                    sets: state.sets.map((set) => {
+                        if(action.payload.id.set_id === set.id){
+                            return {
+                                ...set, bridge_flashcard:[...set.bridge_flashcard, action.payload.content]
+                            }
                         }
-                    }
-                    return set
-                })
-            }
+                        return set
+                    })
+                }
         case ADD_BRIDGE_SET_QUIZCARD:
             return {
                 sets: state.sets.map((set) => {
@@ -99,34 +99,52 @@ export function setReducer(state = initialState, action){
         case DELETE_BRIDGE_SET_FLASHCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.set_id === set.id){
+                    if(action.payload.set_id !== undefined){
+                        if(action.payload.set_id === set.id){
+                            return {
+                                ...set, bridge_flashcard:set.bridge_flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.flashcard_id)
+                            }
+                        }
+                        return set
+                    } else {
                         return {
                             ...set, bridge_flashcard:set.bridge_flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.flashcard_id)
                         }
                     }
-                    return set
                 })
             }
         case DELETE_BRIDGE_SET_QUIZCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.set_id === set.id){
+                    if(action.payload.set_id !== undefined){
+                        if(action.payload.set_id === set.id){
+                                return {
+                                ...set, bridge_quizcard:set.bridge_quizcard.filter((quizcard) => quizcard.quizcard_id !== action.payload.quizcard_id)
+                            }
+                        }
+                        return set
+                    } else {
                         return {
                             ...set, bridge_quizcard:set.bridge_quizcard.filter((quizcard) => quizcard.quizcard_id !== action.payload.quizcard_id)
-                        }
+                        } 
                     }
-                    return set
                 })
             }
         case DELETE_BRIDGE_SET_DICTATIONCARD:
             return{
                 sets: state.sets.map((set) => {
-                    if(action.payload.set_id === set.id){
+                    if(action.payload.set_id !== undefined){
+                        if(action.payload.set_id === set.id){
+                            return {
+                                ...set, bridge_dictationcard:set.bridge_dictationcard.filter((dictationcard) => dictationcard.dictationcard_id !== action.payload.dictationcard_id)
+                            }
+                        }
+                        return set
+                    } else {
                         return {
                             ...set, bridge_dictationcard:set.bridge_dictationcard.filter((dictationcard) => dictationcard.dictationcard_id !== action.payload.dictationcard_id)
                         }
                     }
-                    return set
                 })
             }
         default:

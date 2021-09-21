@@ -25,6 +25,7 @@ class CreateFlashcard extends React.Component {
         this.handleRecording = this.handleRecording.bind(this);
     }
     componentDidMount() {
+        console.log('didmount')
         this.props.getdata({ email: localStorage.getItem('email')})
     }
 

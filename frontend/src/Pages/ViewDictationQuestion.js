@@ -16,7 +16,7 @@ import { Canvas } from '../Component/canvas'
 import { AudioRecorder } from '../Component/audiorecorder';
 
 //CSS
-import classes from './ViewDictationQuestion.module.css'
+// import classes from './ViewDictationQuestion.module.css'
 
 class ViewDictationQuestion extends React.Component {
     constructor(props){
