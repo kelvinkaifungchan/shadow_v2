@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { getdataThunk } from '../Redux/actions/action'
 
 // Require Component
-import { NavBar } from '../Component/navbar';
 import { DisplayShareUser } from '../Component/displayshareduser'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayClassroomTag } from '../Component/displayclassroomtag';
@@ -47,7 +46,7 @@ class ViewClassroom extends React.Component {
         if(this.state.correctClass[0] !== undefined){
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
             if(correctProps[0]!== undefined){
-                if(correctProps[0].bridge.length > 0){
+                if(correctProps[0].bridge.length >= 0){
                     let correctSets = correctProps[0].bridge.map((changed) => {
                         const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
                         return newestState[0]
@@ -116,9 +115,13 @@ class ViewClassroom extends React.Component {
     }
 
     navigateSet(e) {
-        this.props.history.push({
-            pathname: `/viewset/${e.target.attributes["data-key"].value}`,
-        })
+        if (e.target.attributes["data-key"].value === "delete") {
+            return
+        } else {
+            this.props.history.push({
+                pathname: `/viewset/${e.target.attributes["data-key"].value}`,
+            })
+        }
     }
 
     logout = (e) => {
@@ -132,8 +135,6 @@ class ViewClassroom extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar  classroom={() => this.getclassroom()} user={this.props.user} history={this.props.history}/> */}
-            
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
@@ -151,7 +152,7 @@ class ViewClassroom extends React.Component {
                         {/* share user add button */}
                         <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
-                            <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
                     {/* diaplay Tags */}
@@ -159,7 +160,7 @@ class ViewClassroom extends React.Component {
                         <DisplayClassroomTag tags={this.state.correctTag} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
-                            <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button>
+                            {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
 
@@ -167,14 +168,14 @@ class ViewClassroom extends React.Component {
                     {/* Add button */}
                     <div className="row d-flex m-3">
                         <AddnewPopUp match={this.props.match} correctClass={this.state.correctClass} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
-                        <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
+{                        this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
                             <div className="col-6 m-1 p-1 rounded-lg d-flex align-items-center">
                                 <span>Add new or exist set</span>
                             </div>
-                        </div>
+                        </div> : null}
 
                     <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 

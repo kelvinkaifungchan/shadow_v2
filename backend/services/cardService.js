@@ -145,9 +145,7 @@ class Card {
     delete(body){
         if(body.type === "flashcard"){
             return this.knex("flashcard")
-            .where({
-                id: body.cardId
-            })
+            .where("id", body.id)
             .update({
                 flashcardStatus: false
             })
@@ -157,9 +155,7 @@ class Card {
         }
         if(body.type === "quizcard"){
             return this.knex("quizcard")
-            .where({
-                id: body.cardId
-            })
+            .where("id", body.id)
             .update({
                 quizcardStatus: false
             })
@@ -169,9 +165,7 @@ class Card {
         }
         if(body.type === "dictationcard"){
             return this.knex("dictationcard")
-            .where({
-                id: body.cardId
-            })
+            .where("id", body.id)
             .update({
                 dictationcardStatus: false
             })

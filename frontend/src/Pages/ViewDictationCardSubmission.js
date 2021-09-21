@@ -4,12 +4,9 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-import { Link } from 'react-router-dom';
 import {Account} from './Account';
 import PrivateRoute from '../Component/PrivateRoute'
 import { BrowserRouter , Switch} from "react-router-dom";
-import {NavBar} from '../Component/navbar';
-// import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
 import classes from './ViewDictationCardSubmission.module.css'
@@ -60,7 +57,6 @@ class ViewDictationcardSubmission extends React.Component {
 
         return (
             <div className="page">
-                {/* <NavBar/> */}
 
                     <div className={classes.viewdictationcardsubmission}>
                         {/* 1st row: Header */}

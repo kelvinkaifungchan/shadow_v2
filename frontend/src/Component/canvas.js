@@ -156,7 +156,6 @@ clearcanvas() {
 submit(){
     console.log("HELLO")
     var canvas = document.querySelector('#board');
-    var ctx = canvas.getContext('2d');
     var base64ImageData = canvas.toDataURL("image/png");
     //console.log(base64ImageData)
 
@@ -193,7 +192,7 @@ render() {
         <div>
             <div className="sketch" id="sketch">
 
-                <canvas className="board" id="board"></canvas>
+                <canvas className="board" id="board" ></canvas>
 
             </div>
             <button onClick={() => this.clearcanvas()}> Clear </button>

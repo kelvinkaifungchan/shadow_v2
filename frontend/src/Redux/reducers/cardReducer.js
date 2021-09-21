@@ -22,7 +22,7 @@ import {
 import{
     ADD_SUBMISSION_DICTATIONCARD,
     ADD_SUBMISSION_FLASHCARD,
-    ADD_SUBMISSION_MULTIPLECHOICE,
+    ADD_SUBMISSION_QUIZCARD,
     DELETE_SUBMISSION_DICTATIONCARD,
     DELETE_SUBMISSION_FLASHCARD,
     DELETE_SUBMISSION_MULTIPLECHOICE,
@@ -125,21 +125,22 @@ export function cardReducer(state = initialState, action) {
             return {
                 card: {
                     ...state.card,
-                    dictationcard: state.card.dictationcard.filter((dictationcard) => dictationcard.dictationcard_id !== action.payload.dictationcard_id)
+                    dictationcard: state.card.dictationcard.filter((dictationcard) => dictationcard.id !== action.payload.dictationcard_id)
                 }
             };
         case DELETE_FLASHCARD:
+            console.log('del flash actino in reducer', action.payload)
             return {
                 card: {
                     ...state.card,
-                    flashcard: state.card.flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.flashcard_id)
+                    flashcard: state.card.flashcard.filter((flashcard) => flashcard.id !== action.payload.flashcard_id)
                 }
             };
         case DELETE_QUIZCARD:
             return {
                 card: {
                     ...state.card,
-                    quizcard: state.card.quizcard.filter((quizcard) => quizcard.quizcard_id !== action.payload.quizcard_id)
+                    quizcard: state.card.quizcard.filter((quizcard) => quizcard.id !== action.payload.quizcard_id)
                 }
             };
         case ADD_SUBMISSION_FLASHCARD:
@@ -147,8 +148,6 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     flashcard: state.card.flashcard.map((flashcard) => {
-                        console.log("flash",flashcard.id);
-                        console.log("action.payload.flashcard_id",action.payload.flashcard_id);
                         if(flashcard.id === action.payload.flashcard_id){
                             return {
                                 ...flashcard,
@@ -175,18 +174,23 @@ export function cardReducer(state = initialState, action) {
                 }
             }
 
-        case ADD_SUBMISSION_MULTIPLECHOICE:
+        case ADD_SUBMISSION_QUIZCARD:
             return {
                 card:{
                     ...state.card,
-                    quizcard: state.card.quizcard.multipleChoice.map((multipleChoice) => {
-                        if(multipleChoice.multipleChoice_id === action.payload.multipleChoice_id){
-                            return {
-                                ...multipleChoice,
-                                submission:[...multipleChoice.submission, action.payload]
-                            }
+                    quizcard: state.card.quizcard.map((quizcard) => {
+                        if(quizcard.id === action.payload.quizcard_id){
+                            quizcard.question.map((question)=>{
+                                if(question.id === action.payload.question_id){
+                                    return {
+                                        ...question,
+                                        submission:[...question.submission, action.payload]
+                                    }
+                                }
+                                return question
+                            })
                         }
-                        return multipleChoice
+                        return quizcard
                     })
                 }
             }

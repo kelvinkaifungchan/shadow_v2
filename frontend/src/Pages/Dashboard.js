@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/actions/action'
 
 // Require Component
-import { NavBar } from '../Component/navbar'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
+import { DisplayCardModule } from '../Component/displaycardmodule';
 
 // Require Modal Component
 import { CreatePopUp } from '../Component/createmodal'
@@ -47,26 +47,40 @@ class PureDashboard extends React.Component {
         })
     }
 
-
-
-    navigateClass(e) {
-        console.log(e)
+    navigateClass(e){
         if (e.target.attributes["data-key"].value === "delete") {
             return
         } else {
-            this.props.history.push({
-                pathname: `/viewclassroom/${e.target.attributes["data-key"].value}`,
-            })
-        }
-    }
-    navigateSet(e) {
+        this.props.history.push({
+            pathname:`/viewclassroom/${e.target.attributes["data-key"].value}`,
+        })
+    }}
+    navigateSet(e){
         if (e.target.attributes["data-key"].value === "delete") {
             return
         } else {
+        this.props.history.push({
+            pathname:`/viewset/${e.target.attributes["data-key"].value}`,
+        })
+    }}
+    navigateCard(e) {
+        if (e.target.attributes["data-del"].value === "delete") {
+            console.log('card')
+            return
+        } else if (e.target.attributes["data-type"].value === "flashcard") {
             this.props.history.push({
-                pathname: `/viewset/${e.target.attributes["data-key"].value}`,
-
+                pathname: `/viewflashcard/${e.target.attributes["data-key"].value}`
             })
+        } else if (e.target.attributes["data-type"].value === "quizcard") {
+            this.props.history.push({
+                pathname: `/viewquizcard/${e.target.attributes["data-key"].value}`
+            })
+        } else if (e.target.attributes["data-type"].value === "dictationcard") {
+            this.props.history.push({
+                pathname: `/viewdictationcard/${e.target.attributes["data-key"].value}`
+            })
+        } else {
+            return
         }
     }
 
@@ -74,15 +88,14 @@ class PureDashboard extends React.Component {
         console.log('props in dashboard', this.props)
         return (
             <div className="page">
-                {/* <NavBar  user={this.props.user} history={this.props.history}/> */}
-                <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                 
                 <div className={classes.dashboard}>
 
                     <div className="row d-flex p-2">
+                        <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                         <h1>My Classroom</h1>
                         <span className={classes.createclassroombtn}>
-                            <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
                         </span>
                     </div>
 
@@ -94,12 +107,20 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
                         <h1>My Set</h1>
                         <span className={classes.createsetbtn}>
-                            <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div>
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
                         </span>
                     </div>
 
                     <div className="row d-flex pl-2">
                         <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                    </div>
+
+                    <div className="row d-flex p-2">
+                            <h1>My Card</h1>
+                    </div>
+
+                    <div className="row d-flex pl-2">
+                        <DisplayCardModule dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}

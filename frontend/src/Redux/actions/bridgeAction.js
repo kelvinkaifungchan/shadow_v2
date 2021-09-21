@@ -40,34 +40,44 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
         } else {
             console.log('none of above')
         }
-        console.log('above')
     })
     .catch(err => console.log("Error: ", err))
 }
 
 export const deleteBridgeThunk = (bridge) => async (dispatch) => {
-    return axios.delete("http://localhost:8080/api/bridge", bridge)
+    return axios.post("http://localhost:8080/api/bridge/delete", bridge)
     .then(response => {
         console.log(response)
         if (bridge.type === "classroom_set") {
-            dispatch({
-                type: DELETE_BRIDGE_CLASSROOM_SET,
-                payload: {classroom_id: bridge.classroomId, set_id: bridge.setId}
-            })
+            if(bridge.classroomId === "" || bridge.classroomId === undefined){
+                dispatch({
+                    type: DELETE_BRIDGE_CLASSROOM_SET,
+                    payload: {set_id: bridge.setId}
+                })
+            } else {
+                console.log('lmao2', bridge)
+                dispatch({
+                    type: DELETE_BRIDGE_CLASSROOM_SET,
+                    payload: {classroom_id: parseInt(bridge.classroomId), set_id: bridge.setId}
+                })
+            }
         } else if (bridge.type === "set_dictationcard") {
+            console.log("set_dictationcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_DICTATIONCARD,
-                payload: {set_id: bridge.setId, dictationcard_id: bridge.dictationcardId}
+                payload: {set_id: bridge.setId, dictationcard_id: bridge.cardId}
             })
         } else if (bridge.type === "set_flashcard") {
+            console.log("set_flashcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_FLASHCARD,
-                payload: {set_id: bridge.setId, flashcard_id: bridge.flashcardId}
+                payload: {set_id: bridge.setId, flashcard_id: bridge.cardId}
             })
         } else if (bridge.type === "set_quizcard") {
+            console.log("set_quizcard", bridge)
             dispatch({
                 type: DELETE_BRIDGE_SET_QUIZCARD,
-                payload: {set_id: bridge.setId, quizcard_id: bridge.quizcardId}
+                payload: {set_id: bridge.setId, quizcard_id: bridge.cardId}
             })
         }
     })
