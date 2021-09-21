@@ -52,6 +52,12 @@ class PureModel extends React.Component {
                 })
             }
         }
+        this.setState({
+            classroomTitle: "",
+            classroomDesc: "",
+            setTitle: "",
+            setDesc: "",
+        })
     }
 
     render() {
