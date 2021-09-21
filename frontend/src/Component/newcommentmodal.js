@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
 import { Modal, ModalHeader, ModalBody, Form, ModalFooter } from 'reactstrap';
 
 

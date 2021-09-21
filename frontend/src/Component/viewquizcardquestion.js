@@ -14,29 +14,19 @@ class PureViewQuizcardQuestionModule extends React.Component {
     }
 
 
-    mcToggle() {
-        this.setState({
-            type: "mc"
-        })
-    }
-    tfToggle() {
-        console.log('tf')
-        this.setState({
-            type: "tf"
-        })
-    }
-
     onClickShowQuestionViewer(id) {
         this.setState({
             showQuestionViewer: true,
             questionNumId: id,
-
         })
-        console.log("this.state.questionNumId", this.state.questionNumId);
+        
+    }
+
+  handleAnswerOptionClick(questionId ,submission){
+        this.props.handleSubmission(questionId ,submission)
     }
 
     render() {
-        console.log(this.props.question.question, "PROPS IN VQQ");
         return (
             <>
 
@@ -46,10 +36,15 @@ class PureViewQuizcardQuestionModule extends React.Component {
                         this.props.question.question.map(
 
                             (question, i) => {
-
-                                return (
-                                    <span key={i} onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
-                                )
+                                if( i === 0){
+                                    return (
+                                        <span key={i} onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
+                                    )
+                                }else{
+                                    return (
+                                        <span key={i} onClick={() => {this.onClickShowQuestionViewer(i) ; this.props.addAnswer()} }>{i + 1}</span>
+                                    )
+                                }
                             }
                         )
 
@@ -81,22 +76,22 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                 console.log("question inside the map", question)
 
                                                 return (
-                                                    <div>
+                                                    <div  key={i}>
                                                         
                                                         <div key={i} className="row">
                                                             <input  readOnly style={{ width: "100%", margin: "20px" }} value={question.questionBody} />
                                                         </div>
                                                         <div className="row">
-                                                            <div className="col col-6">
+                                                        <div  className="col col-6">
                                                                 <FormGroup>
                                                                     <Label for="A">A</Label>
-                                                                    <Input readOnly type="text" name="A" id="A" value={question.multipleChoiceA} />
+                                                                    <Input onClick={() => this.handleAnswerOptionClick(question.id,"a")} readOnly type="text" name="A" id="A" value={question.multipleChoiceA} />
                                                                 </FormGroup>
                                                             </div>
                                                             <div className="col col-6">
                                                                 <FormGroup>
                                                                     <Label for="B">B</Label>
-                                                                    <Input readOnly type="text" name="B" id="B" value={question.multipleChoiceB} />
+                                                                    <Input onClick={() => this.handleAnswerOptionClick(question.id,"b")} readOnly type="text" name="B" id="B" value={question.multipleChoiceB} />
                                                                 </FormGroup>
                                                             </div>
                                                         </div>
@@ -104,13 +99,13 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                             <div className="col col-6">
                                                                 <FormGroup>
                                                                     <Label for="C">C</Label>
-                                                                    <Input readOnly type="text" name="C" id="C" value={question.multipleChoiceC} />
+                                                                    <Input onClick={() => this.handleAnswerOptionClick(question.id,"c")} readOnly type="text" name="C" id="C" value={question.multipleChoiceC} />
                                                                 </FormGroup>
                                                             </div>
                                                             <div className="col col-6">
                                                                 <FormGroup>
                                                                     <Label for="D">D</Label>
-                                                                    <Input readOnly type="text" name="D" id="D" value={question.multipleChoiceD} />
+                                                                    <Input onClick={() => this.handleAnswerOptionClick(question.id,"d")} readOnly type="text" name="D" id="D" value={question.multipleChoiceD} />
                                                                 </FormGroup>
                                                             </div>
                                                         </div>
@@ -119,13 +114,13 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                             } else if (question.questionType === "trueFalse" && i === this.state.questionNumId) {
 
                                                 return (
-                                                    <div>
+                                                    <div key={i}>
                                                         <p>Select the correct answer:</p>
                                                         <div className="row">
-                                                            <Button color="primary"> True </Button>
+                                                            <Button  onClick={() => this.handleAnswerOptionClick(question.id,"true")} color="primary"> True </Button>
                                                         </div>
                                                         <div className="row">
-                                                            <Button color="primary"> False </Button>
+                                                            <Button  onClick={() => this.handleAnswerOptionClick(question.id,"false")} color="primary"> False </Button>
                                                         </div>
                                                     </div>
                                                 )
