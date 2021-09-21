@@ -31,6 +31,8 @@ import PrivateRoute from '../src/Component/PrivateRoute'
 class App extends React.Component {
 
   render(){
+    console.log('props in app', this.props)
+    console.log('state in app', this.state)
     return (
       <div className="App">
         <Router>
