@@ -32,9 +32,7 @@ class PureDisplayCardModule extends React.Component {
         })
     }
     deleteCard(e, cardId) {
-        console.log('delete card func',e.target.attributes)
         if(e.target.attributes['data-type'].value === "flashcard"){
-            console.log('inif delete card')
             this.props.deleteCard({
                 type: "flashcard",
                 id: cardId,
@@ -96,7 +94,6 @@ class PureDisplayCardModule extends React.Component {
     }
 
     render() {
-        console.log("props in display card module",this.props)
 
         return (
             <>
@@ -110,7 +107,6 @@ class PureDisplayCardModule extends React.Component {
                     )
                 }): 
                 this.props.view && this.props.view.correctflashCard.length > 0 ? this.props.view.correctflashCard.map((card, i) => {
-                    console.log("correct card map in display card moudle", card)
                     
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>

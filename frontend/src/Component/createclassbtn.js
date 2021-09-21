@@ -16,11 +16,9 @@ class PureCreateClassBtn extends React.Component {
 }
 
     classToggle() {
-        console.log('clsto')
         this.setState({
             classModal: !this.state.classModal
         });
-        console.log(this.state)
     }
 
     render(){

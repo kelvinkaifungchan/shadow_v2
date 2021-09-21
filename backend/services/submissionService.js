@@ -140,7 +140,7 @@ class SubmissionService {
             }
 
             else if (body.type === "quizcard") {
-                console.log("Listing details of quizcardSubmission", body);
+                console.log("Listing details of quizcardSubmission");
                 return this.knex("quizcardQuestionSubmission")
                 .join("user", "quizcardQuestionSubmission.user_id", "=", "user.id")
                 .where("quizcardQuestionSubmission.id", body.quizcardSubmissionId)

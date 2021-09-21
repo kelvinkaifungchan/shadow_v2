@@ -25,7 +25,6 @@ export function setReducer(state = initialState, action){
                 isAuthenticated: false
               };
         case ADD_SET:
-            console.log('adding sets reducer')
             return {
                 sets: [...state.sets, action.payload]
             };
@@ -64,8 +63,6 @@ export function setReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_SET_FLASHCARD:
-            console.log('ADD_BRIDGE_SET_FLASHCARD')
-            console.log('ADD_BRIDGE action.payload',action.payload)
             return {
                 sets: state.sets.map((set) => {
                     if(action.payload.id.set_id === set.id){
@@ -100,13 +97,9 @@ export function setReducer(state = initialState, action){
             }
 
         case DELETE_BRIDGE_SET_FLASHCARD:
-            console.log('got set')
             return{
                 sets: state.sets.map((set) => {
-                    console.log('in map', action.payload.set_id)
-                    console.log('in map', set.id)
                     if(action.payload.set_id === set.id){
-                        console.log('hit')
                         return {
                             ...set, bridge_flashcard:set.bridge_flashcard.filter((flashcard) => flashcard.flashcard_id !== action.payload.flashcard_id)
                         }

@@ -28,7 +28,6 @@ export function classroomReducer(state = initialState, action){
                 isAuthenticated: false
               };
         case ADD_CLASSROOM:
-            console.log('adding classroom')
             return {
                 classrooms: [...state.classrooms, action.payload]
             };
@@ -71,10 +70,7 @@ export function classroomReducer(state = initialState, action){
         case ADD_SHARING:
             return {
                 classrooms: state.classrooms.map((classroom) => {
-                    console.log(classroom,"classroom.....");
-                    console.log(action.payload.id.classroom_id,"action.payload.id.classroom_id....");
                     if(action.payload.id.classroom_id === classroom.id){
-                    console.log(classroom.id,"classroom.....");
                         return {
                             ...classroom, shared:[...classroom.shared, action.payload.content]
                         }
@@ -95,12 +91,9 @@ export function classroomReducer(state = initialState, action){
                 })
             }
         case ADD_BRIDGE_CLASSROOM_SET:
-            console.log('ADD_BRIDGE_CLASSROOM_SETADD_BRIDGE_CLASSROOM_SET')
             return {
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
-                        console.log("action.payload.content",action.payload.content)
-                        console.log("action.payload.content",action.payload.content.set_id)
                         return {
                             ...classroom, bridge:[...classroom.bridge, action.payload.content]
                         }
@@ -109,8 +102,6 @@ export function classroomReducer(state = initialState, action){
                 })
             }
         case DELETE_BRIDGE_CLASSROOM_SET:
-            console.log("DELETE_BRIDGE_CLASSROOM_SET", state.classrooms) 
-            console.log("DELETE_BRIDGE_CLASSROOM_SET", action) 
             return{
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.classroom_id === classroom.id){

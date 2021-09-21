@@ -56,11 +56,9 @@ class Card {
                         })
                     }))
                     .then(()=>{
-                        console.log('lin59', quizcardId)
                         return quizcardId
                     })
                 }
-                console.log("quizcardId", quizcardId)
                 return quizcardId[0]
             })
             .catch((err) => {
