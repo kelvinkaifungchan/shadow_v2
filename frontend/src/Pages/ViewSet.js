@@ -34,6 +34,7 @@ class ViewSet extends React.Component {
     }
 
     async componentDidMount() {
+        console.log('didmount')
         await this.props.getdata( {email: localStorage.getItem('email')} )
     }
 
