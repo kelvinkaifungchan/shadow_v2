@@ -63,6 +63,8 @@ class CardRouter {
 
     postSubmission(req, res) {
         console.log("Requesting adding a submission")
+        console.log("::::::::::",req.body);
+
         let body = req.body;
         return this.submissionService
             .add(body)
@@ -70,14 +72,15 @@ class CardRouter {
                 console.log("card ID >>", data[0])
                 if(body.type === "flashcard"){body.flashcardSubmissionId = data[0]} ;
                 if(body.type === "dictation"){body.dictationSubmissionId = data[0]};
-                if(body.type === "multipleChoice"){body.multipleChoiceSubmissionId = data[0]};
-                if(body.type === "trueFalse"){body.trueFalseSubmissionId = data[0]};
+                if(body.type === "quizcard"){body.quizcardSubmissionId = data[0]};
             })
             .then(() => {
+                console.log('hold up')
                 return this.submissionService
                 .submission(body)
             })
             .then((data) => {
+                console.log(data,"<><><><>data in json");
                 return res.json(data)
             })
             .catch((err) => {

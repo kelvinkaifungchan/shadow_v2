@@ -56,9 +56,9 @@ class PureDisplayCardModule extends React.Component {
             <>
                 {this.props.allCard && this.props.allCard.flashcard.length > 0 ? this.props.allCard.flashcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-type="flashcard" className={classes.flashcard} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} Add Exist Flashcard</h4>
-                            <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
+                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
+                            <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} Add Exist Flashcard</h4>
+                            <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
                 }): 
@@ -66,19 +66,19 @@ class PureDisplayCardModule extends React.Component {
                     console.log("correct card map in display card moudle", card)
                     
                     return (
-                        <div data-key={card.id} data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} </h4>
+                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
+                            <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} </h4>
                             <span className={classes.deletebtn}><i class="fas fa-times"></i></span>
-                            <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
+                            <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
                 })
                 : this.props.dash === "dashSet" && this.props.cards.flashcard && this.props.cards.flashcard.length > 0 ? this.props.cards.flashcard.map((card)=>{
                     return (
-                        <div data-key={card.id} data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
-                            <h4 data-key={card.id} data-type="flashcard">{card.flashcardTitle} </h4>
+                        <div data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
+                            <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} </h4>
                             <span className={classes.deletebtn}><i data-del="delete" data-type="flashcard" onClick={(e)=>this.deleteCard(e, card.id)} class="fas fa-times"></i></span>
-                            <p data-key={card.id} data-type="flashcard">{card.flashcardBody}</p>
+                            <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
                 }) : null
@@ -86,9 +86,9 @@ class PureDisplayCardModule extends React.Component {
 
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
                     return (
-                        <div data-key={card.id} data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-type="quizcard">{card.quizcardTitle} Add Exist Quizcard</h4>
-                            <p data-key={card.id} data-type="quizcard">{card.quizcardRecording}</p>
+                        <div data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
+                            <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} Add Exist Quizcard</h4>
+                            <p data-key={card.id} data-del="" data-type="quizcard">{card.quizcardRecording}</p>
                         </div>
                     )
                 }): 
