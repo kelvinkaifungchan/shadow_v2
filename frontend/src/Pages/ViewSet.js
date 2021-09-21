@@ -50,39 +50,60 @@ class ViewSet extends React.Component {
             console.log('try flash', correctFlashs)
             if (correctFlashs[0] !== undefined) {
                 if( correctFlashs[0].bridge_flashcard.length >= 0){
-                    let nextflash = correctFlashs[0].bridge_flashcard.map((changed) => {
+                    let nextflash = await correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
                     });
-                    this.setState({
-                        correctflashCard: nextflash,
-                    });
+                    if(nextflash[0] !== undefined){
+                        this.setState({
+                            correctflashCard: nextflash,
+                        });
+                    } else {
+                        this.setState({
+                            correctflashCard: [],
+                        });
+                    }
                 } 
             }
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('try flash', correctQuizs)
+            console.log('try quiz', correctQuizs)
             if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
                 if( correctQuizs[0].bridge_quizcard.length >= 0){
-                    let nextquiz = correctQuizs[0].bridge_quizcard.map((changed) => {
+                    let nextquiz = await correctQuizs[0].bridge_quizcard.map((changed) => {
                         const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
                         return newestState[0]
                     });
-                    this.setState({
-                        correctquizCard: nextquiz,
-                    });
+                    if(nextquiz[0]!== undefined){
+                        this.setState({
+                            correctquizCard: nextquiz,
+                        });
+                    } else {
+                        this.setState({
+                            correctquizCard: [],
+                        });
+                    }
                 }
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            console.log('try flash', correctDicts)
+            console.log('try dict', correctDicts)
             if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
                 if( correctDicts[0].bridge_dictationcard.length >= 0){
-                    let nextdictation = correctDicts[0].bridge_dictationcard.map((changed) => {
+                    console.log("waiting start", correctDicts)
+                    let nextdictation = await correctDicts[0].bridge_dictationcard.map((changed) => {
                     const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
-                    return newestState[0]
-                });
-                    this.setState({
-                    correctdictationCard: nextdictation,
-                });
+                    if(newestState[0] !== undefined){
+                        return newestState[0]
+                    }
+                    });
+                    if(nextdictation[0]!== undefined){
+                        this.setState({
+                            correctdictationCard: nextdictation,
+                        });
+                    } else {
+                        this.setState({
+                            correctdictationCard: []
+                        })
+                    }
             }
             }
             const correctProps = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
