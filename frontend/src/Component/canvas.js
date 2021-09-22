@@ -29,7 +29,7 @@ constructor(props){
 
     console.log("ROOM ID", this.room)
 
-    this.socket = io.connect(`http://localhost:8080/`);
+    this.socket = io.connect("http://localhost:8080");
     this.socket.emit("newUser", this.room)
     this.socket.on("clear", () => {
         console.log("Receiving clear event")
@@ -61,13 +61,13 @@ constructor(props){
 
 componentDidMount() {
     this.drawOnCanvas();
-    this.ctx.strokeStyle = "#00000";
-    this.ctx.lineWidth = "1";
+    // this.ctx.strokeStyle = "#00000";
+    // this.ctx.lineWidth = "1";
 }
 
 
 drawOnCanvas() {
-    console.log("LOL", document.querySelector('#board'))
+    
     var room = this.room;
     var canvas = document.querySelector('#board');
     this.ctx = canvas.getContext('2d');

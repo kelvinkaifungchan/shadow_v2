@@ -22,9 +22,11 @@ export const addCard = (card) => async (dispatch) => {
     if(card.type === "dictationcard"){
         await axios.post("http://localhost:8080/api/card", card)
     .then((data) => {
+        console.log('cardsbc ln25', data)
         newId = data.data[0];
         return newId
     }).then((newId) =>{
+        console.log('card svc ln29',newId)
         return axios.post("http://localhost:8080/api/bridge", {
             type: "set_dictationcard",
             setId: card.setId,
@@ -32,9 +34,10 @@ export const addCard = (card) => async (dispatch) => {
         })
 
     }).then(() => {
+        console.log('card',card)
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {id: newId, dictationcardTitle: card.dictationcardTitle, question: card.dictation}
         })
     }).then(() => {
         dispatch({
