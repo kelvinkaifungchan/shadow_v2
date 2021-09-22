@@ -10,6 +10,7 @@ import { HeadingInput } from '../Component/headinginput';
 // import DictationQuestionsCreate from '../Component/DictationQuestionsCreate';
 import { DisplayEntries } from '../Component/displayentries'
 
+
 import classes from './CreateDictationcard.module.css'
 
 class CreateDictationcard extends React.Component {
@@ -39,17 +40,29 @@ class CreateDictationcard extends React.Component {
         })
     }
 
-    handleRecording(record){
+    handleRecording(key, fileName){
+        console.log("KEY", key)
+        console.log("FILE NAME", fileName)
+        var filteredItems = this.state.items.filter(function (item) {
+            return (item.key !== key);
+          });
+        var changedItem = this.state.items.filter(function (item) {
+            return (item.key === key);
+          });
+        
+        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName ;
         this.setState({
-            dictationcardRecording: record
+            items: filteredItems.concat(changedItem)
         })
+       console.log("NEW STATE AFTER RECORDING", this.state.items)
     }
 
     addItem(e) {
         if (this._inputElement.value !== "") {
           var newItem = {
             text: this._inputElement.value,
-            key: Date.now()
+            key: Date.now(),
+            dictationRecording:""
           };
        
           this.setState((prevState) => {
@@ -104,17 +117,18 @@ class CreateDictationcard extends React.Component {
 
                             <div className="col col-12">
                                 <form onSubmit={this.addItem}>
-                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input>
+                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input> 
                                     <span className={classes.additembtn}>
                                         <button type="submit">
-                                            <i className="fas fa-plus"></i>
+                                            <i className="fas fa-plus"></i> 
                                         </button>
                                     </span>
+                                    
                                 </form>
                             </div>
 
                             <div className="col col-12">
-                            <DisplayEntries entries={this.state.items} delete={this.deleteItem}/>
+                            <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem}/>
                             </div>
                             
                         </div>
