@@ -61,7 +61,7 @@ export function classroomReducer(state = initialState, action){
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
                         return {
-                            ...classroom, tags:classroom.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
+                            ...classroom, tags:classroom.tags.filter((tag) => tag.id !== action.payload.content.tagId)
                         }
                     }
                     return classroom

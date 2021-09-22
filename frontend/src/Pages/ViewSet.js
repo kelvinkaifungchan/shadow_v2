@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
-import { logoutNowThunk } from '../Redux/actions/loginboxAction'
+import { deleteTag } from '../Redux/actions/tagAction';
 
 // Require Component
 import { DisplayCardModule } from '../Component/displaycardmodule';
@@ -224,6 +224,14 @@ class ViewSet extends React.Component {
             return null
         }
     }
+
+    deleteTag(tagId){
+        this.props.deleteTag({
+            type:"set",
+            tagId: tagId,
+            setId : this.state.correctSet[0].id
+        })
+    }
     render() {
        
 
@@ -239,7 +247,7 @@ class ViewSet extends React.Component {
 
 
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        <DisplaySetTag tags={this.state.correctTag} />
+                        <DisplaySetTag tags={this.state.correctTag} deleteTag={(tagId)=>this.deleteTag(tagId)}/>
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
@@ -290,8 +298,8 @@ class ViewSet extends React.Component {
             getdata: (email) => {
                 dispatch(getdataThunk(email))
             },
-            logout: () => {
-                dispatch(logoutNowThunk())
+            deleteTag: (tag) => {
+                dispatch(deleteTag(tag))
             }
         }
     }
