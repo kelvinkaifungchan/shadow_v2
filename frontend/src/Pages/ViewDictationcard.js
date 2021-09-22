@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { getdataThunk } from '../Redux/actions/action'
+
 import {QRModal} from '../Component/qrcode'
 
 import classes from './ViewDictationcard.module.css'
@@ -15,6 +17,11 @@ class ViewDictationcard extends React.Component {
             type:"dictationcard",
         }
     }
+
+    async componentDidMount() {
+        await this.props.getdata({ email: localStorage.getItem("email") });
+    }
+
     toggle() {
         this.setState({
             modal: !this.state.modal,
@@ -39,7 +46,7 @@ class ViewDictationcard extends React.Component {
         return (
             <div className="page">
                 
-                <QRModal modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+                <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
@@ -76,8 +83,14 @@ const mapStateToProps = (state) => {
         user: state.userStore.user
     }
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
+    }
+}
 
 
-
-const connectedViewDictationcard = connect(mapStateToProps, null)(ViewDictationcard)
+const connectedViewDictationcard = connect(mapStateToProps, mapDispatchToProps)(ViewDictationcard)
 export { connectedViewDictationcard as ViewDictationcard };
