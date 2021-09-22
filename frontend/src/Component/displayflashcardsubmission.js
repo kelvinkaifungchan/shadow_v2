@@ -6,7 +6,6 @@ import classes from './displayflashcardsubmission.module.css'
 class PureDisplayFlashcardSubmissionModule extends React.Component {
 
     render() {
-        console.log('render submission icon', this.props)
         return (
             <>
                 {this.props.submission &&
