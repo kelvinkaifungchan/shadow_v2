@@ -66,7 +66,6 @@ componentDidMount() {
 }
 
 
-
 drawOnCanvas() {
     console.log("LOL", document.querySelector('#board'))
     var room = this.room;
