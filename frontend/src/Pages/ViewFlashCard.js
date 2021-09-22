@@ -74,6 +74,11 @@ class ViewFlashCard extends React.Component {
                     correctSubmission: student,
                     correctFeedback:correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId)
                 });
+            } else {
+                this.setState({
+                    correctSubmission: correctProps[0].submission,
+                    correctFeedback: correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
+                });
             }
 
         }
@@ -174,6 +179,8 @@ class ViewFlashCard extends React.Component {
         })
     }
     render() {
+        console.log('this.state in VFC', this.state)
+        console.log('this.props in VFC', this.props)
         return (
             <div className="page">
 
