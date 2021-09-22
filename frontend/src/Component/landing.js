@@ -3,6 +3,7 @@ import React from 'react'
 import { Login } from '../Pages/Login';
 import { Dashboard } from '../Pages/Dashboard';
 import { Account } from '../Pages/Account';
+import { Search } from '../Pages/ViewSearch';
 import { ViewClassroom } from '../Pages/ViewClassroom';
 import { ViewSet } from '../Pages/ViewSet';
 import { CreateFlashcard } from '../Pages/CreateFlashcard';
@@ -40,6 +41,7 @@ class Landing extends React.Component {
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
+                        <PrivateRoute path="/search/:search" component={Search} />
                         <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
                         <PrivateRoute path="/viewset/:id" component={ViewSet} />
                         <PrivateRoute path="/createFlashcard/:setId" component={CreateFlashcard} />

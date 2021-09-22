@@ -8,20 +8,29 @@ import { logoutNowThunk } from '../Redux/actions/loginboxAction'
 import { Menu } from '../Component/menu'
 // Require Css
 import classes from './navbar.module.css'
+import { SearchPopUp } from './searchmodal';
 
 
 class PureNavBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            menuModal: false,
+            searchModal: false,
             type: ""
         };
     }
-    toggle() {
+
+    menuToggle() {
         this.setState({
-            modal: !this.state.modal,
-        });
+            menuModal: !this.state.menuModal
+        })
+    }
+
+    searchToggle() {
+        this.setState({
+            searchModal: !this.state.searchModal
+        })
     }
 
     componentDidMount() {
@@ -47,14 +56,15 @@ class PureNavBar extends React.Component {
             <div className={classes.header}>
                     <ul className={classes.menu}>
                         <li>
-                            <button onClick={() => { this.toggle() }}><i className="fas fa-bars"></i></button>
-                            {this.state.modal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.toggle()}/> : null}
+                            <button onClick={() => { this.menuToggle() }}><i className="fas fa-bars"></i></button>
+                            {this.state.menuModal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.menuToggle()}/> : null}
                         </li>
                         <li>
                             <Link to='/' className={classes.logo}>shadow</Link>
                         </li>
                         <li className={classes.right}>
-                            <button><i className="fas fa-search"></i></button>
+                            <button onClick={() => { this.searchToggle() }}><i className="fas fa-search"></i></button>
+                            <SearchPopUp tags={this.props.tags} search={this.state} toggle={() => this.searchToggle()}/>
                         </li>
                         <li className={classes.right}> 
                             <button  className={classes.icon}><Link to="/account"><img src={this.props.user.picture} alt="Avatar"></img></Link></button>

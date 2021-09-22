@@ -7,6 +7,7 @@ import { NavBar } from '../src/Component/navbar';
 
 import { Login } from '../src/Pages/Login';
 import { Dashboard } from '../src/Pages/Dashboard';
+import { Search } from '../src/Pages/ViewSearch';
 import { Account } from '../src/Pages/Account';
 import { ViewClassroom } from '../src/Pages/ViewClassroom';
 import { ViewSet } from '../src/Pages/ViewSet';
@@ -50,6 +51,7 @@ class App extends React.Component {
                     <Switch location={location}>
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/account" component={Account} />
+                        <PrivateRoute path="/search/:search" component={Search} />
                         <PrivateRoute path="/viewclassroom/:id" component={ViewClassroom} />
                         <PrivateRoute path="/viewset/:id" component={ViewSet} />
                         <PrivateRoute path="/createFlashcard/:setId" component={CreateFlashcard} />
