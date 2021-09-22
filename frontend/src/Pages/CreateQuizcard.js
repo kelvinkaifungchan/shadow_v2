@@ -64,13 +64,23 @@ class CreateQuizcard extends React.Component {
             alert("please fill in the required boxes")
         }
     }
-
+    editQuestion(e, newQ){
+        e.preventDefault();
+        let shallowQuestions = [...this.state.quizcardQuestion]
+        let question = shallowQuestions[newQ.currentQuestion]
+        question = newQ
+        shallowQuestions[newQ.currentQuestion] = question
+        this.setState({
+            quizcardQuestion: shallowQuestions
+        })
+    }
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
     render() {
-
+        console.log('this props', this.props)
+        console.log('this state', this.state)
         return (
             <div className="page">
                 {/* Page Container */}
@@ -93,7 +103,7 @@ class CreateQuizcard extends React.Component {
                             <VideoRecorder handleRecording={(e)=>this.handleRecording(e)}/>
                         </div>
                         <div className="col col-6">
-                            <CreatequizcardQuestion questions={this.state.quizcardQuestion} submit={(e, question)=> this.addQuestion(e, question)}/>
+                            <CreatequizcardQuestion questions={this.state.quizcardQuestion} edit={(e, i)=>this.editQuestion(e, i)} submit={(e, question)=> this.addQuestion(e, question)}/>
                         </div>
                     </div>
                 </div>

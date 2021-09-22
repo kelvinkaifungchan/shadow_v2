@@ -54,7 +54,7 @@ class CreateFlashcard extends React.Component {
                 flashcardTitle: this.state.flashcardTitle,
                 flashcardBody: this.state.flashcardBody,
                 flashcardRecording: this.state.flashcardRecording,
-                setId: this.props.match.params.setId
+                setId: parseInt(this.props.match.params.setId)
             })
        
     }
