@@ -71,8 +71,6 @@ class Card {
                 .then(async (dicId) => {
                     if (body.dictation != null) {
                         await Promise.all(body.dictation.map((dicData) => {
-                            console.log('dicData', dicData)
-                            console.log('dicId', dicId)
                             return this.knex("dictation")
                                 .insert({
                                     user_id: userId[0].id,

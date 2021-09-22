@@ -90,7 +90,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     this.props.question.question.map((question, i) => {
 
                                         if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-                                            console.log("questionquestionquestion in lin 80", question.multipleChoiceAnswer === "a");
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
 

@@ -25,7 +25,6 @@ class CreateFlashcard extends React.Component {
         this.handleRecording = this.handleRecording.bind(this);
     }
     componentDidMount() {
-        console.log('didmount')
         this.props.getdata({ email: localStorage.getItem('email')})
     }
 
@@ -49,15 +48,13 @@ class CreateFlashcard extends React.Component {
     }
     
     addFlashCard(){
-        console.log('what the actua;l fuckl?????????', this.props.location.state.set[0].id)
-        console.log('what the actua;l fuckl?????????', this.props.location.state.set[0].id)
       this.props.addCard({
                 email: localStorage.getItem('email'),
                 type : this.state.type,
                 flashcardTitle: this.state.flashcardTitle,
                 flashcardBody: this.state.flashcardBody,
                 flashcardRecording: this.state.flashcardRecording,
-                setId: this.props.location.state.set[0].id
+                setId: this.props.match.params.setId
             })
        
     }

@@ -48,8 +48,6 @@ class Account extends React.Component {
     }
 
     render() {  
-        console.log("props in Account", this.props)
-        console.log("state in Account", this.state)
 
         return (
             <div className="page">

@@ -180,8 +180,6 @@ class ViewFlashCard extends React.Component {
         })
     }
     render() {
-        console.log('this.state in VFC', this.state)
-        console.log('this.props in VFC', this.props)
         return (
             <div className="page">
 
