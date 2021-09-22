@@ -29,8 +29,12 @@ class ClassroomService {
     console.log("Editing a classroom");
     return this.knex("classroom").where("id", body.classroomId).update({
       classroomTitle: body.title,
-      classroomDesc: body.desc,
-    });
+      classroomDesc: body.description,
+    })
+    .returning(body.classroomId)
+    .catch((err)=>{
+      console.log(err)
+    })
   }
 
   //Method to delete classroom

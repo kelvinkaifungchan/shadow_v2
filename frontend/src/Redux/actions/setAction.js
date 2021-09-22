@@ -29,11 +29,9 @@ export const addSet = (set) => async (dispatch) => {
 }
 
 export const editSet = (set) => async (dispatch) => {
-    console.log("editing set")
-
-    const { data } = await axios.put("http://localhost:8080/api/set", set)
-    const newId = data[0]
-    dispatch({ type: EDIT_SET, payload: {newId: newId, id: set.setId, description: set.description, title: set.title } });
+    console.log("editing set", set)
+    await axios.put("http://localhost:8080/api/set", set) 
+    dispatch({ type: EDIT_SET, payload: {id: set.setId, description: set.description, title: set.title } });
 }
 
 export const deleteSet = (set) => async (dispatch) => {

@@ -15,9 +15,8 @@ export const addClassroom = (classroom) => async (dispatch) => {
 export const editClassroom = (classroom) => async (dispatch) => {
     console.log("editing classroom")
 
-    const { data } = await axios.put("http://localhost:8080/api/classroom", classroom)
-    const newId = data[0]
-    dispatch({type: EDIT_CLASSROOM, payload: {id: newId, classroom_id: classroom.classroomId, description: classroom.description, title: classroom.title}});
+    await axios.put("http://localhost:8080/api/classroom", classroom)
+    dispatch({type: EDIT_CLASSROOM, payload: {id: classroom.classroomId, description: classroom.description, title: classroom.title}});
 }
 
 export const deleteClassroom = (classroom) => async (dispatch) => {

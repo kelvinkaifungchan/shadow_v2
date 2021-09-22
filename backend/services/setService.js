@@ -28,8 +28,9 @@ class Set {
             .where("id", body.setId)
             .update({
                 setTitle: body.title,
-                setDesc: body.desc,
+                setDesc: body.description,
             })
+            .returning(body.setId)
             .catch((err) => {
                 console.log(err)
             });
