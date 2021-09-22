@@ -264,7 +264,7 @@ class ViewSet extends React.Component {
                         navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
                         toggle={() => this.toggle()} />
                         
-{                       this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
+                        {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>

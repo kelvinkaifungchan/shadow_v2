@@ -49,6 +49,8 @@ class CreateFlashcard extends React.Component {
     }
     
     addFlashCard(){
+        console.log('what the actua;l fuckl?????????', this.props.location.state.set[0].id)
+        console.log('what the actua;l fuckl?????????', this.props.location.state.set[0].id)
       this.props.addCard({
                 email: localStorage.getItem('email'),
                 type : this.state.type,
