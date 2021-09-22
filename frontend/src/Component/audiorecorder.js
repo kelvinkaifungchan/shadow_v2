@@ -35,7 +35,8 @@ class PureAudioRecorder extends React.Component {
             video: false,
             audio: true
         })
-
+        
+        console.log(this.stream, this.audio)
         this.audio.srcObject = this.stream;
         this.audio.play()
         .catch((err) => {
@@ -94,7 +95,8 @@ class PureAudioRecorder extends React.Component {
         formData.append("file", blob, fileName)
 
         const audioURL = window.URL.createObjectURL(blob);
-        //this.props.handleRecording(fileName)
+    
+        this.props.handleRecording(fileName)
 
         // append audioURL to list of saved audios for rendering
         const preview = document.getElementById('preview');
