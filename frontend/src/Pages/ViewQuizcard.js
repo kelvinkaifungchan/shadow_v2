@@ -49,17 +49,17 @@ class ViewQuizcard extends React.Component {
         })
     }
 
-    addAnswer(questionId, submission , marking) {
+    addAnswer(questionId, submission, marking) {
 
         this.props.submitAnswer({
             email: localStorage.getItem('email'),
             type: this.state.type,
-            quizcardQuestionSubmission: { questionId:questionId , submission:submission },
+            quizcardQuestionSubmission: { questionId: questionId, submission: submission },
             quizcardQuestionMarking: marking,
             quizcardId: parseInt(this.props.match.params.id)
         })
     }
-   
+
     async navigateSubmission(e) {
         e.preventDefault()
         this.props.history.push({
@@ -86,7 +86,7 @@ class ViewQuizcard extends React.Component {
                         </div>
                         {this.state.showQuizcardQuestion &&
                             <div className="col col-6">
-                                <ViewQuizcardQuestionModule question={this.state.correctQuestion}  addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission , marking)} navigate={(e)=>this.navigateSubmission(e)}/>
+                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission, marking)} navigate={(e) => this.navigateSubmission(e)} />
                             </div>
                         }
                     </div>
@@ -99,7 +99,7 @@ class ViewQuizcard extends React.Component {
                                 </div>
                             </div>}
                     </div>
-                   
+
 
                 </div>
             </div>

@@ -51,16 +51,16 @@ constructor(props){
     })
 }
 
-// componentDidMount() {
-//     this.drawOnCanvas();
-//     this.ctx.strokeStyle = "#00000";
-//     this.ctx.lineWidth = "1";
-// }
+componentDidMount() {
+    this.drawOnCanvas();
+    this.ctx.strokeStyle = "#00000";
+    this.ctx.lineWidth = "1";
+}
 
-// componentWillReceiveProps(newProps) {
-//     this.ctx.strokeStyle = newProps.color;
-//     this.ctx.lineWidth = "5";
-// }
+componentWillReceiveProps(newProps) {
+    this.ctx.strokeStyle = newProps.color;
+    this.ctx.lineWidth = "5";
+}
 
 drawOnCanvas() {
     var room = this.room;

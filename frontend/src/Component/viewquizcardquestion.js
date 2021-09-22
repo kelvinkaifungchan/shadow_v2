@@ -8,7 +8,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
         super(props)
         this.state = {
             type: 'mc',
-            border: ""
         }
     }
 
@@ -21,17 +20,18 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
     }
 
-    handleCorrect(e, marking){
-        if (marking){
-            this.setState({
-                border: "3px solid ##2F922"
-              })
-        }else{
-            this.setState({
-                border: "3px solid #FF3333"
-              })
+    handleAnswer(e, questionId, submission, marking) {
+        console.log(">>>>>>>>>",questionId, submission, marking);
+        this.props.addAnswer(questionId, submission, marking)
+
+        if (marking) {
+            e.target.style.border = "3px solid green"
+        } else {
+            e.target.style.border = "3px solid red"
         }
     }
+
+
 
 
 
@@ -60,7 +60,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     }
                                 }
                             )
-
                             : null}
                     </div>
                     <div className="col col-4 ">
@@ -89,7 +88,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     this.props.question.question.map((question, i) => {
 
                                         if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-                                                    console.log("questionquestionquestion in lin 80",question.multipleChoiceAnswer === "a");
+                                            console.log("questionquestionquestion in lin 80", question.multipleChoiceAnswer === "a");
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
 
@@ -99,27 +98,26 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                     <div className="row">
                                                         <div className="col col-6">
                                                             <label htmlFor="A">Choice A</label>
-                                                            <button style={{border: this.state.border}} onClick={(e)=>{this.props.addAnswer(question.id, "a") ; this.handleCorrect(e, question.multipleChoiceAnswer === "a")}} readOnly type="text" name="A" id="A" >{question.multipleChoiceA}</button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "a", question.multipleChoiceAnswer === "a") }} type="text" name="A" id="A" >{question.multipleChoiceA}</button>
                                                         </div>
                                                         <div className="col col-6">
                                                             <label htmlFor="A">Choice B</label>
-                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "b");this.handleCorrect(e, question.multipleChoiceAnswer ==="b")}} readOnly type="text" name="B" id="B" >{question.multipleChoiceB}</button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "b", question.multipleChoiceAnswer === "b") }} type="text" name="B" id="B" >{question.multipleChoiceB}</button>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col col-6">
                                                             <label htmlFor="A">Choice C</label>
-                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "c");this.handleCorrect(e, question.multipleChoiceAnswer === "c")}} readOnly type="text" name="C" id="C" >{question.multipleChoiceC}</button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "c", question.multipleChoiceAnswer === "c") }} type="text" name="C" id="C" >{question.multipleChoiceC}</button>
                                                         </div>
                                                         <div className="col col-6">
                                                             <label htmlFor="A">Choice D</label>
-                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "d");this.handleCorrect(e, question.multipleChoiceAnswer === "d")}} readOnly type="text" name="D" id="D" >{question.multipleChoiceD}</button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "d", question.multipleChoiceAnswer === "d") }} type="text" name="D" id="D" >{question.multipleChoiceD}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         } else if (question.questionType === "trueFalse" && i === this.state.questionNumId) {
-
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
                                                     <div key={i} className="row">
@@ -127,10 +125,10 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col col-6">
-                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "true", question.multipleChoiceAnswer === "true");this.handleCorrect(e, question.multipleChoiceAnswer === "true")}} color="primary"> True </button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "true", question.trueFalseAnswer === "true") }} > True </button>
                                                         </div>
                                                         <div className="col col-6">
-                                                            <button style={{border: this.state.border}} onClick={(e) => {this.props.addAnswer(question.id, "false", question.multipleChoiceAnswer === "false");this.handleCorrect(e, question.multipleChoiceAnswer === "false")}} color="primary"> False </button>
+                                                            <button style={{ border: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "false", question.trueFalseAnswer === "false") }} > False </button>
                                                         </div>
                                                     </div>
                                                 </div>
