@@ -66,11 +66,9 @@ class PureDisplaySetModule extends React.Component {
                         return (
                             <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
                                 <h4 data-key={set.id}>{set.title}</h4>
-<<<<<<< HEAD
-                                <span className={classes.deletebtn}><i  onClick={()=>this.deleteSet(set.id)} data-key="delete" className="fas fa-times"></i></span>
-=======
+
                                 <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteSet(set.id)} data-key="delete" className="fas fa-times"></i></span>
->>>>>>> cdbe2c8d715466dc3394add6f0984ac8e5917be1
+
                                 <p data-key={set.id}>{set.description} </p>
                             </div>
                         )
