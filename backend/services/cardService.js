@@ -75,7 +75,7 @@ class Card {
                                 .insert({
                                     user_id: userId[0].id,
                                     dictationcard_id: dicId[0],
-                                    dictationBody: dicData.text,
+                                    dictationBody: dicData.dictationBody,
                                     dictationRecording: dicData.dictationRecording,
                                     dictationStatus: true
                                 })

@@ -20,7 +20,6 @@ class CreateDictationcard extends React.Component {
             type: "dictationcard",
             dictationcardTitle: "",
             dictationcardBody: "",
-            dictationRecording: "",
             setId: "",
             items: [],
         }
@@ -149,7 +148,7 @@ class CreateDictationcard extends React.Component {
 
                             <div className="col col-12">
 
-                            <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem}/>
+                            <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={(e)=>{this.deleteItem(e)}}/>
                             </div>
 
                         </div>

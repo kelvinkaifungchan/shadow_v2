@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { addAudioRecordingThunk } from '../Redux/actions/recordingAction';
 import { v4 as uuidv4 } from 'uuid';
 
 class PureAudioRecorder extends React.Component {
     stream
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             show: Boolean(),
@@ -25,7 +25,7 @@ class PureAudioRecorder extends React.Component {
         });
     }
 
-    handlePreview(audioURL){
+    handlePreview(audioURL) {
         this.setState({
             preview: audioURL
         })
@@ -37,13 +37,13 @@ class PureAudioRecorder extends React.Component {
             video: false,
             audio: true
         })
-        
+
         console.log(this.stream, this.audio)
         this.audio.srcObject = this.stream;
         this.audio.play()
-        .catch((err) => {
-            console.log(err);
-        });
+            .catch((err) => {
+                console.log(err);
+            });
 
         // init recording
         this.mediaRecorder = new MediaRecorder(this.stream, {
@@ -57,6 +57,10 @@ class PureAudioRecorder extends React.Component {
                 this.chunks.push(e.data);
             }
         };
+
+        this.setState({
+            start: true
+        })
     }
 
     startRecording(e) {
@@ -67,16 +71,25 @@ class PureAudioRecorder extends React.Component {
         // start recorder with 10ms buffer
         this.mediaRecorder.start(10);
         // say that we're recording
-        this.setState({ recording: true });
+        this.setState({
+            recording: true,
+            start: false,
+            end: true
+        });
     }
 
     stopRecording(e) {
         console.log('stoppiung')
         e.preventDefault();
+        this.setState({
+        })
         // stop the recorder
         this.mediaRecorder.stop();
         // say that we're not recording
-        this.setState({ recording: false });
+        this.setState({
+            recording: false,
+            end: false
+        });
         // save the audio to memory
         this.upload()
         this.stream.getTracks().forEach(function (track) {
@@ -97,7 +110,7 @@ class PureAudioRecorder extends React.Component {
         formData.append("file", blob, fileName)
 
         const audioURL = window.URL.createObjectURL(blob);
-    
+
         this.props.handleRecording(fileName)
 
         // append audioURL to list of saved audios for rendering
@@ -112,21 +125,21 @@ class PureAudioRecorder extends React.Component {
         const { show, start, end } = this.state;
         return (
             <div>
-            <div className="flex-col d-flex justify-content-center" id="audioSubmission">
-                {show ? <audio ref={a => { this.audio = a }} className="bg-dark" id="audio" autoPlay={true}  muted ></audio> : null}
+                <div className="flex-col d-flex justify-content-center" id="audioSubmission">
+                    {show ? <audio ref={a => { this.audio = a }} className="bg-dark" id="audio" autoPlay={true} muted ></audio> : null}
 
-                {!show ? <audio ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true}   ></audio> : null}
-            </div>
-            <div className="row flex-row flex-nowrap">
-                <div className="p-3 ml-auto mr-auto ">
-                    {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
-                        className="fas fa-power-off"></i></span> : null}
-                    {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
-                        title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
-                        title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
+                    {!show ? <audio ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true}></audio> : null}
                 </div>
-            </div>
+                <div className="row flex-row flex-nowrap">
+                    <div className="p-3 ml-auto mr-auto ">
+                        {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
+                            className="fas fa-power-off"></i></span> : null}
+                        {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                            title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
+                        {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                            title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -140,7 +153,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         audiorecordingMDP: (formData) => {
-                   
+
             dispatch(addAudioRecordingThunk(formData))
         }
     }
