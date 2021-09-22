@@ -56,7 +56,7 @@ export function setReducer(state = initialState, action){
                 sets: state.sets.map((set) => {
                     if(action.payload.id.set_id === set.id){
                         return {
-                            ...set, tags:set.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
+                            ...set, tags:set.tags.filter((tag) => tag.id !== action.payload.content.tagId)
                         }
                     }
                     return set

@@ -7,7 +7,6 @@ class BridgeService {
     async add(body) {
         console.log("adding bridge", body)
         if (body.type === "classroom_set") {
-            console.log('body.type === set')
             const share = await this.knex("classroom_set").where({
                 classroom_id: body.classroomId,
                 set_id: body.setId

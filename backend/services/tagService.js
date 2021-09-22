@@ -126,31 +126,26 @@ class TagService{
 
     //Delete tag
     delete(body){
-        console.log("Removing tag")
+        console.log("Removing tag",body)
         if(body.type == "set"){
             return this.knex("tag_set")
                 .where("tag_set.tag_id", body.tagId)
                 .where("tag_set.set_id", body.setId)
                 .del()
+                .catch((err)=>{
+                    console.log(err);
+                })
         }
-        else if(body.type == "classroom"){
+        else if(body.type == "class"){
             return this.knex("tag_classroom")
                 .where("tag_classroom.tag_id", body.tagId)
                 .where("tag_classroom.classroom_id", body.classroomId)
                 .del()
+                .catch((err)=>{
+                    console.log(err);
+                })
         }
-        // else if(body.type == "flashcard"){
-        //     return this.knex("tag_flashcard")
-        //         .where("tag_flashcard.tag_id", body.tagId)
-        //         .where("tag_flashcard.flashcard_id", body.location)
-        //         .del()
-        // }
-        // else if(body.type == "quizcard"){
-        //     return this.knex("tag_quizcard")
-        //         .where("tag_quizcard.tag_id", body.tagId)
-        //         .where("tag_quizcard.quizcard_id", body.location)
-        //         .del()
-        // }
+       
     }
 
     //List out all the tags a user has

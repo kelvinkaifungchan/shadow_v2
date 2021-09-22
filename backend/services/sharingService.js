@@ -34,7 +34,6 @@ class SharingService {
                     .where("email", body.email)
                 })
                 .then((data) => {
-                    console.log("this is the sharing data", data)
                     return ({
                         user_id: data[0].id,
                         email: data[0].email,
@@ -46,15 +45,16 @@ class SharingService {
     }
 
     //Delete user permission to set
-    async delete(body) {
+     delete(body) {
         console.log("removing classroom sharing with user")
-        let user_id = await this.knex("user").where({
-            email: body.email
-        }).select("id");
+
         return this.knex("classroom_user")
             .where("classroom_user.classroom_id", body.classroomId)
-            .where("classroom_user.sharedUser_id", user_id[0].id)
+            .where("classroom_user.sharedUser_id", body.sharedId)
             .del()
+            .catch((err)=>{
+                console.log(err);
+            })
     }
 }
 

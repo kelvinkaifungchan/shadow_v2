@@ -95,8 +95,8 @@ class CreateDictationcard extends React.Component {
     }
 
     render() {
-console.log('this.props in CDC',this.props)
-console.log('this.state in CDC',this.state)
+        console.log('this.props in CDC', this.props)
+        console.log('this.state in CDC', this.state)
         return (
 
             <div className="page">

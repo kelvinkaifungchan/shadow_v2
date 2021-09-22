@@ -2,6 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
+import { deleteTag } from '../Redux/actions/tagAction';
+import { deleteSharingThunk } from '../Redux/actions/sharingAction';
+
+
 
 // Require Component
 import { DisplayShareUser } from '../Component/displayshareduser'
@@ -36,7 +40,6 @@ class ViewClassroom extends React.Component {
     }
 
     async componentDidMount() {
-        console.log('didmount')
         await this.props.getdata({ email: localStorage.getItem("email") });
     }
 
@@ -114,6 +117,7 @@ class ViewClassroom extends React.Component {
         })
     }
 
+
     navigateSet(e) {
         if (e.target.attributes["data-key"].value === "delete") {
             return
@@ -123,10 +127,19 @@ class ViewClassroom extends React.Component {
             })
         }
     }
-
-    logout = (e) => {
-        e.preventDefault();
-        this.props.logout()
+    deleteTag(tagId){
+        this.props.deleteTag({
+            type:"class",
+            tagId: tagId,
+            classroomId : this.state.correctClass[0].id
+        })
+    }
+    deleteShare(sharedId){
+        this.props.deleteShare({
+    
+            sharedId: sharedId,
+            classroomId : this.state.correctClass[0].id
+        })
     }
 
     render() {
@@ -143,19 +156,19 @@ class ViewClassroom extends React.Component {
 
                     <div className="row d-flex pl-4 pr-4 m-2">
 
-                        {/* Share User */}
-                        <DisplayShareUser shared={this.state.correctShare} />
-
-
+                    {/* Share User */}
+                        <DisplayShareUser shared={this.state.correctShare} deleteShare={(sharedId)=>{this.deleteShare(sharedId)}}/>
                         {/* share user add button */}
                         <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
                             {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
+
+
                     {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        <DisplayClassroomTag tags={this.state.correctTag} />
+                        <DisplayClassroomTag tags={this.state.correctTag} deleteTag={(tagId)=>{this.deleteTag(tagId)}} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
@@ -201,6 +214,12 @@ const mapDispatchToProps = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
+        deleteTag: (tag) => {
+            dispatch(deleteTag(tag))
+        },
+        deleteShare: (shared)=>{
+            dispatch(deleteSharingThunk(shared))
+        }
     }
 }
 
