@@ -27,7 +27,7 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
             } else if (submission.type === "quizcard") {
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
-                    payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId }
+                    payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId, quizcardQuestionMarking: data.data.quizcardQuestionMarking }
                 })
             }
         })

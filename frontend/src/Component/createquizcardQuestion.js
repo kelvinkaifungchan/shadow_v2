@@ -109,6 +109,17 @@ class PureCreateQuiz extends React.Component{
     render(){
         return (
             <>
+            <div className={classes.scrollicon}>
+                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
+                    return (
+                        <div key={i}>
+                            <span key={i} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
+                        </div>
+                    )
+                }) : null}
+                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
+            </div>
+            <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
                 <div className="row">

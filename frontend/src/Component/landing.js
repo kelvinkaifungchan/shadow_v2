@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Login } from '../Pages/Login';
+import { Canvas } from './canvas';
 import { NavBar } from '../Component/navbar';
 import { Dashboard } from '../Pages/Dashboard';
 import { Account } from '../Pages/Account';
@@ -33,13 +34,14 @@ class Landing extends React.Component {
                 <Route render={({ location }) => (
                     <TransitionGroup>
                         <div className="nav">
-                            {location.pathname !== '/login' && location.pathname !== '/signup' && <NavBar history={this.props.history} />}
+                            {location.pathname !== '/login' && location.pathname !== '/signup'  && <NavBar history={this.props.history} />}
                         </div>
                         <CSSTransition
                             key={location.key}
                             className="fade">
                             <Switch>
                                 <Route path="/login" component={Login} />
+                                <Route path="/canvas/:userId/:canvasId" component={Canvas} />
 
                                 <PrivateRoute exact path="/" component={Dashboard} />
                                 <PrivateRoute path="/account" component={Account} />

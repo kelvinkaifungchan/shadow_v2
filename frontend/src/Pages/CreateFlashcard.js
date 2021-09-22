@@ -16,9 +16,9 @@ class CreateFlashcard extends React.Component {
         this.state = {
             type:"flashcard",
             flashcardTitle: "",
-            flashcardBody:"",
+            flashcardBody:"Insert a transcript here",
             flashcardRecording:"",
-            setId:""
+            setId: "",
         }
         this.handleHeading = this.handleHeading.bind(this);
         this.handleTranscript = this.handleTranscript.bind(this);
@@ -80,7 +80,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
+                            <button cards={this.props.cards} onClick={(body)=>{this.navigateSet(body)}}>Create Card</button>
                         </div>
                     </div>
 

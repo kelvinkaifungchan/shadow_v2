@@ -17,6 +17,7 @@ import { NewCommentModal } from '../Component/newcommentmodal';
 import { getdataThunk } from '../Redux/actions/action'
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 import { addFeedbackThunk } from '../Redux/actions/feedbackAction'
+import { deleteFeedbackThunk } from '../Redux/actions/feedbackAction'
 
 //CSS
 import classes from './ViewFlashcard.module.css'
@@ -61,7 +62,6 @@ class ViewFlashCard extends React.Component {
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            console.log( "<><><><><><><>HERE U ARE",correctProps);
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
@@ -164,11 +164,17 @@ class ViewFlashCard extends React.Component {
     addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
         this.props.addFeedbackThunk(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime)
     }
-    
+    handleDelete(id){
+        this.props.deleteFeedback({
+            type:"flashcard",
+            feedbackId: id,
+            flashcard_id: parseInt(this.props.match.params.id),
+            flashcardSubmission_id: this.state.correctFeedback[0].id
+        })
+    }
     render() {
         return (
             <div className="page">
-                {/* <NavBar user={this.props.user} history={this.props.history}/> */}
 
                 <div className={classes.viewflashcard}>
                     {/* 1st row: Header */}
@@ -179,7 +185,7 @@ class ViewFlashCard extends React.Component {
                     {/* 2nd row: Transcript & Video Player */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
-                            <Transcript title={this.state} transcript={this.state} />
+                            {this.state.correctFlashcard.length > 0 ?<Transcript title={this.state} flashcardBody={this.state.correctFlashcard[0].flashcardTitle} /> : null}
                         </div>
                         <div className="col-6">
                             <VideoPlayer dtype={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
@@ -217,7 +223,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} />}
+                                        {this.state.showSubmissionViewer ? <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={(e)=>{this.handleDelete(e)}}/> : null}
                                     </div>
                                 </div>
                             }
@@ -226,7 +232,7 @@ class ViewFlashCard extends React.Component {
 
                         <div className="col-6">
                             {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer dtype={"submission"} create={this.state} src={ this.state.correctFlashcard[0].submission.filter(submission => submission.id === this.state.submissionId)[0].flashcardSubmissionRecording}/>}
+                            {this.state.showSubmissionViewer &&  <VideoPlayer dtype={"submission"} create={this.state} src={this.state.correctFeedback[0].flashcardSubmissionRecording}/>}
                             {this.state.showRecorder && 
                             <div className={classes.buttoncontainer}> 
                              <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
@@ -268,6 +274,9 @@ const mapDispatchToProps = dispatch => {
                 timestamp: flashcardFeedbackTime
             }
             dispatch(addFeedbackThunk(feedback))
+        },
+        deleteFeedback: (id) => {
+            dispatch(deleteFeedbackThunk(id))
         }
     }
 }
