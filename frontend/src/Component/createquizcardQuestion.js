@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import classes from './viewquizcardpage.module.css'
+import classes from './createquizcardQuestion.module.css'
 
 class PureCreateQuiz extends React.Component{
     constructor(props){
@@ -121,12 +121,14 @@ class PureCreateQuiz extends React.Component{
             </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
+            <div className={classes.questionframe}>
                 <div className="row">
                     <div className="col col-8">
-                        <p>Question 1</p>
+                        <p>Question {this.props.questions.questions}</p>
                         <p>{this.state.time}</p>
                     </div>
                     <div className="col col-4">
+                        <div className={classes.questiontype}>
                         <UncontrolledDropdown>
                             <DropdownToggle caret>
                                 Question type
@@ -136,53 +138,146 @@ class PureCreateQuiz extends React.Component{
                             <DropdownItem onClick={()=>this.tfToggle()}>True or False</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
+                        </div>
                     </div>
                 </div>
+
                 <div className="row">
-                    <textarea id="question" value={this.state.questionBody} className="input" onChange={(e)=> this.changeOpt(e)} style={{width: "100%", height: "20vh", margin:"1px", resize:"none"}}/>
+                    <div className="col col-12">
+                    <textarea id="question" value={this.state.questionBody} className={classes.question} onChange={(e)=> this.changeOpt(e)} />
+                    </div>
                 </div>
+
                 {this.state.questionType === "multipleChoice" ? 
                 <div>
-                    <p>Choose a correct answer:</p>
                     <div className="row">
-                        <div className="col col-6">
-                            <FormGroup>
-                                <Label for="a"><Button id="a" className="input" onClick={(e)=>this.selectAns(e)}>A</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="a" id="a" value={this.state.a} />
-                            </FormGroup>
+                    <table>
+                        <div className="col col-12">
+                        <tr className={classes.questionrow}>
+                                {/* <FormGroup> */}
+                                        <th className={classes.opt}>
+                                            <Label for="a">
+                                                <Button id="a" className="input" onClick={(e)=>this.selectAns(e)}
+                                                style={{
+                                                    background: 
+                                                    this.state.multipleChoiceAnswer === "a" 
+                                                            ? "#3b3d2f" : null, 
+                                                    border: this.state.multipleChoiceAnswer === "a" 
+                                                    ? "1px solid #3b3d2f" : null}} >A</Button>
+                                            </Label>
+                                        </th>
+
+                                        <td className={classes.ans}>
+                                        <Input onChange={(e) => this.changeOpt(e)} type="text" name="a" id="a" value={this.state.a} />
+                                        </td>
+                                    {/* </FormGroup> */}
+
+                                    {/* <FormGroup> */}
+                                    <th className={classes.opt}>
+                                        <Label for="b">
+                                            <Button id="b" className="input" onClick={(e)=>this.selectAns(e)}
+                                            style={{
+                                                    background: 
+                                                    this.state.multipleChoiceAnswer === "b" 
+                                                            ? "#3b3d2f" : null, 
+                                                    border: this.state.multipleChoiceAnswer === "b" 
+                                                    ? "1px solid #3b3d2f" : null}} >B</Button></Label>
+                                    </th>
+
+                                    <td className={classes.ans}>
+                                        <Input onChange={(e) => this.changeOpt(e)} type="text" name="b" id="b" value={this.state.b} />
+                                    </td>
+                                    {/* </FormGroup> */}
+                        </tr>
                         </div>
-                        <div className="col col-6">
-                            <FormGroup>
-                                <Label for="b"><Button id="b" className="input" onClick={(e)=>this.selectAns(e)}>B</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="b" id="b" value={this.state.b} />
-                            </FormGroup>
+
+                        <div className="col col-12">
+                        <tr className={classes.questionrow}>
+                                    {/* <FormGroup> */}
+                                    <th className={classes.opt}>
+                                        <Label for="c">
+                                            <Button id="c" className="input" onClick={(e)=>this.selectAns(e)}
+                                            style={{
+                                                background: 
+                                                this.state.multipleChoiceAnswer === "c" 
+                                                        ? "#3b3d2f" : null, 
+                                                border: this.state.multipleChoiceAnswer === "c" 
+                                                ? "1px solid #3b3d2f" : null}} >C</Button></Label>
+                                    </th>
+
+                                    <td className={classes.ans}>
+                                        <Input onChange={(e) => this.changeOpt(e)} type="text" name="c" id="c" value={this.state.c} />
+                                    </td>
+                                    {/* </FormGroup> */}
+
+                                    {/* <FormGroup> */}
+                                    <th className={classes.opt}>
+                                        <Label for="d">
+                                            <Button id="d" className="input" onClick={(e)=>this.selectAns(e)}
+                                            style={{
+                                                background: 
+                                                this.state.multipleChoiceAnswer === "d" 
+                                                        ? "#3b3d2f" : null, 
+                                                border: this.state.multipleChoiceAnswer === "d" 
+                                                ? "1px solid #3b3d2f" : null}} >D</Button></Label>
+                                    </th>
+                                        
+                                    <td className={classes.ans}>
+                                        <Input onChange={(e) => this.changeOpt(e)} type="text" name="d" id="d" value={this.state.d} />
+                                    </td>
+
+                                    {/* </FormGroup> */}
+                        </tr>
                         </div>
+
+                    </table>
                     </div>
-                    <div className="row">
-                        <div className="col col-6">
-                            <FormGroup>
-                                <Label for="c"><Button id="c" className="input" onClick={(e)=>this.selectAns(e)}>C</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="c" id="c" value={this.state.c} />
-                            </FormGroup>
-                        </div>
-                        <div className="col col-6">
-                            <FormGroup>
-                                <Label for="d"><Button id="d" className="input" onClick={(e)=>this.selectAns(e)}>D</Button></Label>
-                                <Input onChange={(e) => this.changeOpt(e)} type="text" name="d" id="d" value={this.state.d} />
-                            </FormGroup>
-                        </div>
-                    </div> 
                 </div> : 
                 <div>
-                    <p>Select the correct answer:</p>
                     <div className="row">
-                        <Button color="primary" onClick={(e)=>this.selectAns(e)} id="true"> True </Button>
+                    <table>
+                        <div className="col col-12">
+                        <tr className={classes.questionrow}>
+                                    <th className={classes.tfopt}>
+                                        <Button onClick={(e)=>this.selectAns(e)} id="true"
+                                        style={{
+                                            background: 
+                                            this.state.trueFalseAnswer === "true" 
+                                                    ? "#3b3d2f" : null, 
+                                            border: this.state.trueFalseAnswer === "true" 
+                                            ? "1px solid #3b3d2f" : null}}
+                                            > True </Button>
+                                    </th>
+
+                                    <th className={classes.tfopt}>
+                                        <Button onClick={(e)=>this.selectAns(e)} id="false"
+                                        style={{
+                                            background: 
+                                            this.state.trueFalseAnswer === "false" 
+                                                    ? "#3b3d2f" : null, 
+                                            border: this.state.trueFalseAnswer === "false" 
+                                            ? "1px solid #3b3d2f" : null}}
+                                            > False </Button>
+                                    </th>
+                                        
+                        </tr>
+                        </div>
+                    </table>
                     </div>
-                    <div className="row">
-                        <Button color="primary" onClick={(e)=>this.selectAns(e)} id="false"> False </Button>
-                    </div>
-                </div>}
+                </div>
+            }
+            </div>
             </Form>
+
+            <div className={classes.scrollicon}>
+                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
+                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
+                    return (
+                            <span onClick={(e) => this.displayQuestion(e, i)} key={i}>{i + 1}</span>
+
+                    )
+                }) : null}
+            </div>
             </>
         )
     }
