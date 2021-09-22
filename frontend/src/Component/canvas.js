@@ -15,11 +15,18 @@ class PureCanvas extends React.Component{
     isDrawing = false;
 
 constructor(props){
-    super(props);
+    super(props); 
+    
+   if(this.props.user){
     console.log("USER DATA", this.props.user.id.toString())
-    console.log("TYPE CANVASID", this.props.canvasId)
+    console.log("CANVASID", this.props.canvasId)
+    this.room = this.props.user.id.toString() + "-" + this.props.canvasId
+   } else{
+    console.log("USER DATA in params", this.props.match.params.userId)
+    console.log("CANVASID in params", this.props.match.params.canvasId)
+    this.room = this.props.match.params.userId.toString() + "-" + this.props.match.params.canvasId.toString();
+   }
 
-    this.room = this.props.user.id.toString() + "-" + this.props.canvasId;
     console.log("ROOM ID", this.room)
 
     this.socket = io.connect(`http://localhost:8080/`);
@@ -49,20 +56,19 @@ constructor(props){
             image.src = data;
         }, 10)
     })
+
 }
 
-// componentDidMount() {
-//     this.drawOnCanvas();
-//     this.ctx.strokeStyle = "#00000";
-//     this.ctx.lineWidth = "1";
-// }
+componentDidMount() {
+    this.drawOnCanvas();
+    this.ctx.strokeStyle = "#00000";
+    this.ctx.lineWidth = "1";
+}
 
-// componentWillReceiveProps(newProps) {
-//     this.ctx.strokeStyle = newProps.color;
-//     this.ctx.lineWidth = "5";
-// }
+
 
 drawOnCanvas() {
+    console.log("LOL", document.querySelector('#board'))
     var room = this.room;
     var canvas = document.querySelector('#board');
     this.ctx = canvas.getContext('2d');
