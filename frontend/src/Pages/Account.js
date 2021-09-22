@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
+import { IconUpdateModal } from '../Component/iconupdatemodal';
+import { PasswordUpdateModal } from '../Component/passwordupdatemodal';
+
 import classes from './Account.module.css'
 
 class Account extends React.Component {
@@ -18,11 +21,11 @@ class Account extends React.Component {
             type: "",
             iconModal: false,
             passwordModal: false,
+            selectedFile: null,
         };
     }
 
     componentDidMount() {
-        console.log("componentDidMount", this.props)
         this.props.getdata({ email: localStorage.getItem('email') })
     }
 
@@ -35,17 +38,18 @@ class Account extends React.Component {
         this.setState({
             iconModal: !this.state.iconModal,
         });
-        alert("Do you want to change your icon? WTF?")
     }
+
 
     passwordtoggle() {
         this.setState({
             passwordModal: !this.state.passwordModal,
         });
-        alert("Do you want to change your password? WTF?")
     }
 
     render() {  
+        console.log("props in Account", this.props)
+        console.log("state in Account", this.state)
 
         return (
             <div className="page">
@@ -60,6 +64,7 @@ class Account extends React.Component {
                 <div className="row p-4">
                     <div className="col-4 d-flex justify-content-center">
                         <div onClick={() => this.icontoggle()} className={classes.icon}> 
+                        <IconUpdateModal upload={this.state} toggle={() => this.icontoggle()}/>
                     <img src={this.props.user.picture} alt="Avatar"></img>
                     </div>
                     </div>
@@ -90,6 +95,7 @@ class Account extends React.Component {
                                 <th>Password</th>
                                 <td>*******</td>
                                 <td><button onClick={() => this.passwordtoggle()}>Change password</button></td>
+                                <PasswordUpdateModal update={this.state} toggle={()=> this.passwordtoggle()}/>
                             </tr>
                             <tr onClick={this.logout}> 
                             <th> <Link to="/login">Logout</Link></th>

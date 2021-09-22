@@ -7,7 +7,7 @@ import { getdataThunk } from '../Redux/actions/action'
 import { HeadingInput } from '../Component/headinginput';
 import { VideoRecorder } from '../Component/videorecorder';
 import { CreatequizcardQuestion } from '../Component/createquizcardQuestion';
-import classes from './CreateFlashcard.module.css'
+import classes from './CreateQuizcard.module.css'
 
 
 class CreateQuizcard extends React.Component {
@@ -70,23 +70,24 @@ class CreateQuizcard extends React.Component {
         this.props.logout()
     }
     render() {
-        console.log('props in create quizcard',this.props);
-        console.log('state in create quizcard',this.state);
 
         return (
             <div className="page">
                 {/* Page Container */}
-                <div className={classes.createflashcard}>
+                <div className={classes.createquizcard}>
                     {/* Header Row */}
-                    <div className="row d-flex p-4">
-                        <div className="col-8">
-                            <HeadingInput card={this.state} handleHeading={(e)=>this.handleHeading(e)} heading={this.state}/>
-                        </div>
-                        <div className="col-4">
-                            {/* <FormSubmit/> */}
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
+                    <div className={classes.header}>
+                        <div className="row d-flex p-4">
+                            <div className="col-8">
+                                <HeadingInput card={this.state} handleHeading={(e)=>this.handleHeading(e)} heading={this.state}/>
+                            </div>
+                            <div className="col-4">
+                                {/* <FormSubmit/> */}
+                                <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
+                            </div>
                         </div>
                     </div>
+
                     <div className="row">
                         <div className="col col-6">
                             <VideoRecorder handleRecording={(e)=>this.handleRecording(e)}/>
@@ -103,7 +104,6 @@ class CreateQuizcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in create quizcard", state);
 
     return {
         email: state.authStore.email,

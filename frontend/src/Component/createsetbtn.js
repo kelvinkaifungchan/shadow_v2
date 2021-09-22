@@ -16,11 +16,9 @@ class PureCreateSetBtn extends React.Component {
 }
 
 setToggle() {
-    console.log('setto')
     this.setState({
         setModal: !this.state.setModal
     });
-    console.log(this.state)
 }
 
     render(){

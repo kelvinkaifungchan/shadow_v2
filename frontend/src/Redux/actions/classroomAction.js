@@ -9,7 +9,6 @@ export const addClassroom = (classroom) => async (dispatch) => {
 
    const { data } = await axios.post("http://localhost:8080/api/classroom", classroom);
    const newId = data[0];
-   console.log("this is the post return", newId)
     dispatch({type: ADD_CLASSROOM, payload: {id: newId, description: classroom.description, title: classroom.title}});
 }
 

@@ -129,7 +129,6 @@ export function cardReducer(state = initialState, action) {
                 }
             };
         case DELETE_FLASHCARD:
-            console.log('del flash actino in reducer', action.payload)
             return {
                 card: {
                     ...state.card,
@@ -329,11 +328,11 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     flashcard: state.card.flashcard.map((flashcard) => {
-                        if(flashcard.flashcard_id === action.payload.flashcard_id){
+                        if(flashcard.id === action.payload.flashcard_id){
                             return {
                                 ...flashcard,
                                 submission: flashcard.submission.map((submission) => {
-                                    if(submission.flashcardSubmission_id === action.payload.flashcardSubmission_id){
+                                    if(submission.id === action.payload.flashcardSubmission_id){
                                         return {
                                             ...submission, 
                                             feedback: submission.feedback.filter((feedback) => feedback.flashcardFeedback_id !== action.payload.flashcardFeedback_id )

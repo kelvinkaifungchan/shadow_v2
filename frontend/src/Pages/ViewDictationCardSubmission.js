@@ -36,7 +36,6 @@ class ViewDictationcardSubmission extends React.Component {
                 correctDictationcard: this.props.cards.dictationcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            console.log("THIS IS THE CORRECT PROPS in View DictationCard Submission", correctProps)
 
             // const correctSub = this.state.correctQuizcard[0] && 
             //     this.state.correctQuizcard[0].question.length > 0
@@ -52,8 +51,6 @@ class ViewDictationcardSubmission extends React.Component {
         }
     }
     render() {
-        console.log("i want to see the props in DICTATION SUBMISSION",this.props);
-        console.log("i want to see the state in DICTATION SUBMISSION",this.state);
 
         return (
             <div className="page">
@@ -65,19 +62,19 @@ class ViewDictationcardSubmission extends React.Component {
                                 <h1>{this.state.correctDictationcard.length > 0 && this.state.correctDictationcard[0].dictationcardTitle}</h1>
                             </div>
                         </div>
-                            {/* <table>
+                            <table>
                                 <th><br></br></th>
-                                {this.state.correctDictationcard &&
-                                    this.state.correctDictationcardQuizcard[0].questions.length > 0
+                                {this.state.correctDictationcard.length > 0 &&
+                                    this.state.correctDictationcard[0].questions.length > 0
                                     ? this.state.correctDictationcard[0].questions.map((question, i) => {
                                         return(
                                             <tr data-key={i}>
                                                 <th>Question {question.id}</th>
-                                                <td>Question body {question.dictationBody}</td>
+                                                <td>{question.dictationBody}</td>
                                                 </tr>
                                         )
                                     }) : null}
-                                </table> */}
+                                </table>
 
                         <div className="row d-flex p-4">
                             <div className="col">

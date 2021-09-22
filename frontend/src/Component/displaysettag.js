@@ -6,12 +6,11 @@ import classes from './displaysettag.module.css'
 class PureDisplaySetTag extends React.Component {
 
     render() {
-        console.log("SET TAG PROPS",this.props.tags);
         return (
             <>
                    {this.props.tags && this.props.tags.length > 0 ? this.props.tags.map((tag, i) => {
                         return (
-                            <span key={i} data-key={i} className={classes.tagbutton}>
+                            <span key={i} data-key={i} onClick={()=>this.props.deleteTag(tag.id)} data-key="delete" className={classes.tagbutton}>
                                 #{tag.body}
                             </span>
                         )

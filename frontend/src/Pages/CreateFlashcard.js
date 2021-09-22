@@ -16,15 +16,16 @@ class CreateFlashcard extends React.Component {
         this.state = {
             type:"flashcard",
             flashcardTitle: "",
-            flashcardBody:"",
+            flashcardBody:"Insert a transcript here",
             flashcardRecording:"",
-            setId:""
+            setId: "",
         }
         this.handleHeading = this.handleHeading.bind(this);
         this.handleTranscript = this.handleTranscript.bind(this);
         this.handleRecording = this.handleRecording.bind(this);
     }
     componentDidMount() {
+        console.log('didmount')
         this.props.getdata({ email: localStorage.getItem('email')})
     }
 
@@ -67,8 +68,6 @@ class CreateFlashcard extends React.Component {
         })
     }
     render() {
-        console.log("this.props in create flash card",this.props);
-        console.log("this.state in create flash card",this.state);
 
         return (
             <div className="page">
@@ -81,7 +80,7 @@ class CreateFlashcard extends React.Component {
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}}>Create Card</button>
+                            <button cards={this.props.cards} onClick={(body)=>{this.navigateSet(body)}}>Create Card</button>
                         </div>
                     </div>
 
@@ -103,7 +102,6 @@ class CreateFlashcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in create flashcard", state);
 
     return {
         email: state.authStore.email,

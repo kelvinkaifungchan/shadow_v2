@@ -5,17 +5,15 @@ class PureVideoPlayer extends React.Component {
     
     constructor(props) {
         super(props)
-        this.player = React.createRef()
-
-       
+        this.player = React.createRef() 
     }
 
 
     render() {
         return (
 
-            <div className="d-flex justify-content-center">
-                <video ref={v => { this.player = v }} id={this.props.dtype} controls allowFullScreen>
+            <div className="d-flex justify-content-center" style={{minHeight:"100%", minWidth:"100%"}}>
+                <video ref={v => { this.player = v }} key={this.props.src} id={this.props.dtype} controls allowFullScreen>
                 <source src={this.props.src} type="video/mp4"/>
                 </video>
             </div>

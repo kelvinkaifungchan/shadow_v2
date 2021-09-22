@@ -13,10 +13,10 @@ class PureTranscript extends React.Component {
         <form>
 
         <textarea onChange={(e)=>this.props.handleTranscript(e.currentTarget.value)}
-          value={this.props.transcript != null ? this.props.transcript.transcript : "Insert a transcript here"}
+          value={this.props.flashcardBody}
           className={classes.transcript}
           name={this.props.title.title}
-          disabled= {this.props.title.read !=null ? true : false}
+          disabled= {this.props.title.read ? true : false}
         />
       </form>
       </div>

@@ -56,11 +56,9 @@ class Card {
                         })
                     }))
                     .then(()=>{
-                        console.log('lin59', quizcardId)
                         return quizcardId
                     })
                 }
-                console.log("quizcardId", quizcardId)
                 return quizcardId[0]
             })
             .catch((err) => {
@@ -401,10 +399,11 @@ class Card {
                         .join("user", "flashcardFeedback.user_id", "user.id")
                         .where("flashcardSubmission_id", sub.id)
                         .where("flashcardFeedbackStatus", true)
-                        .select("user.displayName", "user.picture", "flashcardFeedback.user_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
+                        .select('flashcardFeedback.id as flashcardFeedback_id',"user.displayName", "user.picture", "flashcardFeedback.user_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime")
                         .then((fcfb)=>{
                             sub.feedback = fcfb.map((fcfbs)=>{
                                 return {
+                                    flashcardFeedback_id: fcfbs.flashcardFeedback_id,
                                     user_id: fcfbs.user_id,
                                     picture: fcfbs.picture,
                                     displayName: fcfbs.displayName,

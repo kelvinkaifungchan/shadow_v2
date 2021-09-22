@@ -11,6 +11,12 @@ export default class Search extends React.Component {
 
     }
     render() {
+
+        const filteredItems = this.props.classrooms.map((i) => {
+            console.log(i);
+            // return item.title
+        })
+       
         return (
             <div>
                 <Typeahead

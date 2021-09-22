@@ -46,6 +46,7 @@ class CreateDictationcard extends React.Component {
     }
 
     addItem(e) {
+        e.preventDefault();
         if (this._inputElement.value !== "") {
           var newItem = {
             text: this._inputElement.value,
@@ -61,9 +62,8 @@ class CreateDictationcard extends React.Component {
           this._inputElement.value = "";
         }
          
-        console.log(this.state.items);
            
-        e.preventDefault();
+       
       }
       
       deleteItem(key) {
@@ -77,7 +77,6 @@ class CreateDictationcard extends React.Component {
       }
       
     render() {
-        console.log("i want to see the props",this.props);
 
         return (
             
@@ -130,7 +129,6 @@ class CreateDictationcard extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log("state in CREATE DICTATION", state);
 
     return {
         email: state.authStore.email,

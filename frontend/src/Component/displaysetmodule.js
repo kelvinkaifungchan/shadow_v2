@@ -13,7 +13,6 @@ import classes from './displaysetmodule.module.css'
 class PureDisplaySetModule extends React.Component {
 
     addSetConnect(e) {
-        console.log('addSetConnect')
         this.props.addBridge({
             type: "classroom_set",
             classroomId: this.props.match.params.id,
@@ -27,8 +26,8 @@ class PureDisplaySetModule extends React.Component {
         })
         this.deleteBridge(setId)
     }
-    deleteBridge(setId){
-        if(this.props.dash === "dashSet"){
+    deleteBridge(setId) {
+        if (this.props.dash === "dashSet") {
             this.props.deleteBridge({
                 type: "classroom_set",
                 setId: setId
@@ -42,32 +41,34 @@ class PureDisplaySetModule extends React.Component {
         }
     }
     render() {
-        console.log("props in display set module", this.props);
         return (
-            <>
+            <>  
+                    {/* add Exist */}
                 { this.props.display === "3" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
-                    console.log('display first set moduel')
                     return (
                         <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.addSetConnect(e); this.props.toggle() }}>
-                            <h4 data-key={set.id}>{set.title} Exist Modal</h4>
+                            <h4 data-key={set.id}>{set.title}</h4>
                             <p data-key={set.id}>{set.description}</p>
                         </div>
                     )
+                    // view set
                 }) : this.props.correctSets && this.props.correctSets.length > 0 && this.props.correctSets[0] !== undefined ? this.props.correctSets.map((set, i) => {
-                    console.log('correct sets', set)
                     return (
                         <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
-                            <h4 data-key={set.id}>{set.title} View Set</h4>
+                            <h4 data-key={set.id}>{set.title}</h4>
                             <span data-key="delete" className={classes.deletebtn}><i data-key="delete" onClick={()=>this.deleteBridge(set.id)} className="fas fa-times"></i></span>
                             <p data-key={set.id}>{set.description} </p>
                         </div>
                     )
                 })
+                    // dashboard
                     : this.props.dash === "dashSet" && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
                         return (
                             <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.props.navigate(e) }}>
-                                <h4 data-key={set.id}>{set.title} Dash</h4>
-                                <span className={classes.deletebtn}><i  onClick={()=>this.deleteSet(set.id)} data-key="delete" className="fas fa-times"></i></span>
+                                <h4 data-key={set.id}>{set.title}</h4>
+
+                                <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteSet(set.id)} data-key="delete" className="fas fa-times"></i></span>
+
                                 <p data-key={set.id}>{set.description} </p>
                             </div>
                         )

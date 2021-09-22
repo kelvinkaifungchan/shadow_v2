@@ -50,8 +50,6 @@ class PureModel extends React.Component {
 
 
     render() {
-        // console.log("this.props in ANM", this.props);
-        // console.log("state in addnewmodal", this.state)
 
         const isClass = this.props.create.type === "class";
         let button
@@ -78,7 +76,11 @@ class PureModel extends React.Component {
                         navigateNewQuizcard={(e) => { this.props.navigateNewQuizcard(e) }} 
                         navigateNewDictationcard={(e) => { this.props.navigateNewDictationcard(e) }} 
                         toggle={() => {this.openSelect();this.props.toggle()}} />}
-                    <AddExistPopUp create={this.state} allCard={this.props.allCard} correctClass={this.props.correctClass} match={this.props.match} toggle={() => {this.toggle();this.props.toggle()}} />
+                    <AddExistPopUp create={this.state} 
+                    allCard={this.props.allCard} 
+                    correctClass={this.props.correctClass} 
+                    match={this.props.match} 
+                    toggle={() => {this.toggle();this.props.toggle()}} />
 
                     <div className="d-inline-flex row">
                         <div className="col m-3 p-3 border border-4 rounded-lg d-inline-flex">
@@ -127,7 +129,6 @@ class PureModel extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state in createmodal", state);
 
     return {
         history: state.authStore.history,
