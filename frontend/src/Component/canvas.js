@@ -29,7 +29,7 @@ constructor(props){
 
     console.log("ROOM ID", this.room)
 
-    this.socket = io.connect("http://192.168.2.54:8080");
+    this.socket = io.connect("http://localhost:8080");
     this.socket.emit("newUser", this.room)
     this.socket.on("clear", () => {
         console.log("Receiving clear event")
