@@ -57,6 +57,7 @@ class ViewFlashCard extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.cards.flashcard.length > 0 ){
+            console.log('nextprops', nextProps)
             this.setState({
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id)),
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
@@ -65,7 +66,7 @@ class ViewFlashCard extends React.Component {
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
-                    correctFeedback:correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
+                    correctFeedback: correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
                 });
             } else if (this.props.user.role === "student") {
                 const student = correctProps[0].submission.filter(filter => filter.user_id === parseInt(this.props.user.id))
