@@ -10,7 +10,9 @@ class PureAudioRecorder extends React.Component {
         this.state = {
             show: Boolean(),
             recording: false,
-            preview: ""
+            preview: "",
+            start: false,
+            end: false,
         };
         this.handleshow = this.handleshow.bind(this);
     }
@@ -107,7 +109,7 @@ class PureAudioRecorder extends React.Component {
     }
 
     render() {
-        const { show } = this.state;
+        const { show, start, end } = this.state;
         return (
             <div>
             <div className="flex-col d-flex justify-content-center" id="audioSubmission">
@@ -119,9 +121,9 @@ class PureAudioRecorder extends React.Component {
                 <div className="p-3 ml-auto mr-auto ">
                     {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
                         className="fas fa-power-off"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                    {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
                         title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                    {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
                         title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
                 </div>
             </div>
