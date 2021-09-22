@@ -37,7 +37,7 @@ export const deleteFeedbackThunk = (feedback) => async (dispatch) => {
         } else if (feedback.type === "flashcard") {
             dispatch({
                 type: DELETE_FEEDBACK_FLASHCARD,
-                payload: {flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmissionId, flashcardFeedback_id: feedback.flashcardFeedbackId}
+                payload: {flashcard_id: feedback.flashcard_id, flashcardSubmission_id: feedback.flashcardSubmission_id, flashcardFeedback_id: feedback.feedbackId}
             })
         }
     })

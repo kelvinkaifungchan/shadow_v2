@@ -62,7 +62,6 @@ class ViewFlashCard extends React.Component {
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
             })
             const correctProps = nextProps.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-            console.log( "<><><><><><><>CorretProps in VFC",correctProps);
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
@@ -121,7 +120,6 @@ class ViewFlashCard extends React.Component {
     onClickShowSubmissionViewer(id) {
         const cooresFeed2 = this.props.cards.flashcard.filter((fc) => { return fc.id === parseInt(this.props.match.params.id) })
         const cooresFeed3 = cooresFeed2[0].submission.filter((sub) => { return sub.id === id })
-        console.log('cooresFeed2',cooresFeed2)
         this.setState({
             showRecorder: false,
             showSubmissionViewer: true,
@@ -167,15 +165,14 @@ class ViewFlashCard extends React.Component {
         this.props.addFeedbackThunk(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime)
     }
     handleDelete(id){
-        console.log("deleting", id)
         this.props.deleteFeedback({
             type:"flashcard",
-            feedbackId: id
+            feedbackId: id,
+            flashcard_id: parseInt(this.props.match.params.id),
+            flashcardSubmission_id: this.state.correctFeedback[0].id
         })
     }
     render() {
-        console.log('thisstate',this.state)
-        console.log('this props',this.props)
         return (
             <div className="page">
 
@@ -226,7 +223,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer && <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={()=>{this.handleDelete()}}/>}
+                                        {this.state.showSubmissionViewer ? <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={(e)=>{this.handleDelete(e)}}/> : null}
                                     </div>
                                 </div>
                             }
