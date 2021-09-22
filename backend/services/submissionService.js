@@ -41,30 +41,19 @@ class SubmissionService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            // const arr = []
-            // await Promise.all(body.quizcardQuestionSubmission.map((data) => {
-            //     console.log(data ,"in promise.all");
                 return this.knex
                     .insert({
                         user_id: user_id[0].id,
                         quizcardQuestion_id: body.quizcardQuestionSubmission.questionId,
                         quizcardQuestionSubmission: body.quizcardQuestionSubmission.submission,
+                        quizcardQuestionMarking: body.quizcardQuestionMarking
                     })
                     .into("quizcardQuestionSubmission")
                     .returning("id");
-            // }))
-        //     .then( async(idArray) => {
-        //       await Promise.all(idArray.map((id)=>{
-        //             return arr.push(id[0])
-        //         }))                      
-        //     })
-        //    return arr
         }
         else {
             return "card type not recognized";
         }
-
-
     }
 
         //Method to delete submission
@@ -153,7 +142,8 @@ class SubmissionService {
                         picture:submission[0].picture,
                         quizcardId:submission[0].quizcardQuestion_id,
                         quizcardSubmissionId:submission[0].id,
-                        quizcardSubmission:submission[0].quizcardQuestionSubmission
+                        quizcardSubmission:submission[0].quizcardQuestionSubmission,
+                        quizcardQuestionMarking: submission[0].quizcardQuestionMarking
                     })
                 })
             }

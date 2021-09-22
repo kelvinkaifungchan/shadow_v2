@@ -25,7 +25,6 @@ class ViewQuizcard extends React.Component {
             correctQuizcard: [],
             correctQuestion: [],
             quizcardQuestionSubmission: [],
-            sub: {}
         }
     }
     componentDidMount() {
@@ -49,24 +48,18 @@ class ViewQuizcard extends React.Component {
             showQuizcardQuestion: true,
         })
     }
-    handleSubmission(questionId, submission) {
-        this.setState({
-            sub: {
-                questionId: questionId,
-                submission: submission
-            },
-        })
-    }
 
-    addAnswer(submission) {
+    addAnswer(questionId, submission, marking) {
+
         this.props.submitAnswer({
             email: localStorage.getItem('email'),
             type: this.state.type,
-            quizcardQuestionSubmission: submission,
+            quizcardQuestionSubmission: { questionId: questionId, submission: submission },
+            quizcardQuestionMarking: marking,
             quizcardId: parseInt(this.props.match.params.id)
         })
     }
-   
+
     async navigateSubmission(e) {
         e.preventDefault()
         this.props.history.push({
@@ -78,7 +71,6 @@ class ViewQuizcard extends React.Component {
 
         return (
             <div>
-                {/* <NavBar user={this.props.user} history={this.props.history} /> */}
 
                 <div className={classes.viewquizcard}>
                     {/* 1st row: Header */}
@@ -94,7 +86,7 @@ class ViewQuizcard extends React.Component {
                         </div>
                         {this.state.showQuizcardQuestion &&
                             <div className="col col-6">
-                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} handleSubmission={(questionId, submission) => this.handleSubmission(questionId, submission)} addAnswer={() => this.addAnswer(this.state.sub)} navigate={(e)=>this.navigateSubmission(e)}/>
+                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission, marking)} navigate={(e) => this.navigateSubmission(e)} />
                             </div>
                         }
                     </div>
@@ -107,7 +99,7 @@ class ViewQuizcard extends React.Component {
                                 </div>
                             </div>}
                     </div>
-                   
+
 
                 </div>
             </div>
