@@ -81,7 +81,7 @@ class CreateDictationcard extends React.Component {
             type: this.state.type,
             dictationcardTitle: this.state.dictationcardTitle,
             dictationcardRecording: this.state.dictationRecording,
-            setId: this.props.match.params.setId
+            setId: parseInt(this.props.match.params.setId)
         })
     }
 

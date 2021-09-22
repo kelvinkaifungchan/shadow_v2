@@ -34,9 +34,7 @@ class Card {
             })
             .returning("id")
             .then( async (quizcardId)=>{
-                console.log('body.smthlong', body.quizcardQuestion)
                 if(body.quizcardQuestion.length > 0){
-                    console.log('adding question', quizcardId)
                     await Promise.all(body.quizcardQuestion.map((data)=>{
                         return this.knex("quizcardQuestion")
                         .insert({
@@ -55,9 +53,6 @@ class Card {
                             console.log(err)
                         })
                     }))
-                    .then(()=>{
-                        return quizcardId
-                    })
                 }
                 return quizcardId[0]
             })
@@ -66,17 +61,17 @@ class Card {
             });
         }
         if(body.type === "dictationcard"){
+            console.log('req.body in dictation add card', body)
             return this.knex("dictationcard")
             .insert({
                 user_id: userId[0].id,
                 dictationcardTitle: body.dictationcardTitle,
-                dictationcardRecording: body.dictationcardRecording,
                 dictationcardStatus: true,
             })
             .returning("id")
-            .then((dicId) => {
+            .then(async (dicId) => {
                 if(body.dictation != null){
-                    return body.dictation.map((dicData)=>{
+                    await Promise.all( body.dictation.map((dicData)=>{
                         return this.knex("dictation")
                         .insert({
                             user_id: userId[0].id,
@@ -86,8 +81,12 @@ class Card {
                             dictationStatus: true
                         })
                         .returning("id")
-                    })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                    }))
                 }
+                return dicId
             })
             .catch((err) => {
                 console.log(err)
@@ -529,25 +528,26 @@ class Card {
                             })
                         })
                     )})
-                    .then(async()=>{
-                        data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
-                            let feedback = {}
-                            return this.knex("dictationFeedback")
-                            .where("dictationSubmission_id", sub.id)
-                            .where("dictationFeedbackStatus", true)
-                            .then((fcfb)=>{
-                                sub.feedback = fcfb.map((fcfbs)=>{
-                                    return {
-                                        user_id: fcfbs.user_id,
-                                        dictationFeedbackBody: fcfbs.dictationFeedbackBody,
-                                    }
-                                })
-                            })
-                            .then(()=>{
-                                return feedback
-                            })
-                        }))
-                    })
+                    // .then(async()=>{
+                    //     console.log('broken stuff', data)
+                    //     data.submission.feedback = await Promise.all(data.submission.map((sub)=>{
+                    //         let feedback = {}
+                    //         return this.knex("dictationFeedback")
+                    //         .where("dictationSubmission_id", sub.id)
+                    //         .where("dictationFeedbackStatus", true)
+                    //         .then((fcfb)=>{
+                    //             sub.feedback = fcfb.map((fcfbs)=>{
+                    //                 return {
+                    //                     user_id: fcfbs.user_id,
+                    //                     dictationFeedbackBody: fcfbs.dictationFeedbackBody,
+                    //                 }
+                    //             })
+                    //         })
+                    //         .then(()=>{
+                    //             return feedback
+                    //         })
+                    //     }))
+                    // })
                     .then(()=>{
                         return data
                     })

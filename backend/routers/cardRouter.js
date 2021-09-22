@@ -26,9 +26,11 @@ class CardRouter {
         return this.cardService
             .add(req.body)
             .then((data) => {
+                console.log('returning data',data)
                 return res.json(data)
             })
             .catch((err) => {
+                console.log(err)
                 return res.status(500).json(err)
             })
     }
