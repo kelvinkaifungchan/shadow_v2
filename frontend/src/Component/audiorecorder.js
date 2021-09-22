@@ -88,13 +88,10 @@ class PureAudioRecorder extends React.Component {
         const blob = new Blob(this.chunks, {
             type: 'audio/webm'
         });
-        let time = new Date()
-        let dt = time.getTime()
         let fileName = uuidv4()
 
         let formData = new FormData();
         formData.append("file", blob, fileName)
-        console.log("PLS TELL ME WT IS FORMDATA",formData);
 
         const audioURL = window.URL.createObjectURL(blob);
         //this.props.handleRecording(fileName)

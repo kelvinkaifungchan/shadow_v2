@@ -51,11 +51,11 @@ constructor(props){
     })
 }
 
-componentDidMount() {
-    this.drawOnCanvas();
-    this.ctx.strokeStyle = "#00000";
-    this.ctx.lineWidth = "1";
-}
+// componentDidMount() {
+//     this.drawOnCanvas();
+//     this.ctx.strokeStyle = "#00000";
+//     this.ctx.lineWidth = "1";
+// }
 
 // componentWillReceiveProps(newProps) {
 //     this.ctx.strokeStyle = newProps.color;
@@ -154,7 +154,6 @@ clearcanvas() {
 }
 
 submit(){
-    console.log("HELLO")
     var canvas = document.querySelector('#board');
     var base64ImageData = canvas.toDataURL("image/png");
     //console.log(base64ImageData)

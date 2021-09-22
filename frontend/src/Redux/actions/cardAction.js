@@ -128,7 +128,6 @@ export const deleteCard = (card) => async (dispatch) => {
     console.log("deleting card")
     return axios.post("http://localhost:8080/api/card/delete", card)
         .then(response => {
-            console.log(response)
             if (card.type === "dictationcard") {
                 dispatch({
                     type: DELETE_DICTATIONCARD,

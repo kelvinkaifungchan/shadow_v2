@@ -14,7 +14,6 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
     console.log(submission,"submission in submission");
     return axios.post("http://localhost:8080/api/card/submission", submission)
         .then((data) => {
-            console.log(data,"data in submission");
             if (submission.type === "dictation") {
                 dispatch({
                     type: ADD_SUBMISSION_DICTATIONCARD,
@@ -26,9 +25,6 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
                     payload: { id: data.data.flashcardSubmissionId, user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture, flashcard_id: submission.flashcardId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true }
                 })
             } else if (submission.type === "quizcard") {
-                console.log("submission in MC action", submission);
-                console.log("data in MC action", data);
-
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
                     payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId }
@@ -41,7 +37,6 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
 export const deleteSubmissionThunk = (submission) => async (dispatch) => {
     return axios.delete("http://localhost:8080/api/card/submission", submission)
         .then((response) => {
-            console.log(response)
             if (submission.type === "dictation") {
                 dispatch({
                     type: DELETE_SUBMISSION_DICTATIONCARD,

@@ -13,7 +13,6 @@ class PureDisplayClassroomTag extends React.Component {
     }
     
     render() {
-        console.log("CLASSROOM TAG PROPS",this.props.tags);
         return (
             <>
                 {this.props.tags && this.props.tags.length > 0 ?this.props.tags.map((tag, i) => {

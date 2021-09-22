@@ -13,7 +13,6 @@ class PureHeadingInput extends React.Component {
     }
   }
   render() {
-    console.log('heading input propssssss', this.props)
     return (
       <>
         <form className={classes.headingframe}>

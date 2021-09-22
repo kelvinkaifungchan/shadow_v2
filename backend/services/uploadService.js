@@ -18,7 +18,6 @@ class UploadService {
             ContentType: 'video/mp4',
             Body: fileData
         };
-        console.log("LET ME KNOW PARAMS",params);
         try {
             let submission = await s3.upload(params).promise()
             console.log("Uploaded Data", submission)
@@ -56,8 +55,6 @@ class UploadService {
             ContentType: 'image/png',
             Body: fileData
         };
-
-        console.log("PARAMS", params)
 
         try{
             let submission = await s3.upload(params).promise()

@@ -12,7 +12,6 @@ class ClassroomService {
         
       })
       .then((email) => {
-        console.log(email)
         return this.knex
           .insert({
             user_id: email[0].id,

@@ -6,7 +6,6 @@ import classes from './displayshareuser.module.css'
 class PureDisplayShareUser extends React.Component {
 
     render() {
-        console.log("SET SHARE PROPS",this.props.shared);
         return (
             <>
                    {this.props.shared &&

@@ -17,10 +17,18 @@ class Login extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log('didupdate')
         if (this.props.isAuthenticatedMSP === true) {
             this.props.history.push('/')
         }
     }
+    // navLogin(e){
+    //     e.preventDefault();
+    //     console.log('nav')
+    //     if(this.props.isAuthenticatedMSP === true){
+    //         this.props.history.push('/')
+    //     }
+    // }
     handleshow() {
         this.setState((prevState) => {
             return {
@@ -43,7 +51,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                 <div className="col-6 p-2 d-flex align-items-center justify-content-center ">
-                {!show ? <LoginBox handleshow={()=>this.handleshow()}/> : null}
+                {!show ? <LoginBox nav={()=>this.navLogin()}handleshow={()=>this.handleshow()}/> : null}
                 {show ? <SignUp handleshow={()=>this.handleshow()}/> : null}
                 </div>
             </div>

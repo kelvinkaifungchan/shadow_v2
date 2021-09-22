@@ -33,7 +33,6 @@ class PureCreateQuiz extends React.Component{
         })
     }
     mcToggle(){
-        console.log('mc')
         this.setState({
             questionType: 'multipleChoice',
             questionBody: "",
@@ -47,7 +46,6 @@ class PureCreateQuiz extends React.Component{
         })
     }
     tfToggle(){
-        console.log('tf')
         this.setState({
             questionType: 'trueFalse',
             questionBody: "",
@@ -109,7 +107,6 @@ class PureCreateQuiz extends React.Component{
         })
     }
     render(){
-        console.log("create quizcard question state", this.state)
         return (
             <>
             <Form>
