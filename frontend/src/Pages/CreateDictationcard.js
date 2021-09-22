@@ -49,7 +49,7 @@ class CreateDictationcard extends React.Component {
         e.preventDefault();
         if (this._inputElement.value !== "") {
             var newItem = {
-                text: this._inputElement.value,
+                dictationBody: this._inputElement.value,
                 key: Date.now()
             };
 
