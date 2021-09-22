@@ -66,7 +66,6 @@ componentDidMount() {
 }
 
 
-
 drawOnCanvas() {
     
     var room = this.room;

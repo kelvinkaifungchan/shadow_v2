@@ -7,14 +7,13 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
     
 
     render() {
-
         return (
             <>
                 {this.props.feedback[0].feedback &&
                     this.props.feedback[0].feedback.length > 0 ?
                     this.props.feedback[0].feedback.map((fb, j) => {
                             return (
-                                <div key={j} data-key={j} className={classes.scrollfeedbackcard}>
+                                <div key={j} data-key={fb.flashcardFeedback_id} className={classes.scrollfeedbackcard}>
                                     <div>
                                         <table>
                                         <tr className={classes.scrollfeedbackrow}>
@@ -24,7 +23,7 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
                                             
                                             <th className={classes.feedbacktime}>{fb.flashcardFeedbackTime}</th>
                                             
-                                            <td className={classes.removingfeedback}><span className={classes.removingfeedbackbtn}><i className="fa fa-trash" aria-hidden="true"></i></span></td>
+                                            <td className={classes.removingfeedback}><span className={classes.removingfeedbackbtn}><i onClick={()=>{this.props.handleDelete(fb.flashcardFeedback_id)}} className="fa fa-trash" aria-hidden="true"></i></span></td>
                                            
                                         </tr>
                                         </table>

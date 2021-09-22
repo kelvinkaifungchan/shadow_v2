@@ -31,6 +31,9 @@ class PureTagModal extends React.Component{
         } else {
             this.props.createSetTagMDP(this.props.addTag.type, this.state.tagBody, this.props.location.id)
         }
+        this.setState({
+            tagBody:""
+        })
     }
 
     render() {

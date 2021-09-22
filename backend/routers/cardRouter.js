@@ -16,7 +16,7 @@ class CardRouter {
         router.post("/submission", this.postSubmission.bind(this))
         router.delete("/submission", this.deleteSubmission.bind(this))
         router.post("/submission/feedback", this.postFeedback.bind(this))
-        router.delete("/submission/feedback", this.deleteFeedback.bind(this))
+        router.post("/submission/delfeedback", this.deleteFeedback.bind(this))
 
         return router
     }
