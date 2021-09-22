@@ -143,6 +143,7 @@ export function cardReducer(state = initialState, action) {
                 }
             };
         case ADD_SUBMISSION_FLASHCARD:
+            action.payload.feedback = []
             return {
                 card:{
                     ...state.card,
