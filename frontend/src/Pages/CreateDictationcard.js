@@ -81,6 +81,7 @@ class CreateDictationcard extends React.Component {
             type: this.state.type,
             dictationcardTitle: this.state.dictationcardTitle,
             dictationcardRecording: this.state.dictationRecording,
+            dictation: this.state.items,
             setId: parseInt(this.props.match.params.setId)
         })
     }
@@ -94,7 +95,8 @@ class CreateDictationcard extends React.Component {
     }
 
     render() {
-console.log('this.props',this.props)
+console.log('this.props in CDC',this.props)
+console.log('this.state in CDC',this.state)
         return (
 
             <div className="page">

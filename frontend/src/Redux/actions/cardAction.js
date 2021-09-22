@@ -34,9 +34,10 @@ export const addCard = (card) => async (dispatch) => {
         })
 
     }).then(() => {
+        console.log('card',card)
         dispatch({
             type: ADD_DICTATIONCARD,
-            payload: {id: newId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording}
+            payload: {id: newId, dictationcardTitle: card.dictationcardTitle, question: card.dictation}
         })
     }).then(() => {
         dispatch({
