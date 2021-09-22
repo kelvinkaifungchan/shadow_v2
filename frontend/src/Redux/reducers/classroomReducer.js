@@ -61,7 +61,7 @@ export function classroomReducer(state = initialState, action){
                 classrooms: state.classrooms.map((classroom) => {
                     if(action.payload.id.classroom_id === classroom.id){
                         return {
-                            ...classroom, tags:classroom.tags.filter((tag) => tag.tagId !== action.payload.content.tagId)
+                            ...classroom, tags:classroom.tags.filter((tag) => tag.id !== action.payload.content.tagId)
                         }
                     }
                     return classroom
@@ -82,9 +82,9 @@ export function classroomReducer(state = initialState, action){
         case DELETE_SHARING:
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id === classroom.id){
+                    if(action.payload.classroom_id === classroom.id){
                         return {
-                            ...classroom, shared:classroom.shared.filter((shared) => shared.id !== action.payload.content.id)
+                            ...classroom, shared:classroom.shared.filter((shared) => shared.id !== action.payload.id)
                         }
                     }
                     return classroom
@@ -106,7 +106,6 @@ export function classroomReducer(state = initialState, action){
                 return{
                     classrooms: state.classrooms.map((classroom) => {
                         if(action.payload.classroom_id === classroom.id){
-                            console.log('reducer hit')
                             return {
                                 ...classroom, bridge:classroom.bridge.filter((bridges) => bridges.set_id !== action.payload.set_id)
                             }
