@@ -7,7 +7,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            type: 'mc',
+           tracking:[]
         }
     }
 
@@ -21,20 +21,22 @@ class PureViewQuizcardQuestionModule extends React.Component {
     }
 
     handleAnswer(e, questionId, submission, marking) {
-        console.log(">>>>>>>>>",questionId, submission, marking);
-        this.props.addAnswer(questionId, submission, marking)
+       
 
-        if (marking) {
-            e.target.style.border = "3px solid green"
+        if (this.state.tracking.indexOf(questionId) >= 0){
+            return
         } else {
-            e.target.style.border = "3px solid red"
-        }
+            this.props.addAnswer(questionId, submission, marking)
+            this.setState({
+                tracking: this.state.tracking.concat(questionId)
+            })
+            if (marking) {
+                e.target.style.border = "3px solid green"
+            } else {
+                e.target.style.border = "3px solid red"
+            }
+        }    
     }
-
-
-
-
-
 
 
     render() {

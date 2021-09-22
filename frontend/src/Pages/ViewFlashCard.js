@@ -41,23 +41,25 @@ class ViewFlashCard extends React.Component {
             recording: false,
             submissionRecording: "",
             submissionId: "",
-            onClickShowRecorder:[],
-            correctSubmission:[],
-            correctFeedback:[],
+            onClickShowRecorder: [],
+            correctSubmission: [],
+            correctFeedback: [],
             correctFlashcard: [],
         }
         this.handleRecording = this.handleRecording.bind(this);
         this.addFeedback = this.addFeedback.bind(this);
-        
+
     }
 
     componentDidMount() {
+        const thisProps = this.props.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+
         this.props.getdata({ email: localStorage.getItem('email') })
+
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.cards.flashcard.length > 0 ){
-            console.log('nextprops', nextProps)
+        if (this.props.cards.flashcard.length > 0) {
             this.setState({
                 correctFlashcard: this.props.cards.flashcard.filter(flash => flash.id === parseInt(this.props.match.params.id)),
                 transcript: this.state.correctFlashcard.length > 0 && this.state.correctFlashcard[0].flashcardBody
@@ -66,24 +68,23 @@ class ViewFlashCard extends React.Component {
             if (this.props.user.role === "teacher") {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
-                    correctFeedback: correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
+                    correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId),
                 });
             } else if (this.props.user.role === "student") {
                 const student = correctProps[0].submission.filter(filter => filter.user_id === parseInt(this.props.user.id))
                 this.setState({
                     correctSubmission: student,
-                    correctFeedback:correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId)
+                    correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId)
                 });
             } else {
                 this.setState({
                     correctSubmission: correctProps[0].submission,
-                    correctFeedback: correctProps[0].submission.filter(submission=> submission.id === this.state.submissionId),
+                    correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId),
                 });
             }
-
         }
     }
- 
+
 
     toggle() {
         this.setState({
@@ -153,26 +154,26 @@ class ViewFlashCard extends React.Component {
     addTimeStamp() {
         const stamp = document.getElementById('submission').currentTime
         var m = Math.floor(stamp / 60);
-                    var s = Math.floor(stamp % 60);
-                    if (m.toString().length < 2) {
-                        m = '0' + m;
-                    }
-                    if (s.toString().length < 2) {
-                        s = '0' + s;
-                    }
-                    const timeStamp = (m + ':' + s)
-                    // this.props.time(timeStamp)
+        var s = Math.floor(stamp % 60);
+        if (m.toString().length < 2) {
+            m = '0' + m;
+        }
+        if (s.toString().length < 2) {
+            s = '0' + s;
+        }
+        const timeStamp = (m + ':' + s)
+        // this.props.time(timeStamp)
         this.setState({
             timeStamp: timeStamp
         })
     }
 
-    addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime){
+    addFeedback(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime) {
         this.props.addFeedbackThunk(type, email, flashcardSubmissionId, flashcardFeedbackBody, flashcardFeedbackTime)
     }
-    handleDelete(id){
+    handleDelete(id) {
         this.props.deleteFeedback({
-            type:"flashcard",
+            type: "flashcard",
             feedbackId: id,
             flashcard_id: parseInt(this.props.match.params.id),
             flashcardSubmission_id: this.state.correctFeedback[0].id
@@ -193,10 +194,10 @@ class ViewFlashCard extends React.Component {
                     {/* 2nd row: Transcript & Video Player */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
-                            {this.state.correctFlashcard.length > 0 ?<Transcript title={this.state} flashcardBody={this.state.correctFlashcard[0].flashcardTitle} /> : null}
+                            {this.state.correctFlashcard.length > 0 ? <Transcript title={this.state} flashcardBody={this.state.correctFlashcard[0].flashcardTitle} /> : null}
                         </div>
                         <div className="col-6">
-                            <VideoPlayer dtype={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null}/>
+                            <VideoPlayer dtype={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null} />
                         </div>
                     </div>
 
@@ -210,7 +211,7 @@ class ViewFlashCard extends React.Component {
                                     <div onClick={() => { this.onClickShowRecorder() }} className={classes.scrollplusicon}>
                                         <i className="fas fa-plus"></i>
                                     </div>
-                                    <DisplayFlashcardSubmissionModule  subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} addFeedback={this.addFeedback()}/>
+                                    <DisplayFlashcardSubmissionModule subId={(id) => this.onClickShowSubmissionViewer(id)} submission={this.state.correctSubmission} addFeedback={this.addFeedback()} />
                                 </div>
                             </div>
 
@@ -231,7 +232,7 @@ class ViewFlashCard extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {this.state.showSubmissionViewer ? <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={(e)=>{this.handleDelete(e)}}/> : null}
+                                        {this.state.showSubmissionViewer ? <DisplayFlashcardFeedback state={this.state} feedback={this.state.correctFeedback} handleDelete={(e) => { this.handleDelete(e) }} /> : null}
                                     </div>
                                 </div>
                             }
@@ -239,12 +240,12 @@ class ViewFlashCard extends React.Component {
                         </div>
 
                         <div className="col-6">
-                            {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording}/>}
-                            {this.state.showSubmissionViewer &&  <VideoPlayer dtype={"submission"} create={this.state} src={this.state.correctFeedback[0].flashcardSubmissionRecording}/>}
-                            {this.state.showRecorder && 
-                            <div className={classes.buttoncontainer}> 
-                             <button onClick={(e)=>{this.addSubmission(e)}}>Add Submission</button>
-                            </div> 
+                            {this.state.showRecorder && <VideoRecorder handleRecording={this.handleRecording} />}
+                            {this.state.showSubmissionViewer && <VideoPlayer dtype={"submission"} create={this.state} src={this.state.correctFeedback[0].flashcardSubmissionRecording} />}
+                            {this.state.showRecorder &&
+                                <div className={classes.buttoncontainer}>
+                                    <button onClick={(e) => { this.addSubmission(e) }}>Add Submission</button>
+                                </div>
                             }
 
                         </div>
