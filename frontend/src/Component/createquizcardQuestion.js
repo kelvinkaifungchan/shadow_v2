@@ -112,8 +112,8 @@ class PureCreateQuiz extends React.Component{
             <div className={classes.scrollicon}>
                 {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
                     return (
-                        <div>
-                            <span onClick={(e) => this.displayQuestion(e, i)} key={i}>{i + 1}</span>
+                        <div key={i}>
+                            <span key={i} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
                         </div>
                     )
                 }) : null}

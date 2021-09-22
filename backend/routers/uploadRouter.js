@@ -16,7 +16,7 @@ class UploadRouter {
 
   postVideo(req, res) {
     console.log("Requesting creating video recording");
-    return this.recordingService
+    return this.uploadService
       .addVideo(req.files.file.name, req.files.file.data)
       .then(() => {
         return res.send("post request is done");
