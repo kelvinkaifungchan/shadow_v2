@@ -46,6 +46,7 @@ class CreateDictationcard extends React.Component {
     }
 
     addItem(e) {
+        e.preventDefault();
         if (this._inputElement.value !== "") {
           var newItem = {
             text: this._inputElement.value,
@@ -62,7 +63,7 @@ class CreateDictationcard extends React.Component {
         }
          
            
-        e.preventDefault();
+       
       }
       
       deleteItem(key) {
