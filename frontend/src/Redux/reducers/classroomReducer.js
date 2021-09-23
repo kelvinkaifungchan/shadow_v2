@@ -32,11 +32,10 @@ export function classroomReducer(state = initialState, action){
                 classrooms: [...state.classrooms, action.payload]
             };
         case EDIT_CLASSROOM:
-            var newClassroom = action.payload;
-            var newArray = state.classrooms.filter((classroom) => classroom.classroom_id !== newClassroom.classroom_id);
-            newArray.push(newClassroom);
+            var newArray = state.classrooms.filter(classroom => 
+                classroom.id !== action.payload.id);
             return{
-                classrooms: newArray
+                classrooms: [...newArray, action.payload]
             }
         case DELETE_CLASSROOM:
             return {
@@ -82,9 +81,9 @@ export function classroomReducer(state = initialState, action){
         case DELETE_SHARING:
             return{
                 classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id === classroom.id){
+                    if(action.payload.classroom_id === classroom.id){
                         return {
-                            ...classroom, shared:classroom.shared.filter((shared) => shared.id !== action.payload.content.id)
+                            ...classroom, shared:classroom.shared.filter((shared) => shared.id !== action.payload.id)
                         }
                     }
                     return classroom
@@ -106,7 +105,6 @@ export function classroomReducer(state = initialState, action){
                 return{
                     classrooms: state.classrooms.map((classroom) => {
                         if(action.payload.classroom_id === classroom.id){
-                            console.log('reducer hit')
                             return {
                                 ...classroom, bridge:classroom.bridge.filter((bridges) => bridges.set_id !== action.payload.set_id)
                             }

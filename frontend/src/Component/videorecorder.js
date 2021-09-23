@@ -119,7 +119,7 @@ class PureVideoRecorder extends React.Component {
     }
 
     render() {
-        const { show } = this.state;
+        const { show, showStart, showStop } = this.state;
         return (
             <div>
             <div className="flex-col d-flex justify-content-center" id="videoSubmission">
@@ -131,9 +131,9 @@ class PureVideoRecorder extends React.Component {
                 <div className="p-3 ml-auto mr-auto ">
                     {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
                         className="fas fa-power-off"></i></span> : null}
-                    {show && this.state.showStart ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                    {show && showStart ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
                         title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show && this.state.showStop ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                    {show && showStop ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
                         title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
                 </div>
             </div>

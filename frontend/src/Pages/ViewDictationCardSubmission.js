@@ -4,9 +4,7 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-import {Account} from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
+
 // import Table from '../Component/Table';
 
 import classes from './ViewDictationCardSubmission.module.css'
@@ -80,17 +78,10 @@ class ViewDictationcardSubmission extends React.Component {
                             <div className="col">
 
                         </div>
-
-
-
                         </div>
                     </div>
 
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
+                  
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 // Require Action
 import { addCard } from '../Redux/actions/cardAction'
@@ -10,17 +10,18 @@ import { HeadingInput } from '../Component/headinginput';
 // import DictationQuestionsCreate from '../Component/DictationQuestionsCreate';
 import { DisplayEntries } from '../Component/displayentries'
 
+
 import classes from './CreateDictationcard.module.css'
 
 class CreateDictationcard extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            type:"dictationcard",
+            type: "dictationcard",
             dictationcardTitle: "",
-            dictationcardBody:"",
-            dictationRecording:"",
-            setId:"",
+            dictationcardBody: "",
+            dictationRecording: "",
+            setId: "",
             items: [],
         }
         this.handleHeading = this.handleHeading.bind(this);
@@ -29,69 +30,95 @@ class CreateDictationcard extends React.Component {
         this.deleteItem = this.deleteItem.bind(this);
     }
     componentDidMount() {
-        this.props.getdata({ email: localStorage.getItem('email')})
+        this.props.getdata({ email: localStorage.getItem('email') })
     }
 
 
-    handleHeading(title){
+    handleHeading(title) {
         this.setState({
             dictationcardTitle: title
         })
     }
 
-    handleRecording(record){
+    handleRecording(key, fileName) {
+        console.log("KEY", key)
+        console.log("FILE NAME", fileName)
+        var filteredItems = this.state.items.filter(function (item) {
+            return (item.key !== key);
+        });
+        var changedItem = this.state.items.filter(function (item) {
+            return (item.key === key);
+        });
+
+        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName;
         this.setState({
-            dictationcardRecording: record
+            items: filteredItems.concat(changedItem)
         })
+        console.log("NEW STATE AFTER RECORDING", this.state.items)
     }
 
     addItem(e) {
         e.preventDefault();
         if (this._inputElement.value !== "") {
-          var newItem = {
-            text: this._inputElement.value,
-            key: Date.now()
-          };
-       
-          this.setState((prevState) => {
-            return { 
-              items: prevState.items.concat(newItem) 
+            var newItem = {
+                dictationBody: this._inputElement.value,
+                key: Date.now(),
+                dictationRecording: ""
             };
-          });
-         
-          this._inputElement.value = "";
-        }
-         
-           
-       
-      }
-      
-      deleteItem(key) {
+        };
+
+        this._inputElement.value = "";
+        this.setState((prevState) => {
+            return {
+                items: prevState.items.concat(newItem)
+            };
+        });
+    }
+
+
+    deleteItem(key) {
         var filteredItems = this.state.items.filter(function (item) {
-          return (item.key !== key);
+            return (item.key !== key);
         });
-       
+
         this.setState({
-          items: filteredItems
+            items: filteredItems
         });
-      }
-      
+    }
+    addDictationCard() {
+        this.props.addCard({
+            email: localStorage.getItem('email'),
+            type: this.state.type,
+            dictationcardTitle: this.state.dictationcardTitle,
+            dictationcardRecording: this.state.dictationRecording,
+            dictation: this.state.items,
+            setId: parseInt(this.props.match.params.setId)
+        })
+    }
+
+    async navigateSet(e) {
+        e.preventDefault()
+        this.addDictationCard()
+        this.props.history.push({
+            pathname: `/viewset/${this.props.match.params.setId}`,
+        })
+    }
     render() {
 
         return (
-            
-        <div className="page">
+
+            <div className="page">
                 {/* Page Container */}
                 <div className={classes.createdictationcard}>
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state}/>
+                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state} />
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
                             <div className={classes.createbtn}>
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}} >Create Card</button>
+                                <button cards={this.props.cards} onClick={(e) => { this.navigateSet(e) }} >Create Card</button>
                             </div>
                         </div>
                     </div>
@@ -111,13 +138,14 @@ class CreateDictationcard extends React.Component {
                                             <i className="fas fa-plus"></i>
                                         </button>
                                     </span>
+
                                 </form>
                             </div>
 
                             <div className="col col-12">
-                            <DisplayEntries entries={this.state.items} delete={this.deleteItem}/>
+                                <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem} />
                             </div>
-                            
+
                         </div>
                     </div>
 

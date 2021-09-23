@@ -73,10 +73,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                     {/* List of words & recording */}
                     <div className={classes.listframe}>
                         <div className="row d-flex ">
-
-
                             <div className="col col-12">
-
                                 <div className="row">
                                     <div className="col col-8">
                                         <p>Question {this.state.questionNumId ? this.state.questionNumId + 1 : null}</p>
@@ -90,7 +87,6 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     this.props.question.question.map((question, i) => {
 
                                         if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-                                            console.log("questionquestionquestion in lin 80", question.multipleChoiceAnswer === "a");
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
 

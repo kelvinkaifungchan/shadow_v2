@@ -29,10 +29,11 @@ export function setReducer(state = initialState, action){
                 sets: [...state.sets, action.payload]
             };
         case EDIT_SET:
-            var newSet = action.payload;
-            var newArray = state.sets.filter((set) => set.id !== newSet.set_id);
+            var newArray = state.sets.filter( set => 
+                set.id !== action.payload.id
+                );
             return {
-                sets: newArray
+                sets: [...newArray, action.payload]
             };
         case DELETE_SET:
             return {

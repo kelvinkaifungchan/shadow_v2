@@ -47,7 +47,6 @@ export const addBridgeThunk = (bridge) => async (dispatch) => {
 export const deleteBridgeThunk = (bridge) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/bridge/delete", bridge)
     .then(response => {
-        console.log(response)
         if (bridge.type === "classroom_set") {
             if(bridge.classroomId === "" || bridge.classroomId === undefined){
                 dispatch({
@@ -55,7 +54,6 @@ export const deleteBridgeThunk = (bridge) => async (dispatch) => {
                     payload: {set_id: bridge.setId}
                 })
             } else {
-                console.log('lmao2', bridge)
                 dispatch({
                     type: DELETE_BRIDGE_CLASSROOM_SET,
                     payload: {classroom_id: parseInt(bridge.classroomId), set_id: bridge.setId}

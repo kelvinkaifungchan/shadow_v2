@@ -52,10 +52,7 @@ class ViewFlashCard extends React.Component {
     }
 
     componentDidMount() {
-        const thisProps = this.props.cards.flashcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-
         this.props.getdata({ email: localStorage.getItem('email') })
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -76,12 +73,8 @@ class ViewFlashCard extends React.Component {
                     correctSubmission: student,
                     correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId)
                 });
-            } else {
-                this.setState({
-                    correctSubmission: correctProps[0].submission,
-                    correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId),
-                });
             }
+
         }
     }
 
@@ -192,7 +185,7 @@ class ViewFlashCard extends React.Component {
                     {/* 2nd row: Transcript & Video Player */}
                     <div className="row d-flex p-4">
                         <div className="col-6">
-                            {this.state.correctFlashcard.length > 0 ? <Transcript title={this.state} flashcardBody={this.state.correctFlashcard[0].flashcardTitle} /> : null}
+                            {this.state.correctFlashcard.length > 0 ? <Transcript title={this.state} flashcardBody={this.state.correctFlashcard[0].flashcardBody} /> : null}
                         </div>
                         <div className="col-6">
                             <VideoPlayer dtype={"display"} src={this.state.correctFlashcard.length > 0 ? this.state.correctFlashcard[0].flashcardRecording : null} />

@@ -9,7 +9,7 @@ class SharingRouter {
         let router = express.Router();
 
         router.post("/", this.post.bind(this));
-        router.delete("/", this.delete.bind(this));
+        router.post("/del", this.delete.bind(this));
 
         return router
     }
@@ -30,6 +30,9 @@ class SharingRouter {
         console.log("Delete request to delete user permission to set");
 
         return this.sharingService.delete(req.body)
+        .then((data) => {
+            return res.json(data)
+        })
         .catch((err) => {
             return res.status(500).json(err);
         });

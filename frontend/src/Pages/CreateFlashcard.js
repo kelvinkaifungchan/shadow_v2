@@ -25,7 +25,6 @@ class CreateFlashcard extends React.Component {
         this.handleRecording = this.handleRecording.bind(this);
     }
     componentDidMount() {
-        console.log('didmount')
         this.props.getdata({ email: localStorage.getItem('email')})
     }
 
@@ -55,7 +54,7 @@ class CreateFlashcard extends React.Component {
                 flashcardTitle: this.state.flashcardTitle,
                 flashcardBody: this.state.flashcardBody,
                 flashcardRecording: this.state.flashcardRecording,
-                setId: this.props.location.state.set[0].id
+                setId: parseInt(this.props.match.params.setId)
             })
        
     }

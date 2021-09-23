@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux' 
 
+import { AudioRecorder } from '../Component/audiorecorder';
 import classes from './displayentries.module.css'
 
 class PureDisplayEntries extends React.Component {
@@ -12,7 +13,8 @@ class PureDisplayEntries extends React.Component {
     this.createEntries = this.createEntries.bind(this);
   }
   createEntries(item) {
-    return <li onClick={() => this.delete(item.key)} key={item.key}>{item.text}</li>
+    // i deleted this from the li element --> onClick={() => this.delete(item.key)}
+    return <li  key={item.key}>{item.text} <AudioRecorder yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/></li>
   }
  
   delete(key) {

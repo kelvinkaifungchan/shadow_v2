@@ -13,7 +13,7 @@ class PureDisplayShareUser extends React.Component {
                             ? this.props.shared.map(
                                 (shared, j) => {
                                     return (
-                                        <div key={j} data-key={shared.id} className={classes.sharingusericon}>
+                                        <div key={j} data-key={shared.id} onClick={()=>{this.props.deleteShare(shared.id)}} className={classes.sharingusericon}>
                                             <img src={shared.picture} alt="Avatar"></img>
                                         </div>
                                     )

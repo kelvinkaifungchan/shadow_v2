@@ -27,7 +27,6 @@ export const addTag = (tag) => async (dispatch) => {
 
 
 export const deleteTag = (tag) => async (dispatch) => {
-    console.log("delete tag", tag)
 
     await axios.post(`http://localhost:8080/api/tag/deltag`, tag)
     dispatch({ type: DELETE_TAG, payload: { tagId: tag.tagId ,  classroomId : tag.classroomId} });

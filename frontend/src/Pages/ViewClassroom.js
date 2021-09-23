@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { deleteTag } from '../Redux/actions/tagAction';
+import { deleteSharingThunk } from '../Redux/actions/sharingAction';
+import { editClassroom } from '../Redux/actions/classroomAction';
+
 
 
 // Require Component
@@ -38,23 +41,25 @@ class ViewClassroom extends React.Component {
     }
 
     async componentDidMount() {
-        console.log('didmount')
         await this.props.getdata({ email: localStorage.getItem("email") });
+
     }
 
     async componentWillReceiveProps(nextProps) {
         await this.setState({
-            correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id))
+            correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         })
-        if(this.state.correctClass[0] !== undefined){
+        if (this.state.correctClass[0] !== undefined) {
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
-            if(correctProps[0].bridge !== undefined){
-                if(correctProps[0].bridge.length >= 0){
+            if (correctProps[0].bridge !== undefined) {
+                if (correctProps[0].bridge.length >= 0) {
                     let correctSets = correctProps[0].bridge.map((changed) => {
                         const newestState = nextProps.sets.filter(changedSet => changedSet.id === changed.set_id)
                         return newestState[0]
                     });
                     this.setState({
+                        title: this.state.correctClass[0].title,
+                        description: this.state.correctClass[0].description,
                         correctSet: correctSets,
                         correctTag: correctProps[0].tags,
                         correctShare: correctProps[0].shared
@@ -126,42 +131,72 @@ class ViewClassroom extends React.Component {
             })
         }
     }
-    deleteTag(tagId){
+    deleteTag(tagId) {
         this.props.deleteTag({
-            type:"class",
+            type: "class",
             tagId: tagId,
-            classroomId : this.state.correctClass[0].id
+            classroomId: this.state.correctClass[0].id
+        })
+    }
+    deleteShare(sharedId) {
+        this.props.deleteShare({
+            sharedId: sharedId,
+            classroomId: this.state.correctClass[0].id
+        })
+    }
+    handleChange(e) {
+        this.setState({
+            ...this.state,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    editHeading() {
+        this.props.editClassroom({
+            title: this.state.title,
+            description: this.state.description,
+            classroomId: this.state.correctClass[0].id
         })
     }
 
     render() {
-        console.log(this.state.correctClass, "in VC");
+        console.log("this.state.title", this.state.title);
 
         return (
             <div className="page">
                 <div className={classes.viewclassroom}>
                     <div className="row d-flex p-4">
-                        <div className="col-8">
-                            <h1>{this.state.correctClass.length > 0 ? this.state.correctClass[0].title : null}</h1>
-                            <h6>{this.state.correctClass.length > 0 ? this.state.correctClass[0].description : null}</h6>
-                        </div>
+                        {/* <div className="col-8"> */}
+                        {this.props.user.role === "teacher" ?
+                            
+                            <div className="col-8">
+                                <input type="text" name="title" value={this.state.title|| ''} onChange={(e) => { this.handleChange(e) }} onBlur={() => { this.editHeading() }} className={classes.editTitle} />
+                                <input type="text" name="description" value={this.state.description|| ''} onChange={(e) => { this.handleChange(e) }} onBlur={() => { this.editHeading() }} className={classes.editDescription} />
+                            </div>
+                            :
+                            <div className="col-8">
+                                <h1>{this.state.title}</h1>
+                                <h6>{this.state.description}</h6>
+                            </div>
+                        }
+                        {/* </div> */}
                     </div>
 
                     <div className="row d-flex pl-4 pr-4 m-2">
 
                         {/* Share User */}
-                        <DisplayShareUser shared={this.state.correctShare} />
-
-
+                        <DisplayShareUser shared={this.state.correctShare} deleteShare={(sharedId) => { this.deleteShare(sharedId) }} />
                         {/* share user add button */}
                         <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
                             {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
+
+
                     {/* diaplay Tags */}
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        <DisplayClassroomTag tags={this.state.correctTag} deleteTag={(tagId)=>this.deleteTag(tagId)} />
+                        <DisplayClassroomTag tags={this.state.correctTag} deleteTag={(tagId) => { this.deleteTag(tagId) }} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeClass(); }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
@@ -172,7 +207,7 @@ class ViewClassroom extends React.Component {
                     {/* Add button */}
                     <div className="row d-flex m-3">
                         <AddnewPopUp match={this.props.match} correctClass={this.state.correctClass} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
-{                        this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
+                        {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />
                             </div>
@@ -181,7 +216,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div> : null}
 
-                    <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>
@@ -209,6 +244,12 @@ const mapDispatchToProps = dispatch => {
         },
         deleteTag: (tag) => {
             dispatch(deleteTag(tag))
+        },
+        deleteShare: (shared) => {
+            dispatch(deleteSharingThunk(shared))
+        },
+        editClassroom: (editHeading) => {
+            dispatch(editClassroom(editHeading))
         }
     }
 }
