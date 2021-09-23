@@ -34,7 +34,6 @@ export const addCard = (card) => async (dispatch) => {
         })
 
     }).then(() => {
-        console.log('card',card)
         dispatch({
             type: ADD_DICTATIONCARD,
             payload: {id: newId, dictationcardTitle: card.dictationcardTitle, question: card.dictation}
@@ -102,14 +101,12 @@ export const addCard = (card) => async (dispatch) => {
 }
 
 export const editCard = (card) => async (dispatch) => {
-    console.log("editing card")
-    return axios.put("http://localhost:8080/api/card", card)
-        .then(response => {
-            console.log(response)
+    console.log("editing card" , card)
+    await axios.put("http://localhost:8080/api/card", card)
             if (card.type === "dictationcard") {
                 dispatch({
                     type: EDIT_DICTATIONCARD,
-                    payload: { id: { dictationcard_id: card.dictationcardId }, content: { dictationcard_id: card.dictationcardId, user_id: card.userEmail, dictationcardTitle: card.dictationcardTitle, dictationcardRecording: card.dictationcardRecording } }
+                    payload: { id: card.cardId , dictationcardTitle: card.title }
                 })
             }
             else if (card.type === "flashcard") {
@@ -124,7 +121,6 @@ export const editCard = (card) => async (dispatch) => {
                     payload: { id: { quizcard_id: card.quizcardId }, content: { quizcard_id: card.quizcardId, user_id: card.userEmail, quizcardTitle: card.quizcardTitle, quizcardRecording: card.quizcardRecording } }
                 })
             }
-        })
 }
 
 export const deleteCard = (card) => async (dispatch) => {

@@ -97,14 +97,12 @@ class Card {
     edit(body) {
         if (body.type === "flashcard") {
             return this.knex("flashcard")
-                .where({
-                    id: body.cardId,
-                })
+                .where("id", body.cardId)
                 .update({
-                    flashcardTitle: body.flashcardTitle,
-                    flashcardBody: body.flashcardBody,
-                    flashcardRecording: body.flashcardRecording,
+                    flashcardTitle: body.title,
+                    flashcardBody: body.body,
                 })
+                .returning(body.cardId)
                 .catch((err) => {
                     console.log(err)
                 });
@@ -511,35 +509,35 @@ class Card {
                                             .join("user", "user.id", "dictationSubmission.user_id")
                                             .where("dictationSubmission.dictation_id", id.id)
                                             .select("user.displayName", "user.picture", "dictationSubmission.id", "dictationSubmission.user_id", "dictationSubmission.dictationSubmissionPath")
-                                            .then((dsubs)=>{
-                                                dicSub.submission = dsubs.map((dsub)=>{
-                                                        return {
-                                                            id: dsub.id,
-                                                            displayName: dsub.displayName,
-                                                            picture: dsub.picture,
-                                                            user_id: dsub.user_id,
-                                                            dictationSubmissionPath: dsub.dictationSubmissionPath
-                                                        }
+                                            .then((dsubs) => {
+                                                dicSub.submission = dsubs.map((dsub) => {
+                                                    return {
+                                                        id: dsub.id,
+                                                        displayName: dsub.displayName,
+                                                        picture: dsub.picture,
+                                                        user_id: dsub.user_id,
+                                                        dictationSubmissionPath: dsub.dictationSubmissionPath
+                                                    }
                                                 })
                                             })
-                                            .then(async ()=>{
-                                                dicSub.submission.feedback = await Promise.all(dicSub.submission.map((dicfb)=>{
+                                            .then(async () => {
+                                                dicSub.submission.feedback = await Promise.all(dicSub.submission.map((dicfb) => {
                                                     return this.knex("dictationFeedback")
-                                                    .join("user", "dictationFeedback.user_id", "user.id")
-                                                    .where("dictationSubmission_id", dicfb.id)
-                                                    .where("dictationFeedbackStatus", true)
-                                                    .select("dictationFeedback.id", "dictationFeedback.user_id","dictationFeedback.dictationSubmission_id as dictationSubmission_id", "user.displayName", "user.picture", "dictationFeedback.dictationFeedbackBody")
-                                                    .then((dfbs)=>{
-                                                        dicfb.feedback = dfbs.map((dfb)=>{
-                                                            return {
-                                                                id: dfb.id,
-                                                                dictationSubmission_id: dfb.dictationSubmission_id,
-                                                                picture: dfb.picture,
-                                                                user_id: dfb.user_id,
-                                                                dictationFeedbackBody: dfb.dictationFeedbackBody,
-                                                            }
+                                                        .join("user", "dictationFeedback.user_id", "user.id")
+                                                        .where("dictationSubmission_id", dicfb.id)
+                                                        .where("dictationFeedbackStatus", true)
+                                                        .select("dictationFeedback.id", "dictationFeedback.user_id", "dictationFeedback.dictationSubmission_id as dictationSubmission_id", "user.displayName", "user.picture", "dictationFeedback.dictationFeedbackBody")
+                                                        .then((dfbs) => {
+                                                            dicfb.feedback = dfbs.map((dfb) => {
+                                                                return {
+                                                                    id: dfb.id,
+                                                                    dictationSubmission_id: dfb.dictationSubmission_id,
+                                                                    picture: dfb.picture,
+                                                                    user_id: dfb.user_id,
+                                                                    dictationFeedbackBody: dfb.dictationFeedbackBody,
+                                                                }
+                                                            })
                                                         })
-                                                    })
                                                 }))
                                             })
                                     }))
