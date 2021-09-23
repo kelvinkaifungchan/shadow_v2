@@ -11,7 +11,11 @@ import { deleteBridgeThunk } from '../Redux/actions/bridgeAction';
 import classes from './displaysetmodule.module.css'
 
 class PureDisplaySetModule extends React.Component {
-
+    constructor(props){
+        super(props)
+        this.state={
+        }
+    }
     addSetConnect(e) {
         this.props.addBridge({
             type: "classroom_set",
@@ -40,11 +44,13 @@ class PureDisplaySetModule extends React.Component {
             })
         }
     }
+    
     render() {
         return (
             <>  
                     {/* add Exist */}
-                { this.props.display === "3" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ? this.props.sets.map((set, i) => {
+                { this.props.display === "addExist" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ? 
+                this.props.sets.map((set, i) => {
                     return (
                         <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.addSetConnect(e); this.props.toggle() }}>
                             <h4 data-key={set.id}>{set.title}</h4>

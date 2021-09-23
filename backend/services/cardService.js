@@ -357,7 +357,9 @@ class Card {
         let allCard = {}
 
         return this.knex("flashcard")
-            .join('set_flashcard', 'flashcard.id', 'set_flashcard.flashcard_id')
+            .join('set_flashcard', function () {
+                this.on('flashcard.id', '=', 'set_flashcard.flashcard_id').orOn('flashcard.id', '!=', 'set_flashcard.flashcard_id')
+            })
             .join('set', 'set_flashcard.set_id', 'set.id')
             .join('classroom_set', 'classroom_set.set_id', 'set.id')
             .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
@@ -430,7 +432,9 @@ class Card {
             })
             .then(() => {
                 return this.knex("quizcard")
-                    .join('set_quizcard', 'quizcard.id', 'set_quizcard.quizcard_id')
+                    .join('set_quizcard', function () {
+                        this.on('quizcard.id', '=', 'set_quizcard.quizcard_id').orOn('quizcard.id', '!=', 'set_quizcard.quizcard_id')
+                    })
                     .join('set', 'set_quizcard.set_id', 'set.id')
                     .join('classroom_set', 'classroom_set.set_id', 'set.id')
                     .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
@@ -509,7 +513,9 @@ class Card {
             })
             .then(() => {
                 return this.knex("dictationcard")
-                .join('set_dictationcard', 'dictationcard.id', 'set_dictationcard.dictationcard_id')
+                    .join('set_dictationcard', function () {
+                        this.on('dictationcard.id', '=', 'set_dictationcard.dictationcard_id').orOn('dictationcard.id', '!=', 'set_dictationcard.dictationcard_id')
+                    })
                     .join('set', 'set_dictationcard.set_id', 'set.id')
                     .join('classroom_set', 'classroom_set.set_id', 'set.id')
                     .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
@@ -518,8 +524,6 @@ class Card {
                     .where('set.setStatus', true)
                     .orWhere('classroom.user_id', email[0].id)
                     .orWhere('classroom_user.sharedUser_id', email[0].id)
-                    .orWhere("dictationcard.user_id", email[0].id)
-                    .orWhere("dictationcard.dictationcardStatus", true)
                     .orWhere('set.user_id', email[0].id)
                     .where("dictationcard.user_id", email[0].id)
                     .where("dictationcard.dictationcardStatus", true)

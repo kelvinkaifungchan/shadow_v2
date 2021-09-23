@@ -134,7 +134,9 @@ class Set {
             .select("id");
       
         return this.knex("set")
-        .join('classroom_set', 'classroom_set.set_id', 'set.id')
+        .join('classroom_set', function() {
+            this.on('classroom_set.set_id', '=', 'set.id').orOn('classroom_set.set_id', '!=', 'set.id')
+        })
         .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
         .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
         .where('set.user_id', email[0].id)
