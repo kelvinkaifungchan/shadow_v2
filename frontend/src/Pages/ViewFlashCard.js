@@ -53,7 +53,6 @@ class ViewFlashCard extends React.Component {
 
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,12 +73,8 @@ class ViewFlashCard extends React.Component {
                     correctSubmission: student,
                     correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId)
                 });
-            } else {
-                this.setState({
-                    correctSubmission: correctProps[0].submission,
-                    correctFeedback: correctProps[0].submission.filter(submission => submission.id === this.state.submissionId),
-                });
             }
+
         }
     }
 

@@ -73,10 +73,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                     {/* List of words & recording */}
                     <div className={classes.listframe}>
                         <div className="row d-flex ">
-
-
                             <div className="col col-12">
-
                                 <div className="row">
                                     <div className="col col-8">
                                         <p>Question {this.state.questionNumId ? this.state.questionNumId + 1 : null}</p>
