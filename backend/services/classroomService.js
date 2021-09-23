@@ -116,13 +116,12 @@ class ClassroomService {
     const data = {};
 
     return this.knex("classroom")
-    // .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
+    .join("classroom_user", "classroom.id", "classroom_user.classroom_id")
     .where("classroom.classroomStatus", true)
     .where("classroom.user_id", user_id[0].id)
-    // .andWhere(function () {
-      // this.where("classroom.user_id", "=", user_id[0].id).orWhere("classroom_user.sharedUser_id", user_id[0].id)
-    // }) 
+    .orWhere('classroom_user.sharedUser_id', user_id[0].id)
     .select("classroom.id")
+    .groupBy('classroom.id')
     .then(async (classrooms) => {
       let allClass = await Promise.all(classrooms.map((classroom) => {
         let data = {}
