@@ -25,7 +25,12 @@
 
 .questionrow {
     display: flex;
-    margin: 5px;
+    margin-top: 5px;
+}
+
+.questionrow th{
+    display: flex;
+    margin-left: 10px;
 }
 
 .opt{
@@ -55,7 +60,7 @@
     /* border-radius: 50%; */
     background-color: transparent;
     /* margin: 2px; */
-    cursor: pointer;
+
     margin: 10px;
 }
 
@@ -71,6 +76,7 @@
     align-items: center;
     justify-content: center;
     padding-top: 10px;
+    cursor: pointer;
 }
 
 .scrollicon span:hover {

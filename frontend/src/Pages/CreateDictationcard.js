@@ -60,19 +60,29 @@ class CreateDictationcard extends React.Component {
     addItem(e) {
         e.preventDefault();
         if (this._inputElement.value !== "") {
-            var newItem = {
-                dictationBody: this._inputElement.value,
-                key: Date.now(),
-                dictationRecording: ""
+          var newItem = {   
+            text: this._inputElement.value,
+            key: Date.now(),
+            dictationRecording:""
+          };
+       
+          this.setState((prevState) => {
+            return { 
+              items: prevState.items.concat(newItem) 
+
             };
         };
 
-        this._inputElement.value = "";
-        this.setState((prevState) => {
-            return {
-                items: prevState.items.concat(newItem)
-            };
-        });
+            this.setState((prevState) => {
+                return {
+                    items: prevState.items.concat(newItem)
+                };
+            });
+
+            this._inputElement.value = "";
+            })
+        }
+
     }
 
 
