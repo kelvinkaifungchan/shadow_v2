@@ -93,25 +93,29 @@ drawOnCanvas() {
 
     function onMouseDown(e) {
         console.log("FUCK YOUR MOM MOUSEDOWN")
+        e.preventDefault();
+        e.stopPropagation();
         drawing = true;
-        current.x = e.offsetX || e.touches[0].offsetX;
-        current.y = e.offsetY || e.touches[0].offsetY;
+        current.x = e.offsetX || e.touches[0].clientX;
+        current.y = e.offsetY || e.touches[0].clientY;
     }
 
     function onMouseUp(e) {
         console.log("YESSSSS MOUSEUP ")
         if (!drawing) { return; }
         drawing = false;
-        drawLine(current.x, current.y, e.offsetX || e.touches.offsetX, e.offsetY || e.touches.offsetY, current.color, true);
+       // drawLine(current.x, current.y, e.offsetX || e.touches[0].clientX, e.offsetY || e.touches[0].clientY, current.color, true);
     }
 
     function onMouseMove(e) {
         console.log('FUCK ME DADDY MOUSEMOVE') 
-        
+        e.preventDefault();
+        e.stopPropagation();
+
         if (!drawing) { return; }
-        drawLine(current.x, current.y, e.offsetX || e.touches[0].offsetX, e.offsetY || e.touches[0].offsetY, current.color, true);
-        current.x = e.offsetX || e.touches[0].offsetX;
-        current.y = e.offsetY || e.touches[0].offsetY;
+        drawLine(current.x, current.y, e.offsetX || e.touches[0].clientX, e.offsetY || e.touches[0].clientY, current.color, true);
+        current.x = e.offsetX || e.touches[0].clientX;
+        current.y = e.offsetY || e.touches[0].clientY;
     }
     function throttle(callback, delay) {
         var previousCall = new Date().getTime();
@@ -142,7 +146,7 @@ drawOnCanvas() {
 
        
         var base64ImageData = canvas.toDataURL("image/png");
-        console.log(base64ImageData)
+        // console.log(base64ImageData)
         root.socket.emit("canvas-data", room, base64ImageData);
 
     };
@@ -196,7 +200,7 @@ render() {
         <div>
             <div className="sketch" id="sketch">
 
-                <canvas className="board" id="board" ></canvas>
+                <canvas className="board" id="board" height="500" width="500"></canvas>
 
             </div>
             <button onClick={() => this.clearcanvas()}> Clear </button>

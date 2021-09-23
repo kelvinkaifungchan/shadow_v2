@@ -30,8 +30,9 @@ class ViewDictationQuestion extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") });
     }
 
-    handleSrc(){
+    handleSrc(e){
         console.log(this.props.cards)
+
     }
 
     render() {
@@ -58,7 +59,7 @@ class ViewDictationQuestion extends React.Component {
             <div className="row">
                 <div className="col col-12">
                     {/* <QuestionProgress/> */}
-                    <p onClick={() => this.handleSrc()}>QuestionProgress</p>
+                    <p onClick={(e) => this.handleSrc(e)}>QuestionProgress</p>
                     <AudioPlayer /> 
                     
                     <p>AudioPlayer</p>
