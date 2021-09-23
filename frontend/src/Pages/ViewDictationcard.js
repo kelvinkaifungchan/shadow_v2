@@ -5,7 +5,7 @@ import { getdataThunk } from '../Redux/actions/action'
 
 import { QRModal } from '../Component/qrcode'
 import { ViewDictationQuestion } from '../Component/ViewDictationQuestion'
-import classes from './ViewDictationCard.module.css'
+import classes from './ViewDictationcard.module.css'
 
 
 class ViewDictationcard extends React.Component {
@@ -74,7 +74,6 @@ class ViewDictationcard extends React.Component {
                     </div>
 
                     {this.state.showCanvas && <ViewDictationQuestion question={this.state.correctQuestion} dictation={this.state.correctDictationcard}/>}
-
                     {!this.state.showCanvas && <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>

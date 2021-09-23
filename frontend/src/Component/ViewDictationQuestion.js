@@ -10,8 +10,11 @@ import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
-// import AudioPlayer from '../Component/audioPlayer';
-import { Canvas } from './canvas';
+
+import { AudioPlayer } from './audioplayer';
+import { Canvas } from './canvas'
+
+
 
 //CSS
 import classes from './ViewDictationQuestion.module.css'
@@ -31,9 +34,10 @@ class ViewDictationQuestion extends React.Component {
     onClickShowQuestionViewer(id) {
         this.setState({
             questionId: id,
+            target: this.props.question.questions.filter(realQuestion => realQuestion.id === id)[0]
         })
-
     }
+  
     handleCanvas(fileName){
         console.log("fileName", fileName)
         let url  = `https://${process.env.REACT_APP_CANVAS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName ;
@@ -41,8 +45,7 @@ class ViewDictationQuestion extends React.Component {
 
         this.setState({
             canvasUrl: url
-        })
-        
+        }) 
     }
 
     addSubmission(){
@@ -57,6 +60,7 @@ class ViewDictationQuestion extends React.Component {
         })
 
     }
+  
     //gotta somehow have a button to submit all the data (the subsmission array in the state)
     submission(){
         console.log("submitting to redux store")
@@ -66,13 +70,15 @@ class ViewDictationQuestion extends React.Component {
             dictationcardId: this.props.dictation[0].id,
             dictationcardSubmissionPath: this.state.submissions
         })
-
     }
+  
     render() {
         console.log("props in VDQQQQ", this.props);
         console.log("state in VDQQQQ", this.state);
+
         console.log("submissions length", this.state.submissions.length);
         console.log(" questions length", this.props.question.questions.length);
+
 
         return (
 
@@ -101,6 +107,7 @@ class ViewDictationQuestion extends React.Component {
                                     }
                                 )
                                 : null}
+                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
                         </div>
                     </div>
                 </div>
