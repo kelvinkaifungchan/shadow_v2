@@ -70,7 +70,8 @@ class CreateQuizcard extends React.Component {
         this.props.logout()
     }
     render() {
-
+        console.log("State in create quizcard page", this.state)
+        console.log("props in create quizcard page", this.props)
         return (
             <div className="page">
                 {/* Page Container */}

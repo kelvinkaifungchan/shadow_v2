@@ -60,7 +60,7 @@ class CreateDictationcard extends React.Component {
     addItem(e) {
         e.preventDefault();
         if (this._inputElement.value !== "") {
-          var newItem = {
+          var newItem = {   
             text: this._inputElement.value,
             key: Date.now(),
             dictationRecording:""
@@ -78,9 +78,8 @@ class CreateDictationcard extends React.Component {
             });
 
             this._inputElement.value = "";
+            })
         }
-
-
     }
 
     deleteItem(key) {

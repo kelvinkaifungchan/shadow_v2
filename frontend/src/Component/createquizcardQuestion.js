@@ -16,11 +16,14 @@ class PureCreateQuiz extends React.Component{
             c: "",
             d: "",
             questionTime: "",
+            viewing: "",
+            creating: true,
         }
     }
     displayQuestion(e, i){
-        e.preventDefault()
+        // e.preventDefault()
         this.setState({
+            viewing: i,
             questionType: this.props.questions[i].questionType,
             questionBody: this.props.questions[i].questionBody,
             multipleChoiceAnswer: this.props.questions[i].multipleChoiceAnswer,
@@ -32,6 +35,7 @@ class PureCreateQuiz extends React.Component{
             questionTime:this.props.questions[i].questionTime,
         })
     }
+
     mcToggle(){
         this.setState({
             questionType: 'multipleChoice',
@@ -104,27 +108,39 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
+            multipleChoiceAnswer: "",
+            trueFalseAnswer: "",
+            questionTime: "",
+            viewing: ""
         })
     }
+
+    viewing(e, i){
+        this.setState({
+            viewing: i,
+            creating: false,
+        })
+    }
+
+    creating(){
+        this.setState({
+            creating: true,
+            viewing: ""
+        })
+    }
+
     render(){
+
+        console.log("props in create quizcard question", this.props)
+        console.log("State in create quizcard question", this.state)
         return (
             <>
-            <div className={classes.scrollicon}>
-                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
-                    return (
-                        <div key={i}>
-                            <span key={i} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
-                        </div>
-                    )
-                }) : null}
-                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
-            </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
                 <div className="row">
                     <div className="col col-8">
-                        <p>Question {this.props.questions.questions}</p>
+                        <p>Question {this.state.viewing !== "" ? this.state.viewing + 1  : this.props.questions.length + 1}</p>
                         <p>{this.state.time}</p>
                     </div>
                     <div className="col col-4">
@@ -144,7 +160,7 @@ class PureCreateQuiz extends React.Component{
 
                 <div className="row">
                     <div className="col col-12">
-                    <textarea id="question" value={this.state.questionBody} className={classes.question} onChange={(e)=> this.changeOpt(e)} />
+                    <textarea id="question" placeholder="Input a question (required)" value={this.state.questionBody} className={classes.question} onChange={(e)=> this.changeOpt(e)} />
                     </div>
                 </div>
 
@@ -153,6 +169,7 @@ class PureCreateQuiz extends React.Component{
                     <div className="row">
                     <table>
                         <div className="col col-12">
+                        <p> Please click to choose the correct answer </p>
                         <tr className={classes.questionrow}>
                                 {/* <FormGroup> */}
                                         <th className={classes.opt}>
@@ -270,10 +287,19 @@ class PureCreateQuiz extends React.Component{
             </Form>
 
             <div className={classes.scrollicon}>
-                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
+                <span onClick={(e)=>{
+                    if (this.state.creating) {
+                        this.props.submit(e,this.state); this.clear()
+                    }  else {
+                        this.clear();
+                        this.creating() 
+                    }}}>+</span>
                 {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
                     return (
-                            <span onClick={(e) => this.displayQuestion(e, i)} key={i}>{i + 1}</span>
+                            <span onClick={(e) => {this.displayQuestion(e, i) ; this.viewing(e, i)}} key={i} 
+                            style={{ 
+                                background: this.state.viewing === i ? "#F6CA4E" : null, 
+                                color: this.state.viewing === i ? "#FFFFFF" : null}}>{i + 1}</span>
 
                     )
                 }) : null}
