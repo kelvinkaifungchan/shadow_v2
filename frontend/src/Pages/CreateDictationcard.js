@@ -68,6 +68,11 @@ class CreateDictationcard extends React.Component {
         };
 
         this._inputElement.value = "";
+        this.setState((prevState) => {
+            return {
+                items: prevState.items.concat(newItem)
+            };
+        });
     }
 
 
@@ -80,7 +85,24 @@ class CreateDictationcard extends React.Component {
             items: filteredItems
         });
     }
+    addDictationCard() {
+        this.props.addCard({
+            email: localStorage.getItem('email'),
+            type: this.state.type,
+            dictationcardTitle: this.state.dictationcardTitle,
+            dictationcardRecording: this.state.dictationRecording,
+            dictation: this.state.items,
+            setId: parseInt(this.props.match.params.setId)
+        })
+    }
 
+    async navigateSet(e) {
+        e.preventDefault()
+        this.addDictationCard()
+        this.props.history.push({
+            pathname: `/viewset/${this.props.match.params.setId}`,
+        })
+    }
     render() {
 
         return (
