@@ -7,6 +7,7 @@ class PureAudioRecorder extends React.Component {
     stream
     constructor(props) {
         super(props)
+        
         this.state = {
             show: Boolean(),
             recording: false,
@@ -81,8 +82,6 @@ class PureAudioRecorder extends React.Component {
     stopRecording(e) {
         console.log('stoppiung')
         e.preventDefault();
-        this.setState({
-        })
         // stop the recorder
         this.mediaRecorder.stop();
         // say that we're not recording
@@ -114,8 +113,10 @@ class PureAudioRecorder extends React.Component {
         this.props.handleRecording(fileName)
 
         // append audioURL to list of saved audios for rendering
-        const preview = document.getElementById('preview');
-        preview.setAttribute("src", audioURL)
+        const preview = document.getElementById(`${this.props.yek}`);
+        preview.setAttribute("src", audioURL) 
+       
+       
 
         // Upload to S3
         this.props.audiorecordingMDP(formData)
@@ -123,23 +124,24 @@ class PureAudioRecorder extends React.Component {
 
     render() {
         const { show, start, end } = this.state;
+        console.log(show)
         return (
             <div>
                 <div className="flex-col d-flex justify-content-center" id="audioSubmission">
                     {show ? <audio ref={a => { this.audio = a }} className="bg-dark" id="audio" autoPlay={true} muted ></audio> : null}
 
-                    {!show ? <audio ref={b => { this.player = b }} controls id="preview" src="" autoPlay={true}></audio> : null}
+                {!show ? <audio ref={b => { this.player = b }} controls id={this.props.yek} src="" autoPlay={true}   ></audio> : null}
+            </div>
+            <div className="row flex-row flex-nowrap">
+                <div className="p-3 ml-auto mr-auto ">
+                    {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
+                        className="fas fa-power-off"></i></span> : null}
+                    {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                        title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
+                    {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                        title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
                 </div>
-                <div className="row flex-row flex-nowrap">
-                    <div className="p-3 ml-auto mr-auto ">
-                        {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
-                            className="fas fa-power-off"></i></span> : null}
-                        {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
-                            title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                        {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
-                            title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
-                    </div>
-                </div>
+            </div>
             </div>
         );
     }
