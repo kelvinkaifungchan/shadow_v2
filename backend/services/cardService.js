@@ -97,14 +97,12 @@ class Card {
     edit(body) {
         if (body.type === "flashcard") {
             return this.knex("flashcard")
-                .where({
-                    id: body.cardId,
-                })
+                .where("id", body.cardId)
                 .update({
-                    flashcardTitle: body.flashcardTitle,
-                    flashcardBody: body.flashcardBody,
-                    flashcardRecording: body.flashcardRecording,
+                    flashcardTitle: body.title,
+                    flashcardBody: body.body,
                 })
+                .returning(body.cardId)
                 .catch((err) => {
                     console.log(err)
                 });
