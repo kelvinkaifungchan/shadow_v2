@@ -27,9 +27,30 @@ class ViewSearch extends React.Component {
     }
 
     async componentWillReceiveProps() {
+
+        let classroomFiltered = this.props.classrooms.filter((classroom) => {
+            return (classroom.tags.map((tag) => {
+                if (tag.body === this.props.match.params.search) {
+                    return tag.body
+                } else {
+                    return
+                }
+            }).includes(this.props.match.params.search) === true)
+        })
+
+        let setFiltered = this.props.sets.filter((set) => {
+            return (set.tags.map((tag) => {
+                if (tag.body === this.props.match.params.search) {
+                    return tag.body
+                } else {
+                    return
+                }
+            }).includes(this.props.match.params.search) === true)
+        })
+        
         await this.setState({
-            searchClassrooms: this.props.classrooms.filter((classroom) => classroom.tags.body === this.props.match.params.search),
-            searchSets: this.props.sets.filter(set => set.tags.filter(tag => tag.body === this.props.match.params.search))
+            searchClassrooms: classroomFiltered,
+            searchSets: setFiltered
         })
     }
 
