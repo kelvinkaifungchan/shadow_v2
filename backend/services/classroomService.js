@@ -120,9 +120,7 @@ class ClassroomService {
     const data = {};
 
     return this.knex("classroom")
-    .join("classroom_user", function() {
-      this.on('classroom_user.classroom_id', '=', 'classroom.id').orOn('classroom_user.classroom_id', '!=', 'classroom.id')
-    })
+    .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
     .where("classroom.classroomStatus", true)
     .where("classroom.user_id", user_id[0].id)
     .orWhere('classroom_user.sharedUser_id', user_id[0].id)

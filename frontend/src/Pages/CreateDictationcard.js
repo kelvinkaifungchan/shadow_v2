@@ -60,18 +60,18 @@ class CreateDictationcard extends React.Component {
     addItem(e) {
         e.preventDefault();
         if (this._inputElement.value !== "") {
-          var newItem = {   
-            text: this._inputElement.value,
-            key: Date.now(),
-            dictationRecording:""
-          };
-       
-          this.setState((prevState) => {
-            return { 
-              items: prevState.items.concat(newItem) 
-
+            var newItem = {
+                text: this._inputElement.value,
+                key: Date.now(),
+                dictationRecording: ""
             };
-        };
+
+            this.setState((prevState) => {
+                return {
+                    items: prevState.items.concat(newItem)
+
+                };
+            });
 
             this.setState((prevState) => {
                 return {
@@ -80,8 +80,8 @@ class CreateDictationcard extends React.Component {
             });
 
             this._inputElement.value = "";
-            })
         }
+
 
     }
 
