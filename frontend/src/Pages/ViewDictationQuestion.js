@@ -11,7 +11,7 @@ import { BrowserRouter , Switch} from "react-router-dom";
 import MediaQuery from 'react-responsive'
 
 // import QuestionProgress from '../Component/questionProgress';
-// import AudioPlayer from '../Component/audioPlayer';
+import { AudioPlayer } from '../Component/audioplayer';
 import { Canvas } from '../Component/canvas'
 
 
@@ -22,11 +22,17 @@ class ViewDictationQuestion extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            user:{}
+            user:{},
+            correctSrc: ""
         }
     }
     async componentDidMount() {
         await this.props.getdata({ email: localStorage.getItem("email") });
+    }
+
+    handleSrc(e){
+        console.log(this.props.cards)
+
     }
 
     render() {
@@ -53,8 +59,8 @@ class ViewDictationQuestion extends React.Component {
             <div className="row">
                 <div className="col col-12">
                     {/* <QuestionProgress/> */}
-                    <p>QuestionProgress</p>
-                    {/* <AudioPlayer/> */}
+                    <p onClick={(e) => this.handleSrc(e)}>QuestionProgress</p>
+                    <AudioPlayer /> 
                     
                     <p>AudioPlayer</p>
                 </div>
@@ -81,6 +87,7 @@ const mapStateToProps = (state) => {
         isAuthenticatedMSP: state.authStore.isAuthenticated,
         user: state.userStore.user,
         sets: state.setStore.sets,
+        cards: state.cardStore.card,
     }
 }
 const mapDispatchToProps = dispatch => {
