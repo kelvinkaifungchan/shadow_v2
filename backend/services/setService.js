@@ -134,11 +134,17 @@ class Set {
             .select("id");
       
         return this.knex("set")
-        .where({
-            user_id: email[0].id,
-            setStatus: true
-        })
+        .join('classroom_set', 'classroom_set.set_id', 'set.id')
+        .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
+        .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
+        .where('set.user_id', email[0].id)
+        .where('set.setStatus', true)
+        .orWhere('classroom.user_id', email[0].id)
+        .orWhere('classroom_user.sharedUser_id', email[0].id)
+        .select('set.id', 'set.setTitle', 'set.setDesc')
+        .groupBy('set.id')
         .then(async (sets)=>{
+            console.log(sets)
             let big = await Promise.all(sets.map((set) => {
                 let setData = {};               
                 return this.knex("tag_set")
@@ -196,6 +202,9 @@ class Set {
                         return setData
                     })
                 }))
+                .catch((err)=>{
+                    console.log(err)
+                })
                 return big
             })
         .catch((err) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 // Require Action
 import { addCard } from '../Redux/actions/cardAction'
@@ -14,14 +14,14 @@ import { DisplayEntries } from '../Component/displayentries'
 import classes from './CreateDictationcard.module.css'
 
 class CreateDictationcard extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            type:"dictationcard",
+            type: "dictationcard",
             dictationcardTitle: "",
-            dictationcardBody:"",
-            dictationRecording:"",
-            setId:"",
+            dictationcardBody: "",
+            dictationRecording: "",
+            setId: "",
             items: [],
         }
         this.handleHeading = this.handleHeading.bind(this);
@@ -30,31 +30,31 @@ class CreateDictationcard extends React.Component {
         this.deleteItem = this.deleteItem.bind(this);
     }
     componentDidMount() {
-        this.props.getdata({ email: localStorage.getItem('email')})
+        this.props.getdata({ email: localStorage.getItem('email') })
     }
 
 
-    handleHeading(title){
+    handleHeading(title) {
         this.setState({
             dictationcardTitle: title
         })
     }
 
-    handleRecording(key, fileName){
+    handleRecording(key, fileName) {
         console.log("KEY", key)
         console.log("FILE NAME", fileName)
         var filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key);
-          });
+        });
         var changedItem = this.state.items.filter(function (item) {
             return (item.key === key);
-          });
-        
-        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName ;
+        });
+
+        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName;
         this.setState({
             items: filteredItems.concat(changedItem)
         })
-       console.log("NEW STATE AFTER RECORDING", this.state.items)
+        console.log("NEW STATE AFTER RECORDING", this.state.items)
     }
 
     addItem(e) {
@@ -65,39 +65,38 @@ class CreateDictationcard extends React.Component {
                 key: Date.now(),
                 dictationRecording: ""
             };
-          });
-         
-          this._inputElement.value = "";
-        }
-         
-      }
-      
-      deleteItem(key) {
+        };
+
+        this._inputElement.value = "";
+    }
+
+
+    deleteItem(key) {
         var filteredItems = this.state.items.filter(function (item) {
-          return (item.key !== key);
+            return (item.key !== key);
         });
-       
+
         this.setState({
-          items: filteredItems
+            items: filteredItems
         });
-      }
-      
+    }
+
     render() {
 
         return (
-            
-        <div className="page">
+
+            <div className="page">
                 {/* Page Container */}
                 <div className={classes.createdictationcard}>
                     {/* Header Row */}
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state}/>
+                            <HeadingInput card={this.state} handleHeading={this.handleHeading} heading={this.state} />
                         </div>
                         <div className="col-4">
                             {/* <FormSubmit/> */}
                             <div className={classes.createbtn}>
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSet(e)}} >Create Card</button>
+                                <button cards={this.props.cards} onClick={(e) => { this.navigateSet(e) }} >Create Card</button>
                             </div>
                         </div>
                     </div>
@@ -111,20 +110,20 @@ class CreateDictationcard extends React.Component {
 
                             <div className="col col-12">
                                 <form onSubmit={this.addItem}>
-                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input> 
+                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input>
                                     <span className={classes.additembtn}>
                                         <button type="submit">
-                                            <i className="fas fa-plus"></i> 
+                                            <i className="fas fa-plus"></i>
                                         </button>
                                     </span>
-                                    
+
                                 </form>
                             </div>
 
                             <div className="col col-12">
-                            <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem}/>
+                                <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem} />
                             </div>
-                            
+
                         </div>
                     </div>
 
