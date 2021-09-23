@@ -33,6 +33,8 @@ class PureCreateQuiz extends React.Component{
             c: this.props.questions[i].c,
             d: this.props.questions[i].d,
             questionTime:this.props.questions[i].questionTime,
+            currentQuestion: i,
+            edit: true,
         })
     }
 
@@ -46,7 +48,6 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "00:00",
         })
     }
     tfToggle(){
@@ -59,7 +60,6 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "00:00",
         })
     }
     changeOpt(e){
@@ -96,6 +96,18 @@ class PureCreateQuiz extends React.Component{
             })
         }
     }
+    checkFinished(e){
+        e.preventDefault()
+        if(this.state.questionType === 'multipleChoice' && this.state.questionBody !== "" && this.state.multipleChoiceAnswer !== ""){
+            this.props.submit(e, this.state)
+            this.clear()
+        } else if (this.state.questionType === 'trueFalse' && this.state.questionBody !== "" && this.state.trueFalseAnswer !== ""){
+            this.props.submit(e, this.state)
+            this.clear()
+        } else {
+            alert("please fill in the required boxes")
+        }
+    }
     getTime(){
         this.setState({
             questionTime: Math.floor(document.getElementById("preview").currentTime)
@@ -112,6 +124,7 @@ class PureCreateQuiz extends React.Component{
             trueFalseAnswer: "",
             questionTime: "",
             viewing: ""
+
         })
     }
 
@@ -135,6 +148,7 @@ class PureCreateQuiz extends React.Component{
         console.log("State in create quizcard question", this.state)
         return (
             <>
+
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
@@ -283,9 +297,9 @@ class PureCreateQuiz extends React.Component{
                     </div>
                 </div>
             }
+            { this.state.edit ? <button className="btn btn-primary" onClick={(e)=>{this.props.edit(e, this.state); this.clear()}}>Save Question</button> : null}
             </div>
             </Form>
-
             <div className={classes.scrollicon}>
                 <span onClick={(e)=>{
                     if (this.state.creating) {
@@ -304,6 +318,7 @@ class PureCreateQuiz extends React.Component{
                     )
                 }) : null}
             </div>
+
             </>
         )
     }

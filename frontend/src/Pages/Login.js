@@ -17,18 +17,11 @@ class Login extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('didupdate')
         if (this.props.isAuthenticatedMSP === true) {
             this.props.history.push('/')
         }
     }
-    // navLogin(e){
-    //     e.preventDefault();
-    //     console.log('nav')
-    //     if(this.props.isAuthenticatedMSP === true){
-    //         this.props.history.push('/')
-    //     }
-    // }
+    
     handleshow() {
         this.setState((prevState) => {
             return {

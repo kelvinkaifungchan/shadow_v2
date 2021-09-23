@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 
 import { getdataThunk } from '../Redux/actions/action'
 
-import {QRModal} from '../Component/qrcode'
-
-import classes from './ViewDictationcard.module.css'
+import { AudioPlayer } from '../Component/audioplayer'
+import { QRModal } from '../Component/qrcode'
+import { ViewDictationQuestion } from '../Component/ViewDictationQuestion'
+import classes from './ViewDictationCard.module.css'
 
 
 class ViewDictationcard extends React.Component {
@@ -14,12 +15,27 @@ class ViewDictationcard extends React.Component {
         super(props)
         this.state = {
             modal: false,
-            type:"dictationcard",
+            correctDictationcard: [],
+            correctQuestion: [],
+            type: "dictationcard",
         }
     }
 
-    async componentDidMount() {
-        await this.props.getdata({ email: localStorage.getItem("email") });
+    componentDidMount() {
+        this.props.getdata({ email: localStorage.getItem('email') })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.cards.dictationcard.length > 0) {
+            this.setState({
+                correctDictationcard: this.props.cards.dictationcard.filter(dictation => dictation.id === parseInt(this.props.match.params.id))
+            })
+            const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
+            this.setState({
+                correctQuestion: correctProps[0]
+            })
+
+        }
     }
 
     toggle() {
@@ -28,46 +44,47 @@ class ViewDictationcard extends React.Component {
         });
     }
 
-    navigateSubmission(e){
+    navigateSubmission(e) {
         this.props.history.push({
-            pathname:`/viewdictationCardSubmission/${this.props.match.params.id}`,
-            // state: { dictationcard: this.props.location.state.card[0]}
+            pathname: `/viewdictationCardSubmission/${this.props.match.params.id}`,
         })
     }
-    navigateCanvas(e){
-        this.props.history.push({
-            pathname:`/viewdictationQuestion/${this.props.match.params.id}`
+    navigateCanvas(e) {
+        this.setState({
+            showCanvas: true,
         })
-
+        // this.props.history.push({
+        //     pathname: `/viewdictationQuestion/${this.props.match.params.id}`
+        // })
     }
 
     render() {
-
+        console.log("state in VDC", this.state);
         return (
             <div className="page">
-                
-                <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)}/>
+
+                <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)} />
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
-                            {/* <h1>{this.props.location.state.card[0].dictationcardTitle}</h1> */}
+                            <h1> {this.state.correctDictationcard.length > 0 ? this.state.correctDictationcard[0].dictationcardTitle : null}</h1>
+                        </div>
+                        <div className="col-4 justify-content-center align-items-center">
+                            <button cards={this.props.cards} onClick={(e) => { this.navigateSubmission(e) }}>View Submission</button>
                         </div>
                     </div>
 
-
-                    <div className="row d-flex p-4">
+                    {this.state.showCanvas && <ViewDictationQuestion question={this.state.correctQuestion} dictation={this.state.correctDictationcard}/>}
+                    {!this.state.showCanvas && <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>
                                 <span onClick={() => this.toggle()} className={classes.startbtn}> Start Dictation</span>
                             </div>
                         </div>
-                    </div>
+                    </div>}
 
                     <div className="row d-flex p-4">
-                        <div className="col col-12 justify-content-center align-items-center">
-                            {/* need to add data-key */}
-                            <button cards={this.props.cards} onClick={(e)=>{this.navigateSubmission(e)}}>View Submission</button>
-                        </div>
+
                     </div>
 
                 </div>
@@ -79,8 +96,11 @@ class ViewDictationcard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
-        user: state.userStore.user
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
     }
 }
 const mapDispatchToProps = dispatch => {

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 import { deleteTag } from '../Redux/actions/tagAction';
+import { editSet } from '../Redux/actions/setAction';
+
 
 // Require Component
 import { DisplayCardModule } from '../Component/displaycardmodule';
@@ -34,7 +36,7 @@ class ViewSet extends React.Component {
     }
 
     async componentDidMount() {
-        await this.props.getdata( {email: localStorage.getItem('email')} )
+        await this.props.getdata({ email: localStorage.getItem('email') })
     }
 
     async componentWillReceiveProps(nextProps) {
@@ -42,15 +44,15 @@ class ViewSet extends React.Component {
             correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
         })
         // await this.getSet()
-        if(this.state.correctSet[0] !== undefined){
+        if (this.state.correctSet[0] !== undefined) {
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
-                if(correctFlashs[0].bridge_flashcard.length >= 0){
+                if (correctFlashs[0].bridge_flashcard.length >= 0) {
                     let nextflash = await correctFlashs[0].bridge_flashcard.map((changed) => {
                         const newestState = nextProps.cards.flashcard.filter(nFlashcard => nFlashcard.id === changed.flashcard_id)
                         return newestState[0]
                     });
-                    if(nextflash[0] !== undefined){
+                    if (nextflash[0] !== undefined) {
                         this.setState({
                             correctflashCard: nextflash,
                         });
@@ -59,16 +61,16 @@ class ViewSet extends React.Component {
                             correctflashCard: [],
                         });
                     }
-                } 
+                }
             }
             const correctQuizs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             if (correctQuizs[0] !== undefined && correctQuizs[0].bridge_quizcard !== undefined) {
-                if(correctQuizs[0].bridge_quizcard.length >= 0){
+                if (correctQuizs[0].bridge_quizcard.length >= 0) {
                     let nextquiz = await correctQuizs[0].bridge_quizcard.map((changed) => {
                         const newestState = nextProps.cards.quizcard.filter(nQuizcard => nQuizcard.id === changed.quizcard_id)
                         return newestState[0]
                     });
-                    if(nextquiz[0]!== undefined){
+                    if (nextquiz[0] !== undefined) {
                         this.setState({
                             correctquizCard: nextquiz,
                         });
@@ -81,15 +83,15 @@ class ViewSet extends React.Component {
             }
             const correctDicts = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             if (correctDicts[0] !== undefined && correctDicts[0].bridge_dictationcard !== undefined) {
-                if(correctDicts[0].bridge_dictationcard.length >= 0){
+                if (correctDicts[0].bridge_dictationcard.length >= 0) {
                     let nextdictation = await correctDicts[0].bridge_dictationcard.map((changed) => {
-                    const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
-                    if(newestState[0] !== undefined){
-                        return newestState[0]
-                    }
-                    return false
+                        const newestState = nextProps.cards.dictationcard.filter(nDictcard => nDictcard.id === changed.dictationcard_id)
+                        if (newestState[0] !== undefined) {
+                            return newestState[0]
+                        }
+                        return false
                     });
-                    if(nextdictation[0]!== undefined){
+                    if (nextdictation[0] !== undefined) {
                         this.setState({
                             correctdictationCard: nextdictation,
                         });
@@ -98,11 +100,13 @@ class ViewSet extends React.Component {
                             correctdictationCard: []
                         })
                     }
-            }
+                }
             }
             const correctProps = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
-            if(correctProps[0] !== undefined){
+            if (correctProps[0] !== undefined) {
                 this.setState({
+                    title: this.state.correctSet[0].title,
+                    description: this.state.correctSet[0].description,
                     correctTag: correctProps[0].tags,
                 })
             }
@@ -225,29 +229,55 @@ class ViewSet extends React.Component {
         }
     }
 
-    deleteTag(tagId){
+    deleteTag(tagId) {
         this.props.deleteTag({
-            type:"set",
+            type: "set",
             tagId: tagId,
-            setId : this.state.correctSet[0].id
+            setId: this.state.correctSet[0].id
         })
     }
+
+    handleChange(e) {
+        this.setState({
+            ...this.state,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    editHeading() {
+        this.props.editSet({
+            title: this.state.title,
+            description: this.state.description,
+            setId: this.state.correctSet[0].id
+        })
+    }
+
     render() {
-       
+
 
         return (
             <div className="page">
                 <div className={classes.viewset}>
                     <div className="row d-flex p-4">
-                        <div className="col-8">
-                            <h1>{this.state.correctSet.length > 0 ? this.state.correctSet[0].title : null}</h1>
-                            <h6>{this.state.correctSet.length > 0 ? this.state.correctSet[0].description : null}</h6>
-                        </div>
+                        {/* <div className="col-8"> */}
+                        {this.props.user.role === "teacher" ?
+
+                            <div className="col-8">
+                                <input type="text" name="title" value={this.state.title || ''} onChange={(e) => { this.handleChange(e) }} onBlur={() => { this.editHeading() }} className={classes.editTitle} />
+                                <input type="text" name="description" value={this.state.description || ''} onChange={(e) => { this.handleChange(e) }} onBlur={() => { this.editHeading() }} className={classes.editDescription} />
+                            </div>
+                            :
+                            <div className="col-8">
+                                <h1>{this.state.title}</h1>
+                                <h6>{this.state.description}</h6>
+                            </div>
+                        }
+                        {/* </div> */}
                     </div>
 
 
                     <div className="row d-flex pl-4 pr-4 m-2">
-                        <DisplaySetTag tags={this.state.correctTag} deleteTag={(tagId)=>{this.deleteTag(tagId)}}/>
+                        <DisplaySetTag tags={this.state.correctTag} deleteTag={(tagId) => { this.deleteTag(tagId) }} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
                             {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
@@ -274,35 +304,38 @@ class ViewSet extends React.Component {
                         </div> : null}
 
                         <DisplayCardModule view={this.state} match={this.props.match}
-                        correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
+                            correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                     </div>
                 </div>
             </div>
         );
     }
 }
-    const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
 
-        return {
-            email: state.authStore.email,
-            user: state.userStore.user,
-            classrooms: state.classroomStore.classrooms,
-            sets: state.setStore.sets,
-            cards: state.cardStore.card,
-            tags: state.tagStore.tags,
+    return {
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getdata: (email) => {
+            dispatch(getdataThunk(email))
+        },
+        deleteTag: (tag) => {
+            dispatch(deleteTag(tag))
+        },
+        editSet: (editHeading) => {
+            dispatch(editSet(editHeading))
         }
     }
+}
 
-    const mapDispatchToProps = dispatch => {
-        return {
-            getdata: (email) => {
-                dispatch(getdataThunk(email))
-            },
-            deleteTag: (tag) => {
-                dispatch(deleteTag(tag))
-            }
-        }
-    }
-
-    const connectedViewSet = connect(mapStateToProps, mapDispatchToProps)(ViewSet)
+const connectedViewSet = connect(mapStateToProps, mapDispatchToProps)(ViewSet)
 export { connectedViewSet as ViewSet };
