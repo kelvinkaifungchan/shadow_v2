@@ -14,7 +14,7 @@ import { CreateQuizcard } from '../Pages/CreateQuizcard';
 import { ViewQuizcard } from '../Pages/ViewQuizcard';
 import { ViewQuizcardSubmission } from '../Pages/ViewQuizcardSubmission';
 import { CreateDictationcard } from '../Pages/CreateDictationcard';
-import { ViewDictationcard } from '../Pages/ViewDictationCard';
+import { ViewDictationcard } from '../Pages/ViewDictationcard';
 import { ViewDictationcardSubmission } from '../Pages/ViewDictationCardSubmission';
 
 
