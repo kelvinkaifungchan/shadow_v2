@@ -14,7 +14,7 @@ class PureDisplayEntries extends React.Component {
   }
   createEntries(item) {
     // i deleted this from the li element --> onClick={() => this.delete(item.key)}
-    return <li  key={item.key}>{item.text} <AudioRecorder handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/></li>
+    return <li  key={item.key}>{item.text} <AudioRecorder yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/></li>
   }
  
   delete(key) {

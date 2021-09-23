@@ -117,6 +117,7 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
+            edit: false,
         })
     }
     render(){
@@ -126,7 +127,7 @@ class PureCreateQuiz extends React.Component{
                 {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
                     return (
                         <div key={i}>
-                            <span key={i} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
+                            <span key={i} className={classes.scrollicon} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
                         </div>
                     )
                 }) : null}
@@ -282,15 +283,6 @@ class PureCreateQuiz extends React.Component{
             { this.state.edit ? <button className="btn btn-primary" onClick={(e)=>{this.props.edit(e, this.state); this.clear()}}>Save Question</button> : null}
             </div>
             </Form>
-            {/* <div className={classes.scrollicon}>
-                <span onClick={(e)=>{this.props.submit(e,this.state) ; this.clear()}}>+</span>
-                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
-                    return (
-                            <span onClick={(e) => this.displayQuestion(e, i)} key={i}>{i + 1}</span>
-
-                    )
-                }) : null}
-            </div> */}
             </>
         )
     }
