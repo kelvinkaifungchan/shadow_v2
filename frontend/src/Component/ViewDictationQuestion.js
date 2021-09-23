@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive'
 
 // import QuestionProgress from '../Component/questionProgress';
-// import AudioPlayer from '../Component/audioPlayer';
+import { AudioPlayer } from './audioplayer';
 import { Canvas } from './canvas'
 
 
@@ -19,12 +19,15 @@ class ViewDictationQuestion extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            tracking: []
+            tracking: [],
+            target: "",
         }
     }
     onClickShowQuestionViewer(id) {
+        
         this.setState({
             questionId: id,
+            target: this.props.question.questions.filter(realQuestion => realQuestion.id === id)[0]
         })
         if (this.props.questionId === undefined) {
             this.room = id + "-" + this.props.dictation[0].id + "-" + 1
@@ -32,10 +35,10 @@ class ViewDictationQuestion extends React.Component {
             this.room = id + "-" + this.props.dictation[0].id + "-" + this.props.user.id.toString()
         }
         console.log("ROOM ID", this.room)
-
     }
     render() {
-        console.log("state in VDQQQQ", this.props);
+        console.log("props in VDQQQQ", this.props);
+        console.log("state in VDQQQQ", this.state);
 
         return (
 
@@ -64,6 +67,7 @@ class ViewDictationQuestion extends React.Component {
                                     }
                                 )
                                 : null}
+                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
                         </div>
                     </div>
                 </div>

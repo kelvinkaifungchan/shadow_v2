@@ -7,12 +7,17 @@ class PureAudioPlayer extends React.Component {
     constructor(props) {
         super(props)
         this.player = React.createRef()
-
-       
+        this.state={
+            src: ""
+        }
     }
 
-
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps)
+        this.player.load();
+    }
     render() {
+        console.log('src in audio player', this.props)
         return (
 
             <div className="d-flex justify-content-center">
