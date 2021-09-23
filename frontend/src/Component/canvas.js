@@ -17,17 +17,13 @@ class PureCanvas extends React.Component{
 constructor(props){
     super(props); 
     
-   if(this.props.user){
-    console.log("USER DATA", this.props.user.id.toString())
-    console.log("CANVASID", this.props.canvasId)
-    this.room = this.props.user.id.toString() + "-" + this.props.canvasId
-   } else{
-    console.log("USER DATA in params", this.props.match.params.userId)
-    console.log("CANVASID in params", this.props.match.params.canvasId)
-    this.room = this.props.match.params.userId.toString() + "-" + this.props.match.params.canvasId.toString();
-   }
-
-    console.log("ROOM ID", this.room)
+//   if(this.props.questionId === undefined){
+//     this.room = this.props.userId + "-" + this.props.dictationId+ "-" + 1
+//   } else{
+//     this.room = this.props.userId + "-" + this.props.dictationId +"-" + this.props.questionId
+//   }
+  
+//     console.log("ROOM ID", this.room)
 
     this.socket = io.connect("http://localhost:8080");
     this.socket.emit("newUser", this.room)
@@ -195,9 +191,7 @@ render() {
     return (
         <div>
             <div className="sketch" id="sketch">
-
-                <canvas className="board" id="board" ></canvas>
-
+                <canvas style={{ position: "relative", width: 950, height: 480 }} className="board" id="board" ></canvas>
             </div>
             <button onClick={() => this.clearcanvas()}> Clear </button>
             <button onClick={() => this.submit()}> Submit </button>
@@ -210,7 +204,10 @@ render() {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        submitMDP: (data) => dispatch(submitCanvas(data))
+        submitMDP: (data) => {
+            dispatch(submitCanvas(data))
+        }
+      
     }
 }
 

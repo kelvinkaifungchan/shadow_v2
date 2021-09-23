@@ -9,7 +9,7 @@ import MediaQuery from 'react-responsive'
 
 // import QuestionProgress from '../Component/questionProgress';
 // import AudioPlayer from '../Component/audioPlayer';
-import { Canvas } from '../Component/canvas'
+import { Canvas } from './canvas'
 
 
 //CSS
@@ -19,67 +19,56 @@ class ViewDictationQuestion extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: {}
+            tracking: []
         }
     }
-    async componentDidMount() {
-        await this.props.getdata({ email: localStorage.getItem("email") });
-    }
+    onClickShowQuestionViewer(id) {
+        this.setState({
+            questionId: id,
+        })
+        if (this.props.questionId === undefined) {
+            this.room = id + "-" + this.props.dictation[0].id + "-" + 1
+        } else {
+            this.room = id + "-" + this.props.dictation[0].id + "-" + this.props.user.id.toString()
+        }
+        console.log("ROOM ID", this.room)
 
+    }
     render() {
+        console.log("state in VDQQQQ", this.props);
 
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                <MediaQuery minWidth={1050}>
-                    <div className="row" style={this.bg}>
-                        <div className="col col-8">
-                        </div>
-
-                    </div>
-                    <div className="row">
-                        <div className="col col-12">
-                            {/* <HeadingInput/> */}
-                            <p>HeadingInput</p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col col-12">
-                            {/* <QuestionProgress/> */}
-                            <p>QuestionProgress</p>
-                            {/* <AudioPlayer/> */}
-
-                            <p>AudioPlayer</p>
-                        </div>
-                    </div>
-                </MediaQuery>
+                {/* <MediaQuery minWidth={1050}>
+   
+                </MediaQuery> */}
                 <div >
                     <div className={classes.scrollicon} >
                         <div className="row" >
-                            <span>1</span>
-                            {/* {this.props.question.question &&
-                                this.props.question.question.length > 0 ?
-                                this.props.question.question.map(
+
+                            {this.props.question.questions &&
+                                this.props.question.questions.length > 0 ?
+                                this.props.question.questions.map(
 
                                     (question, i) => {
                                         if (i === 0) {
                                             return (
-                                                <span key={i} onClick={() => this.onClickShowQuestionViewer(i)}>{i + 1}</span>
+                                                <span key={i} onClick={() => this.onClickShowQuestionViewer(question.id)}>{i + 1}</span>
                                             )
                                         } else {
                                             return (
-                                                <span key={i} onClick={() => { this.onClickShowQuestionViewer(i) }}>{i + 1}</span>
+                                                <span key={i} onClick={() => { this.onClickShowQuestionViewer(question.id) }}>{i + 1}</span>
                                             )
                                         }
                                     }
                                 )
-                                : null} */}
+                                : null}
                         </div>
                     </div>
                 </div>
                 <div className={classes.canvas}>
-                    <Canvas user={this.props.user} canvasId={this.props.match.params.id} />
+                    <Canvas questionId={this.state.questionId} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />
                 </div>
             </div>
         );
@@ -89,9 +78,7 @@ class ViewDictationQuestion extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticatedMSP: state.authStore.isAuthenticated,
         user: state.userStore.user,
-        sets: state.setStore.sets,
     }
 }
 const mapDispatchToProps = dispatch => {

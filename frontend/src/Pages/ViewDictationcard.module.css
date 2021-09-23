@@ -5,8 +5,8 @@
 .viewdictationcard button {
     cursor: pointer;
     float: right;
-    width:130px;
-    height:40px;
+    width: 130px;
+    height: 40px;
     text-align: center;
     font-size: 15px;
     color: #FFFFFF;
@@ -19,14 +19,14 @@
 .viewdictationcard button:hover,
 .viewdictationcard button:active {
     background-color: #7879F1;
-  }
+}
 
 
-.startbtn{
+.startbtn {
     cursor: pointer;
     /* float: right; */
-    width:30vw;
-    height:30vh;
+    width: 30vw;
+    height: 30vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -44,4 +44,11 @@
 .startbtncontainer span:active {
     border: 2px solid #EF5DA8;
     box-shadow: 0 2px 4px 0 #EF5DA8;
-  }
+}
+
+.viewdictationcard h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #3D4176;
+    padding: 0px;
+}
