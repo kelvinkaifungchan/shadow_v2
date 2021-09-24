@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addAudioRecordingThunk } from '../Redux/actions/recordingAction';
 import { v4 as uuidv4 } from 'uuid';
+import { Button } from 'reactstrap';
 
 class PureAudioRecorder extends React.Component {
     stream
@@ -134,12 +135,12 @@ class PureAudioRecorder extends React.Component {
             </div>
             <div className="row flex-row flex-nowrap">
                 <div className="p-3 ml-auto mr-auto ">
-                    {!show ? <span className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}><i
-                        className="fas fa-power-off"></i></span> : null}
-                    {show && start ? <span className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
-                        title="Start Recording" onClick={e => this.startRecording(e)}><i className="fas fa-circle"></i></span> : null}
-                    {show && end ? <span className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
-                        title="Stop Recording" onClick={e => this.stopRecording(e)}><i className="fas fa-stop"></i></span> : null}
+                    {!show ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}>
+                        Open Mic</Button> : null}
+                    {show && start ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                        title="Start Recording" onClick={e => this.startRecording(e)}>Start</Button> : null}
+                    {show && end ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                        title="Stop Recording" onClick={e => this.stopRecording(e)}>Stop</Button> : null}
                 </div>
             </div>
             </div>

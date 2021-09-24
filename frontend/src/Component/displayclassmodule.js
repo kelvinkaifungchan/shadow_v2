@@ -1,22 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { deleteSharingThunk } from '../Redux/actions/sharingAction';
 import { deleteClassroom } from '../Redux/actions/classroomAction';
 import classes from './displayclassmodule.module.css'
 
 class PureDisplayClassModule extends React.Component {
 
     deleteClassroom(classroomId) {
-        this.props.deleteClassroom({
-            id: classroomId,
-        })
+        if(this.props.user.role === "teacher"){
+            this.props.deleteSharingThunk({
+                sharedId: this.props.user.id,
+                classroomId: classroomId
+            })
+            this.props.deleteClassroom({
+                id: classroomId,
+            })
+        } else if (this.props.user.role === "student"){
+            this.props.deleteSharingThunk({
+                sharedId: this.props.user.id,
+                classroomId: classroomId
+            })
+        }
     }
     
     render() {
-
+        console.log(this.props, "props")
         return (
             <>
-                {this.props.classrooms.map((classroom, i) => {
+                {this.props.classrooms && this.props.classrooms.length > 0 && this.props.classrooms[0] !== 0 ? this.props.classrooms.map((classroom, i) => {
+                    console.log(classroom)
                     return (
                         <div key={i} data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
                             <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
@@ -32,7 +45,7 @@ class PureDisplayClassModule extends React.Component {
 
                         </div>
                     )
-                })}
+                }) : null}
             </>
 
         );
@@ -54,6 +67,9 @@ const mapDispatchToProps = dispatch => {
     return {
         deleteClassroom: (classroom) => {
             dispatch(deleteClassroom(classroom))
+        },
+        deleteSharingThunk: (classroom) => {
+            dispatch(deleteSharingThunk(classroom))
         }
     }
 }

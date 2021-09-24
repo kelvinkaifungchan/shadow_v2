@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 
 import { getdataThunk } from '../Redux/actions/action'
 
-import { AudioPlayer } from '../Component/audioplayer'
 import { QRModal } from '../Component/qrcode'
 import { ViewDictationQuestion } from '../Component/ViewDictationQuestion'
-import classes from './ViewDictationcard.module.css'
+import classes from './ViewDictationCard.module.css'
 
 
 class ViewDictationcard extends React.Component {

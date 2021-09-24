@@ -14,27 +14,31 @@ class PureDisplaySetModule extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            correctExist: []
         }
     }
-    // componentDidMount(){
-    //     this.verify()
-    // }
-    // verify(){
-    //     console.log('this.props', this.props)
-    //     if(this.props.display === "addExist"){
-    //         let shallowBridge = this.props.correctClass[0].bridge
-    //         let shallowSet = this.props.sets.sort((a, b)=> a.id-b.id)
-    //         let filtered = []
-    //         for(let i = 0; i < shallowSet.length; i++){
-    //             if(shallowBridge[i].set_id === shallowSet[i].id){
-    //                 filtered.push(shallowSet[i])
-    //             } else {
-    //                 console.log('fuck me')
-    //             }
-    //         }
-    //         console.log('filtered',filtered)
-    //     }
-    // }
+    componentDidMount(){
+        this.verify()
+    }
+    verify(){
+        if(this.props.display === "addExist"){
+            const shallowSets = this.props.sets
+            const shallowBridge = this.props.correctClass[0].bridge
+            const onlySet = shallowSets.filter(this.compare(shallowBridge))
+
+            this.setState({
+                correctExist: onlySet
+            })
+        }
+    }
+
+    compare(nextArr){
+        return function(current){
+            return nextArr.filter((next)=>{
+                return next.set_id === current.id
+            }).length === 0
+        }
+    }
 
     addSetConnect(e) {
         this.props.addBridge({
@@ -65,12 +69,13 @@ class PureDisplaySetModule extends React.Component {
         }
     }
     render() {
-        
+        console.log('props in dsm', this.props)
+        console.log('state in dsm', this.state)
         return (
             <>
                 {/* add Exist */}
                 {this.props.display === "addExist" && this.props.correctClass && this.props.correctClass.length > 0 && this.props.sets && this.props.sets.length > 0 ?
-                    this.props.sets.map((set, i) => {
+                    this.state.correctExist.map((set, i) => {
                         return (
                             <div key={i} data-key={set.id} className={classes.set} onClick={(e) => { this.addSetConnect(e); this.props.toggle() }}>
                                 <h4 data-key={set.id}>{set.title}</h4>
