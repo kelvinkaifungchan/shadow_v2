@@ -21,6 +21,25 @@ class ClassroomService {
           })
           .into("classroom")
           .returning("id")
+          .then((classroom_id)=>{
+            return this.knex
+            .insert({
+              sharedUser_id: email[0].id,
+              classroom_id: classroom_id[0]
+            })
+            .into("classroom_user")
+            .returning("classroom_id")
+            .then((data)=>{
+              console.log(data) 
+              return data
+            })
+            .catch((err)=>{
+              console.log(err)
+            })
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
       });
   }
 
@@ -112,7 +131,7 @@ class ClassroomService {
   }
 
   async list (body) {
-    console.log("Listing all classrooms of a user", body.email);
+    console.log("Listing all classrooms of a user");
     let user_id = await this.knex("user").where({
       email: body.email
     }).select("id");
@@ -129,7 +148,6 @@ class ClassroomService {
     .then(async (classrooms) => {
       let allClass = await Promise.all(classrooms.map((classroom) => {
         let data = {}
-        console.log('classroom',classroom)
           return this.knex("classroom")
             .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
             .select(
@@ -141,7 +159,6 @@ class ClassroomService {
             .where("classroom.classroomStatus", true)
             .where("classroom.id", classroom.id)
             .then((classroom) => {
-              console.log("query return", classroom)
                 data.id = classroom[0].id
                 data.title = classroom[0].classroomTitle
                 data.description = classroom[0].classroomDesc
