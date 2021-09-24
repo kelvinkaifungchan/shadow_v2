@@ -52,9 +52,6 @@ class ViewDictationcard extends React.Component {
         this.setState({
             showCanvas: true,
         })
-        // this.props.history.push({
-        //     pathname: `/viewdictationQuestion/${this.props.match.params.id}`
-        // })
     }
 
     render() {
