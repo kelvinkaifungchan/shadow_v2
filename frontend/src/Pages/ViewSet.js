@@ -303,7 +303,7 @@ class ViewSet extends React.Component {
                             </div>
                         </div> : null}
 
-                        <DisplayCardModule view={this.state} match={this.props.match}
+                        <DisplayCardModule  user={this.props.user} view={this.state} match={this.props.match}
                             correctSet={this.state.correctSet} set={this.props.sets} navigate={(e) => this.navigateCard(e)} />
                     </div>
                 </div>

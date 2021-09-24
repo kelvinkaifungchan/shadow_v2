@@ -98,7 +98,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayClassModule classrooms={this.props.classrooms} user={this.props.user} navigate={(e, classId) => { this.navigateClass(e, classId) }} />
+                        <DisplayClassModule user={this.props.user} classrooms={this.props.classrooms}  navigate={(e, classId) => { this.navigateClass(e, classId) }} />
                     </div>
 
                     <div className="row d-flex p-2">
@@ -110,7 +110,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplaySetModule sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                        <DisplaySetModule user={this.props.user} sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
                     </div>
 
                     <div className="row d-flex p-2">
@@ -118,7 +118,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayCardModule dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
+                        <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}
