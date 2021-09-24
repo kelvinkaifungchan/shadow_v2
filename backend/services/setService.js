@@ -145,7 +145,6 @@ class Set {
         .select('set.id', 'set.setTitle', 'set.setDesc')
         .groupBy('set.id')
         .then(async (sets)=>{
-            console.log(sets)
             let big = await Promise.all(sets.map((set) => {
                 let setData = {};               
                 return this.knex("tag_set")
