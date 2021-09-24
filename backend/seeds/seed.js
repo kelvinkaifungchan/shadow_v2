@@ -658,6 +658,16 @@ exports.seed = function (knex) {
           dictation_id: 3,
           dictationSubmissionPath: "https://thumbs.dreamstime.com/b/giraffe-calligraphy-template-text-your-design-illustration-concept-handwritten-lettering-title-vector-words-white-isolated-143433981.jpg",
           dictationSubmissionStatus: true
+        }, {
+          user_id: 5,
+          dictation_id: 4,
+          dictationSubmissionPath: "https://cdn4.vectorstock.com/i/1000x1000/46/68/english-calligraphy-template-text-for-your-design-vector-24604668.jpg",
+          dictationSubmissionStatus: true
+        }, {
+          user_id: 5,
+          dictation_id: 5,
+          dictationSubmissionPath: "https://thumbs.dreamstime.com/b/giraffe-calligraphy-template-text-your-design-illustration-concept-handwritten-lettering-title-vector-words-white-isolated-143433981.jpg",
+          dictationSubmissionStatus: true
         }])
       })
       .then(() => {

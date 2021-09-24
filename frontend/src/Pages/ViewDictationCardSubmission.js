@@ -62,7 +62,7 @@ console.log("PROPS IN VIEW DICTATION SUB", this.props)
                             </div>
                         </div>
                             <table>
-                                <tr>
+                                {/* <tr>
                                 <th><br></br></th>
                                 <th>Answer</th>
 
@@ -73,14 +73,12 @@ console.log("PROPS IN VIEW DICTATION SUB", this.props)
                                                     eachQuestion.submission.map((sub,index) => {
                                                         console.log("submission", sub)
                                                         return (
-                                          
                                                             <th data-key={index}>{sub.displayName}</th>
-                                      
                                                         )
                                             })
                                                 )
                                     }) : null
-                            }                                 </tr>
+                            }                                 </tr> */}
 
                                 {/* {this.state.correctDictationcard.length > 0 &&
                                     this.state.correctDictationcard[0].questions.length > 0

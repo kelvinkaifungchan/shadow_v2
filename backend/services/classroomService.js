@@ -112,7 +112,7 @@ class ClassroomService {
   }
 
   async list (body) {
-    console.log("Listing all classrooms of a user");
+    console.log("Listing all classrooms of a user", body.email);
     let user_id = await this.knex("user").where({
       email: body.email
     }).select("id");
@@ -120,76 +120,82 @@ class ClassroomService {
     const data = {};
 
     return this.knex("classroom")
-    .join("classroom_user", function() {
-      this.on('classroom_user.classroom_id', '=', 'classroom.id').orOn('classroom_user.classroom_id', '!=', 'classroom.id')
-    })
-    .where("classroom.classroomStatus", true)
+    .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
     .where("classroom.user_id", user_id[0].id)
+    .where("classroom.classroomStatus", true)
     .orWhere('classroom_user.sharedUser_id', user_id[0].id)
-    .select("classroom.id")
+    .select("classroom.id", "classroom.classroomStatus")
     .groupBy('classroom.id')
     .then(async (classrooms) => {
       let allClass = await Promise.all(classrooms.map((classroom) => {
         let data = {}
-        return this.knex("classroom")
-          .select(
-            "classroom.id",
-            "classroom.classroomTitle",
-            "classroom.classroomDesc"
-          )
-          .where("id", classroom.id)
-          .then((classroom) => {
-              data.id = classroom[0].id
-              data.title = classroom[0].classroomTitle
-              data.description = classroom[0].classroomDesc
-          })
-          .then(() => {
-            return this.knex("tag_classroom")
-              .where("classroom_id", data.id)
-              .join("tag", "tag_classroom.tag_id", "tag.id")
-              .select("tag.tagBody", "tag.id")
-          })
-          .then((tags) => {
-            data.tags = tags.map((tag) => {
-              return {
-                id: tag.id,
-                body: tag.tagBody,
-              };
-            });
-          })
-          .then(() => {
-            return this.knex("classroom_user")
-              .join("user", "classroom_user.sharedUser_id", "user.id")
-              .where("classroom_user.classroom_id", data.id)
-              .select("user.id", "user.email", "user.displayName", "user.picture")
-          })
-          .then((shared) => {
-            return (data.shared = shared.map((user) => {
-              return {
-                id: user.id,
-                email: user.email,
-                displayName: user.displayName,
-                picture: user.picture
-              };
-            }));
-          })
-          .then(() => {
-            return this.knex("classroom_set")
-            .where("classroom_set.classroom_id", data.id)
-            .select("classroom_set.set_id")
-          }).then((sets) => {
-            data.bridge = sets.map((set) => {
-              return{
-                set_id: set.set_id
-              }
+        console.log('classroom',classroom)
+          return this.knex("classroom")
+            .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
+            .select(
+              "classroom.id",
+              "classroom.classroomTitle",
+              "classroom.classroomDesc",
+              "classroom.classroomStatus"
+            )
+            .where("classroom.classroomStatus", true)
+            .where("classroom.id", classroom.id)
+            .then((classroom) => {
+              console.log("query return", classroom)
+                data.id = classroom[0].id
+                data.title = classroom[0].classroomTitle
+                data.description = classroom[0].classroomDesc
             })
-          })
-          .then(()=>{
-            return data
-          })
-        }))
-        return allClass
-      })
+            .then(() => {
+                return this.knex("tag_classroom")
+                  .where("classroom_id", data.id)
+                  .join("tag", "tag_classroom.tag_id", "tag.id")
+                  .select("tag.tagBody", "tag.id")
+            })
+            .then((tags) => {
+                data.tags = tags.map((tag) => {
+                  return {
+                    id: tag.id,
+                    body: tag.tagBody,
+                  };
+                });
+            })
+            .then(() => {
+              return this.knex("classroom_user")
+                .join("user", "classroom_user.sharedUser_id", "user.id")
+                .where("classroom_user.classroom_id", data.id)
+                .select("user.id", "user.email", "user.displayName", "user.picture")
+            })
+            .then((shared) => {
+              return (data.shared = shared.map((user) => {
+                return {
+                  id: user.id,
+                  email: user.email,
+                  displayName: user.displayName,
+                  picture: user.picture
+                };
+              }));
+            })
+            .then(() => {
+              return this.knex("classroom_set")
+              .where("classroom_set.classroom_id", data.id)
+              .select("classroom_set.set_id")
+            }).then((sets) => {
+              data.bridge = sets.map((set) => {
+                return{
+                  set_id: set.set_id
+                }
+              })
+            })
+            .then(()=>{
+              return data
+            })
+          }))
+          return allClass
+        })
+        .catch((err)=>{
+          return
+        })
   }
 }
 
