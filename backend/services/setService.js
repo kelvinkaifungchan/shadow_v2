@@ -105,7 +105,7 @@ class Set {
 
     //list all sets of a classroom
 
-    list(body){
+    list(body) {
         return this.knex("set")
             .join("classroom_set", "set.id", "classroom_set.set_id")
             .join("classroom", "classroom_set.classroom_id", "classroom.id")
@@ -133,83 +133,113 @@ class Set {
                 email: body.email,
             })
             .select("id");
-      
-        return this.knex("set")
-        .join('classroom_set', 'set.id', 'classroom_set.set_id')
-        .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
-        .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
-        .where('set.user_id', email[0].id)
-        .where('set.setStatus', true)
-        .orWhere('classroom.user_id', email[0].id)
-        .orWhere('classroom_user.sharedUser_id', email[0].id)
-        .select('set.id', 'set.setTitle', 'set.setDesc')
-        .groupBy('set.id')
-        .then(async (sets)=>{
-            let big = await Promise.all(sets.map((set) => {
-                let setData = {};               
-                return this.knex("tag_set")
+        var setArray = []
+        var bridgeArray = []
+        await this.knex("set")
+            .where('set.user_id', email[0].id)
+            .select('set.id', 'set.setTitle', 'set.setDesc')
+            .then(async (sets) => {
+                sets.map((set) => {
+                    setArray.push(set)
+                })
+                console.log("setArray", setArray);
+
+            })
+
+
+
+        await this.knex("set")
+            .join('classroom_set', 'set.id', 'classroom_set.set_id')
+            .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
+            .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
+            .where('set.user_id', email[0].id)
+            .where('set.setStatus', true)
+            .orWhere('classroom.user_id', email[0].id)
+            .orWhere('classroom_user.sharedUser_id', email[0].id)
+            .select('set.id', 'set.setTitle', 'set.setDesc')
+            .groupBy('set.id')
+            .then(async (sets) => {
+                sets.map((set) => {
+                    bridgeArray.push(set)
+                })
+            })
+
+
+        function compare(nextArr) {
+            return function (current) {
+                return nextArr.filter((next) => {
+                    return next.set_id === current.id
+                }).length === 0
+            }
+        }
+
+        const combineSet = setArray.filter(compare(bridgeArray))
+        console.log("combineSet", combineSet);
+        let big = await Promise.all(combineSet.map((set) => {
+
+            let setData = {};
+            return this.knex("tag_set")
                 .where("set_id", set.id)
                 .join("tag", "tag_id", "tag.id")
                 .select("tag.id", "tag.tagBody")
                 .then((tags) => {
-                    return tags.map((tag)=>{
+                    return tags.map((tag) => {
                         return {
                             id: tag.id,
                             body: tag.tagBody
                         };
-                        });
-                    })
-                    .then((tags) => {
-                        setData.tags = tags
-                    })
-                    .then(() => {
-                        setData.id = set.id
-                        setData.title = set.setTitle
-                        setData.description = set.setDesc
-                    })
-                    .then(() => {
-                        return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
-                    })
-                    .then((flashcards) => {
-                        setData.bridge_flashcard = flashcards.map((flashcard) => {
-                            return{
-                                flashcard_id:flashcard.flashcard_id
-                            }
-                        })
-                        
-                    })
-                    .then(() => {
-                        return this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
-                    })
-                    .then((quizcards) => {
-                        setData.bridge_quizcard = quizcards.map((quizcard) => {
-                            return{
-                                quizcard_id:quizcard.quizcard_id
-                            }
-                        })
-                    })
-                    .then(() => {
-                        return this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
-                    })
-                    .then((dictationcards) => {
-                        setData.bridge_dictationcard = dictationcards.map((dictationcard) =>{
-                            return{
-                                dictationcard_id:dictationcard.dictationcard_id
-                            }
-                        })
-                    })
-                    .then(() => {
-                        return setData
-                    })
-                }))
-                .catch((err)=>{
-                    console.log(err)
+                    });
                 })
-                return big
+                .then((tags) => {
+                    setData.tags = tags
+                })
+                .then(() => {
+                    setData.id = set.id
+                    setData.title = set.setTitle
+                    setData.description = set.setDesc
+                })
+                .then(() => {
+                    return this.knex("set_flashcard").where("set_flashcard.set_id", set.id).select("set_flashcard.flashcard_id")
+                })
+                .then((flashcards) => {
+                    setData.bridge_flashcard = flashcards.map((flashcard) => {
+                        return {
+                            flashcard_id: flashcard.flashcard_id
+                        }
+                    })
+
+                })
+                .then(() => {
+                    return this.knex("set_quizcard").where("set_quizcard.set_id", set.id).select("set_quizcard.quizcard_id");
+                })
+                .then((quizcards) => {
+                    setData.bridge_quizcard = quizcards.map((quizcard) => {
+                        return {
+                            quizcard_id: quizcard.quizcard_id
+                        }
+                    })
+                })
+                .then(() => {
+                    return this.knex("set_dictationcard").where("set_dictationcard.set_id", set.id).select("set_dictationcard.dictationcard_id");
+                })
+                .then((dictationcards) => {
+                    setData.bridge_dictationcard = dictationcards.map((dictationcard) => {
+                        return {
+                            dictationcard_id: dictationcard.dictationcard_id
+                        }
+                    })
+                })
+                .then(() => {
+                    return setData
+                })
+        }))
+            .catch((err) => {
+                console.log(err)
             })
-        .catch((err) => {
-            console.log(err)
-        });
+
+        return big
+
+
     };
 }
 

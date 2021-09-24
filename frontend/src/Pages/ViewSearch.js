@@ -26,7 +26,7 @@ class ViewSearch extends React.Component {
         await this.props.getdata({ email: localStorage.getItem('email') })
     }
 
-    async componentWillReceiveProps() {
+    componentWillReceiveProps() {
 
         let classroomFiltered = this.props.classrooms.filter((classroom) => {
             return (classroom.tags.map((tag) => {
@@ -48,7 +48,7 @@ class ViewSearch extends React.Component {
             }).includes(this.props.match.params.search) === true)
         })
         
-        await this.setState({
+        this.setState({
             searchClassrooms: classroomFiltered,
             searchSets: setFiltered
         })
