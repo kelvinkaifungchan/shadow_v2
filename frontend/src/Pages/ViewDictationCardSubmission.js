@@ -4,9 +4,6 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-
-// import Table from '../Component/Table';
-
 import classes from './ViewDictationCardSubmission.module.css'
 
 class ViewDictationcardSubmission extends React.Component {
@@ -31,7 +28,7 @@ class ViewDictationcardSubmission extends React.Component {
     componentWillReceiveProps(nextProps) {
         if(this.props.cards.dictationcard.length > 0 ){
             this.setState({
-                correctDictationcard: this.props.cards.dictationcard.filter(flash => flash.id === parseInt(this.props.match.params.id))
+                correctDictationcard: this.props.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
             })
             const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
 
@@ -49,7 +46,8 @@ class ViewDictationcardSubmission extends React.Component {
         }
     }
     render() {
-
+console.log("STATE IN VIEW DICTATION SUB", this.state)
+console.log("PROPS IN VIEW DICTATION SUB", this.props)
         return (
             <div className="page">
 
@@ -59,29 +57,49 @@ class ViewDictationcardSubmission extends React.Component {
                             <div className="col-8">
                                 <h1>{this.state.correctDictationcard.length > 0 && this.state.correctDictationcard[0].dictationcardTitle}</h1>
                             </div>
+                            <div className="col-4">
+                            <button >Update Feedback</button>
+                            </div>
                         </div>
+
+                        <div className="row d-flex p-4">
+                            <div className="col">
                             <table>
-                                <th><br></br></th>
+                                <tr>
+                                <td className={classes.toprow}>Question</td>
+
+                                {this.state.correctDictationcard[0] &&
+                                            this.state.correctDictationcard[0].questions.length > 0 
+                                            ? this.state.correctDictationcard[0].questions[0].submission.map((sub,index) => {
+                                                        return (
+                                                            <><td data-key={index} className={classes.mainrow}>{sub.displayName}</td>
+                                                            <td data-key={index} className={classes.commentrow}>Comments</td> </>
+                                                            
+                                                        )
+                                            }) : null
+                            }                                 
+                            </tr>
+
                                 {this.state.correctDictationcard.length > 0 &&
                                     this.state.correctDictationcard[0].questions.length > 0
                                     ? this.state.correctDictationcard[0].questions.map((question, i) => {
                                         return(
                                             <tr data-key={i}>
-                                                <th>Question {question.id}</th>
-                                                <td>{question.dictationBody}</td>
+                                                <td className={classes.toprow}>{question.dictationBody}</td>
+                                            {question.submission.map((sub, index) => {
+                                                return <><td className={classes.mainrow}><img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>
+                                                </td><td data-key={index} className={classes.commentrow}>
+                                                    <input type="text" placeholder="New Feedback"  /> </td></>
+                                            })}
+
                                                 </tr>
                                         )
                                     }) : null}
+
                                 </table>
-
-                        <div className="row d-flex p-4">
-                            <div className="col">
-
-                        </div>
+                                </div>
                         </div>
                     </div>
-
-                  
             </div>
         );
     }

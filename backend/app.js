@@ -24,7 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(fileUpload());
 
-
 // Services
 const BridgeService = require("./services/bridgeService")
 const bridgeService = new BridgeService(knex)
