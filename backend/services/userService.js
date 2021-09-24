@@ -20,8 +20,9 @@ class UserService {
         id: body.id,
       })
       .update({
-        displayName: displayName
-      });
+        displayName: body.displayName
+      })
+      .returning("displayName")
   }
 
   //Method to update a users email
@@ -34,6 +35,7 @@ class UserService {
       .update({
         email: body.email
       })
+      .returning("email")
   }
 
   //Method to update a users password
@@ -47,7 +49,6 @@ class UserService {
       .update({
         passwordHash: passwordHash
       })
-      .returning("passwordHash")
   }
 
   //Method to update user picture

@@ -9,8 +9,8 @@ export const editUserDisplayNameThunk = (user) => async (dispatch) => {
     .then(response => {
             console.log("updating user displayname")
             dispatch({
-                type: EDIT_USER_EMAIL,
-                payload: {id:parseInt(user.id), displayName: user.displayName}
+                type: EDIT_USER_DISPLAYNAME,
+                payload: {displayName: user.displayName}
             })
     })
     .catch(err => console.log("Error: ", err))
@@ -22,7 +22,7 @@ export const editUserEmailThunk = (user) => async (dispatch) => {
             console.log("updating user email")
             dispatch({
                 type: EDIT_USER_EMAIL,
-                payload: {id:parseInt(user.id), email: user.email}
+                payload: {email: user.email}
             })
     })
     .catch(err => console.log("Error: ", err))

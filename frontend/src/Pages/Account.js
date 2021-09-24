@@ -7,6 +7,7 @@ import { getdataThunk } from '../Redux/actions/action'
 
 import { IconUpdateModal } from '../Component/iconupdatemodal';
 import { PasswordEditModal } from '../Component/passwordeditmodal';
+import { DisplayNameEditModal } from '../Component/displaynameeditmodal';
 
 import classes from './Account.module.css'
 
@@ -20,6 +21,8 @@ class Account extends React.Component {
             modal: false,
             type: "",
             iconModal: false,
+            displayNameModal: false,
+            emailModal: false,
             passwordModal: false,
             selectedFile: null,
         };
@@ -44,6 +47,18 @@ class Account extends React.Component {
     passwordtoggle() {
         this.setState({
             passwordModal: !this.state.passwordModal,
+        });
+    }
+
+    emailtoggle() {
+        this.setState({
+            emailModal: !this.state.emailModal,
+        });
+    }
+
+    displayNametoggle() {
+        this.setState({
+            displayNameModal: !this.state.displayNameModal,
         });
     }
 
@@ -77,12 +92,14 @@ class Account extends React.Component {
                             <tr>
                                 <th>Username</th>
                                 <td>{this.props.user.displayName}</td>
-                                <td></td>
+                                <td><button onClick={() => this.displayNametoggle()}>Change username</button></td>
+                                <DisplayNameEditModal update={this.state} user={this.props.user} toggle={()=> this.displayNametoggle()}/>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td>{this.props.user.email}</td>
-                                <td></td>
+                                <td><button onClick={() => this.emailtoggle()}>Change email</button></td>
+                                {/* <EmailEditModal update={this.state} user={this.props.user} toggle={()=> this.emailtoggle()}/> */}
                             </tr>
                             <tr>
                                 <th>Tier</th>
