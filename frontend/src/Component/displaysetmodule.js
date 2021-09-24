@@ -69,7 +69,8 @@ class PureDisplaySetModule extends React.Component {
         }
     }
     render() {
-        
+        console.log('props in dsm', this.props)
+        console.log('state in dsm', this.state)
         return (
             <>
                 {/* add Exist */}
