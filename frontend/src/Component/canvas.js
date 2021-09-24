@@ -169,60 +169,53 @@ drawOnCanvas() {
 
 
 }
-clearcanvas() {
-    console.log("CLEAR ")
-    var canvas = document.querySelector('#board');
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var base64ImageData = canvas.toDataURL("image/png");
-    this.socket.emit("clear", this.room, base64ImageData);
-}
+// clearcanvas() {
+//     console.log("CLEAR ")
+//     var canvas = document.querySelector('#board');
+//     var ctx = canvas.getContext('2d');
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     var base64ImageData = canvas.toDataURL("image/png");
+//     this.socket.emit("clear", this.room, base64ImageData);
+// }
 
 submit(){
     var canvas = document.querySelector('#board');
-    var base64ImageData = canvas.toDataURL("image/png");
+    var base64ImageData = canvas.toDataURL("image/png")
+    var imageData = base64ImageData.split(';base64,')[1];
+    console.log(imageData)
+    let fileName = uuidv4()
+    let formData = new FormData();
+    const byteCharacters = atob(imageData);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], {type: "img/png"});
+    formData.append("file", blob, fileName)
+
+    //call the action to dispatch the action and post the canvas data to database
+    this.props.submitMDP(formData)
+
+    //put fileName up to ViewDicationQuestion
+    this.props.handleCanvas(fileName, base64ImageData);
+    this.props.addSubmission();
+
     
-    //console.log(base64ImageData)
 
-    const dataURLtoFile = (dataurl) => {
-        let fileName = uuidv4();
-        const arr = dataurl.split(',')
-        const mime = arr[0].match(/:(.*?);/)[1]
-        const bstr = Buffer.from(arr[1], 'base64').toString('utf-8')
-        //console.log(bstr)
-        let n = bstr.length
-        const u8arr = new Uint8Array(n)
-        while (n) {
-          u8arr[n - 1] = bstr.charCodeAt(n - 1)
-          n -= 1 // to make eslint happy
-        }
-        return new File([u8arr], fileName, { type: mime })
-      }
+    //this.props.clearcanvas()
 
-      
-      // generate file from base64 string
-      const file = dataURLtoFile(`data:image/png;base64,${base64ImageData}`)
-      // put file into form data
-      const data = new FormData()
-      data.append('img', file, file.name)
-
-      //put fileName up to ViewDicationQuestion
-      this.props.handleCanvas(file.name);
-      this.props.addSubmission();
-      //call the action to dispatch the action and post the canvas data to database
-      this.props.submitMDP(data)
-      
-      
 }
 
 
 render() {
+    
     return (
         <div>
             <div className="sketch" id="sketch">
                 <canvas style={{ position: "relative", width: 950, height: 480 }} className="board" id="board" ></canvas>
             </div>
-            <button onClick={() => this.clearcanvas()}> Clear </button>
+            <button onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()}> Clear </button>
             <button onClick={() => this.submit()}> Submit </button>
         </div>
     )

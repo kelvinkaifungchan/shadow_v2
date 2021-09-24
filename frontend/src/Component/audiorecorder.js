@@ -8,7 +8,7 @@ class PureAudioRecorder extends React.Component {
     stream
     constructor(props) {
         super(props)
-        
+
         this.state = {
             show: Boolean(),
             recording: false,
@@ -40,7 +40,6 @@ class PureAudioRecorder extends React.Component {
             audio: true
         })
 
-        console.log(this.stream, this.audio)
         this.audio.srcObject = this.stream;
         this.audio.play()
             .catch((err) => {
@@ -115,9 +114,9 @@ class PureAudioRecorder extends React.Component {
 
         // append audioURL to list of saved audios for rendering
         const preview = document.getElementById(`${this.props.yek}`);
-        preview.setAttribute("src", audioURL) 
-       
-       
+        preview.setAttribute("src", audioURL)
+
+
 
         // Upload to S3
         this.props.audiorecordingMDP(formData)
@@ -127,22 +126,22 @@ class PureAudioRecorder extends React.Component {
         const { show, start, end } = this.state;
         console.log(show)
         return (
-            <div>
-                <div className="flex-col d-flex justify-content-center" id="audioSubmission">
+            <div className="d-inline-flex justify-content-between ">
+                <div className="flex-col d-flex justify-content-center align-items-center" id="audioSubmission">
                     {show ? <audio ref={a => { this.audio = a }} className="bg-dark" id="audio" autoPlay={true} muted ></audio> : null}
 
-                {!show ? <audio ref={b => { this.player = b }} controls id={this.props.yek} src="" autoPlay={true}   ></audio> : null}
-            </div>
-            <div className="row flex-row flex-nowrap">
-                <div className="p-3 ml-auto mr-auto ">
-                    {!show ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}>
-                        Open Mic</Button> : null}
-                    {show && start ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
-                        title="Start Recording" onClick={e => this.startRecording(e)}>Start</Button> : null}
-                    {show && end ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
-                        title="Stop Recording" onClick={e => this.stopRecording(e)}>Stop</Button> : null}
+                    {!show ? <audio ref={b => { this.player = b }} controls id={this.props.yek} src="" autoPlay={true}></audio> : null}
                 </div>
-            </div>
+                <div className="row flex-row flex-nowrap">
+                    <div className="p-3 ">
+                        {!show ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="start" title="Start Feed" onClick={() => { this.start(); this.handleshow() }}>
+                            Open Mic</Button> : null}
+                        {show && start ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="startRecording"
+                            title="Start Recording" onClick={e => this.startRecording(e)}>Start</Button> : null}
+                        {show && end ? <Button outline color="warning" className="rounded-pill border border-warning bg-transparent p-2" id="stopRecording"
+                            title="Stop Recording" onClick={e => this.stopRecording(e)}>Stop</Button> : null}
+                    </div>
+                </div>
             </div>
         );
     }

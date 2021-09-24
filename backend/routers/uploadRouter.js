@@ -44,9 +44,9 @@ class UploadRouter {
 
   postCanvas(req, res){
     console.log("Requesting to post canvas data");
-    console.log(req.files)
+    console.log(req.files.file)
     return this.uploadService
-        .addCanvas(req.files.img.name, req.files.img.data)
+        .addCanvas(req.files.file.name, req.files.file.data)
         .then(() => {
             return res.send("Canvas data posted");
         })
