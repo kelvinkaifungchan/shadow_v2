@@ -8,6 +8,7 @@ import { getdataThunk } from '../Redux/actions/action'
 import { IconUpdateModal } from '../Component/iconupdatemodal';
 import { PasswordEditModal } from '../Component/passwordeditmodal';
 import { DisplayNameEditModal } from '../Component/displaynameeditmodal';
+import { EmailEditModal } from '../Component/emaileditmodal';
 
 import classes from './Account.module.css'
 
@@ -99,7 +100,7 @@ class Account extends React.Component {
                                 <th>Email</th>
                                 <td>{this.props.user.email}</td>
                                 <td><button onClick={() => this.emailtoggle()}>Change email</button></td>
-                                {/* <EmailEditModal update={this.state} user={this.props.user} toggle={()=> this.emailtoggle()}/> */}
+                                <EmailEditModal update={this.state} user={this.props.user} toggle={()=> this.emailtoggle()}/>
                             </tr>
                             <tr>
                                 <th>Tier</th>
