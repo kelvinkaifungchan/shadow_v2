@@ -6,7 +6,7 @@ import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
 import { IconUpdateModal } from '../Component/iconupdatemodal';
-import { PasswordUpdateModal } from '../Component/passwordupdatemodal';
+import { PasswordEditModal } from '../Component/passwordeditmodal';
 
 import classes from './Account.module.css'
 
@@ -56,7 +56,7 @@ class Account extends React.Component {
             <div className={classes.account}>
 
                 <div className="row p-4">
-                <h1>Account </h1>
+                <h1>Account</h1>
                </div>
 
                 <div className="row p-4">
@@ -93,7 +93,7 @@ class Account extends React.Component {
                                 <th>Password</th>
                                 <td>*******</td>
                                 <td><button onClick={() => this.passwordtoggle()}>Change password</button></td>
-                                <PasswordUpdateModal update={this.state} toggle={()=> this.passwordtoggle()}/>
+                                <PasswordEditModal update={this.state} user={this.props.user} toggle={()=> this.passwordtoggle()}/>
                             </tr>
                             <tr onClick={this.logout}> 
                             <th> <Link to="/login">Logout</Link></th>

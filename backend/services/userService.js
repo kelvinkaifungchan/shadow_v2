@@ -5,22 +5,49 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
+const hashFunction = require("../auth/hashFunction")
+
 class UserService {
   constructor(knex) {
     this.knex = knex;
   }
 
-  //Method to update a users details
-  edit(body) {
-    ("updating details of a user");
+  //Method to update a users display name
+  async editDisplayName(body) {
+    ("updating displayName of a user");
     return this.knex("user")
       .where({
         id: body.id,
       })
       .update({
-        displayName: body.displayName,
-        email: body.email,
+        displayName: displayName
       });
+  }
+
+  //Method to update a users email
+  async editEmail(body) {
+    ("updating email of a user");
+    return this.knex("user")
+      .where({
+        id: body.id,
+      })
+      .update({
+        email: body.email
+      })
+  }
+
+  //Method to update a users password
+  async editPassword(body) {
+    ("updating password of a user");
+    let passwordHash = await hashFunction.hashPassword(body.password)
+    return this.knex("user")
+      .where({
+        id: body.id,
+      })
+      .update({
+        passwordHash: passwordHash
+      })
+      .returning("passwordHash")
   }
 
   //Method to update user picture
