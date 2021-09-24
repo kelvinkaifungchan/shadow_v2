@@ -33,20 +33,21 @@ class UserService {
       })
       .update({
         email: body.email
-      });
+      })
   }
 
   //Method to update a users password
   async editPassword(body) {
     ("updating password of a user");
-    let password = await hashFunction.hashPassword(body.password)
+    let passwordHash = await hashFunction.hashPassword(body.password)
     return this.knex("user")
       .where({
         id: body.id,
       })
       .update({
-        password: password
-      });
+        passwordHash: passwordHash
+      })
+      .returning("passwordHash")
   }
 
   //Method to update user picture

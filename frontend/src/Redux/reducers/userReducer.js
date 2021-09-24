@@ -1,4 +1,5 @@
 import { GETDATAUSER_SUCCESS, GETDATAUSER_FAILURE } from "../actions/action";
+import { EDIT_USER_PASSWORD } from "../actions/userAction";
 
 const initialState = {
     user: [],

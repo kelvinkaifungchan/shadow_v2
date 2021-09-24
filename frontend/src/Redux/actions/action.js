@@ -12,7 +12,7 @@ export const GETDATATAGS_FAILURE = 'GETDATATAGS_FAILURE';
 export const GETDATAUSER_FAILURE = 'GETDATAUSER_FAILURE';
 
 export function getdataThunk(email) {
-  console.log('get data emnail',email)
+  console.log('get data email',email)
   return (dispatch) => {
     return axios.post(`${process.env.REACT_APP_API_SERVER}/api/shadow`, email)
     .then(response => {

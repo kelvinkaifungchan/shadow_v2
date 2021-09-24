@@ -76,10 +76,6 @@ class UserRouter {
         console.log("Editing a user's details")
         return this.userService
             .editPassword(req.body)
-            .then(() => {
-                return this.userService
-                    .user(req.body)
-            })
             .then((data) => {
                 console.log(data)
                 return res.json(data)
