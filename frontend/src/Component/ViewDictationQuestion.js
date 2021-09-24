@@ -30,7 +30,7 @@ class ViewDictationQuestion extends React.Component {
             canvasUrl: "",
             base64ImageData: "",
             submissions: [],
-            target: ""
+            target: []
         }
     }
 

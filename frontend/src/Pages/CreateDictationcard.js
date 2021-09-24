@@ -61,22 +61,18 @@ class CreateDictationcard extends React.Component {
         e.preventDefault();
         if (this._inputElement.value !== "") {
             var newItem = {
-                dictationcardBody: this._inputElement.value,
+                dictationBody: this._inputElement.value,
                 key: Date.now(),
                 dictationRecording: ""
             };
+        };
 
-            this.setState((prevState) => {
-                return {
-                    items: prevState.items.concat(newItem)
-
-                };
-            });
-
-            this._inputElement.value = "";
-        }
-
-
+        this._inputElement.value = "";
+        this.setState((prevState) => {
+            return {
+                items: prevState.items.concat(newItem)
+            };
+        });
     }
 
 
@@ -108,6 +104,7 @@ class CreateDictationcard extends React.Component {
         })
     }
     render() {
+        console.log("this.state in", this.state);
 
         return (
 
@@ -145,6 +142,7 @@ class CreateDictationcard extends React.Component {
 
                                 </form>
                             </div>
+
                             <div className="col col-12">
                                 <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem} />
                             </div>

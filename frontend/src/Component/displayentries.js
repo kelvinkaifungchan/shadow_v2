@@ -13,22 +13,10 @@ class PureDisplayEntries extends React.Component {
     this.createEntries = this.createEntries.bind(this);
   }
   createEntries(item) {
-    console.log(item)
     // i deleted this from the li element --> onClick={() => this.delete(item.key)}
-    return(
-     <>
-      <li key={item.key}>
-        <div className="row">
-          <div  className="col col-6">
-            <p>{item.dictationcardBody}</p>
-          </div>
-          <div className="col col-6">
-            <AudioRecorder yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/>
-          </div>
-        </div>
-      </li> 
-    </>
-    ) 
+    return <li  key={item.key}>{item.dictationBody} 
+    <AudioRecorder  yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/> 
+    </li>
   }
  
   delete(key) {
@@ -40,9 +28,9 @@ class PureDisplayEntries extends React.Component {
     var listItems = displayEntries.map(this.createEntries);
  
     return (
-      <ol className={classes.theList}>
+      <ul className={classes.theList} >
           {listItems}
-      </ol>
+      </ul>
     );
   }
 };

@@ -160,7 +160,6 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("this.state.title", this.state.title);
 
         return (
             <div className="page">
@@ -216,7 +215,7 @@ class ViewClassroom extends React.Component {
                             </div>
                         </div> : null}
 
-                        <DisplaySetModule match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
+                        <DisplaySetModule  user={this.props.user} match={this.props.match} sets={this.props.sets} classroom={this.props.classrooms} correctClass={this.state.correctClass} correctSets={this.state.correctSet} navigate={(e) => this.navigateSet(e)} />
 
                     </div>
                 </div>
