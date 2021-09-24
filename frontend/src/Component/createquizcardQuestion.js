@@ -100,10 +100,10 @@ class PureCreateQuiz extends React.Component{
         e.preventDefault()
         if(this.state.questionType === 'multipleChoice' && this.state.questionBody !== "" && this.state.multipleChoiceAnswer !== ""){
             this.props.submit(e, this.state)
-            this.clear()
+            // this.clear()
         } else if (this.state.questionType === 'trueFalse' && this.state.questionBody !== "" && this.state.trueFalseAnswer !== ""){
             this.props.submit(e, this.state)
-            this.clear()
+            // this.clear()
         } else {
             alert("please fill in the required boxes")
         }
