@@ -26,7 +26,8 @@ class ViewDictationQuestion extends React.Component {
             type: "dictation",
             questionId: this.props.question.questions[0].id,
             canvasUrl: "",
-            submissions: []
+            submissions: [],
+            target:[]
         }
     }
     // this.props.question.questions[0].id gotta figure out how to put the questionId into state on load wihtout clicking
