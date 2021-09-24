@@ -65,6 +65,13 @@ class CreateDictationcard extends React.Component {
             key: Date.now(),
             dictationRecording:""
           };
+       
+          this.setState((prevState) => {
+            return { 
+              items: prevState.items.concat(newItem) 
+
+            };
+        });
 
             this.setState((prevState) => {
                 return {
@@ -77,6 +84,7 @@ class CreateDictationcard extends React.Component {
         }
 
 
+
     deleteItem(key) {
         var filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key);
@@ -86,6 +94,7 @@ class CreateDictationcard extends React.Component {
             items: filteredItems
         });
     }
+    
     addDictationCard() {
         this.props.addCard({
             email: localStorage.getItem('email'),

@@ -1,3 +1,24 @@
 .viewdictationcardsubmission{
     margin: 2% 5%
 }
+
+.viewdictationcardsubmission table{
+    border-collapse: collapse;
+    border: 2px solid;
+}
+
+.viewdictationcardsubmission tr{
+    display: block; float: left;
+}
+
+.viewdictationcardsubmission th{
+    padding: 18px;
+    border: 1px solid;
+    display: block;
+}
+
+.viewdictationcardsubmission td{
+    padding: 18px;
+    border: 1px solid;
+    display: block;
+}

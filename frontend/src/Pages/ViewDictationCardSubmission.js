@@ -49,7 +49,8 @@ class ViewDictationcardSubmission extends React.Component {
         }
     }
     render() {
-
+console.log("STATE IN VIEW DICTATION SUB", this.state)
+console.log("PROPS IN VIEW DICTATION SUB", this.props)
         return (
             <div className="page">
 
@@ -61,17 +62,37 @@ class ViewDictationcardSubmission extends React.Component {
                             </div>
                         </div>
                             <table>
+                                <tr>
                                 <th><br></br></th>
-                                {this.state.correctDictationcard.length > 0 &&
+                                <th>Answer</th>
+
+                                        {this.state.correctDictationcard[0] &&
+                                            this.state.correctDictationcard[0].questions.length > 0 
+                                            ? this.state.correctDictationcard[0].questions.map((eachQuestion, i) => {
+                                                return (
+                                                    eachQuestion.submission.map((sub,index) => {
+                                                        console.log("submission", sub)
+                                                        return (
+                                          
+                                                            <th data-key={index}>{sub.displayName}</th>
+                                      
+                                                        )
+                                            })
+                                                )
+                                    }) : null
+                            }                                 </tr>
+
+                                {/* {this.state.correctDictationcard.length > 0 &&
                                     this.state.correctDictationcard[0].questions.length > 0
                                     ? this.state.correctDictationcard[0].questions.map((question, i) => {
                                         return(
                                             <tr data-key={i}>
                                                 <th>Question {question.id}</th>
                                                 <td>{question.dictationBody}</td>
+                                            
                                                 </tr>
                                         )
-                                    }) : null}
+                                    }) : null} */}
                                 </table>
 
                         <div className="row d-flex p-4">

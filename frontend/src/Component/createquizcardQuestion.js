@@ -15,8 +15,9 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            edit: false,
-            currentQuestion: "",
+            questionTime: "",
+            viewing: "",
+            creating: true,
         }
     }
     displayQuestion(e, i){
@@ -146,16 +147,6 @@ class PureCreateQuiz extends React.Component{
         console.log("State in create quizcard question", this.state)
         return (
             <>
-            <div className={classes.scrollicon}>
-                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
-                    return (
-                        <div key={i}>
-                            <span key={i} className={classes.scrollicon} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
-                        </div>
-                    )
-                }) : null}
-                <span onClick={(e)=>{this.checkFinished(e)}}>+</span>
-            </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
@@ -307,6 +298,25 @@ class PureCreateQuiz extends React.Component{
             { this.state.edit ? <button className="btn btn-primary" onClick={(e)=>{this.props.edit(e, this.state); this.clear()}}>Save Question</button> : null}
             </div>
             </Form>
+            <div className={classes.scrollicon}>
+                <span onClick={(e)=>{
+                    if (this.state.creating) {
+                        this.props.submit(e,this.state); this.clear()
+                    }  else {
+                        this.clear();
+                        this.creating() 
+                    }}}>+</span>
+                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
+                    return (
+                            <span onClick={(e) => {this.displayQuestion(e, i) ; this.viewing(e, i)}} key={i} 
+                            style={{ 
+                                background: this.state.viewing === i ? "#F6CA4E" : null, 
+                                color: this.state.viewing === i ? "#FFFFFF" : null}}>{i + 1}</span>
+
+                    )
+                }) : null}
+            </div>
+
             </>
         )
     }

@@ -60,6 +60,8 @@ class ViewDictationcard extends React.Component {
 
     render() {
         console.log("state in VDC", this.state);
+        console.log("Props in VDC", this.props);
+
         return (
             <div className="page">
 
@@ -70,7 +72,7 @@ class ViewDictationcard extends React.Component {
                             <h1> {this.state.correctDictationcard.length > 0 ? this.state.correctDictationcard[0].dictationcardTitle : null}</h1>
                         </div>
                         <div className="col-4 justify-content-center align-items-center">
-                            <button cards={this.props.cards} onClick={(e) => { this.navigateSubmission(e) }}>View Submission</button>
+                            {this.props.user.role === "teacher" ? <button cards={this.props.cards} onClick={(e) => { this.navigateSubmission(e) } } className={classes.viewsubbtn}>View Submission</button> : null}
                         </div>
                     </div>
 
