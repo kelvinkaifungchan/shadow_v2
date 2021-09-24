@@ -85,13 +85,13 @@ class ViewSearch extends React.Component {
                         <h1>Classrooms:</h1>
                     </div>
                     <div className="row d-flex pl-2">
-                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule classrooms={this.state.searchClass} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
+                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule  user={this.props.user} classrooms={this.state.searchClass} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
                     </div>
                     <div className="row d-flex p-2">
                         <h1>Sets:</h1>
                     </div>
                     <div className="row d-flex pl-2">
-                        {this.state.searchSets.length === 0 ? <div>No Sets Found</div> : <DisplaySetModule sets={this.state.searchSets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />}
+                        {this.state.searchSets.length === 0 ? <div>No Sets Found</div> : <DisplaySetModule  user={this.props.user} sets={this.state.searchSets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />}
                     </div>
                     {this.props.loading && <div> Loading...</div>}
                     {this.props.error && <div> Oops! Something Wrong with Our Server</div>}

@@ -33,7 +33,7 @@ class PureDisplayClassModule extends React.Component {
                     return (
                         <div key={i} data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
                             <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
-                            <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" className="fas fa-times"></i></span>
+                            {this.props.user.role === "teacher" ? <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" className="fas fa-times"></i></span> :null}
                             <p data-key={classroom.id}>{classroom.description}</p>
                             <div data-key={classroom.id}>
                                 {classroom.tag && classroom.tag.length > 0 ? classroom.tags.map((tag, j) => {
