@@ -1,5 +1,5 @@
 import { GETDATAUSER_SUCCESS, GETDATAUSER_FAILURE } from "../actions/action";
-import { EDIT_USER_PASSWORD } from "../actions/userAction";
+import { EDIT_USER_DISPLAYNAME, EDIT_USER_EMAIL } from "../actions/userAction";
 
 const initialState = {
     user: [],
@@ -21,6 +21,20 @@ export function userReducer(state = initialState, action){
               loading: false,
               isAuthenticated: false
             };
+          case EDIT_USER_DISPLAYNAME:
+            return {
+              ...state,
+              user: {
+                ...state.user,
+                displayName: action.payload.displayName}
+            }
+            case EDIT_USER_EMAIL:
+              return {
+                ...state,
+                user: {
+                  ...state.user,
+                  email: action.payload.email}
+              }
         
         default:
             return state;

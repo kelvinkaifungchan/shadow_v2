@@ -40,10 +40,6 @@ class UserRouter {
         console.log("Editing a user's details")
         return this.userService
             .editDisplayName(req.body)
-            .then(() => {
-                return this.userService
-                    .user(req.body)
-            })
             .then((data) => {
                 console.log(data)
                 return res.json(data)
@@ -58,10 +54,6 @@ class UserRouter {
         console.log("Editing a user's details")
         return this.userService
             .editEmail(req.body)
-            .then(() => {
-                return this.userService
-                    .user(req.body)
-            })
             .then((data) => {
                 console.log(data)
                 return res.json(data)
