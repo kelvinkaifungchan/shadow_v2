@@ -85,6 +85,7 @@ class CreateDictationcard extends React.Component {
             items: filteredItems
         });
     }
+    
     addDictationCard() {
         this.props.addCard({
             email: localStorage.getItem('email'),

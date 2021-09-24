@@ -124,7 +124,6 @@ class PureCreateQuiz extends React.Component{
             trueFalseAnswer: "",
             questionTime: "",
             viewing: ""
-
         })
     }
 
@@ -148,7 +147,6 @@ class PureCreateQuiz extends React.Component{
         console.log("State in create quizcard question", this.state)
         return (
             <>
-
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
