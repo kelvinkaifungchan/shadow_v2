@@ -40,21 +40,21 @@ class CreateDictationcard extends React.Component {
         })
     }
 
-    handleRecording(key, fileName){
+    handleRecording(key, fileName) {
         console.log("KEY", key)
         console.log("FILE NAME", fileName)
         var filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key);
-          });
+        });
         var changedItem = this.state.items.filter(function (item) {
             return (item.key === key);
-          });
-        
-        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName ;
+        });
+
+        changedItem[0].dictationRecording = `https://${process.env.REACT_APP_AWS_AUDIO_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName;
         this.setState({
             items: filteredItems.concat(changedItem)
         })
-       console.log("NEW STATE AFTER RECORDING", this.state.items)
+        console.log("NEW STATE AFTER RECORDING", this.state.items)
     }
 
     addItem(e) {
@@ -65,11 +65,6 @@ class CreateDictationcard extends React.Component {
             key: Date.now(),
             dictationRecording:""
           };
-       
-          this.setState((prevState) => {
-            return { 
-              items: prevState.items.concat(newItem) 
-            };
 
             this.setState((prevState) => {
                 return {
@@ -78,9 +73,9 @@ class CreateDictationcard extends React.Component {
             });
 
             this._inputElement.value = "";
-            })
+            }
         }
-    }
+
 
     deleteItem(key) {
         var filteredItems = this.state.items.filter(function (item) {
@@ -91,7 +86,6 @@ class CreateDictationcard extends React.Component {
             items: filteredItems
         });
     }
-
     addDictationCard() {
         this.props.addCard({
             email: localStorage.getItem('email'),
@@ -110,10 +104,8 @@ class CreateDictationcard extends React.Component {
             pathname: `/viewset/${this.props.match.params.setId}`,
         })
     }
-
     render() {
-        console.log('this.props in CDC', this.props)
-        console.log('this.state in CDC', this.state)
+
         return (
 
             <div className="page">
@@ -141,19 +133,18 @@ class CreateDictationcard extends React.Component {
 
                             <div className="col col-12">
                                 <form onSubmit={this.addItem}>
-                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input> 
+                                    <input ref={(a) => this._inputElement = a} placeholder="Add a word"></input>
                                     <span className={classes.additembtn}>
                                         <button type="submit">
-                                            <i className="fas fa-plus"></i> 
+                                            <i className="fas fa-plus"></i>
                                         </button>
                                     </span>
-                                    
+
                                 </form>
                             </div>
 
                             <div className="col col-12">
-
-                            <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem}/>
+                                <DisplayEntries handleRecording={(key, fileName) => this.handleRecording(key, fileName)} entries={this.state.items} delete={this.deleteItem} />
                             </div>
 
                         </div>

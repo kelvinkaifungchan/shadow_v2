@@ -41,7 +41,7 @@ class PureModel extends React.Component {
                 <ModalBody>
                     <div className="row d-flex justify-content-center align-items-center">
                         {this.props.create.type === "class" ? 
-                        <DisplaySetModule display="3" match={this.props.match} correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> 
+                        <DisplaySetModule display="addExist" match={this.props.match} correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> 
                         :
                         <DisplayCardModule match={this.props.match} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }

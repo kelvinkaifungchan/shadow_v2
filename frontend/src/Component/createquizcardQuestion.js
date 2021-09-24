@@ -15,9 +15,8 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "",
-            viewing: "",
-            creating: true,
+            edit: false,
+            currentQuestion: "",
         }
     }
     displayQuestion(e, i){
@@ -33,6 +32,8 @@ class PureCreateQuiz extends React.Component{
             c: this.props.questions[i].c,
             d: this.props.questions[i].d,
             questionTime:this.props.questions[i].questionTime,
+            currentQuestion: i,
+            edit: true,
         })
     }
 
@@ -46,7 +47,6 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "00:00",
         })
     }
     tfToggle(){
@@ -59,7 +59,6 @@ class PureCreateQuiz extends React.Component{
             b: "",
             c: "",
             d: "",
-            questionTime: "00:00",
         })
     }
     changeOpt(e){
@@ -94,6 +93,18 @@ class PureCreateQuiz extends React.Component{
             this.setState({
                 trueFalseAnswer: e.target.attributes["id"].value
             })
+        }
+    }
+    checkFinished(e){
+        e.preventDefault()
+        if(this.state.questionType === 'multipleChoice' && this.state.questionBody !== "" && this.state.multipleChoiceAnswer !== ""){
+            this.props.submit(e, this.state)
+            this.clear()
+        } else if (this.state.questionType === 'trueFalse' && this.state.questionBody !== "" && this.state.trueFalseAnswer !== ""){
+            this.props.submit(e, this.state)
+            this.clear()
+        } else {
+            alert("please fill in the required boxes")
         }
     }
     getTime(){
@@ -135,6 +146,16 @@ class PureCreateQuiz extends React.Component{
         console.log("State in create quizcard question", this.state)
         return (
             <>
+            <div className={classes.scrollicon}>
+                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
+                    return (
+                        <div key={i}>
+                            <span key={i} className={classes.scrollicon} onClick={(e) => this.displayQuestion(e, i)}>{i + 1}</span>
+                        </div>
+                    )
+                }) : null}
+                <span onClick={(e)=>{this.checkFinished(e)}}>+</span>
+            </div>
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>
@@ -283,27 +304,9 @@ class PureCreateQuiz extends React.Component{
                     </div>
                 </div>
             }
+            { this.state.edit ? <button className="btn btn-primary" onClick={(e)=>{this.props.edit(e, this.state); this.clear()}}>Save Question</button> : null}
             </div>
             </Form>
-
-            <div className={classes.scrollicon}>
-                <span onClick={(e)=>{
-                    if (this.state.creating) {
-                        this.props.submit(e,this.state); this.clear()
-                    }  else {
-                        this.clear();
-                        this.creating() 
-                    }}}>+</span>
-                {this.props.questions && this.props.questions.length > 0 ? this.props.questions.map((question, i)=>{
-                    return (
-                            <span onClick={(e) => {this.displayQuestion(e, i) ; this.viewing(e, i)}} key={i} 
-                            style={{ 
-                                background: this.state.viewing === i ? "#F6CA4E" : null, 
-                                color: this.state.viewing === i ? "#FFFFFF" : null}}>{i + 1}</span>
-
-                    )
-                }) : null}
-            </div>
             </>
         )
     }

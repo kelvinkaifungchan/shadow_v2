@@ -71,13 +71,11 @@ class Card {
                 .then(async (dicId) => {
                     if (body.dictation != null) {
                         await Promise.all(body.dictation.map((dicData) => {
-                            console.log('dicData', dicData)
-                            console.log('dicId', dicId)
                             return this.knex("dictation")
                                 .insert({
                                     user_id: userId[0].id,
                                     dictationcard_id: dicId[0],
-                                    dictationBody: dicData.text,
+                                    dictationBody: dicData.dictationBody,
                                     dictationRecording: dicData.dictationRecording,
                                     dictationStatus: true
                                 })
@@ -99,14 +97,12 @@ class Card {
     edit(body) {
         if (body.type === "flashcard") {
             return this.knex("flashcard")
-                .where({
-                    id: body.cardId,
-                })
+                .where("id", body.cardId)
                 .update({
-                    flashcardTitle: body.flashcardTitle,
-                    flashcardBody: body.flashcardBody,
-                    flashcardRecording: body.flashcardRecording,
+                    flashcardTitle: body.title,
+                    flashcardBody: body.body,
                 })
+                .returning(body.cardId)
                 .catch((err) => {
                     console.log(err)
                 });
@@ -359,9 +355,22 @@ class Card {
         let allCard = {}
 
         return this.knex("flashcard")
-            .where("flashcard.user_id", email[0].id)
-            .where("flashcardStatus", true)
+            .join('set_flashcard', function () {
+                this.on('flashcard.id', '=', 'set_flashcard.flashcard_id').orOn('flashcard.id', '!=', 'set_flashcard.flashcard_id')
+            })
+            .join('set', 'set_flashcard.set_id', 'set.id')
+            .join('classroom_set', 'classroom_set.set_id', 'set.id')
+            .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
+            .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
+            .where('set.user_id', email[0].id)
+            .where('set.setStatus', true)
+            .orWhere('classroom.user_id', email[0].id)
+            .orWhere('classroom_user.sharedUser_id', email[0].id)
+            .orWhere("flashcard.user_id", email[0].id)
+            .orWhere("flashcard.flashcardStatus", true)
+            .orWhere('set.user_id', email[0].id)
             .select("flashcard.id")
+            .groupBy('flashcard.id')
             .then(async (fcId) => {
                 allCard.flashcard = await Promise.all(fcId.map((id) => {
                     let data = {}
@@ -421,9 +430,24 @@ class Card {
             })
             .then(() => {
                 return this.knex("quizcard")
-                    .where("user_id", email[0].id)
-                    .where("quizcardStatus", true)
-                    .select("id", "user_id", "quizcardTitle")
+                    .join('set_quizcard', function () {
+                        this.on('quizcard.id', '=', 'set_quizcard.quizcard_id').orOn('quizcard.id', '!=', 'set_quizcard.quizcard_id')
+                    })
+                    .join('set', 'set_quizcard.set_id', 'set.id')
+                    .join('classroom_set', 'classroom_set.set_id', 'set.id')
+                    .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
+                    .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
+                    .where('set.user_id', email[0].id)
+                    .where('set.setStatus', true)
+                    .orWhere('classroom.user_id', email[0].id)
+                    .orWhere('classroom_user.sharedUser_id', email[0].id)
+                    .orWhere("quizcard.user_id", email[0].id)
+                    .orWhere("quizcard.quizcardStatus", true)
+                    .orWhere('set.user_id', email[0].id)
+                    .where("quizcard.user_id", email[0].id)
+                    .where("quizcard.quizcardStatus", true)
+                    .select("quizcard.id", "quizcard.user_id", "quizcard.quizcardTitle")
+                    .groupBy('quizcard.id')
                     .then(async (qcId) => {
                         allCard.quizcard = await Promise.all(qcId.map((id) => {
                             let data = {}
@@ -487,9 +511,25 @@ class Card {
             })
             .then(() => {
                 return this.knex("dictationcard")
+                    .join('set_dictationcard', function () {
+                        this.on('dictationcard.id', '=', 'set_dictationcard.dictationcard_id').orOn('dictationcard.id', '!=', 'set_dictationcard.dictationcard_id')
+                    })
+                    .join('set', 'set_dictationcard.set_id', 'set.id')
+                    .join('classroom_set', 'classroom_set.set_id', 'set.id')
+                    .join('classroom', 'classroom.id', 'classroom_set.classroom_id')
+                    .join("classroom_user", "classroom_user.classroom_id", 'classroom.id')
+                    .where('set.user_id', email[0].id)
+                    .where('set.setStatus', true)
+                    .orWhere('classroom.user_id', email[0].id)
+                    .orWhere('classroom_user.sharedUser_id', email[0].id)
+                    .orWhere('set.user_id', email[0].id)
+                    .where("dictationcard.user_id", email[0].id)
+                    .where("dictationcard.dictationcardStatus", true)
                     .where("dictationcard.user_id", email[0].id)
                     .where("dictationcardStatus", true)
                     .select("dictationcard.id", "dictationcard.dictationcardTitle")
+                    .select("dictationcard.id", "dictationcard.user_id", "dictationcard.dictationcardTitle")
+                    .groupBy('dictationcard.id')
                     .then(async (dictationcards) => {
                         allCard.dictationcard = await Promise.all(dictationcards.map((id) => {
                             let data = {}
@@ -513,35 +553,35 @@ class Card {
                                             .join("user", "user.id", "dictationSubmission.user_id")
                                             .where("dictationSubmission.dictation_id", id.id)
                                             .select("user.displayName", "user.picture", "dictationSubmission.id", "dictationSubmission.user_id", "dictationSubmission.dictationSubmissionPath")
-                                            .then((dsubs)=>{
-                                                dicSub.submission = dsubs.map((dsub)=>{
-                                                        return {
-                                                            id: dsub.id,
-                                                            displayName: dsub.displayName,
-                                                            picture: dsub.picture,
-                                                            user_id: dsub.user_id,
-                                                            dictationSubmissionPath: dsub.dictationSubmissionPath
-                                                        }
+                                            .then((dsubs) => {
+                                                dicSub.submission = dsubs.map((dsub) => {
+                                                    return {
+                                                        id: dsub.id,
+                                                        displayName: dsub.displayName,
+                                                        picture: dsub.picture,
+                                                        user_id: dsub.user_id,
+                                                        dictationSubmissionPath: dsub.dictationSubmissionPath
+                                                    }
                                                 })
                                             })
-                                            .then(async ()=>{
-                                                dicSub.submission.feedback = await Promise.all(dicSub.submission.map((dicfb)=>{
+                                            .then(async () => {
+                                                dicSub.submission.feedback = await Promise.all(dicSub.submission.map((dicfb) => {
                                                     return this.knex("dictationFeedback")
-                                                    .join("user", "dictationFeedback.user_id", "user.id")
-                                                    .where("dictationSubmission_id", dicfb.id)
-                                                    .where("dictationFeedbackStatus", true)
-                                                    .select("dictationFeedback.id", "dictationFeedback.user_id","dictationFeedback.dictationSubmission_id as dictationSubmission_id", "user.displayName", "user.picture", "dictationFeedback.dictationFeedbackBody")
-                                                    .then((dfbs)=>{
-                                                        dicfb.feedback = dfbs.map((dfb)=>{
-                                                            return {
-                                                                id: dfb.id,
-                                                                dictationSubmission_id: dfb.dictationSubmission_id,
-                                                                picture: dfb.picture,
-                                                                user_id: dfb.user_id,
-                                                                dictationFeedbackBody: dfb.dictationFeedbackBody,
-                                                            }
+                                                        .join("user", "dictationFeedback.user_id", "user.id")
+                                                        .where("dictationSubmission_id", dicfb.id)
+                                                        .where("dictationFeedbackStatus", true)
+                                                        .select("dictationFeedback.id", "dictationFeedback.user_id", "dictationFeedback.dictationSubmission_id as dictationSubmission_id", "user.displayName", "user.picture", "dictationFeedback.dictationFeedbackBody")
+                                                        .then((dfbs) => {
+                                                            dicfb.feedback = dfbs.map((dfb) => {
+                                                                return {
+                                                                    id: dfb.id,
+                                                                    dictationSubmission_id: dfb.dictationSubmission_id,
+                                                                    picture: dfb.picture,
+                                                                    user_id: dfb.user_id,
+                                                                    dictationFeedbackBody: dfb.dictationFeedbackBody,
+                                                                }
+                                                            })
                                                         })
-                                                    })
                                                 }))
                                             })
                                     }))

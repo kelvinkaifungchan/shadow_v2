@@ -17,17 +17,13 @@ class PureCanvas extends React.Component{
 constructor(props){
     super(props); 
     
-   if(this.props.user){
-    console.log("USER DATA", this.props.user.id.toString())
-    console.log("CANVASID", this.props.canvasId)
-    this.room = this.props.user.id.toString() + "-" + this.props.canvasId
-   } else{
-    console.log("USER DATA in params", this.props.match.params.userId)
-    console.log("CANVASID in params", this.props.match.params.canvasId)
-    this.room = this.props.match.params.userId.toString() + "-" + this.props.match.params.canvasId.toString();
-   }
-
-    console.log("ROOM ID", this.room)
+//   if(this.props.questionId === undefined){
+//     this.room = this.props.userId + "-" + this.props.dictationId+ "-" + 1
+//   } else{
+//     this.room = this.props.userId + "-" + this.props.dictationId +"-" + this.props.questionId
+//   }
+  
+//     console.log("ROOM ID", this.room)
 
     this.socket = io.connect("http://localhost:8080");
     this.socket.emit("newUser", this.room)
@@ -93,25 +89,29 @@ drawOnCanvas() {
 
     function onMouseDown(e) {
         console.log("FUCK YOUR MOM MOUSEDOWN")
+        e.preventDefault();
+        e.stopPropagation();
         drawing = true;
-        current.x = e.offsetX || e.touches[0].offsetX;
-        current.y = e.offsetY || e.touches[0].offsetY;
+        current.x = e.offsetX || e.touches[0].clientX;
+        current.y = e.offsetY || e.touches[0].clientY;
     }
 
     function onMouseUp(e) {
         console.log("YESSSSS MOUSEUP ")
         if (!drawing) { return; }
         drawing = false;
-        drawLine(current.x, current.y, e.offsetX || e.touches.offsetX, e.offsetY || e.touches.offsetY, current.color, true);
+       // drawLine(current.x, current.y, e.offsetX || e.touches[0].clientX, e.offsetY || e.touches[0].clientY, current.color, true);
     }
 
     function onMouseMove(e) {
         console.log('FUCK ME DADDY MOUSEMOVE') 
-        
+        e.preventDefault();
+        e.stopPropagation();
+
         if (!drawing) { return; }
-        drawLine(current.x, current.y, e.offsetX || e.touches[0].offsetX, e.offsetY || e.touches[0].offsetY, current.color, true);
-        current.x = e.offsetX || e.touches[0].offsetX;
-        current.y = e.offsetY || e.touches[0].offsetY;
+        drawLine(current.x, current.y, e.offsetX || e.touches[0].clientX, e.offsetY || e.touches[0].clientY, current.color, true);
+        current.x = e.offsetX || e.touches[0].clientX;
+        current.y = e.offsetY || e.touches[0].clientY;
     }
     function throttle(callback, delay) {
         var previousCall = new Date().getTime();
@@ -142,7 +142,7 @@ drawOnCanvas() {
 
        
         var base64ImageData = canvas.toDataURL("image/png");
-        console.log(base64ImageData)
+        // console.log(base64ImageData)
         root.socket.emit("canvas-data", room, base64ImageData);
 
     };
@@ -195,9 +195,7 @@ render() {
     return (
         <div>
             <div className="sketch" id="sketch">
-
-                <canvas className="board" id="board" ></canvas>
-
+                <canvas style={{ position: "relative", width: 950, height: 480 }} className="board" id="board" ></canvas>
             </div>
             <button onClick={() => this.clearcanvas()}> Clear </button>
             <button onClick={() => this.submit()}> Submit </button>
@@ -210,7 +208,10 @@ render() {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        submitMDP: (data) => dispatch(submitCanvas(data))
+        submitMDP: (data) => {
+            dispatch(submitCanvas(data))
+        }
+      
     }
 }
 
