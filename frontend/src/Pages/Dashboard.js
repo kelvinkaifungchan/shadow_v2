@@ -98,7 +98,7 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayClassModule classrooms={this.props.classrooms} navigate={(e, classId) => { this.navigateClass(e, classId) }} />
+                        <DisplayClassModule classrooms={this.props.classrooms} user={this.props.user} navigate={(e, classId) => { this.navigateClass(e, classId) }} />
                     </div>
 
                     <div className="row d-flex p-2">
