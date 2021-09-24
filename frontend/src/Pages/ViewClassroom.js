@@ -160,7 +160,6 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log("this.state.title", this.state.title);
 
         return (
             <div className="page">
