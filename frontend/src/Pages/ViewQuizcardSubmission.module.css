@@ -3,7 +3,7 @@
 }
 .viewquizcardsubmission table{
     border-collapse: collapse;
-    border: 1px solid;
+    border: 2px solid;
 }
 
 .viewquizcardsubmission tr{
@@ -21,3 +21,4 @@
     border: 1px solid;
     display: block;
 }
+

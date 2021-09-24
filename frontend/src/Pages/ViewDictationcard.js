@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { getdataThunk } from '../Redux/actions/action'
 
 import { QRModal } from '../Component/qrcode'
-import { ViewDictationQuestion } from '../Component/ViewDictationQuestion'
+import { ViewDictationQuestion } from './ViewDictationQuestion'
 import classes from './ViewDictationcard.module.css'
 
 

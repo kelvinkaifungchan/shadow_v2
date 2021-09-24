@@ -49,16 +49,23 @@ class ViewQuizcard extends React.Component {
         })
     }
 
-    addAnswer(questionId, submission, marking) {
+    // addAnswer(questionId, submission) {
+    //     this.props.submitAnswer({
+    //         email: localStorage.getItem('email'),
+    //         type: this.state.type,
+    //         quizcardQuestionSubmission: { questionId: questionId, submission: submission },
+    //         // quizcardQuestionMarking: marking,
+    //         quizcardId: parseInt(this.props.match.params.id)
+    //     })
+    // }
 
-        this.props.submitAnswer({
-            email: localStorage.getItem('email'),
-            type: this.state.type,
-            quizcardQuestionSubmission: { questionId: questionId, submission: submission },
-            quizcardQuestionMarking: marking,
-            quizcardId: parseInt(this.props.match.params.id)
+    addAnswer(e, answer){
+        // e.preventDefault()
+        this.setState({
+            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(answer)
         })
     }
+
 
     async navigateSubmission(e) {
         e.preventDefault()
@@ -68,25 +75,32 @@ class ViewQuizcard extends React.Component {
     }
 
     render() {
-
+        console.log("props in View Quizcard PAGE", this.props)
+        console.log("state in View Quizcard PAGE", this.state)
         return (
             <div>
-
                 <div className={classes.viewquizcard}>
                     {/* 1st row: Header */}
                     <div className="row d-flex p-4">
-                        <div className="col-6">
+                        <div className="col-8">
                             <h1>{this.state.correctQuizcard.length > 0 ? this.state.correctQuizcard[0].quizcardTitle : null}</h1>
-
+                            </div>
                             {this.state.showQuizcardQuestion &&
-                                <div >
+                            <div className="col-4 ">
+                                <button className={classes.viewsubmit} cards={this.props.cards} onClick={(e) => { this.props.navigate(e) }}>All Done</button>
+                            </div>}
+                            </div>
+
+                            <div className="row d-flex p-4">
+                        {this.state.showQuizcardQuestion &&
+                                <div className="col col-6">
                                     <VideoPlayer src={this.state.correctQuestion.quizcardRecording} />
                                 </div>
                             }
-                        </div>
+
                         {this.state.showQuizcardQuestion &&
                             <div className="col col-6">
-                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission, marking)} navigate={(e) => this.navigateSubmission(e)} />
+                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} parent={this.state} addAnswer={(questionId, submission) => this.addAnswer(questionId, submission)} navigate={(e) => this.navigateSubmission(e)} />
                             </div>
                         }
                     </div>
