@@ -17,7 +17,7 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
             if (submission.type === "dictation") {
                 dispatch({
                     type: ADD_SUBMISSION_DICTATIONCARD,
-                    payload: { user_id: submission.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true }
+                    payload: { user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true }
                 })
             } else if (submission.type === "flashcard") {
                 dispatch({

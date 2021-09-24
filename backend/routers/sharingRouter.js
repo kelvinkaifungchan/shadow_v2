@@ -31,6 +31,7 @@ class SharingRouter {
 
         return this.sharingService.delete(req.body)
         .then((data) => {
+            console.log('delete done', data)
             return res.json(data)
         })
         .catch((err) => {

@@ -13,8 +13,22 @@ class PureDisplayEntries extends React.Component {
     this.createEntries = this.createEntries.bind(this);
   }
   createEntries(item) {
+    console.log(item)
     // i deleted this from the li element --> onClick={() => this.delete(item.key)}
-    return <li  key={item.key}>{item.dictationBody} <AudioRecorder yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/></li>
+    return(
+     <>
+      <li key={item.key}>
+        <div className="row">
+          <div  className="col col-6">
+            <p>{item.dictationcardBody}</p>
+          </div>
+          <div className="col col-6">
+            <AudioRecorder yek={item.key} handleRecording={(fileName) => this.props.handleRecording(item.key, fileName)}/>
+          </div>
+        </div>
+      </li> 
+    </>
+    ) 
   }
  
   delete(key) {
