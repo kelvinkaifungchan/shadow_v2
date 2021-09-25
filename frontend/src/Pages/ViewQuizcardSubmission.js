@@ -4,12 +4,6 @@ import {connect} from 'react-redux'
 // Require Action
 import { getdataThunk } from '../Redux/actions/action'
 
-import { Link } from 'react-router-dom';
-import {logoutNowThunk} from '../Redux/actions/loginboxAction'
-import {Account} from './Account';
-import PrivateRoute from '../Component/PrivateRoute'
-import { BrowserRouter , Switch} from "react-router-dom";
-import {NavBar} from '../Component/navbar';
 // import HeadingInput from '../Component/headingInput';
 // import Table from '../Component/Table';
 
@@ -125,11 +119,6 @@ class ViewQuizcardSubmission extends React.Component {
                         </div>
                     </div>
 
-                    <BrowserRouter>
-                        <Switch>
-                    <PrivateRoute path="/account" component={Account} />
-                    </Switch>
-                    </BrowserRouter>
             </div>
         );
     }
