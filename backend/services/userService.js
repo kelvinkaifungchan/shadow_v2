@@ -54,13 +54,11 @@ class UserService {
   //Method to update user picture
   async updatePicture(picture, body) {
     console.log("Uploading user picture to AWS");
-    let fileName = `user/${body.userId}/picture.jpeg`;
-    let fileData = picture.data;
     const params = {
       Bucket: process.env.AWS_BUCKET,
-      Key: fileName,
+      Key: picture.name,
       ContentType: "image/jpeg",
-      Body: fileData,
+      Body: picture.data,
     };
     let data = await s3.upload(params).promise();
     return this.knex("user")
@@ -69,7 +67,8 @@ class UserService {
       })
       .update({
         picture: data.Location,
-      });
+      })
+      .returning("picture")
   }
 
   //Method to delete a user
@@ -102,8 +101,6 @@ class UserService {
         };
       });
   }
-
-  //Method to search
 }
 
 module.exports = UserService;

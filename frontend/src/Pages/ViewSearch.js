@@ -38,6 +38,8 @@ class ViewSearch extends React.Component {
             }).includes(this.props.match.params.search) === true)
         })
 
+        console.log("Classroom Filtered", classroomFiltered)
+
         let setFiltered = this.props.sets.filter((set) => {
             return (set.tags.map((tag) => {
                 if (tag.body === this.props.match.params.search) {
@@ -72,7 +74,6 @@ class ViewSearch extends React.Component {
     }}
 
     render() {
-        console.log("THIS SEARCH STATE",this.state)
         return (
             <div className="page">
                 
@@ -85,7 +86,7 @@ class ViewSearch extends React.Component {
                         <h1>Classrooms:</h1>
                     </div>
                     <div className="row d-flex pl-2">
-                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule  user={this.props.user} classrooms={this.state.searchClass} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
+                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule  user={this.props.user} classrooms={this.state.searchClassrooms} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
                     </div>
                     <div className="row d-flex p-2">
                         <h1>Sets:</h1>

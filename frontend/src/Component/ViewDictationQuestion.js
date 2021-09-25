@@ -6,7 +6,6 @@ import { getdataThunk } from '../Redux/actions/action';
 
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 
-import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
@@ -68,7 +67,7 @@ class ViewDictationQuestion extends React.Component {
         if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
         console.log("remove old submission")
         this.setState((prevState, props) => {
-            console.log("PREV", prevState)
+            console.log("FIRST PREV", prevState)
             return{
             ...prevState,   
             submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
@@ -77,7 +76,7 @@ class ViewDictationQuestion extends React.Component {
         }
 
         this.setState((prevState, props) => {
-            console.log("PREV", prevState)
+            console.log("SECOND PREV", prevState)
             return{
             ...prevState,   
             submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
@@ -108,9 +107,7 @@ class ViewDictationQuestion extends React.Component {
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                {/* <MediaQuery minWidth={1050}>
-   
-                </MediaQuery> */}
+                
                 <div >
                     <div className={classes.scrollicon} >
                         <div className="row" >
@@ -132,7 +129,7 @@ class ViewDictationQuestion extends React.Component {
                                     }
                                 )
                                 : null}
-                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
+                                {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
                         </div>
                     </div>
                 </div>

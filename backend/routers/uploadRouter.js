@@ -53,7 +53,6 @@ class UploadRouter {
         .catch((err) => {
             console.log(err);
         });
-
 }
 }
 

@@ -102,17 +102,6 @@ class PureDisplayClassModule extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        email: state.authStore.email,
-        user: state.userStore.user,
-        classrooms: state.classroomStore.classrooms,
-        sets: state.setStore.sets,
-        cards: state.cardStore.card,
-        tags: state.tagStore.tags,
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         deleteClassroom: (classroom) => {
@@ -124,4 +113,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export const DisplayClassModule = connect(mapStateToProps, mapDispatchToProps)(PureDisplayClassModule)
+export const DisplayClassModule = connect(null, mapDispatchToProps)(PureDisplayClassModule)
