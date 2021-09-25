@@ -6,7 +6,6 @@ import { getdataThunk } from '../Redux/actions/action';
 
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 
-import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
@@ -63,28 +62,28 @@ class ViewDictationQuestion extends React.Component {
         }) 
     }
 
-    addSubmission(){
-        console.log("adding to submissions array")
-        if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
-        console.log("remove old submission")
-        this.setState((prevState, props) => {
-            console.log("PREV", prevState)
-            return{
-            ...prevState,   
-            submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
-            }
-        })
-        }
+    // addSubmission(){
+    //     console.log("adding to submissions array")
+    //     if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
+    //     console.log("remove old submission")
+    //     this.setState((prevState, props) => {
+    //         console.log("FIRST PREV", prevState)
+    //         return{
+    //         ...prevState,   
+    //         submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
+    //         }
+    //     })
+    //     }
 
-        this.setState((prevState, props) => {
-            console.log("PREV", prevState)
-            return{
-            ...prevState,   
-            submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
-            }
-        })
+    //     this.setState((prevState, props) => {
+    //         console.log("SECOND PREV", prevState)
+    //         return{
+    //         ...prevState,   
+    //         submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
+    //         }
+    //     })
 
-    }
+    // }
   
    
     submission(){

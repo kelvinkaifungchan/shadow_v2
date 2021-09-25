@@ -138,6 +138,7 @@ class Set {
         await this.knex("set")
             .where('set.user_id', email[0].id)
             .select('set.id', 'set.setTitle', 'set.setDesc')
+            .where('set.setStatus', true)
             .then(async (sets) => {
                 sets.map((set) => {
                     setArray.push(set)

@@ -29,15 +29,11 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
 
     selectAns(e){
-        // if(this.state.questionType === "multipleChoice"){
-        //     this.setState({
-        //         multipleChoiceAnswer: e.target.attributes["id"].value
-        //     })
-        // } else {
+      
             this.setState({
                 answer: e.target.attributes["id"].value
             })
-        // }
+       
     }
 
 
