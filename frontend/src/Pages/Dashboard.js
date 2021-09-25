@@ -31,11 +31,15 @@ class PureDashboard extends React.Component {
         this.props.getdata({ email: localStorage.getItem('email') })
     }
 
+    // for create
     toggle() {
         this.setState({
             modal: !this.state.modal,
         });
     }
+
+
+
     changeTypeClass() {
         this.setState({
             type: "class"
@@ -48,7 +52,7 @@ class PureDashboard extends React.Component {
     }
 
     navigateClass(e){
-        if (e.target.attributes["data-key"].value === "delete") {
+        if (e.target.attributes["data-key"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else {
         this.props.history.push({
@@ -56,7 +60,7 @@ class PureDashboard extends React.Component {
         })
     }}
     navigateSet(e){
-        if (e.target.attributes["data-key"].value === "delete") {
+        if (e.target.attributes["data-key"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else {
         this.props.history.push({
@@ -64,7 +68,7 @@ class PureDashboard extends React.Component {
         })
     }}
     navigateCard(e) {
-        if (e.target.attributes["data-del"].value === "delete") {
+        if (e.target.attributes["data-del"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
             this.props.history.push({
@@ -98,7 +102,13 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayClassModule user={this.props.user} classrooms={this.props.classrooms}  navigate={(e, classId) => { this.navigateClass(e, classId) }} />
+                        <DisplayClassModule 
+                        user={this.props.user} 
+                        classrooms={this.props.classrooms}  
+                        navigate={(e, classId) => { this.navigateClass(e, classId) }} 
+                        edit= {this.state} 
+                        changeTypeClass={ () => {this.changeTypeClass()} } 
+                        editToggle={() => {this.editToggle()}} />
                     </div>
 
                     <div className="row d-flex p-2">
@@ -110,7 +120,14 @@ class PureDashboard extends React.Component {
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplaySetModule user={this.props.user} sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                        <DisplaySetModule 
+                        user={this.props.user} 
+                        sets={this.props.sets} 
+                        dash={this.state.dashSet} 
+                        navigate={(e) => { this.navigateSet(e) }} 
+                        edit= {this.state} 
+                        changeTypeSet={ () => {this.changeTypeSet()} } 
+                        editToggle={() => {this.editToggle()}} />
                     </div>
 
                     <div className="row d-flex p-2">
