@@ -78,7 +78,7 @@ class Account extends React.Component {
                 <div className="row p-4">
                     <div className="col-4 d-flex justify-content-center">
                         <div onClick={() => this.icontoggle()} className={classes.icon}> 
-                        <IconUpdateModal upload={this.state} toggle={() => this.icontoggle()}/>
+                        <IconUpdateModal upload={this.state} user={this.props.user} toggle={() => this.icontoggle()}/>
                     <img src={this.props.user.picture} alt="Avatar"></img>
                     </div>
                     </div>
@@ -128,7 +128,6 @@ class Account extends React.Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
         user: state.userStore.user,
@@ -138,6 +137,7 @@ const mapStateToProps = (state) => {
         tags: state.tagStore.tags,
     }
 }
+
 const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
@@ -148,7 +148,6 @@ const mapDispatchToProps  = dispatch => {
         }
     }
 }
-
 
 const connectedAccount= connect(mapStateToProps, mapDispatchToProps)(Account)
 export { connectedAccount as Account };

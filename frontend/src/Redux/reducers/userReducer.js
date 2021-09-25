@@ -1,5 +1,5 @@
 import { GETDATAUSER_SUCCESS, GETDATAUSER_FAILURE } from "../actions/action";
-import { EDIT_USER_DISPLAYNAME, EDIT_USER_EMAIL } from "../actions/userAction";
+import { EDIT_USER_DISPLAYNAME, EDIT_USER_EMAIL, UPLOAD_PICTURE } from "../actions/userAction";
 
 const initialState = {
     user: [],
@@ -35,6 +35,14 @@ export function userReducer(state = initialState, action){
                   ...state.user,
                   email: action.payload.email}
               }
+              case UPLOAD_PICTURE:
+                return {
+                  ...state,
+                  user: {
+                    ...state.user,
+                    picture: action.payload.picture
+                  }
+                }
         
         default:
             return state;

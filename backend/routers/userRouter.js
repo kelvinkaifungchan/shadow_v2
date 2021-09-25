@@ -14,18 +14,13 @@ class UserRouter {
         router.put("/password", this.putPassword.bind(this))
         router.delete("/", this.delete.bind(this))
 
-
         return router
     }
 
     //Router to upload user picture
     async post(req, res) {
         console.log("Uploading user picture")
-        return this.userService.updatePicture(req.files.icon, req.body)
-            .then(() => {
-                return this.userService
-                    .user(req.body)
-            })
+        return this.userService.updatePicture(req.files.file, req.body)
             .then((data) => {
                 console.log(data)
                 return res.json(data)
