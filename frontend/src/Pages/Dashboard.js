@@ -103,22 +103,22 @@ class PureDashboard extends React.Component {
 
                     <div className="row d-flex p-2">
                         <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
-                        <h1>My Set</h1>
+                        {this.props.user.role === "teacher" ? <h1>My Set</h1> : null}
                         <span className={classes.createsetbtn}>
                             {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
                         </span>
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplaySetModule user={this.props.user} sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                        {this.props.user.role === "teacher" ? <DisplaySetModule user={this.props.user} sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} /> : null}
                     </div>
 
                     <div className="row d-flex p-2">
-                            <h1>My Card</h1>
+                            {this.props.user.role === "teacher" ? <h1>My Card</h1> : null}
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
+                        {this.props.user.role === "teacher" ? <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/> : null}
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}
