@@ -119,13 +119,14 @@ class PureViewQuizcardQuestionModule extends React.Component {
     render() {
         console.log("states IN VIEW QUIZCARD Q", this.state)
         console.log("PROPS IN VIEW QUIZCARD Q", this.props)
+        console.log(">>>>>>", this.props.question.question && this.state.viewing + 1 === this.props.question.question.length )
         return (
             <>
             
             <div className={classes.questionframe}>
                 <div className="row">
                     <div className="col col-8">
-                    <p>Question {this.state.viewing !== "" ? this.state.viewing + 1  : null}</p>
+                    <h4>Question {this.state.viewing !== "" ? this.state.viewing + 1  : null}</h4>
                     </div>
                 </div>
 
@@ -141,7 +142,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                                 <div key={i} className={classes.viewquizcardanswer}>
 
                                                     <div key={i} className="row">
-                                                        <div className="col">
+                                                        <div className="col mt-2">
                                                         <div style={{ width: "100%"}} >{question.questionBody}</div>
                                                         </div>
                                                     </div>
@@ -216,7 +217,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                             return (
                                                 <div key={i} className={classes.viewquizcardanswer}>
                                                     <div key={i} className="row">
-                                                        <div className="col">
+                                                        <div className="col mt-2">
                                                         <div style={{ width: "100%"}} >{question.questionBody}</div>
                                                         </div>
                                                     </div>
@@ -249,7 +250,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
                                                     <div className="row pt-3">
                                                     <div className="col-12">
-                                                    {parseInt(this.state.viewing) + 1 === this.props.question.question.length ? 
+                                                    {this.props.question.question && this.state.viewing + 1 === this.props.question.question.length ? 
                                                         <button className={classes.savebtn} onClick={(e) =>  {this.handleAnswer(question.id, this.state)}}>Save</button> : 
                                                         <button className={classes.savebtn} onClick={() =>  {this.switchQuestion(question.id) ; this.handleAnswer(question.id, this.state)}}>Save & Next</button>}
                                                     </div>

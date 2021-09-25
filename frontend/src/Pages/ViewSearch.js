@@ -9,7 +9,7 @@ import { DisplaySetModule } from '../Component/displaysetmodule'
 
 // Require Css
 import classes from './Dashboard.module.css'
-import '../Component/main.css'
+// import '../Component/main.css'
 
 
 class ViewSearch extends React.Component {

@@ -13,7 +13,7 @@ import { CreatePopUp } from '../Component/createmodal'
 
 // Require Css
 import classes from './Dashboard.module.css'
-import '../Component/main.css'
+// import '../Component/main.css'
 
 
 class PureDashboard extends React.Component {
@@ -97,7 +97,7 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                         <h1>My Classroom</h1>
                         <span className={classes.createclassroombtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
                         </span>
                     </div>
 
@@ -115,7 +115,7 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
                         <h1>My Set</h1>
                         <span className={classes.createsetbtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
                         </span>
                     </div>
 
