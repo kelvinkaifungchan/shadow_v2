@@ -84,10 +84,6 @@ class PureDisplayClassModule extends React.Component {
 
                             <EditPopUp edit={this.state} toggle={() => this.editToggle()} />
                             </div>
-
-                            
-
-
                             <p data-key={classroom.id}>{classroom.description}</p>
                             <div data-key={classroom.id}>
                                 {classroom.tag && classroom.tag.length > 0 ? classroom.tags.map((tag, j) => {

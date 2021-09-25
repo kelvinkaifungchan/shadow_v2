@@ -80,8 +80,17 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
     }
 
-    switchQuestion(e, i){
+    switchQuestion(i){
         // e.preventDefault()
+        console.log("!!!!!",this.props.parent.quizcardQuestionSubmission.findIndex((each) => each.questionId === i ))
+        if (this.props.parent.quizcardQuestionSubmission.findIndex((each) => each.questionId === i ) !== -1){
+            this.setState({
+            viewing: this.state.viewing + 1,
+            showQuestionViewer: true,
+            questionId: this.state.questionId + 1,
+            answer: this.props.parent.quizcardQuestionSubmission[i].answer
+            })
+        } else {
         this.setState({
             viewing: this.state.viewing + 1,
             showQuestionViewer: true,
@@ -89,6 +98,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
             answer: ""
         })
     }
+}
 
     handleAnswer(questionId, submission) {
             this.props.addAnswer(questionId, submission)
@@ -196,7 +206,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
                                                     <div className="row pt-5">
                                                     <div className="col-12">
-                                                        <button className={classes.savebtn} onClick={(e) =>  {this.switchQuestion(e) ; this.handleAnswer(question.id, this.state)}} >Save & Next</button>
+                                                        <button className={classes.savebtn} onClick={() =>  {this.switchQuestion(question.id) ; this.handleAnswer(question.id, this.state)}} >Save & Next</button>
                                                     </div>
                                                     </div>
 
@@ -239,9 +249,9 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
                                                     <div className="row pt-3">
                                                     <div className="col-12">
-                                                    {parseInt(this.state.viewing) + 1 === this.props.parent.correctQuestion.question.length ? 
-                                                    <button className={classes.savebtn} onClick={(e) =>  {this.handleAnswer(question.id, this.state)}}>Save</button> : 
-                                                        <button className={classes.savebtn} onClick={(e) =>  {this.switchQuestion(e) ; this.handleAnswer(question.id, this.state)}}>Save & Next</button>}
+                                                    {parseInt(this.state.viewing) + 1 === this.props.question.question.length ? 
+                                                        <button className={classes.savebtn} onClick={(e) =>  {this.handleAnswer(question.id, this.state)}}>Save</button> : 
+                                                        <button className={classes.savebtn} onClick={() =>  {this.switchQuestion(question.id) ; this.handleAnswer(question.id, this.state)}}>Save & Next</button>}
                                                     </div>
                                                     </div>
                                                 </div>
