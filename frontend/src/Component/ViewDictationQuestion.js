@@ -11,8 +11,8 @@ import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
 
-import { AudioPlayer } from '../Component/audioplayer';
-import { Canvas } from '../Component/canvas'
+import { AudioPlayer } from './audioplayer';
+import { Canvas } from './canvas'
 
 
 
