@@ -162,6 +162,7 @@ class Set {
                 sets.map((set) => {
                     bridgeArray.push(set)
                 })
+                console.log("bridgeArray", bridgeArray);
             })
 
 
@@ -172,8 +173,12 @@ class Set {
                 }).length === 0
             }
         }
-
-        const combineSet = setArray.filter(compare(bridgeArray))
+        var combineSet =[]
+        if(setArray.length > bridgeArray.length){
+            combineSet = setArray.filter(compare(bridgeArray))
+        } else{
+            combineSet = bridgeArray.filter(compare(setArray))
+        }
         console.log("combineSet", combineSet);
         let big = await Promise.all(combineSet.map((set) => {
 
