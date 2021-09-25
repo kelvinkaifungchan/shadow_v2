@@ -83,9 +83,7 @@ class ViewDictationQuestion extends React.Component {
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                {/* <MediaQuery minWidth={1050}>
-   
-                </MediaQuery> */}
+                
                 <div >
                     <div className={classes.scrollicon} >
                         <div className="row" >
@@ -107,7 +105,7 @@ class ViewDictationQuestion extends React.Component {
                                     }
                                 )
                                 : null}
-                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
+                                {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
                         </div>
                     </div>
                 </div>
