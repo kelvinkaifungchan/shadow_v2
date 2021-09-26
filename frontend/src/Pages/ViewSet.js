@@ -283,15 +283,15 @@ class ViewSet extends React.Component {
                     </div>
 
 
-                    <div className="row d-flex pl-4 pr-4 m-2">
+                    <div className="row d-flex pl-4 pr-4 ml-3">
                         <DisplaySetTag tags={this.state.correctTag} deleteTag={(tagId) => { this.deleteTag(tagId) }} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctSet[0]} toggle={() => this.tagToggle()} />
-                        <span className="d-inline-flex ">
+                        <span className="d-inline-flex">
                             {this.props.user.role === "teacher" ? <button onClick={() => { this.tagToggle(); this.changeTypeSet() }} className={classes.addtagbutton}><i className="fas fa-plus"></i></button> : null}
                         </span>
                     </div>
 
-                    <div className="row d-flex m-3">
+                    <div className="row d-flex mt-4 m-3">
                         <AddnewPopUp 
                         match={this.props.match} 
                         create={this.state} 
