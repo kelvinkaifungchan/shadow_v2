@@ -47,7 +47,7 @@ class PureNavBar extends React.Component {
                             {this.state.menuModal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.menuToggle()}/> : null}
                         </li>
                         <li>
-                            <Link to='/' className={classes.logo}>shadow</Link>
+                            {this.props.user.role === "teacher" ? <Link to='/' className={classes.logo}>shadow</Link> : <Link to='/' className={classes.logo} >shadow <span style={{fontWeight: "normal"}}>student</span></Link>}
                         </li>
                         <li className={classes.right}>
                             <button onClick={() => { this.searchToggle() }}><i className="fas fa-search"></i></button>

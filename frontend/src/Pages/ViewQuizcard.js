@@ -50,22 +50,60 @@ class ViewQuizcard extends React.Component {
     }
 
     // addAnswer(questionId, submission) {
-    //     this.props.submitAnswer({
-    //         email: localStorage.getItem('email'),
-    //         type: this.state.type,
-    //         quizcardQuestionSubmission: { questionId: questionId, submission: submission },
-    //         // quizcardQuestionMarking: marking,
-    //         quizcardId: parseInt(this.props.match.params.id)
-    //     })
+        // this.props.submitAnswer({
+        //     email: localStorage.getItem('email'),
+        //     type: this.state.type,
+        //     quizcardQuestionSubmission: { questionId: questionId, submission: submission },
+        //     // quizcardQuestionMarking: marking,
+        //     quizcardId: parseInt(this.props.match.params.id)
+        // })
     // }
 
-    addAnswer(e, answer){
-        // e.preventDefault()
+    // addAnswer(questionId, submission){
+    //     // e.preventDefault()
+    //     console.log("what is submission", submission)
+    //     // const index = this.state.quizcardQuestionSubmission.indexOf(e => (e.questionId === submission.questionId))
+    //     // console.log("INDEX", index)
+    //     console.log("INCLUDES???", this.state.quizcardQuestionSubmission.filter(x => (x.questionId === submission.questionId)))
+    //     if (this.state.quizcardQuestionSubmission.filter(x => (x.questionId === submission.questionId)).length > 0) {
+    //                 this.setState({
+    //                     quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.map(each =>each.questionId === submission.questionId) || submission
+    //         })
+    //     } else 
+    //         this.setState({
+    //             quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(submission)
+    //     })
+    //     }
+            
+    
+    addAnswer(questionId, submission){
+        const index = this.state.quizcardQuestionSubmission.findIndex(
+            (each) => each.questionId === submission.questionId
+        ) 
+
+        let newCopy = this.state.quizcardQuestionSubmission.slice();
+            newCopy[index] = submission;
+
+        if (index !== -1){
+            this.setState({
+                quizcardQuestionSubmission: newCopy
+        }) 
+    }else 
         this.setState({
-            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(answer)
+            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(submission)
         })
+
     }
 
+    submitAnswer(){
+        this.props.submitAnswer({
+            email: localStorage.getItem('email'),
+            type: this.state.type,
+            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission,
+            // quizcardQuestionMarking: marking,
+            quizcardId: parseInt(this.props.match.params.id)
+        })
+    }
 
     async navigateSubmission(e) {
         e.preventDefault()
@@ -87,7 +125,9 @@ class ViewQuizcard extends React.Component {
                             </div>
                             {this.state.showQuizcardQuestion &&
                             <div className="col-4 ">
-                                <button className={classes.viewsubmit} cards={this.props.cards} onClick={(e) => { this.props.navigate(e) }}>All Done</button>
+                                {this.state.quizcardQuestionSubmission && this.state.quizcardQuestionSubmission.length === this.state.correctQuestion.question.length 
+                                ? <button className={classes.viewsubmit} cards={this.props.cards} onClick={(e) => {this.submitAnswer() ; this.navigateSubmission(e) }}>Finish & Submit</button>
+                                : <button className={classes.remainingbox}> {this.state.correctQuestion.question.length - this.state.quizcardQuestionSubmission.length} Remaining</button>}
                             </div>}
                             </div>
 

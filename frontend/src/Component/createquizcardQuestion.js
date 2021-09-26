@@ -33,8 +33,6 @@ class PureCreateQuiz extends React.Component{
             c: this.props.questions[i].c,
             d: this.props.questions[i].d,
             questionTime:this.props.questions[i].questionTime,
-            currentQuestion: i,
-            edit: true,
         })
     }
 

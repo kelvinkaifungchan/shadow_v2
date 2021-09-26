@@ -6,7 +6,6 @@ import { getdataThunk } from '../Redux/actions/action';
 
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 
-import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
@@ -63,7 +62,6 @@ class ViewDictationQuestion extends React.Component {
             canvasUrl: url,
             base64ImageData: base64ImageData
         }) 
-
         this.props.submitDictationMDP({
             type:this.state.type,
             email: localStorage.getItem('email'),
@@ -120,9 +118,7 @@ class ViewDictationQuestion extends React.Component {
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                {/* <MediaQuery minWidth={1050}>
-   
-                </MediaQuery> */}
+                
                 <div >
                     <div className={classes.scrollicon} >
                         <div className="row" >
@@ -144,7 +140,7 @@ class ViewDictationQuestion extends React.Component {
                                     }
                                 )
                                 : null}
-                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
+                                {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
                         </div>
                     </div>
                 </div>

@@ -1,27 +1,35 @@
 .landingLogo {
-    font-size: 150px;
+    font-size: 10vh;
     font-weight: bold;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 200%;
     font-weight: normal;
     text-align: justify;
     margin-left: 2rem;
     margin-right: 2rem;
 }
 
-p {
-    font-size: 20px;
+/* p {
+    font-size: 2vh;
     text-align: justify;
-}
+} */
 body {
     overflow-x: hidden;
 }
 
-#login {
+.login {
     height: 100vh;
+    width: 100vw;
     background-color: #F8DF4F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingdescription{
+    width: 100%;
 }
 /* 
 #navbar{

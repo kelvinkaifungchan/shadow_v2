@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { LoginBox } from '../Component/loginbox'
 import { SignUp } from '../Component/signupbox';
 
-import '../Component/main.css'
+import classes from './Login.module.css'
 
 
 class Login extends React.Component {
@@ -34,20 +34,24 @@ class Login extends React.Component {
     render() {
         const { show } = this.state;
         return (
-            <div className="row d-flex align-items-center" id="login">
-                <div className="col-6  p-5 d-flex align-items-center">
+            <>
+            <div className={classes.login}>
+            <div className="row d-flex align-items-center">
+                <div className="col p-5 d-flex align-items-center">
                         <div className="p-5 mx-5">
                             <div>
-                                <p className="landingLogo">shadow.</p>
-                                <p className="w-75">Simplifying the process of teaching students how to speak, listen and write second languages online.</p>
+                                <p className={classes.landingLogo}>shadow.</p>
+                                <p className={classes.landingdescription}>Simplifying the process of teaching students how to speak, listen and write second languages online.</p>
                             </div>
                         </div>
                     </div>
-                <div className="col-6 p-2 d-flex align-items-center justify-content-center ">
-                {!show ? <LoginBox nav={()=>this.navLogin()}handleshow={()=>this.handleshow()}/> : null}
+                <div className="col p-2 d-flex align-items-center justify-content-center">
+                {!show ? <LoginBox nav={()=>this.navLogin()} handleshow={()=>this.handleshow()}/> : null}
                 {show ? <SignUp handleshow={()=>this.handleshow()}/> : null}
                 </div>
             </div>
+            </div>
+            </>
         );
     }
 }

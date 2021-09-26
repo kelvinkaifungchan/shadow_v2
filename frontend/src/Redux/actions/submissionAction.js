@@ -13,7 +13,7 @@ export const DELETE_SUBMISSION_MULTIPLECHOICE = "DELETE_SUBMISSION_MULTIPLECHOIC
 export const DELETE_SUBMISSION_TRUEFALSE = "DELETE_SUBMISSION_TRUEFALSE";
 
 export const addSubmissionThunk = (submission) => async (dispatch) => {
-    console.log(submission,"submission in submission");
+    console.log(submission,">>>>>>>>>submission in submission");
     return axios.post("http://localhost:8080/api/card/submission", submission)
         .then((data) => {
             if (submission.type === "dictation") {
@@ -28,6 +28,7 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
                     payload: { id: data.data.flashcardSubmissionId, user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture, flashcard_id: submission.flashcardId, flashcardSubmissionRecording: submission.flashcardSubmissionRecording, flashcardSubmissionStatus: true }
                 })
             } else if (submission.type === "quizcard") {
+                console.log(data,">>!!!!!!data in submission");
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
                     payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId, quizcardQuestionMarking: data.data.quizcardQuestionMarking }

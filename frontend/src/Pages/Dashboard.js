@@ -13,7 +13,7 @@ import { CreatePopUp } from '../Component/createmodal'
 
 // Require Css
 import classes from './Dashboard.module.css'
-import '../Component/main.css'
+// import '../Component/main.css'
 
 
 class PureDashboard extends React.Component {
@@ -31,11 +31,15 @@ class PureDashboard extends React.Component {
         this.props.getdata({ email: localStorage.getItem('email') })
     }
 
+    // for create
     toggle() {
         this.setState({
             modal: !this.state.modal,
         });
     }
+
+
+
     changeTypeClass() {
         this.setState({
             type: "class"
@@ -48,7 +52,7 @@ class PureDashboard extends React.Component {
     }
 
     navigateClass(e){
-        if (e.target.attributes["data-key"].value === "delete") {
+        if (e.target.attributes["data-key"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else {
         this.props.history.push({
@@ -56,7 +60,7 @@ class PureDashboard extends React.Component {
         })
     }}
     navigateSet(e){
-        if (e.target.attributes["data-key"].value === "delete") {
+        if (e.target.attributes["data-key"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else {
         this.props.history.push({
@@ -64,7 +68,7 @@ class PureDashboard extends React.Component {
         })
     }}
     navigateCard(e) {
-        if (e.target.attributes["data-del"].value === "delete") {
+        if (e.target.attributes["data-del"].value === "delete" || e.target.attributes["data-key"].value === "dropdown" || e.target.attributes["data-key"].value === "edit" ) {
             return
         } else if (e.target.attributes["data-type"].value === "flashcard") {
             this.props.history.push({
@@ -93,32 +97,47 @@ class PureDashboard extends React.Component {
                         <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
                         <h1>My Classroom</h1>
                         <span className={classes.createclassroombtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
                         </span>
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayClassModule user={this.props.user} classrooms={this.props.classrooms}  navigate={(e, classId) => { this.navigateClass(e, classId) }} />
+                        <DisplayClassModule 
+                        user={this.props.user} 
+                        classrooms={this.props.classrooms}  
+                        navigate={(e, classId) => { this.navigateClass(e, classId) }} 
+                        edit= {this.state} 
+                        changeTypeClass={ () => {this.changeTypeClass()} } 
+                        editToggle={() => {this.editToggle()}} />
                     </div>
 
                     <div className="row d-flex p-2">
                         <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
-                        <h1>My Set</h1>
+                        {this.props.user.role === "teacher" ? <h1>My Set</h1> : null}
                         <span className={classes.createsetbtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fas fa-plus"></i></div> : null}
+                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
                         </span>
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplaySetModule user={this.props.user} sets={this.props.sets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />
+                    {this.props.user.role === "teacher" ?
+                        <DisplaySetModule 
+                        user={this.props.user} 
+                        sets={this.props.sets} 
+                        dash={this.state.dashSet} 
+                        navigate={(e) => { this.navigateSet(e) }} 
+                        edit= {this.state} 
+                        changeTypeSet={ () => {this.changeTypeSet()} } 
+                        editToggle={() => {this.editToggle()}} />
+                    : null}
                     </div>
 
                     <div className="row d-flex p-2">
-                            <h1>My Card</h1>
+                            {this.props.user.role === "teacher" ? <h1>My Card</h1> : null}
                     </div>
 
                     <div className="row d-flex pl-2">
-                        <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/>
+                        {this.props.user.role === "teacher" ? <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/> : null}
                     </div>
 
                     {this.props.loading && <div> Loading...</div>}

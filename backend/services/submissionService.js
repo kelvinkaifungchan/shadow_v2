@@ -38,10 +38,11 @@ class SubmissionService {
                 .returning("id");
         }
         else if (body.type === "quizcard") {
-            console.log("Adding submission to quizcard",body);
+            console.log("Adding submission to quizcard", body);
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
+            
                 return this.knex
                     .insert({
                         user_id: user_id[0].id,
@@ -50,7 +51,6 @@ class SubmissionService {
                         quizcardQuestionMarking: body.quizcardQuestionMarking
                     })
                     .into("quizcardQuestionSubmission")
-                    .returning("id");
         }
         else {
             return "card type not recognized";
@@ -87,7 +87,6 @@ class SubmissionService {
             else {
                 return "card type not recognized";
             }
-
         }
 
         //Method to list details of a submission
