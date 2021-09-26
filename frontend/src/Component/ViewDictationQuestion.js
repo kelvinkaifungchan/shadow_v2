@@ -1,51 +1,113 @@
 import React from 'react';
-import { connect } from 'react-redux'
-
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
 // Require Action
-import { getdataThunk } from '../Redux/actions/action'
+import { getdataThunk } from '../Redux/actions/action';
 
-import { Link } from 'react-router-dom';
-import MediaQuery from 'react-responsive'
+import { addSubmissionThunk } from '../Redux/actions/submissionAction';
+
+import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
+
 import { AudioPlayer } from './audioplayer';
 import { Canvas } from './canvas'
+
 
 
 //CSS
 import classes from './ViewDictationQuestion.module.css'
 
 class ViewDictationQuestion extends React.Component {
+    
     constructor(props) {
-        super(props)
+        super(props);
+        this.socket = io.connect("http://localhost:8080");
         this.state = {
-            tracking: [],
-            target: "",
+            type: "dictation",
+            questionId: this.props.question.questions[0].id,
+            canvasUrl: "",
+            base64ImageData: "",
+            submissions: [],
+            target: []
         }
     }
+
+    clearcanvas() {
+        console.log("CLEAR ")
+        this.room = this.props.user.id.toString() + "-" + this.props.dictation[0].id
+        var canvas = document.querySelector('#board');
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var base64ImageData = canvas.toDataURL("image/png");
+        this.socket.emit("clear", this.room, base64ImageData);
+    }
+
     onClickShowQuestionViewer(id) {
-        
         this.setState({
             questionId: id,
             target: this.props.question.questions.filter(realQuestion => realQuestion.id === id)[0]
         })
-        if (this.props.questionId === undefined) {
-            this.room = id + "-" + this.props.dictation[0].id + "-" + 1
-        } else {
-            this.room = id + "-" + this.props.dictation[0].id + "-" + this.props.user.id.toString()
-        }
-        console.log("ROOM ID", this.room)
     }
+  
+    handleCanvas(fileName, base64ImageData){
+        console.log("fileName", fileName)
+        console.log("BASE", base64ImageData)
+        let url  = `https://${process.env.REACT_APP_CANVAS_BUCKET}.s3.ap-southeast-1.amazonaws.com/` + fileName ;
+        console.log("URL >>", url)
+
+        this.setState({
+            canvasUrl: url,
+            base64ImageData: base64ImageData
+        }) 
+    }
+
+    addSubmission(){
+        console.log("adding to submissions array")
+        if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
+        console.log("remove old submission")
+        this.setState((prevState, props) => {
+            console.log("FIRST PREV", prevState)
+            return{
+            ...prevState,   
+            submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
+            }
+        })
+        }
+
+        this.setState((prevState, props) => {
+            console.log("SECOND PREV", prevState)
+            return{
+            ...prevState,   
+            submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
+            }
+        })
+
+    }
+  
+   
+    submission(){
+        console.log("submitting to redux store")
+        this.props.submitDictationMDP({
+            type:this.state.type,
+            email: localStorage.getItem('email'),
+            dictationcardId: this.props.dictation[0].id,
+            dictationcardSubmissionPath: this.state.submissions
+        })
+    }
+  
     render() {
         console.log("props in VDQQQQ", this.props);
         console.log("state in VDQQQQ", this.state);
 
+        console.log("submissions length", this.state.submissions.length);
+        console.log(" questions length", this.props.question.questions.length);
+        
+        
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                {/* <MediaQuery minWidth={1050}>
-   
-                </MediaQuery> */}
+                
                 <div >
                     <div className={classes.scrollicon} >
                         <div className="row" >
@@ -57,22 +119,33 @@ class ViewDictationQuestion extends React.Component {
                                     (question, i) => {
                                         if (i === 0) {
                                             return (
-                                                <span key={i} onClick={() => this.onClickShowQuestionViewer(question.id)}>{i + 1}</span>
+                                                <span key={i} onClick={() => {this.clearcanvas(); this.onClickShowQuestionViewer(question.id)}}>{i + 1}</span>
                                             )
                                         } else {
                                             return (
-                                                <span key={i} onClick={() => { this.onClickShowQuestionViewer(question.id) }}>{i + 1}</span>
+                                                <span key={i} onClick={() => { this.clearcanvas(); this.onClickShowQuestionViewer(question.id) }}>{i + 1}</span>
                                             )
                                         }
                                     }
                                 )
                                 : null}
-                                <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>
+                                {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
                         </div>
                     </div>
                 </div>
-                <div className={classes.canvas}>
-                    <Canvas questionId={this.state.questionId} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />
+                <div className={classes.canvas}>        
+                    {this.state.submissions.length === this.props.question.questions.length ? <button onClick={() => this.submission()}> Done </button> : <Canvas clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />}
+                    
+
+                </div>
+                <div>
+
+                    {this.state.submissions.map((submission) => {
+                        console.log("SRC", submission.dictationcardSubmissionPath)
+                        return(
+                            <img key={submission.dictationcardSubmissionPath} src={submission.base64ImageData} alt="canvasdata"/>
+                        )
+                    }) }
                 </div>
             </div>
         );
@@ -90,6 +163,9 @@ const mapDispatchToProps = dispatch => {
         getdata: (email) => {
             dispatch(getdataThunk(email))
         },
+        submitDictationMDP: (submission) => {
+            dispatch(addSubmissionThunk(submission))
+        }
     }
 }
 

@@ -6,7 +6,9 @@ import {logoutNowThunk} from '../Redux/actions/loginboxAction'
 import { getdataThunk } from '../Redux/actions/action'
 
 import { IconUpdateModal } from '../Component/iconupdatemodal';
-import { PasswordUpdateModal } from '../Component/passwordupdatemodal';
+import { PasswordEditModal } from '../Component/passwordeditmodal';
+import { DisplayNameEditModal } from '../Component/displaynameeditmodal';
+import { EmailEditModal } from '../Component/emaileditmodal';
 
 import classes from './Account.module.css'
 
@@ -20,6 +22,8 @@ class Account extends React.Component {
             modal: false,
             type: "",
             iconModal: false,
+            displayNameModal: false,
+            emailModal: false,
             passwordModal: false,
             selectedFile: null,
         };
@@ -47,6 +51,18 @@ class Account extends React.Component {
         });
     }
 
+    emailtoggle() {
+        this.setState({
+            emailModal: !this.state.emailModal,
+        });
+    }
+
+    displayNametoggle() {
+        this.setState({
+            displayNameModal: !this.state.displayNameModal,
+        });
+    }
+
     render() {  
 
         return (
@@ -56,13 +72,13 @@ class Account extends React.Component {
             <div className={classes.account}>
 
                 <div className="row p-4">
-                <h1>Account </h1>
+                <h1>Account</h1>
                </div>
 
                 <div className="row p-4">
                     <div className="col-4 d-flex justify-content-center">
                         <div onClick={() => this.icontoggle()} className={classes.icon}> 
-                        <IconUpdateModal upload={this.state} toggle={() => this.icontoggle()}/>
+                        <IconUpdateModal upload={this.state} user={this.props.user} toggle={() => this.icontoggle()}/>
                     <img src={this.props.user.picture} alt="Avatar"></img>
                     </div>
                     </div>
@@ -77,12 +93,14 @@ class Account extends React.Component {
                             <tr>
                                 <th>Username</th>
                                 <td>{this.props.user.displayName}</td>
-                                <td></td>
+                                <td><button onClick={() => this.displayNametoggle()}>Change username</button></td>
+                                <DisplayNameEditModal update={this.state} user={this.props.user} toggle={()=> this.displayNametoggle()}/>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td>{this.props.user.email}</td>
-                                <td></td>
+                                <td><button onClick={() => this.emailtoggle()}>Change email</button></td>
+                                <EmailEditModal update={this.state} user={this.props.user} toggle={()=> this.emailtoggle()}/>
                             </tr>
                             <tr>
                                 <th>Tier</th>
@@ -93,7 +111,7 @@ class Account extends React.Component {
                                 <th>Password</th>
                                 <td>*******</td>
                                 <td><button onClick={() => this.passwordtoggle()}>Change password</button></td>
-                                <PasswordUpdateModal update={this.state} toggle={()=> this.passwordtoggle()}/>
+                                <PasswordEditModal update={this.state} user={this.props.user} toggle={()=> this.passwordtoggle()}/>
                             </tr>
                             <tr onClick={this.logout}> 
                             <th> <Link to="/login">Logout</Link></th>
@@ -110,7 +128,6 @@ class Account extends React.Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
         user: state.userStore.user,
@@ -120,6 +137,7 @@ const mapStateToProps = (state) => {
         tags: state.tagStore.tags,
     }
 }
+
 const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
@@ -130,7 +148,6 @@ const mapDispatchToProps  = dispatch => {
         }
     }
 }
-
 
 const connectedAccount= connect(mapStateToProps, mapDispatchToProps)(Account)
 export { connectedAccount as Account };

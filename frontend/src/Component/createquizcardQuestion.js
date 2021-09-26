@@ -33,8 +33,6 @@ class PureCreateQuiz extends React.Component{
             c: this.props.questions[i].c,
             d: this.props.questions[i].d,
             questionTime:this.props.questions[i].questionTime,
-            currentQuestion: i,
-            edit: true,
         })
     }
 
@@ -100,10 +98,10 @@ class PureCreateQuiz extends React.Component{
         e.preventDefault()
         if(this.state.questionType === 'multipleChoice' && this.state.questionBody !== "" && this.state.multipleChoiceAnswer !== ""){
             this.props.submit(e, this.state)
-            this.clear()
+            // this.clear()
         } else if (this.state.questionType === 'trueFalse' && this.state.questionBody !== "" && this.state.trueFalseAnswer !== ""){
             this.props.submit(e, this.state)
-            this.clear()
+            // this.clear()
         } else {
             alert("please fill in the required boxes")
         }
@@ -124,7 +122,6 @@ class PureCreateQuiz extends React.Component{
             trueFalseAnswer: "",
             questionTime: "",
             viewing: ""
-
         })
     }
 
@@ -148,7 +145,6 @@ class PureCreateQuiz extends React.Component{
         console.log("State in create quizcard question", this.state)
         return (
             <>
-
             <div className={classes.viewquizcardquestion}></div>
             <Form>
             <div className={classes.questionframe}>

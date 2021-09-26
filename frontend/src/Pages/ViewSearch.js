@@ -26,7 +26,7 @@ class ViewSearch extends React.Component {
         await this.props.getdata({ email: localStorage.getItem('email') })
     }
 
-    async componentWillReceiveProps() {
+    componentWillReceiveProps() {
 
         let classroomFiltered = this.props.classrooms.filter((classroom) => {
             return (classroom.tags.map((tag) => {
@@ -38,6 +38,8 @@ class ViewSearch extends React.Component {
             }).includes(this.props.match.params.search) === true)
         })
 
+        console.log("Classroom Filtered", classroomFiltered)
+
         let setFiltered = this.props.sets.filter((set) => {
             return (set.tags.map((tag) => {
                 if (tag.body === this.props.match.params.search) {
@@ -48,7 +50,7 @@ class ViewSearch extends React.Component {
             }).includes(this.props.match.params.search) === true)
         })
         
-        await this.setState({
+        this.setState({
             searchClassrooms: classroomFiltered,
             searchSets: setFiltered
         })
@@ -72,7 +74,6 @@ class ViewSearch extends React.Component {
     }}
 
     render() {
-        console.log("THIS SEARCH STATE",this.state)
         return (
             <div className="page">
                 
@@ -85,13 +86,13 @@ class ViewSearch extends React.Component {
                         <h1>Classrooms:</h1>
                     </div>
                     <div className="row d-flex pl-2">
-                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule classrooms={this.state.searchClass} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
+                        {this.state.searchClassrooms.length === 0 ? <div>No Classrooms Found</div> : <DisplayClassModule  user={this.props.user} classrooms={this.state.searchClassrooms} navigate={(e, classId) => { this.navigateClass(e, classId) }} />}
                     </div>
                     <div className="row d-flex p-2">
                         <h1>Sets:</h1>
                     </div>
                     <div className="row d-flex pl-2">
-                        {this.state.searchSets.length === 0 ? <div>No Sets Found</div> : <DisplaySetModule sets={this.state.searchSets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />}
+                        {this.state.searchSets.length === 0 ? <div>No Sets Found</div> : <DisplaySetModule  user={this.props.user} sets={this.state.searchSets} dash={this.state.dashSet} navigate={(e) => { this.navigateSet(e) }} />}
                     </div>
                     {this.props.loading && <div> Loading...</div>}
                     {this.props.error && <div> Oops! Something Wrong with Our Server</div>}

@@ -33,7 +33,7 @@ class PureDisplayClassModule extends React.Component {
                     return (
                         <div key={i} data-key={classroom.id} className={classes.classroom} onClick={(e) => { this.props.navigate(e, classroom.id) }}>
                             <h4 data-key={classroom.id} className={classes.title}>{classroom.title}</h4>
-                            <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" className="fas fa-times"></i></span>
+                            {this.props.user.role === "teacher" ? <span data-key="delete" className={classes.deletebtn}><i onClick={()=>this.deleteClassroom(classroom.id)} data-key="delete" className="fas fa-times"></i></span> :null}
                             <p data-key={classroom.id}>{classroom.description}</p>
                             <div data-key={classroom.id}>
                                 {classroom.tag && classroom.tag.length > 0 ? classroom.tags.map((tag, j) => {
@@ -52,17 +52,6 @@ class PureDisplayClassModule extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        email: state.authStore.email,
-        user: state.userStore.user,
-        classrooms: state.classroomStore.classrooms,
-        sets: state.setStore.sets,
-        cards: state.cardStore.card,
-        tags: state.tagStore.tags,
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         deleteClassroom: (classroom) => {
@@ -74,4 +63,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export const DisplayClassModule = connect(mapStateToProps, mapDispatchToProps)(PureDisplayClassModule)
+export const DisplayClassModule = connect(null, mapDispatchToProps)(PureDisplayClassModule)

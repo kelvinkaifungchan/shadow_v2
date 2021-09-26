@@ -5,34 +5,60 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
+const hashFunction = require("../auth/hashFunction")
+
 class UserService {
   constructor(knex) {
     this.knex = knex;
   }
 
-  //Method to update a users details
-  edit(body) {
-    ("updating details of a user");
+  //Method to update a users display name
+  async editDisplayName(body) {
+    ("updating displayName of a user");
     return this.knex("user")
       .where({
         id: body.id,
       })
       .update({
-        displayName: body.displayName,
-        email: body.email,
-      });
+        displayName: body.displayName
+      })
+      .returning("displayName")
+  }
+
+  //Method to update a users email
+  async editEmail(body) {
+    ("updating email of a user");
+    return this.knex("user")
+      .where({
+        id: body.id,
+      })
+      .update({
+        email: body.email
+      })
+      .returning("email")
+  }
+
+  //Method to update a users password
+  async editPassword(body) {
+    ("updating password of a user");
+    let passwordHash = await hashFunction.hashPassword(body.password)
+    return this.knex("user")
+      .where({
+        id: body.id,
+      })
+      .update({
+        passwordHash: passwordHash
+      })
   }
 
   //Method to update user picture
   async updatePicture(picture, body) {
     console.log("Uploading user picture to AWS");
-    let fileName = `user/${body.userId}/picture.jpeg`;
-    let fileData = picture.data;
     const params = {
       Bucket: process.env.AWS_BUCKET,
-      Key: fileName,
+      Key: picture.name,
       ContentType: "image/jpeg",
-      Body: fileData,
+      Body: picture.data,
     };
     let data = await s3.upload(params).promise();
     return this.knex("user")
@@ -41,7 +67,8 @@ class UserService {
       })
       .update({
         picture: data.Location,
-      });
+      })
+      .returning("picture")
   }
 
   //Method to delete a user
@@ -74,8 +101,6 @@ class UserService {
         };
       });
   }
-
-  //Method to search
 }
 
 module.exports = UserService;

@@ -29,7 +29,7 @@ class SubmissionService {
             return this.knex
                 .insert({
                     user_id: user_id[0].id,
-                    dictation_id: body.dictationId,
+                    dictation_id: body.dictationcardId,
                     dictationSubmissionPath: body.dictationSubmissionPath,
                     dictationSubmissionStatus: true
                 })

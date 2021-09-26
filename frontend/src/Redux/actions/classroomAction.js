@@ -25,5 +25,4 @@ export const deleteClassroom = (classroom) => async (dispatch) => {
    .then(()=>{
        dispatch({type: DELETE_CLASSROOM, payload: {classroom_id: classroom.id}});
    })
-   
 }
