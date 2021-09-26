@@ -330,7 +330,7 @@ export function cardReducer(state = initialState, action) {
                     card:{
                         ...state.card,
                         dictationcard: state.card.dictationcard.map((dictationcard) => {
-                            if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
+                            if(dictationcard.id === action.payload.dictationcard_id){
                                 return {
                                     ...dictationcard,
                                     questions: dictationcard.questions.map((question) => {
@@ -338,7 +338,7 @@ export function cardReducer(state = initialState, action) {
                                             return {
                                                 ...question,
                                                 submission: question.submission.map((submission) => {
-                                                    if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                                    if(submission.id === action.payload.dictationSubmission_id){
                                                         return {
                                                             ...submission, 
                                                             feedback: [action.payload]
@@ -348,8 +348,8 @@ export function cardReducer(state = initialState, action) {
                                                 })
                                             }
                                         }
+                                        return question
                                     })
-
                                 }
                             }
                             return dictationcard

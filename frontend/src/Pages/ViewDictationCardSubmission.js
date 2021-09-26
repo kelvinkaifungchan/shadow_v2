@@ -31,15 +31,16 @@ class ViewDictationcardSubmission extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") })
     }
 
-    componentWillReceiveProps() {
-        if(this.props.cards.dictationcard.length > 0 ){
-            let dictationcard = this.props.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
+    componentWillReceiveProps(nextProps) {
+        console.log('Next Props inVDCS', nextProps)
+        if(nextProps.cards.dictationcard.length > 0 ){
+            let dictationcard = nextProps.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
             console.log("this.props.cards.dictationcard", dictationcard[0])
-
             this.setState({
                 correctDictationcard: dictationcard
             })
         }
+        
     }
 
     feedbackModal(e) {

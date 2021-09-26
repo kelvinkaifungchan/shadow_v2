@@ -32,10 +32,10 @@ export const editFeedbackThunk = (feedback) => async (dispatch) => {
     .then((data) => {
         console.log("data", data)
         if (feedback.type === "dictationcard") {
-            console.log("working inside")
+            console.log("working inside", feedback)
             dispatch({
                 type: EDIT_FEEDBACK_DICTATIONCARD,
-                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: data.data.dictationcard_id, dictation_id:data.data.dictation_id, dictationcardSubmission_id: data.data.dictationcardSubmissionId, dictationcardFeedback_id: data.data.dictationcardFeedbackId, dictationcardFeedbackBody: data.data.dictationcardFeedbackBody}
+                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: feedback.cardId, dictation_id:data.data.dictation_id, dictationSubmission_id: data.data.dictationSubmissionId, dictationFeedback_id: data.data.dictationFeedbackId, dictationFeedbackBody: data.data.dictationFeedbackBody}
             })
         } else {
             console.log("Card type not found")
