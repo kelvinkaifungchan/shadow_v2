@@ -79,23 +79,25 @@ class ViewQuizcard extends React.Component {
     addAnswer(questionId, submission){
         const index = this.state.quizcardQuestionSubmission.findIndex(
             (each) => each.questionId === submission.questionId
-        ) 
-
-        let newCopy = this.state.quizcardQuestionSubmission.slice();
+            ) 
+            
+            let newCopy = this.state.quizcardQuestionSubmission.slice();
             newCopy[index] = submission;
-
+            
         if (index !== -1){
             this.setState({
                 quizcardQuestionSubmission: newCopy
-        }) 
-    }else 
-        this.setState({
-            quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(submission)
-        })
+            }) 
+        } else {
+            this.setState({
+                quizcardQuestionSubmission: this.state.quizcardQuestionSubmission.concat(submission)
+            })
+        }
 
     }
 
     submitAnswer(){
+        console.log('this.submit state', this.state)
         this.props.submitAnswer({
             email: localStorage.getItem('email'),
             type: this.state.type,
@@ -113,8 +115,8 @@ class ViewQuizcard extends React.Component {
     }
 
     render() {
-        console.log("props in View Quizcard PAGE", this.props)
-        console.log("state in View Quizcard PAGE", this.state)
+        // console.log("props in View Quizcard PAGE", this.props)
+        // console.log("state in View Quizcard PAGE", this.state)
         return (
             <div>
                 <div className={classes.viewquizcard}>

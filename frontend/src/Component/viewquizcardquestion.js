@@ -55,7 +55,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
 
     displayQuestion(e, i){
         // e.preventDefault()
-        console.log(">>>>>>",this.props.parent.quizcardQuestionSubmission.findIndex((each) => each.questionId === i))
+        // console.log(">>>>>>",this.props.parent.quizcardQuestionSubmission.findIndex((each) => each.questionId === i))
         if (this.props.parent.quizcardQuestionSubmission.findIndex((each) => each.questionId === i) !== -1){
             this.setState({
                 viewing: i,
@@ -103,8 +103,8 @@ class PureViewQuizcardQuestionModule extends React.Component {
     }
 
     render() {
-        console.log("states IN VIEW QUIZCARD Q", this.state)
-        console.log("PROPS IN VIEW QUIZCARD Q", this.props)
+        // console.log("states IN VIEW QUIZCARD Q", this.state)
+        // console.log("PROPS IN VIEW QUIZCARD Q", this.props)
         return (
             <>
             
