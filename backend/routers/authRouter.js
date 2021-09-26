@@ -51,10 +51,11 @@ class AuthRouter {
             let hashedPassword = await hashFunction.hashPassword(req.body.password)
             return this.knex("user").where({
                     email: req.body.email,
-                    passwordHash: hashedPassword
+                    // passwordHash: hashedPassword
                 })
                 .then((data) => {
-                    if (data) {
+                    console.log(data,"data");
+                    if (data[0]) {
                         console.log("User already exists")
                     } else {
                         console.log("Adding user to database")
@@ -67,7 +68,7 @@ class AuthRouter {
                             })
                             .then(() => {
                                 console.log("User successfully added")
-                                return res.send(req.body.email)
+                                return res.json(req.body.email)
                             })
                     }
                 })
