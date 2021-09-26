@@ -30,10 +30,12 @@ export const addFeedbackThunk = (feedback) => async (dispatch) => {
 export const editFeedbackThunk = (feedback) => async (dispatch) => {
     return axios.put("http://localhost:8080/api/card/submission/feedback", feedback)
     .then((data) => {
+        console.log("data", data)
         if (feedback.type === "dictationcard") {
+            console.log("working inside")
             dispatch({
                 type: EDIT_FEEDBACK_DICTATIONCARD,
-                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: data.data.dictationcard_id, dictationcardSubmission_id: data.data.dictationcardSubmissionId, dictationcardFeedback_id: data.data.dictationcardFeedbackId, dictationcardFeedbackBody: data.data.dictationcardFeedbackBody}
+                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: data.data.dictationcard_id, dictation_id:data.data.dictation_id, dictationcardSubmission_id: data.data.dictationcardSubmissionId, dictationcardFeedback_id: data.data.dictationcardFeedbackId, dictationcardFeedbackBody: data.data.dictationcardFeedbackBody}
             })
         } else {
             console.log("Card type not found")

@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 
 // Actions
 import { getdataThunk } from '../Redux/actions/action'
-import { editFeedbackThunk } from '../Redux/actions/feedbackAction'
+
+//Components
+import { FeedbackPopUp } from '../Component/feedbackmodal'
 
 import classes from './ViewDictationCardSubmission.module.css'
 
@@ -19,7 +21,9 @@ class ViewDictationcardSubmission extends React.Component {
             submissionId: "",
             correctSubmission:[],
             correctDictationcard: [],
-            feedback: ""
+            feedbackId: "",
+            feedbackBody: "",
+            feedbackModal: false,
         }
     }
 
@@ -27,26 +31,30 @@ class ViewDictationcardSubmission extends React.Component {
         await this.props.getdata({ email: localStorage.getItem("email") })
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps() {
         if(this.props.cards.dictationcard.length > 0 ){
+            let dictationcard = this.props.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
+            console.log("this.props.cards.dictationcard", dictationcard[0])
+
             this.setState({
-                correctDictationcard: this.props.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
+                correctDictationcard: dictationcard
             })
         }
     }
 
-    feedbackChange(e) {
-        e.preventDefault();
-        let feedbackBody = e.currentTarget.value
+    feedbackModal(e) {
         this.setState({
-            feedback: feedbackBody
+            feedbackId: e.target.getAttribute('data-key'),
+            feedbackBody: e.currentTarget.value,
+        }, () => {
+            this.feedbackToggle()
         })
     }
 
-    submitFeedback(e) {
-        e.preventDefault();
-        let dictationFeedbackId = e.target.getAttribute('data-key')
-        this.props.editFeedback(this.props.user.email, dictationFeedbackId, this.state.feedback)
+    feedbackToggle() {
+        this.setState({
+            feedbackModal: !this.state.feedbackModal
+        })
     }
 
     render() {
@@ -91,13 +99,14 @@ class ViewDictationcardSubmission extends React.Component {
                                                     <img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>
                                                 </td>
                                                 <td data-key={sub.id} className={classes.commentrow}>
-                                                    <input data-key={sub.feedback[0].id} type="text" placeholder="Add Feedback" value={sub.feedback[0].dictationFeedbackBody} onBlur={(e) => {this.submitFeedback(e)}} onChange={(e) => {this.feedbackChange(e)}}/>
+                                                    <input data-key={sub.feedback[0].id} type="text" placeholder="Add Feedback" value={sub.feedback[0].dictationFeedbackBody} onClick={(e) => this.feedbackModal(e)} readonly/>
                                                 </td>
                                                 </>
                                             })}
                                             </tr>
                                         )
                                     }) : null}
+                                    <FeedbackPopUp user={this.props.user} feedback={this.state} toggle={() => this.feedbackToggle()}/>
                                 </table>
                                 </div>
                         </div>
@@ -124,17 +133,7 @@ const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
-        },
-        editFeedback: (email, dictationFeedbackId, dictationFeedbackBody) => {
-            let feedback = {
-                type: "dictationcard",
-                email: email,
-                dictationFeedbackId: dictationFeedbackId,
-                dictationFeedbackBody: dictationFeedbackBody
-            }
-            dispatch(editFeedbackThunk(feedback))
-        },
-
+        }
     }
 }
 

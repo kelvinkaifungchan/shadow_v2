@@ -333,15 +333,23 @@ export function cardReducer(state = initialState, action) {
                             if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
                                 return {
                                     ...dictationcard,
-                                    submission: dictationcard.submission.map((submission) => {
-                                        if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                    questions: dictationcard.questions.map((question) => {
+                                        if(question.id === action.payload.dictation_id) {
                                             return {
-                                                ...submission, 
-                                                feedback: [action.payload]
+                                                ...question,
+                                                submission: question.submission.map((submission) => {
+                                                    if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                                        return {
+                                                            ...submission, 
+                                                            feedback: [action.payload]
+                                                        }
+                                                    }
+                                                  return submission
+                                                })
                                             }
                                         }
-                                      return submission
                                     })
+
                                 }
                             }
                             return dictationcard
