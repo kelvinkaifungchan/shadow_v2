@@ -42,7 +42,7 @@ class PureLoginBox extends React.Component {
         return (
 
             
-            <div className="offset-1 d-flex align-items-center w-50 h-200">
+            <div className=" offset-1 d-flex align-items-center w-50 h-200">
                     <div className="card  bg-light rounded-lg border-0 p-3 w-100">
                         <div className="card-body bg-transparent border-0 align-middle">
                             {/* <a href="/auth/gmail">
