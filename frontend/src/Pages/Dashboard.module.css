@@ -7,10 +7,13 @@
     font-size: 30px;
     font-weight: bold;
     color: #3D4176;
-    
     /* display: block; */
   }
   
+  .dashboard h1{
+    padding: 20px 0px 10px 20px
+  }
+
   .createclassroombtn {
     display: flex;
     justify-content: center;
@@ -40,9 +43,11 @@
     align-items: center;
   }
 
-.createclassroombtn div:hover,
-.createclassroombtn div:active {
-  background-color: rgba(229, 238,245, 0.5);
+.addbtn:hover,
+.addbtn:active {
+  color: #6e75df;
+  /* background-color: rgba(229, 238,245, 0.5); */
+  font-weight: bold;
   }
 
 
@@ -69,7 +74,7 @@
     border-radius: 50%;
   }
   
-.createsetbtn div:hover,
+/* .createsetbtn div:hover,
 .createsetbtn div:active {
   background-color: rgba(229, 238,245, 0.5);
-  }
+  } */

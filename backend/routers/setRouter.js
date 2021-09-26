@@ -30,6 +30,10 @@ class SetRouter {
         console.log("Requesting editing set")
         return this.setService
             .edit(req.body)
+            .then(()=>{
+                return this.setService
+                .user(req.body)
+            })
             .then((data) => {
                 return res.json(data)
             })
