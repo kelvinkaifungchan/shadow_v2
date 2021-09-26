@@ -2,6 +2,10 @@
     margin: 2% 5%
     }
 
+.viewflashcard h1{
+    padding: 20px;
+}
+
 .viewflashcard h5{
     display: flex;
 }

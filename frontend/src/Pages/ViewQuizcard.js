@@ -125,7 +125,7 @@ class ViewQuizcard extends React.Component {
                             </div>
                             {this.state.showQuizcardQuestion &&
                             <div className="col-4 ">
-                                {this.state.quizcardQuestionSubmission.length === this.state.correctQuestion.question.length 
+                                {this.state.quizcardQuestionSubmission && this.state.quizcardQuestionSubmission.length === this.state.correctQuestion.question.length 
                                 ? <button className={classes.viewsubmit} cards={this.props.cards} onClick={(e) => {this.submitAnswer() ; this.navigateSubmission(e) }}>Finish & Submit</button>
                                 : <button className={classes.remainingbox}> {this.state.correctQuestion.question.length - this.state.quizcardQuestionSubmission.length} Remaining</button>}
                             </div>}
