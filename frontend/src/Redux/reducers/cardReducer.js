@@ -32,6 +32,7 @@ import{
 import {
     ADD_FEEDBACK_DICTATIONCARD,
     ADD_FEEDBACK_FLASHCARD,
+    EDIT_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_FLASHCARD
 } from "../actions/feedbackAction"
@@ -323,6 +324,30 @@ export function cardReducer(state = initialState, action) {
                     })
                 }
             }
+        
+            case EDIT_FEEDBACK_DICTATIONCARD:
+                return {
+                    card:{
+                        ...state.card,
+                        dictationcard: state.card.dictationcard.map((dictationcard) => {
+                            if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
+                                return {
+                                    ...dictationcard,
+                                    submission: dictationcard.submission.map((submission) => {
+                                        if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                            return {
+                                                ...submission, 
+                                                feedback: [action.payload]
+                                            }
+                                        }
+                                      return submission
+                                    })
+                                }
+                            }
+                            return dictationcard
+                        })
+                    }
+                }
 
         case DELETE_FEEDBACK_FLASHCARD:
             return {
