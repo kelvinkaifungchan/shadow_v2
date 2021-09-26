@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { Login } from '../Pages/Login';
 import { Canvas } from './canvas';
@@ -23,8 +24,10 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PrivateRoute from './PrivateRoute'
 import './landing.module.css'
-class Landing extends React.Component {
+class PureLanding extends React.Component {
     render() {
+        console.log('landing.fuckingjs', this.props);
+        
         return (
 
             <BrowserRouter>
@@ -63,4 +66,19 @@ class Landing extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+
+    return {
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+
+export const Landing = connect(mapStateToProps, null)(PureLanding)
+
 export default Landing
