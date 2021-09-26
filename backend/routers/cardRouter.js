@@ -66,12 +66,10 @@ class CardRouter {
 
     postSubmission(req, res) {
         console.log("Requesting adding a submission")
-
         let body = req.body;
         return this.submissionService
             .add(body)
             .then((data) => {
-                console.log("DATA", data)
                 if(body.type === "flashcard"){body.flashcardSubmissionId = data[0]} ;
                 if(body.type === "dictation"){body.dictationSubmissionId = data[0]};
                 if(body.type === "quizcard"){body.quizcardSubmissionId = data[0]};

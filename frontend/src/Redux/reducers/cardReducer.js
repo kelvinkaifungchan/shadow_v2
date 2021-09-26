@@ -161,19 +161,13 @@ export function cardReducer(state = initialState, action) {
                 }
             }
         case ADD_SUBMISSION_DICTATIONCARD:
-            console.log(action.payload, 'action.payload')
-           console.log("SHANDY SO HOT", action.payload.dictationcardSubmissionPath)
             return {
                 card:{
                     ...state.card,
                     dictationcard: state.card.dictationcard.map((dictationcard) => {
-                        console.log("DICL", dictationcard)
                         if(dictationcard.id === action.payload.dictationcard_id){
                             dictationcard.questions.map((question) => {
-                                console.log("DLMKMSKDNA", question)
-                                console.log(action.payload.dictation_id)
                             if(question.id === action.payload.dictation_id){
-                                console.log("QUESTION SUBMISSION", question.submission)
                             return {
                                 ...question,
                                 submission:[...question.submission, action.payload]
@@ -207,22 +201,6 @@ export function cardReducer(state = initialState, action) {
                     })
                 }
             }
-
-        // case ADD_SUBMISSION_TRUEFALSE:
-        //     return {
-        //         card:{
-        //             ...state.card,
-        //             trueFalse: state.card.quizcard.trueFalse.map((trueFalse) => {
-        //                 if(trueFalse.trueFalse_id === action.payload.trueFalse_id){
-        //                     return {
-        //                         ...trueFalse,
-        //                         submission:[...trueFalse.submission, action.payload]
-        //                     }
-        //                 }
-        //                 return trueFalse
-        //             })
-        //         }
-        //     }
     
         case DELETE_SUBMISSION_FLASHCARD:
             return {

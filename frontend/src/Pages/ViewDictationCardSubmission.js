@@ -32,10 +32,8 @@ class ViewDictationcardSubmission extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('Next Props inVDCS', nextProps)
         if(nextProps.cards.dictationcard.length > 0 ){
             let dictationcard = nextProps.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
-            console.log("this.props.cards.dictationcard", dictationcard[0])
             this.setState({
                 correctDictationcard: dictationcard
             })
@@ -59,7 +57,6 @@ class ViewDictationcardSubmission extends React.Component {
     }
 
     render() {
-        console.log("correct dictationcard", this.state.correctDictationcard)
         return (
             <div className="page">
 

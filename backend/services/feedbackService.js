@@ -27,7 +27,6 @@ class FeedbackService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            console.log("this is the body", body)
             return this.knex
             .insert({
                 user_id: user_id[0].id,
@@ -50,7 +49,6 @@ class FeedbackService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            console.log("this is the body", body)
             return this.knex("dictationFeedback")
             .where("id", body.dictationFeedbackId)
             .update({
@@ -108,7 +106,6 @@ class FeedbackService {
             })
         } 
         else if (body.type === "dictationcard"){
-            console.log("Listing details of dictationFeedback", body.dictationFeedbackId);
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
             .join("dictationSubmission", "dictationFeedback.dictationSubmission_id", "=", "dictationSubmission.id")
