@@ -76,7 +76,7 @@ class ViewDictationcard extends React.Component {
                     {!this.state.showCanvas && <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>
-                                <span onClick={() => this.toggle()} className={classes.startbtn}> Start Dictation</span>
+                                <span onClick={() => this.toggle()} className={classes.startbtn}>Start Dictation</span>
                             </div>
                         </div>
                     </div>}
