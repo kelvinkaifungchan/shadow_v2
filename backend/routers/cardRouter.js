@@ -16,6 +16,7 @@ class CardRouter {
         router.post("/submission", this.postSubmission.bind(this))
         router.delete("/submission", this.deleteSubmission.bind(this))
         router.post("/submission/feedback", this.postFeedback.bind(this))
+        router.put("/submission/feedback", this.editFeedback.bind(this))
         router.post("/submission/delfeedback", this.deleteFeedback.bind(this))
 
         return router
@@ -121,6 +122,27 @@ class CardRouter {
             .catch((err) => {
                 return res.status(500).json(err)
             })
+    }
+
+    editFeedback(req, res) {
+        console.log("Requesting editing a feedback")
+        let body = req.body
+        return this.feedbackService
+        .edit(body)
+        .then((data) => {
+            if(body.type === "flashcard"){body.flashcardFeedbackId = data[0]};
+            if(body.type === "dictation"){body.dictationFeedbackId = data[0]};
+        })
+        .then(() =>{
+            return this.feedbackService
+            .feedback(body)
+        })
+        .then((data) => {
+            return res.json(data)
+        })
+        .catch((err) => {
+            return res.status(500).json(err)
+        })
     }
 
     deleteFeedback(req, res) {
