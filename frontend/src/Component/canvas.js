@@ -197,10 +197,10 @@ submit(){
     //call the action to dispatch the action and post the canvas data to database
     this.props.submitMDP(formData)
 
-    //put fileName up to ViewDicationQuestion
+    //put fileName up to ViewDicationQuestion and submit
     this.props.handleCanvas(fileName, base64ImageData);
-    this.props.addSubmission();
-
+    //this.props.addSubmission();
+    //this.props.submission();
     
 
     //this.props.clearcanvas()

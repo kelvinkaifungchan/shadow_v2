@@ -22,6 +22,7 @@ class SubmissionService {
                 .returning("id");
         }
         else if (body.type === "dictation") {
+            console.log("OISGIO", body)
             console.log("Adding submission to dictation");
             let user_id = await this.knex("user").where({
                 email: body.email
@@ -29,8 +30,8 @@ class SubmissionService {
             return this.knex
                 .insert({
                     user_id: user_id[0].id,
-                    dictation_id: body.dictationcardId,
-                    dictationSubmissionPath: body.dictationSubmissionPath,
+                    dictation_id: body.dictationId,
+                    dictationSubmissionPath: body.dictationcardSubmissionPath,
                     dictationSubmissionStatus: true
                 })
                 .into("dictationSubmission")
@@ -114,9 +115,10 @@ class SubmissionService {
                 return this.knex("dictationSubmission")
                     .join("user", "dictationSubmission.user_id", "=", "user.id")
                     .where("dictationSubmission.id", body.dictationSubmissionId)
-                    .select("user.displayName", "user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
+                    .select("user.displayName", "user.id as user_id", "user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
                     .then((submission) => {
                         return ({
+                            userId: submission[0].user_id,
                             displayName: submission[0].displayName,
                             picture: submission[0].picture,
                             dictationId: submission[0].dictation_id,

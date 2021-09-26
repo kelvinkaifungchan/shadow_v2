@@ -20,6 +20,7 @@ import {
 } from "../actions/action"
 
 import{
+    ADD_FEEDBACK_DICTATIONCARD,
     ADD_SUBMISSION_DICTATIONCARD,
     ADD_SUBMISSION_FLASHCARD,
     ADD_SUBMISSION_QUIZCARD,
@@ -30,7 +31,7 @@ import{
 } from "../actions/submissionAction"
 
 import {
-    ADD_FEEDBACK_DICTATIONCARD,
+  
     ADD_FEEDBACK_FLASHCARD,
     DELETE_FEEDBACK_DICTATIONCARD,
     DELETE_FEEDBACK_FLASHCARD
@@ -159,17 +160,28 @@ export function cardReducer(state = initialState, action) {
                 }
             }
         case ADD_SUBMISSION_DICTATIONCARD:
+            console.log(action.payload, 'action.payload')
+           console.log("SHANDY SO HOT", action.payload.dictationcardSubmissionPath)
             return {
                 card:{
                     ...state.card,
                     dictationcard: state.card.dictationcard.map((dictationcard) => {
-                        if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
+                        console.log("DICL", dictationcard)
+                        if(dictationcard.id === action.payload.dictationcard_id){
+                            dictationcard.questions.map((question) => {
+                                console.log("DLMKMSKDNA", question)
+                                console.log(action.payload.dictation_id)
+                            if(question.id === action.payload.dictation_id){
+                                console.log("QUESTION SUBMISSION", question.submission)
                             return {
-                                ...dictationcard,
-                                submission:[...dictationcard.submission, action.payload]
+                                ...question,
+                                submission:[...question.submission, action.payload]
                             }
                         }
-                        return dictationcard
+                        return question
+                    })
+                }
+                    return dictationcard
                     })
                 }
             }
