@@ -27,6 +27,7 @@ class FeedbackService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
+            console.log("this is the body", body)
             return this.knex
             .insert({
                 user_id: user_id[0].id,
@@ -39,6 +40,23 @@ class FeedbackService {
         }
         else {
             return "card type not recognised"
+        }
+    }
+
+    async edit(body) {
+        if (body.type === "dictationcard") {
+            console.log("Editing feedback to dictationcard")
+            let user_id = await this.knex("user").where({
+                email: body.email
+            }).select("id");
+            console.log("this is the body", body)
+            return this.knex("dictationFeedback")
+            .where("id", body.dictationFeedbackId)
+            .update({
+                dictationFeedbackBody: body.dictationFeedbackBody,
+            })
+            .into("dictationFeedback")
+            .returning("id");
         }
     }
 

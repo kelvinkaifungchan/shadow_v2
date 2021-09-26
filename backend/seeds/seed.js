@@ -696,7 +696,7 @@ exports.seed = function (knex) {
         }, {
           user_id: 3,
           dictation_id: 1,
-          dictationSubmissionPath: "https://thumbs.dreamstime.com/z/calligraphic-handwriting-text-word-english-stroke-vector-executed-pen-137007202.jpg",
+          dictationSubmissionPath: "https://images-na.ssl-images-amazon.com/images/I/71noTyP7GXS.jpg",
           dictationSubmissionStatus: true
         }, {
           user_id: 3,
@@ -721,7 +721,7 @@ exports.seed = function (knex) {
         }, {
           user_id: 4,
           dictation_id: 1,
-          dictationSubmissionPath: "https://thumbs.dreamstime.com/z/calligraphic-handwriting-text-word-english-stroke-vector-executed-pen-137007202.jpg",
+          dictationSubmissionPath: "https://static.displate.com/857x1200/displate/2018-09-20/7fa888da5010dc52d9037346153ea65c_deb4a5446796e551521560f36111ae20.jpg",
           dictationSubmissionStatus: true
         }, {
           user_id: 4,
@@ -763,6 +763,91 @@ exports.seed = function (knex) {
           user_id: 1,
           dictationSubmission_id: 3,
           dictationFeedbackBody: "Stroke wrong",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 4,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 5,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 6,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 7,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 8,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 9,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 10,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 11,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 12,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 13,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 14,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 15,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 16,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 17,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 18,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 19,
+          dictationFeedbackBody: "",
+          dictationFeedbackStatus: true
+        }, {
+          user_id: 1,
+          dictationSubmission_id: 20,
+          dictationFeedbackBody: "",
           dictationFeedbackStatus: true
         }])
       })
