@@ -19,6 +19,7 @@ class ViewDictationcardSubmission extends React.Component {
             submissionId: "",
             correctSubmission:[],
             correctDictationcard: [],
+            feedback: ""
         }
     }
 
@@ -35,20 +36,17 @@ class ViewDictationcardSubmission extends React.Component {
     }
 
     feedbackChange(e) {
-        let dictationFeedbackId = e.target.getAttribute('data-key')
-        let feedbackBody = e.target.value
+        e.preventDefault();
+        let feedbackBody = e.currentTarget.value
         this.setState({
-            
+            feedback: feedbackBody
         })
-
-
     }
 
     submitFeedback(e) {
         e.preventDefault();
-        let feedbackBody = e.target.value
         let dictationFeedbackId = e.target.getAttribute('data-key')
-        this.props.editFeedback(this.props.user.email, dictationFeedbackId, feedbackBody)
+        this.props.editFeedback(this.props.user.email, dictationFeedbackId, this.state.feedback)
     }
 
     render() {
