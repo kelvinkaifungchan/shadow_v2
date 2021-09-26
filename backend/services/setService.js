@@ -147,8 +147,6 @@ class Set {
 
             })
 
-
-
         await this.knex("set")
             .join('classroom_set', 'set.id', 'classroom_set.set_id')
             .join('classroom', 'classroom.id', 'classroom_set.classroom_id')

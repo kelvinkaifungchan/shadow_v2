@@ -30,8 +30,8 @@ class ViewSet extends React.Component {
             correctflashCard: [],
             correctquizCard: [],
             correctdictationCard: [],
-            correctTag: [],
-            correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
+            correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id)),
+            correctTag:[]
         }
     }
 
@@ -44,6 +44,9 @@ class ViewSet extends React.Component {
             correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
         })
         // await this.getSet()
+        console.log("nextProps",nextProps);
+        console.log("correctSet",this.state.correctSet);
+
         if (this.state.correctSet[0] !== undefined) {
             const correctFlashs = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
             if (correctFlashs[0] !== undefined && correctFlashs[0].bridge_flashcard !== undefined) {
@@ -102,11 +105,12 @@ class ViewSet extends React.Component {
                     }
                 }
             }
-            const correctProps = nextProps.sets.filter(filter => filter.id === this.state.correctSet[0].id)
+            const correctProps = nextProps.sets.filter(filter => this.state.correctSet[0].id ===filter.id)
+            console.log("correctProps in state",correctProps);
             if (correctProps[0] !== undefined) {
-                this.setState({
-                    title: this.state.correctSet[0].title,
-                    description: this.state.correctSet[0].description,
+              this.setState({
+                    title: correctProps[0].title,
+                    description: correctProps[0].description,
                     correctTag: correctProps[0].tags,
                 })
             }
@@ -250,9 +254,11 @@ class ViewSet extends React.Component {
             description: this.state.description,
             setId: this.state.correctSet[0].id
         })
+       
     }
 
     render() {
+        console.log("VS ", this.state);
 
 
         return (
