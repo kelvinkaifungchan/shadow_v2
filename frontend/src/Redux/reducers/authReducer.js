@@ -23,11 +23,17 @@ export function authReducer(state = initialState, action) {
         isAuthenticated: false,
       };
     case LOGIN_SUCCESS_ACTION:
-    case SIGN_UP_SUCCESS:
       return {
         ...state,
         loading: false,
         isAuthenticated: true,
+        email: action.payload
+      };
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
         email: action.payload
       };
     case LOGIN_FAILURE_ACTION:
