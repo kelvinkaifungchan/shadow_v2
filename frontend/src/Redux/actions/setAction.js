@@ -32,7 +32,7 @@ export const editSet = (set) => async (dispatch) => {
     console.log("editing set", set)
     const {data} = await axios.put("http://localhost:8080/api/set", set) 
     console.log("data",data);
-    dispatch({ type: EDIT_SET, payload: {id: set.setId, description: set.description, title: set.title } });
+    dispatch({ type: EDIT_SET, payload: data});
 }
 
 export const deleteSet = (set) => async (dispatch) => {

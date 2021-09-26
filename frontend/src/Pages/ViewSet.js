@@ -250,6 +250,7 @@ class ViewSet extends React.Component {
 
     editHeading() {
         this.props.editSet({
+            email: this.props.user.email,
             title: this.state.title,
             description: this.state.description,
             setId: this.state.correctSet[0].id
