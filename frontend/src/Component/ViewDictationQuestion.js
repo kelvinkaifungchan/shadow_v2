@@ -24,7 +24,7 @@ class ViewDictationQuestion extends React.Component {
     
     constructor(props) {
         super(props);
-        this.socket = io.connect("http://192.168.1.137:8080");
+        this.socket = io.connect("http://localhost:8080");
         this.state = {
             type: "dictation",
             questionId: this.props.question.questions[0].id,
