@@ -74,6 +74,7 @@ class ViewDictationcardSubmission extends React.Component {
                         <div className="row d-flex p-4">
                             <div className="col">
                             <table>
+                                <tbody>
                                 <tr>
                                 <td className={classes.toprow}>Question</td>
 
@@ -105,6 +106,7 @@ class ViewDictationcardSubmission extends React.Component {
                                         )
                                     }) : null}
                                     <FeedbackPopUp user={this.props.user} feedback={this.state} toggle={() => this.feedbackToggle()}/>
+                                </tbody>
                                 </table>
                                 </div>
                         </div>

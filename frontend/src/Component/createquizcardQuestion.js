@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, Label, Input } from 'reactstrap';
 import classes from './createquizcardQuestion.module.css'
 
 class PureCreateQuiz extends React.Component{
@@ -178,8 +178,12 @@ class PureCreateQuiz extends React.Component{
                 <div>
                     <div className="row">
                     <table>
-                        <div className="col col-12">
-                        <p> Please click to choose the correct answer </p>
+                        <thead> 
+                            <tr>
+                                <th>Please click to choose the correct answer </th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <tr className={classes.questionrow}>
                                 {/* <FormGroup> */}
                                         <th className={classes.opt}>
@@ -216,9 +220,6 @@ class PureCreateQuiz extends React.Component{
                                     </td>
                                     {/* </FormGroup> */}
                         </tr>
-                        </div>
-
-                        <div className="col col-12">
                         <tr className={classes.questionrow}>
                                     {/* <FormGroup> */}
                                     <th className={classes.opt}>
@@ -255,7 +256,7 @@ class PureCreateQuiz extends React.Component{
 
                                     {/* </FormGroup> */}
                         </tr>
-                        </div>
+                        </tbody>
 
                     </table>
                     </div>
@@ -263,7 +264,7 @@ class PureCreateQuiz extends React.Component{
                 <div>
                     <div className="row">
                     <table>
-                        <div className="col col-12">
+                    <tbody>
                         <tr className={classes.questionrow}>
                                     <th className={classes.tfopt}>
                                         <Button onClick={(e)=>this.selectAns(e)} id="true"
@@ -288,7 +289,7 @@ class PureCreateQuiz extends React.Component{
                                     </th>
                                         
                         </tr>
-                        </div>
+                    </tbody>
                     </table>
                     </div>
                 </div>

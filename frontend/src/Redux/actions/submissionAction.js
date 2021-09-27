@@ -31,7 +31,15 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
                 console.log(data,">>!!!!!!data in submission");
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
-                    payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId, quizcardQuestionMarking: data.data.quizcardQuestionMarking }
+                    payload: { 
+                        user_id: data.data.user_id, 
+                        displayName: data.data.displayName, 
+                        picture: data.data.picture, 
+                        quizcardQuestionSubmission: submission.quizcardQuestionSubmission, 
+                        quizcard_id: submission.quizcardId, 
+                        question_id: submission.quizcardQuestionSubmission.questionId, 
+                        quizcardQuestionMarking: data.data.quizcardQuestionMarking 
+                    }
                 })
             }
         })

@@ -6,7 +6,7 @@ import { getdataThunk } from '../Redux/actions/action';
 import { submitCanvas } from "../Redux/actions/canvasAction";
 import { addSubmissionThunk } from '../Redux/actions/submissionAction';
 
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 
 // import QuestionProgress from '../Component/questionProgress';
 

@@ -40,7 +40,6 @@ class SubmissionService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            
                 return this.knex
                     .insert({
                         user_id: user_id[0].id,
@@ -49,6 +48,10 @@ class SubmissionService {
                         quizcardQuestionMarking: body.quizcardQuestionMarking
                     })
                     .into("quizcardQuestionSubmission")
+                    .returning("id")
+                    .catch((err)=>{
+                        console.log(err)
+                    })
         }
         else {
             return "card type not recognized";
