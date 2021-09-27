@@ -43,10 +43,10 @@ class PureFeedbackModal extends React.Component{
         return (
             <div>
                 <Modal isOpen={this.props.feedback.feedbackModal} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle}> Edit Feedback </ModalHeader>
+                    <ModalHeader toggle={this.toggle}> Add/Edit Feedback </ModalHeader>
                     <ModalBody>
                         <Form>
-                            <input onChange={this.onChangeField.bind(this, 'body')} value={this.state.body} type="text" className="form-control mb-4" placeholder="Search through your tags..."/>
+                            <input onChange={this.onChangeField.bind(this, 'body')} value={this.state.body} type="text" className="form-control mb-4" placeholder="Add/Edit Feedback..."/>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
