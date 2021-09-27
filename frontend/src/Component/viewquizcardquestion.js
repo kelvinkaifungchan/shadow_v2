@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import classes from './viewquizcardquestion.module.css'
-import { Button } from 'reactstrap';
 class PureViewQuizcardQuestionModule extends React.Component {
     constructor(props) {
         super(props)
