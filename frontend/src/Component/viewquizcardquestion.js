@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import classes from './viewquizcardquestion.module.css'
+import { Button } from 'reactstrap';
 class PureViewQuizcardQuestionModule extends React.Component {
     constructor(props) {
         super(props)
@@ -84,6 +85,8 @@ class PureViewQuizcardQuestionModule extends React.Component {
                     </div>
                 </div>
                 <div className={classes.viewquizcardquestion}>
+
+                <div>
                     {/* List of words & recording */}
                     <div className={classes.questionframe}>
                         <div className="row d-flex ">
@@ -150,11 +153,13 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                     : null
                                 }
                             </div>
-                            {hideNext ? <div className="col-12">
-                                <button className={classes.savebtn} onClick={(e)=>{this.forward(e)}}>Save &amp; Next</button>
-                            </div> : null}
                         </div>
                     </div>
+                            <br/>
+                            {hideNext ? <div className="col-12 p-4">
+                                <button className={classes.savebtn} onClick={(e)=>{this.forward(e)}}>Save &amp; Next</button>
+                            </div> : null}
+                </div>
                 </div>
             </>
         )
