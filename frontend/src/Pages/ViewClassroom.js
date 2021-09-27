@@ -37,6 +37,7 @@ class ViewClassroom extends React.Component {
             correctTag: [],
             correctShare: [],
             correctClass: [],
+            trigger: false,
         };
     }
 
@@ -52,6 +53,7 @@ class ViewClassroom extends React.Component {
             correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         })
         if (this.state.correctClass[0] !== undefined) {
+            console.log('nextProps in props',nextProps)
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
             if (correctProps[0].bridge !== undefined) {
                 if (correctProps[0].bridge.length >= 0) {
@@ -69,7 +71,12 @@ class ViewClassroom extends React.Component {
                 }
             }
         }
-        this.render()
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.location.pathname !== this.props.location.pathname){
+            this.props.getdata({ email: localStorage.getItem("email") });
+        }
     }
 
     getclassroom() {
@@ -163,7 +170,8 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-        console.log('view class mounted')
+        console.log('view class mounted state', this.state)
+        console.log('view class mounted props', this.props)
         return (
             <div className="page">
                 <div className={classes.viewclassroom}>

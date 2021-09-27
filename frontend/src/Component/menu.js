@@ -11,15 +11,13 @@ import classes from './menu.module.css'
 class PureMenu extends React.Component {
     
     render() {
-        console.log('propshere', this.props)
-        console.log('propshere history', this.props.history)
         return (
             <div className={classes.dropdown}>
                 <ListGroup className={classes.dropdowncontent}>
                     <ListGroupItem action ><div className={classes.classroommenu}><i className="fas fa-archive"></i> Classroom</div></ListGroupItem>
                     {this.props.classrooms.map((classroom, i) => {
                         return (
-                    <ListGroupItem key={i} data-key={classroom.id} tag="a" action onClick={()=>this.props.toggle()} ><div data-key={classroom.id} onClick={(e)=>{this.props.navigateMenu(e)}} className={classes.classroomlink}>{classroom.title}</div></ListGroupItem>
+                    <ListGroupItem key={i} data-key={classroom.id} tag="a" action onClick={()=>this.props.toggle()} ><Link to={'/viewclassroom/'+classroom.id} ><div data-key={classroom.id} className={classes.classroomlink}>{classroom.title}</div></Link></ListGroupItem>
                         )
                     })}
                     <ListGroupItem tag="a" href="#" action><div className={classes.setmenu}><i className="fas fa-layer-group" ></i> Set</div></ListGroupItem>

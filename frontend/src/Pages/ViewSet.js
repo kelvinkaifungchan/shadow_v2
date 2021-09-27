@@ -39,6 +39,12 @@ class ViewSet extends React.Component {
         await this.props.getdata({ email: localStorage.getItem('email') })
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.location.pathname !== this.props.location.pathname){
+            this.props.getdata({ email: localStorage.getItem("email") });
+        }
+    }
+    
     async componentWillReceiveProps(nextProps) {
         await this.setState({
             correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
