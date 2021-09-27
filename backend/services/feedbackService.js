@@ -30,7 +30,7 @@ class FeedbackService {
             return this.knex
             .insert({
                 user_id: user_id[0].id,
-                dictationSubmission_id: body.submissionId,
+                dictationSubmission_id: body.dictationSubmissionId,
                 dictationFeedbackBody: body.body,
                 dictationFeedbackStatus: true
             })
@@ -112,19 +112,19 @@ class FeedbackService {
             .where("dictationFeedback.id", body.dictationFeedbackId)
             .select("user.id as user_id", "user.displayName","user.picture", "dictationSubmission.dictation_id", "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody")
             .then((feedback) => {
+                console.log("FEEDNACL", feedback)
                     return ({
                         user_id: feedback[0].user_id,
                         displayName: feedback[0].displayName,
                         picture: feedback[0].picture,
                         dictation_id: feedback[0].dictation_id,
                         dictationSubmissionId: feedback[0].dictationSubmission_id,
-                        dictationFeedbackId: feedback[0].id,
+                        dictationFeedbackId: body.dictationFeedbackId,
                         dictationFeedbackBody: feedback[0].dictationFeedbackBody,
                     });
             })
-            .catch((e)=>{
-                console.log(e);
-            })
+            .catch((err) => console.log(err))
+        
         } 
 
 
