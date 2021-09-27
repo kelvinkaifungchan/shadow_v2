@@ -49,12 +49,13 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
             return axios.post("http://localhost:8080/api/card/submission/feedback", submission.feedback)
         })
         .then((data) => {
-            if(submission.type === "dictation"){
-                dispatch({
-                    type: ADD_FEEDBACK_DICTATIONCARD,
+            if (submission.type === "dictation") {
+            console.log("FEEDBACK", data)
+            dispatch({
+                type: ADD_FEEDBACK_DICTATIONCARD,
                 payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictation_id: submission.dictationId, dictationcard_id: submission.dictationcardId, dictationcardSubmission_id: data.data.dictationSubmissionId, dictationcardFeedback_id: data.data.dictationFeedbackId, dictationcardFeedbackBody: data.data.dictationFeedbackBody}
             })
-            }
+        }
         })
         .catch(err => console.log("Error: ", err))
 }

@@ -27,7 +27,6 @@ class FeedbackService {
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            console.log("this is the body", body)
             return this.knex
             .insert({
                 user_id: user_id[0].id,
@@ -43,13 +42,13 @@ class FeedbackService {
         }
     }
 
+    //Method to edit feedback
     async edit(body) {
         if (body.type === "dictationcard") {
             console.log("Editing feedback to dictationcard")
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
-            console.log("this is the body", body)
             return this.knex("dictationFeedback")
             .where("id", body.dictationFeedbackId)
             .update({
@@ -60,7 +59,7 @@ class FeedbackService {
         }
     }
 
-    //Method to edit feedback
+    //Method to delete feedback
     async delete(body) {
         if (body.type === "flashcard") {
             console.log("Deleting feedback to flashcard")
@@ -90,8 +89,8 @@ class FeedbackService {
             .join("flashcardSubmission", "flashcardFeedback.flashcardSubmission_id", "flashcardSubmission.id")
             .where("flashcardFeedback.id", body.flashcardFeedbackId)
             .select("user.id as user_id","user.displayName","user.picture",  "flashcardFeedback.id", "flashcardFeedback.flashcardSubmission_id", "flashcardFeedback.flashcardFeedbackBody", "flashcardFeedback.flashcardFeedbackTime", "flashcardSubmission.flashcard_id as fcid")
-            .then( (feedback) => {
-                    return ({
+            .then( (feedback) => {   
+                return ({
                         user_id: feedback[0].user_id,
                         displayName: feedback[0].displayName,
                         picture: feedback[0].picture,
@@ -105,20 +104,20 @@ class FeedbackService {
             .catch((e)=>{
                 console.log(e);
             })
-        
         } 
         else if (body.type === "dictationcard"){
-            console.log("Listing details of dictationFeedback", body);
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
+            .join("dictationSubmission", "dictationFeedback.dictationSubmission_id", "=", "dictationSubmission.id")
             .where("dictationFeedback.id", body.dictationFeedbackId)
-            .select("user.id as user_id", "user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody")
+            .select("user.id as user_id", "user.displayName","user.picture", "dictationSubmission.dictation_id", "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody")
             .then((feedback) => {
                 console.log("FEEDNACL", feedback)
                     return ({
                         user_id: feedback[0].user_id,
                         displayName: feedback[0].displayName,
                         picture: feedback[0].picture,
+                        dictation_id: feedback[0].dictation_id,
                         dictationSubmissionId: feedback[0].dictationSubmission_id,
                         dictationFeedbackId: body.dictationFeedbackId,
                         dictationFeedbackBody: feedback[0].dictationFeedbackBody,
