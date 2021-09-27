@@ -19,7 +19,6 @@ class PureDisplayClassModule extends React.Component {
             dashSet: "dashSet",
         };
     }
-    
 
     changeTypeClass() {
         this.setState({
