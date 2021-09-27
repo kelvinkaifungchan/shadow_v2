@@ -25,11 +25,15 @@ class ClassroomRouter {
     }
 
     put(req, res){
-        console.log("Put request to edit a classroom");
+        console.log("Put request to edit a classroom",req.body);
         return this.classroomService
         .edit(req.body)
+        .then(() => {
+            return this.classroomService
+            .list(req.body)
+         })
         .then((data) => {
-            console.log("data in edit router");
+            console.log("data in edit router", data);
             res.json(data)
         })
         .catch((err) => {

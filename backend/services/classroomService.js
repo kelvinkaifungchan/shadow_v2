@@ -146,11 +146,9 @@ class ClassroomService {
     .select("classroom.id", "classroom.classroomStatus")
     .groupBy('classroom.id')
     .then(async (classrooms) => {
-      console.log('ln 149', classrooms)
       let filterClass = classrooms.filter(fil => fil.classroomStatus !== false)
       let allClass = await Promise.all(filterClass.map((classroom) => {
         let data = {}
-        console.log('ln 152', classroom)
           return this.knex("classroom")
             .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
             .select(
@@ -162,7 +160,6 @@ class ClassroomService {
             .where("classroom.classroomStatus", true)
             .where("classroom.id", classroom.id)
             .then((classroomDets) => {
-                console.log('ln164',classroomDets)
                   data.id = classroomDets[0].id
                   data.title = classroomDets[0].classroomTitle
                   data.description = classroomDets[0].classroomDesc
