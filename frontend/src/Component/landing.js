@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { Login } from '../Pages/Login';
 import { Canvas } from './canvas';
@@ -20,23 +21,22 @@ import { ViewDictationcardSubmission } from '../Pages/ViewDictationCardSubmissio
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PrivateRoute from './PrivateRoute'
 import './landing.module.css'
-class Landing extends React.Component {
+class PureLanding extends React.Component {
     render() {
+        console.log('landing.fuckingjs', this.props);
+        
         return (
 
             <BrowserRouter>
                 {/* Empty Route for getting the location key */}
                 <Route render={({ location }) => (
-                    <TransitionGroup>
+                    <>
                         <div className="nav">
                             {location.pathname !== '/login' && location.pathname !== '/signup'  && <NavBar history={this.props.history} />}
                         </div>
-                        <CSSTransition
-                            key={location.key}
-                            className="fade">
                             <Switch>
                                 <Route path="/login" component={Login} />
                                 <Route path="/canvas/:userId/:canvasId" component={Canvas} />
@@ -55,12 +55,26 @@ class Landing extends React.Component {
                                 <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
                                 <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
                             </Switch>
-                        </CSSTransition>
-                    </TransitionGroup>
+                    </>
                 )}/>
 
             </BrowserRouter >
         )
     }
 }
+
+const mapStateToProps = (state) => {
+
+    return {
+        email: state.authStore.email,
+        user: state.userStore.user,
+        classrooms: state.classroomStore.classrooms,
+        sets: state.setStore.sets,
+        cards: state.cardStore.card,
+        tags: state.tagStore.tags,
+    }
+}
+
+export const Landing = connect(mapStateToProps, null)(PureLanding)
+
 export default Landing

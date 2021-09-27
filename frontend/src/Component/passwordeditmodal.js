@@ -38,7 +38,7 @@ render(){
                 <input type="password" placeholder="Confirm New Password" value={this.state.password} onChange={this.onChangeField.bind(this, 'password')} className="form-control mb-4"/>
                 </Form>
                 <ModalFooter>
-                        {this.state.password === this.state.mockPassword && this.state.password != "" ? <button onClick={(e)=>{this.update(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Update</button> : <button type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2" disabled>Update</button>}
+                        {this.state.password === this.state.mockPassword && this.state.password !== "" ? <button onClick={(e)=>{this.update(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Update</button> : <button type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2" disabled>Update</button>}
                         <button onClick={()=>{this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>
       

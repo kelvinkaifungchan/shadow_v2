@@ -88,63 +88,63 @@ class PureDashboard extends React.Component {
     }
 
     render() {
-        return (
-            <div className="page">
-                
-                <div className={classes.dashboard}>
-
-                    <div className="row d-flex p-2">
-                        <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
-                        <h1>My Classroom</h1>
-                        <span className={classes.createclassroombtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
-                        </span>
+            return (
+                <div className="page">
+                    
+                    <div className={classes.dashboard}>
+    
+                        <div className="row d-flex p-2">
+                            <CreatePopUp create={this.state} toggle={() => this.toggle()}/>
+                            <h1>My Classroom</h1>
+                            <span className={classes.createclassroombtn}>
+                                {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
+                            </span>
+                        </div>
+    
+                        <div className="row d-flex pl-2">
+                            <DisplayClassModule 
+                            user={this.props.user} 
+                            classrooms={this.props.classrooms}  
+                            navigate={(e, classId) => { this.navigateClass(e, classId) }} 
+                            edit= {this.state} 
+                            changeTypeClass={ () => {this.changeTypeClass()} } 
+                            editToggle={() => {this.editToggle()}} />
+                        </div>
+    
+                        <div className="row d-flex p-2">
+                            <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
+                            {this.props.user.role === "teacher" ? <h1>My Set</h1> : null}
+                            <span className={classes.createsetbtn}>
+                                {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
+                            </span>
+                        </div>
+    
+                        <div className="row d-flex pl-2">
+                        {this.props.user.role === "teacher" ?
+                            <DisplaySetModule 
+                            user={this.props.user} 
+                            sets={this.props.sets} 
+                            dash={this.state.dashSet} 
+                            navigate={(e) => { this.navigateSet(e) }} 
+                            edit= {this.state} 
+                            changeTypeSet={ () => {this.changeTypeSet()} } 
+                            editToggle={() => {this.editToggle()}} />
+                        : null}
+                        </div>
+    
+                        <div className="row d-flex p-2">
+                                {this.props.user.role === "teacher" ? <h1>My Card</h1> : null}
+                        </div>
+    
+                        <div className="row d-flex pl-2">
+                            {this.props.user.role === "teacher" ? <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/> : null}
+                        </div>
+    
+                        {this.props.loading && <div> Loading...</div>}
+                        {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
                     </div>
-
-                    <div className="row d-flex pl-2">
-                        <DisplayClassModule 
-                        user={this.props.user} 
-                        classrooms={this.props.classrooms}  
-                        navigate={(e, classId) => { this.navigateClass(e, classId) }} 
-                        edit= {this.state} 
-                        changeTypeClass={ () => {this.changeTypeClass()} } 
-                        editToggle={() => {this.editToggle()}} />
-                    </div>
-
-                    <div className="row d-flex p-2">
-                        <CreatePopUp create={this.state} dash={this.state.dashSet} toggle={() => this.toggle()} history={this.props.history} />
-                        {this.props.user.role === "teacher" ? <h1>My Set</h1> : null}
-                        <span className={classes.createsetbtn}>
-                            {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.addbtn}><i className="fa fa-plus"></i></div> : null}
-                        </span>
-                    </div>
-
-                    <div className="row d-flex pl-2">
-                    {this.props.user.role === "teacher" ?
-                        <DisplaySetModule 
-                        user={this.props.user} 
-                        sets={this.props.sets} 
-                        dash={this.state.dashSet} 
-                        navigate={(e) => { this.navigateSet(e) }} 
-                        edit= {this.state} 
-                        changeTypeSet={ () => {this.changeTypeSet()} } 
-                        editToggle={() => {this.editToggle()}} />
-                    : null}
-                    </div>
-
-                    <div className="row d-flex p-2">
-                            {this.props.user.role === "teacher" ? <h1>My Card</h1> : null}
-                    </div>
-
-                    <div className="row d-flex pl-2">
-                        {this.props.user.role === "teacher" ? <DisplayCardModule user={this.props.user} dash={this.state.dashSet} match={this.props.match} cards={this.props.cards} navigate={(e)=>this.navigateCard(e)}/> : null}
-                    </div>
-
-                    {this.props.loading && <div> Loading...</div>}
-                    {this.props.error && <div> Oops! Something Wrong with Our Server</div>}
                 </div>
-            </div>
-        );
+            );
     }
 }
 

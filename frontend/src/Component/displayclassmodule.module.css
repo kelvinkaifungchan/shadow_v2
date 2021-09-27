@@ -36,7 +36,7 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-/* .deletebtn{
+.deletebtn{
     float: right;
     margin-right: 5px; 
     color: #FFFFFF;
@@ -46,9 +46,9 @@
     float: right;
     margin-right: 5px; 
     color: #ffc7c3;
-} */
+}
 
-.dropdown{
+/* .dropdown{
     height: 1rem;
     float: right;
     display: flex;
@@ -58,7 +58,7 @@
 
 .dropdownToggle {
 
-}
+} */
 
 .dropdown span:hover{
     /* color: black; */

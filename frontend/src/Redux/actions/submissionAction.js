@@ -31,7 +31,15 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
                 console.log(data,">>!!!!!!data in submission");
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
-                    payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId, quizcardQuestionMarking: data.data.quizcardQuestionMarking }
+                    payload: { 
+                        user_id: data.data.user_id, 
+                        displayName: data.data.displayName, 
+                        picture: data.data.picture, 
+                        quizcardQuestionSubmission: submission.quizcardQuestionSubmission, 
+                        quizcard_id: submission.quizcardId, 
+                        question_id: submission.quizcardQuestionSubmission.questionId, 
+                        quizcardQuestionMarking: data.data.quizcardQuestionMarking 
+                    }
                 })
             }
         })
@@ -41,11 +49,13 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
             return axios.post("http://localhost:8080/api/card/submission/feedback", submission.feedback)
         })
         .then((data) => {
+            if (submission.type === "dictation") {
             console.log("FEEDBACK", data)
             dispatch({
                 type: ADD_FEEDBACK_DICTATIONCARD,
                 payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictation_id: submission.dictationId, dictationcard_id: submission.dictationcardId, dictationcardSubmission_id: data.data.dictationSubmissionId, dictationcardFeedback_id: data.data.dictationFeedbackId, dictationcardFeedbackBody: data.data.dictationFeedbackBody}
             })
+        }
         })
         .catch(err => console.log("Error: ", err))
 }

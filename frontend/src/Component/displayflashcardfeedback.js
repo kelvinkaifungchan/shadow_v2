@@ -16,16 +16,18 @@ class PureDisplayFlashcardFeedbackModule extends React.Component {
                                 <div key={j} data-key={fb.flashcardFeedback_id} className={classes.scrollfeedbackcard}>
                                     <div>
                                         <table>
-                                        <tr className={classes.scrollfeedbackrow}>
-                                             <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
+                                            <tbody>
+                                                <tr className={classes.scrollfeedbackrow}>
+                                                    <td className={classes.commentinguser}><img src={fb.picture} alt="Avatar"></img></td>
 
-                                            <td className={classes.feedback}>{fb.flashcardFeedbackBody}</td>
-                                            
-                                            <th className={classes.feedbacktime}>{fb.flashcardFeedbackTime}</th>
-                                            
-                                            <td className={classes.removingfeedback}><span className={classes.removingfeedbackbtn}><i onClick={()=>{this.props.handleDelete(fb.flashcardFeedback_id)}} className="fa fa-trash" aria-hidden="true"></i></span></td>
-                                           
-                                        </tr>
+                                                    <td className={classes.feedback}>{fb.flashcardFeedbackBody}</td>
+                                                    
+                                                    <th className={classes.feedbacktime}>{fb.flashcardFeedbackTime}</th>
+                                                    
+                                                    <td className={classes.removingfeedback}><span className={classes.removingfeedbackbtn}><i onClick={()=>{this.props.handleDelete(fb.flashcardFeedback_id)}} className="fa fa-trash" aria-hidden="true"></i></span></td>
+                                                
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
