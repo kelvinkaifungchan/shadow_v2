@@ -92,16 +92,17 @@ class ViewDictationcardSubmission extends React.Component {
                                         return(
                                             <tr data-key={question.id} key={"submission" + i}>
                                                 <td className={classes.toprow}>{question.dictationBody}</td>
-                                            {question.submission.map((sub) => {
+                                            { question.submission.length > 0 ? question.submission.map((sub) => {
+                                                console.log("wHAT", sub)
                                                 return <>
                                                 <td className={classes.mainrow}>
                                                     <img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>
                                                 </td>
-                                                <td data-key={sub.id} className={classes.commentrow}>
+                                                {sub.feedback.length > 0 ? <td data-key={sub.id} className={classes.commentrow}>
                                                     <input data-key={sub.feedback[0].id} type="text" placeholder="Add Feedback" value={sub.feedback[0].dictationFeedbackBody} onClick={(e) => this.feedbackModal(e)} readonly/>
-                                                </td>
+                                                </td>:null}
                                                 </>
-                                            })}
+                                            }): null}
                                             </tr>
                                         )
                                     }) : null}
