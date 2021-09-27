@@ -145,13 +145,14 @@ class ViewDictationQuestion extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className={classes.container}>
                 <div className={classes.canvas}>        
                     {/* {this.state.submissions.length === this.props.question.questions.length ? <button onClick={() => this.submission()}> Done </button> : <Canvas submission={() => this.submission()} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />} */}
                     <Canvas submission={() => {this.submission(); this.addFeedback()}} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />
                     
 
                 </div>
-                <div>
+                <div className={classes.preview}>
 
                     {this.state.submissions.map((submission) => {
                         console.log("SRC", submission.dictationcardSubmissionPath)
@@ -159,6 +160,7 @@ class ViewDictationQuestion extends React.Component {
                             <img key={submission.dictationcardSubmissionPath} src={submission.base64ImageData} alt="canvasdata"/>
                         )
                     }) }
+                </div>
                 </div>
             </div>
         );
