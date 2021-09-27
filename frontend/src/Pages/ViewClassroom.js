@@ -37,6 +37,7 @@ class ViewClassroom extends React.Component {
             correctTag: [],
             correctShare: [],
             correctClass: [],
+            trigger: false,
         };
     }
 
@@ -46,10 +47,13 @@ class ViewClassroom extends React.Component {
     }
 
     async componentWillReceiveProps(nextProps) {
+        console.log('did receive', nextProps)
+
         await this.setState({
-            correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
+            correctClass: nextProps.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         })
         if (this.state.correctClass[0] !== undefined) {
+            console.log('nextProps in props',nextProps)
             const correctProps = nextProps.classrooms.filter(filter => filter.id === parseInt(this.state.correctClass[0].id))
             if (correctProps[0].bridge !== undefined) {
                 if (correctProps[0].bridge.length >= 0) {
@@ -66,6 +70,13 @@ class ViewClassroom extends React.Component {
                     });
                 }
             }
+        }
+        console.log('this.state in will receive props',this.state)
+    }
+
+    async componentDidUpdate(prevProps){
+        if(prevProps.location.pathname !== this.props.location.pathname){
+            await this.props.getdata({ email: localStorage.getItem("email") });
         }
     }
 
@@ -160,7 +171,8 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-
+        console.log('view class mounted state', this.state)
+        console.log('view class mounted props', this.props)
         return (
             <div className="page">
                 <div className={classes.viewclassroom}>

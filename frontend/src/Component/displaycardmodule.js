@@ -9,7 +9,55 @@ import { deleteBridgeThunk } from '../Redux/actions/bridgeAction';
 import classes from './displaycardmodule.module.css'
 
 class PureDisplayCardModule extends React.Component {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            correctExist: []
+        }
+    }
+    componentDidMount(){
+        this.verify()
+    }
+    verify(){
+        if(this.props.display === "addExist"){
+            const shallowCard = this.props.allCard
+            const shallowBridge = this.props.correctSet[0]
+            const onlyCard = {}
+            if(shallowCard.flashcard.length > 0 ){
+                onlyCard.onlyFlash = shallowCard.flashcard.filter(this.flashCompare(shallowBridge.bridge_flashcard))
+            }
+            if(shallowCard.quizcard.length > 0 ){
+                onlyCard.onlyQuiz = shallowCard.quizcard.filter(this.quizCompare(shallowBridge.bridge_quizcard))
+            }
+            if(shallowCard.dictationcard.length > 0 ){
+                onlyCard.onlyDict = shallowCard.dictationcard.filter(this.dictCompare(shallowBridge.bridge_dictationcard))
+            }
+            this.setState({
+                correctExist: [onlyCard]
+            })
+        }
+    }
+    flashCompare(nextArr){
+        return function(current){
+            return nextArr.filter((next)=>{
+                return next.flashcard_id === current.id
+            }).length === 0
+        }
+    }
+    quizCompare(nextArr){
+        return function(current){
+            return nextArr.filter((next)=>{
+                return next.quizcard_id === current.id
+            }).length === 0
+        }
+    }
+    dictCompare(nextArr){
+        return function(current){
+            return nextArr.filter((next)=>{
+                return next.dictationcard_id === current.id
+            }).length === 0
+        }
+    }
     addFlashConnect(e){
         this.props.addBridge({
             type: "set_flashcard",
@@ -94,20 +142,25 @@ class PureDisplayCardModule extends React.Component {
     }
 
     render() {
-
+        console.log('props in dcm', this.props)
+        console.log('state in dcm', this.state)
+        console.log('allcard', this.props.allCard)
         return (
             <>
                 {/* flashcard */}
-                {this.props.allCard && this.props.allCard.flashcard.length > 0 ? this.props.allCard.flashcard.map((card, i) => {
+                {this.props.allCard && this.props.allCard.flashcard.length > 0 && this.state.correctExist.length > 0 && this.state.correctExist[0].onlyFlash !== undefined ? this.state.correctExist[0].onlyFlash.map((card, i) => {
+                    
+                    //add exist
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{ this.addFlashConnect(e); this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} Add Exist Flashcard</h4>
+                            <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} </h4>
                             <p data-key={card.id} data-del="" data-type="flashcard">{card.flashcardBody}</p>
                         </div>
                     )
                 }): 
                 this.props.view && this.props.view.correctflashCard.length > 0 ? this.props.view.correctflashCard.map((card, i) => {
                     
+                    //view set
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
 
@@ -119,6 +172,8 @@ class PureDisplayCardModule extends React.Component {
                     )
                 })
                 : this.props.dash === "dashSet" && this.props.cards.flashcard && this.props.cards.flashcard.length > 0 ? this.props.cards.flashcard.map((card, i)=>{
+                    
+                    //dashboard
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="flashcard" className={classes.flashcard} onClick={(e)=>{this.props.navigate(e)}}>
                             <h4 data-key={card.id} data-del="" data-type="flashcard">{card.flashcardTitle} </h4>
@@ -130,7 +185,7 @@ class PureDisplayCardModule extends React.Component {
                 }
 
                 {/* quizcard */}
-                {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
+                {this.props.allCard && this.props.allCard.quizcard.length > 0 && this.state.correctExist.length > 0 && this.state.correctExist[0].onlyQuiz !== undefined ? this.state.correctExist[0].onlyQuiz.map((card, i) => {
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} </h4>
@@ -156,7 +211,7 @@ class PureDisplayCardModule extends React.Component {
                 }) : null
                 }
                 {/* dictationcard */}
-                {this.props.allCard && this.props.allCard.dictationcard.length > 0 ? this.props.allCard.dictationcard.map((card, i) => {
+                {this.props.allCard && this.props.allCard.dictationcard.length > 0 && this.state.correctExist.length > 0 && this.state.correctExist[0].onlyDict !== undefined ? this.state.correctExist[0].onlyDict.map((card, i) => {
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{ this.addDictationcardConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="dictationcard">{card.dictationcardTitle} Add Exist Dictation Crd</h4>
