@@ -50,7 +50,7 @@ class PureModel extends React.Component {
 
 
     render() {
-
+        console.log('addnew modal', this.props.correctClass)
         const isClass = this.props.create.type === "class";
         let button
         if (isClass) {

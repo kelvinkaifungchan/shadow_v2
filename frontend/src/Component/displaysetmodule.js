@@ -21,8 +21,9 @@ class PureDisplaySetModule extends React.Component {
         this.verify()
     }
     componentWillReceiveProps(nextProps){
-        this.props = nextProps
-        this.verify()
+        if(this.props.display === "addExist"){
+            this.verify()
+        }
     }
     verify(){
         if(this.props.display === "addExist"){

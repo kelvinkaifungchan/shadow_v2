@@ -50,7 +50,7 @@ class ViewClassroom extends React.Component {
         console.log('did receive', nextProps)
 
         await this.setState({
-            correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
+            correctClass: nextProps.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         })
         if (this.state.correctClass[0] !== undefined) {
             console.log('nextProps in props',nextProps)
@@ -71,11 +71,12 @@ class ViewClassroom extends React.Component {
                 }
             }
         }
+        console.log('this.state in will receive props',this.state)
     }
 
-    componentDidUpdate(prevProps){
+    async componentDidUpdate(prevProps){
         if(prevProps.location.pathname !== this.props.location.pathname){
-            this.props.getdata({ email: localStorage.getItem("email") });
+            await this.props.getdata({ email: localStorage.getItem("email") });
         }
     }
 

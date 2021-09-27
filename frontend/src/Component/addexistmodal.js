@@ -34,6 +34,7 @@ class PureModel extends React.Component {
     }
 
     render() {
+        console.log('add exit', this.props.correctClass)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
