@@ -48,10 +48,12 @@ class ViewDictationcard extends React.Component {
             pathname: `/viewdictationCardSubmission/${this.props.match.params.id}`,
         })
     }
+
     navigateCanvas(e) {
         this.setState({
             showCanvas: true,
         })
+        
     }
     
     render() {
@@ -61,29 +63,37 @@ class ViewDictationcard extends React.Component {
         return (
             <div className="page">
 
-                {this.props.user && this.props.user.id !== undefined ? <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)} />:null}
+                {this.props.user && this.props.user.id !== undefined ? 
+                <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)} />:null}
+                
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
                             <h1> {this.state.correctDictationcard.length > 0 ? this.state.correctDictationcard[0].dictationcardTitle : null}</h1>
                         </div>
-                        <div className="col-4 justify-content-center align-items-center">
-                            {this.props.user.role === "teacher" ? <button cards={this.props.cards} onClick={(e) => { this.navigateSubmission(e) } } className={classes.viewsubbtn}>View Submission</button> : null}
-                        </div>
+
+                        {/* <div className="col-4 justify-content-center align-items-center">
+                            {this.props.user.role === "teacher" ? <button cards={this.props.cards} onClick={(e) => { this.navigateSubmission(e) } } className={classes.viewsubbtn}> Done </button> : null}
+                        </div> */}
+
                     </div>
 
-                    {this.state.showCanvas && <ViewDictationQuestion question={this.state.correctQuestion} dictation={this.state.correctDictationcard}/>}
-                    {!this.state.showCanvas && <div className="row d-flex p-4">
+                    <div className="row d-flex">
+                    {this.state.showCanvas && 
+                    <ViewDictationQuestion 
+                    question={this.state.correctQuestion} 
+                    dictation={this.state.correctDictationcard}
+                    navigateSubmission={(e) => {this.navigateSubmission(e)}}/>}
+                    </div>
+
+                    {!this.state.showCanvas && 
+                    <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>
                                 <span onClick={() => this.toggle()} className={classes.startbtn}>Start Dictation</span>
                             </div>
                         </div>
                     </div>}
-
-                    <div className="row d-flex p-4">
-
-                    </div>
 
                 </div>
             </div>

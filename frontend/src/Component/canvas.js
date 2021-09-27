@@ -4,6 +4,8 @@ import io from 'socket.io-client';
 import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
 
+import classes from './canvas.module.css'
+
 class PureCanvas extends React.Component {
 
     timeout;
@@ -84,10 +86,12 @@ class PureCanvas extends React.Component {
         this.ctx = canvas.getContext('2d');
         var ctx = this.ctx;
 
-        var sketch = document.querySelector('#sketch');
-        var sketch_style = getComputedStyle(sketch);
-        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
-        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        // var sketch = document.querySelector('#sketch');
+        // var sketch_style = getComputedStyle(sketch);
+        // canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        // canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        var widthRatio = 5
+        canvas.width = canvas.height * widthRatio;
         var drawing = false;
         var current = {}
 
@@ -179,17 +183,18 @@ class PureCanvas extends React.Component {
 render() {
     
     return (
-        <>
-        <div>
-            <div className="sketch" id="sketch">
-                <canvas style={{ position: "relative", width: 950, height: 480 }} className="board" id="board" ></canvas>
-            </div>
+        <div className="container">
+        <div className="row">
+            {/* <div className="sketch" id="sketch"> */}
+                <canvas className={classes.responsivecanvas} id="board" ></canvas>
+            {/* </div> */}
         </div>
-        <div>
+        {/* <div className="row m-4">
         <button onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()}> Clear </button>
         <button onClick={() => this.submit()}> Submit </button>
-        </div>
-</>
+        </div> */}
+
+</div>
     )
 }
 

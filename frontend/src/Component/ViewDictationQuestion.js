@@ -158,52 +158,98 @@ class ViewDictationQuestion extends React.Component {
         return (
 
             <div className={classes.ViewDictationQuestion} >
-                
-                <div >
+                <div className={classes.container}>
+                <div className="row d-flex" >
+                    <div className="col">
                     <div className={classes.scrollicon} >
-                        <div className="row" >
-
                             {this.props.question.questions &&
                                 this.props.question.questions.length > 0 ?
                                 this.props.question.questions.map(
-
                                     (question, i) => {
                                         if (i === 0) {
                                             return (
-                                                <span key={i} >{i + 1}</span>
+                                                <span key={i}
+                                                style={{background: this.state.submissions && this.state.submissions[i] 
+                                                    ? '#F6CA4E' : null, 
+                                                    color: this.state.submissions && this.state.submissions[i] 
+                                                    ? '#FFFFFF' : null}}
+                                                    >{i + 1}</span>
                                             )
                                         } else {
                                             return (
-                                                <span key={i} >{i + 1}</span>
+                                                <span key={i} 
+                                                style={{background: this.state.submissions && this.state.submissions[i]
+                                                    ? '#F6CA4E' : null,
+                                                    color: this.state.submissions && this.state.submissions[i] 
+                                                    ? '#FFFFFF' : null}}
+                                                    >{i + 1}</span>
                                             )
                                         }
                                     }
                                 )
                                 : null}
-                                {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
-                            {this.state.submissions.length !== this.props.question.questions.length ? <p>Question {this.state.fakequestionId}</p> : null}
                         </div>
-                        
                     </div>
-                </div>
-                <div className={classes.container}>
-                <div className={classes.canvas}>        
-                    {/* {this.state.submissions.length === this.props.question.questions.length ? <button onClick={() => this.submission()}> Done </button> : <Canvas submission={() => this.submission()} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />} */}
-                    <Canvas submission={() => {this.submission(); this.addFeedback()}} submit={(canvas)=>{this.submit(canvas)}} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />
                     
-                {/* {this.state.submissions.length !== this.props.question.questions.length ? <button onClick={() => this.submit(document.querySelector('#board'))}> Submit </button>: null} */}
-                {this.state.submissions.length !== this.props.question.questions.length ? <button  onClick={(e)=>{this.submit(document.querySelector('#board'));this.clearcanvas(); this.forward(e)}}>Save &amp; Next</button> : null}
-                </div>
-                <div className={classes.preview}>
+                    </div>
 
+
+                    {this.state.submissions.length !== this.props.question.questions.length && this.state.target
+                    ? 
+                    <div className="row d-flex p-4">
+                    <div classNam="col">
+                    <div className={classes.scrollicon} >
+                        <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/> 
+                    </div>
+                    </div>
+                    </div> : null}
+
+                            {/* {this.state.submissions.length !== this.props.question.questions.length ? <p>Question {this.state.fakequestionId}</p> : null} */}
+                    <div className="row d-flex p-4 ml-1">
+                    <div className="col">
+                    {/* {this.state.submissions.length === this.props.question.questions.length ? <button onClick={() => this.submission()}> Done </button> : <Canvas submission={() => this.submission()} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />} */}
+                    {this.state.submissions.length !== this.props.question.questions.length 
+                    ? <>
+                    <div className={classes.canvas}>  
+                            <Canvas submission={() => {this.submission(); this.addFeedback()}} 
+                            submit={(canvas)=>{this.submit(canvas)}} 
+                            clearcanvas={() => this.clearcanvas()} 
+                            addSubmission={() => this.addSubmission()} 
+                            handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} 
+                            dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} /> 
+                        </div>
+
+                    <button  
+                    onClick={(e)=>{this.submit(document.querySelector('#board'));
+                    this.clearcanvas(); 
+                    this.forward(e)}}
+                    className="mt-4 float-right"> Save &amp; Next</button> 
+                    </>
+                    : 
+                    // <div className="col col-12 d-flex justify-content-center align-items-center">
+                            // <div className={classes.finishbtncontainer}>
+                            <button 
+                            onClick={(e) => {this.props.navigateSubmission(e)}} 
+                            cards={this.props.cards} 
+                            className={classes.finishbtn}> Done </button>
+                            // </div>
+                        // </div>
+                    
+                     }
+                
+                    </div>
+                <div className="col">
+                <div className={classes.preview}>
                     {this.state.submissions.map((submission) => {
                         console.log("SRC", submission.dictationcardSubmissionPath)
                         return(
                             <img key={submission.dictationcardSubmissionPath} src={submission.base64ImageData} alt="canvasdata"/>
                         )
                     }) }
-                   
                 </div>
+                </div>
+                </div>
+
                 </div>
             </div>
         );
