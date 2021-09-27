@@ -28,10 +28,11 @@ class ViewDictationQuestion extends React.Component {
         this.state = {
             type: "dictation",
             questionId: this.props.question.questions[0].id,
+            fakequestionId: 1,
             canvasUrl: "",
             base64ImageData: "",
             target: [],
-            submissions:[]
+            submissions:[],
         
         }
     }
@@ -47,13 +48,21 @@ class ViewDictationQuestion extends React.Component {
         var base64ImageData = canvas.toDataURL("image/png");
         this.socket.emit("clear", this.room, base64ImageData);
     }
-
-    onClickShowQuestionViewer(id) {
-        this.setState({
-            questionId: id,
-            target: this.props.question.questions.filter(realQuestion => realQuestion.id === id)[0]
-        })
+    forward(){
+            this.setState({
+                target: this.props.question.questions.filter(realQuestion => realQuestion.id === (this.state.questionId + 1))[0],
+                questionId: this.state.questionId + 1,
+                fakequestionId: this.state.fakequestionId + 1
+                
+            })
     }
+
+    // onClickShowQuestionViewer(id) {
+    //     this.setState({
+    //         questionId: id,
+    //         target: this.props.question.questions.filter(realQuestion => realQuestion.id === id)[0]
+    //     })
+    // }
    
     
     handleCanvas(fileName, base64ImageData){
@@ -132,9 +141,8 @@ class ViewDictationQuestion extends React.Component {
         //put fileName up to ViewDicationQuestion and submit
         this.handleCanvas(fileName, base64ImageData);
         this.addSubmission();
+
         //this.props.submission();
-
-
         //this.props.clearcanvas()
 
     }
@@ -144,6 +152,7 @@ class ViewDictationQuestion extends React.Component {
 
         //console.log("submissions length", this.state.submissions.length);
         console.log(" questions length", this.props.question.questions.length);
+        console.log("QUESTION", this.state.questionId)
         
         
         return (
@@ -161,18 +170,20 @@ class ViewDictationQuestion extends React.Component {
                                     (question, i) => {
                                         if (i === 0) {
                                             return (
-                                                <span key={i} onClick={() => {this.clearcanvas(); this.onClickShowQuestionViewer(question.id)}}>{i + 1}</span>
+                                                <span key={i} >{i + 1}</span>
                                             )
                                         } else {
                                             return (
-                                                <span key={i} onClick={() => { this.clearcanvas(); this.onClickShowQuestionViewer(question.id) }}>{i + 1}</span>
+                                                <span key={i} >{i + 1}</span>
                                             )
                                         }
                                     }
                                 )
                                 : null}
                                 {this.state.target && <AudioPlayer src={this.state.target.dictationRecording} test={this.state}/>}
+                            {this.state.submissions.length !== this.props.question.questions.length ? <p>Question {this.state.fakequestionId}</p> : null}
                         </div>
+                        
                     </div>
                 </div>
                 <div className={classes.container}>
@@ -180,8 +191,8 @@ class ViewDictationQuestion extends React.Component {
                     {/* {this.state.submissions.length === this.props.question.questions.length ? <button onClick={() => this.submission()}> Done </button> : <Canvas submission={() => this.submission()} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />} */}
                     <Canvas submission={() => {this.submission(); this.addFeedback()}} submit={(canvas)=>{this.submit(canvas)}} clearcanvas={() => this.clearcanvas()} addSubmission={() => this.addSubmission()} handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} />
                     
-                <button onClick={() => this.submit(document.querySelector('#board'))}> Submit </button>
-
+                {/* {this.state.submissions.length !== this.props.question.questions.length ? <button onClick={() => this.submit(document.querySelector('#board'))}> Submit </button>: null} */}
+                {this.state.submissions.length !== this.props.question.questions.length ? <button  onClick={(e)=>{this.submit(document.querySelector('#board'));this.clearcanvas(); this.forward(e)}}>Save &amp; Next</button> : null}
                 </div>
                 <div className={classes.preview}>
 
@@ -191,6 +202,7 @@ class ViewDictationQuestion extends React.Component {
                             <img key={submission.dictationcardSubmissionPath} src={submission.base64ImageData} alt="canvasdata"/>
                         )
                     }) }
+                   
                 </div>
                 </div>
             </div>
