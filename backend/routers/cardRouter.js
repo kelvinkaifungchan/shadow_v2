@@ -107,17 +107,20 @@ class CardRouter {
     postFeedback(req, res) {
         console.log("Requesting adding a feedback")
         let body = req.body;
+        
         return this.feedbackService
             .add(body)
             .then((data) => {
                 if(body.type === "flashcard"){body.flashcardFeedbackId = data[0]};
-                if(body.type === "dictation"){body.dictationFeedbackId = data[0]};
+                if(body.type === "dictationcard"){body.dictationFeedbackId = data[0]};
             })
             .then(() =>{
+
                 return this.feedbackService
                 .feedback(body)
             })
             .then((data) => {
+                
                 return res.json(data)
             })
             .catch((err) => {

@@ -199,7 +199,7 @@ submit(){
 
     //put fileName up to ViewDicationQuestion and submit
     this.props.handleCanvas(fileName, base64ImageData);
-    //this.props.addSubmission();
+    this.props.addSubmission();
     //this.props.submission();
     
 

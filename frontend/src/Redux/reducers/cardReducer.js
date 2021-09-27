@@ -161,19 +161,16 @@ export function cardReducer(state = initialState, action) {
                 }
             }
         case ADD_SUBMISSION_DICTATIONCARD:
-            console.log(action.payload, 'action.payload')
-           console.log("SHANDY SO HOT", action.payload.dictationcardSubmissionPath)
+
             return {
                 card:{
                     ...state.card,
                     dictationcard: state.card.dictationcard.map((dictationcard) => {
-                        console.log("DICL", dictationcard)
+                    
                         if(dictationcard.id === action.payload.dictationcard_id){
                             dictationcard.questions.map((question) => {
-                                console.log("DLMKMSKDNA", question)
-                                console.log(action.payload.dictation_id)
                             if(question.id === action.payload.dictation_id){
-                                console.log("QUESTION SUBMISSION", question.submission)
+                             
                             return {
                                 ...question,
                                 submission:[...question.submission, action.payload]
@@ -318,17 +315,22 @@ export function cardReducer(state = initialState, action) {
                 card:{
                     ...state.card,
                     dictationcard: state.card.dictationcard.map((dictationcard) => {
-                        if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
+                        if(dictationcard.id === action.payload.dictationcard_id){
                             return {
                                 ...dictationcard,
-                                submission: dictationcard.submission.map((submission) => {
-                                    if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                questions: dictationcard.questions.map((question) => {
+                                    if(question.id === action.payload.dictation_id){
                                         return {
-                                            ...submission, 
-                                            feedback: [...submission.feedback, action.payload]
+                                            ...question, 
+                                            submission: question.submission.map((submission) => {
+                                                return {
+                                                    ...submission,
+                                                    feedback: action.payload
+                                                } 
+                                            })
                                         }
                                     }
-                                  return submission
+                                  return question
                                 })
                             }
                         }
