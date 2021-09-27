@@ -9,7 +9,7 @@ const QRCode = require('qrcode.react');
 class PureQRModal extends React.Component {
     render() {
 
-        let link = `https://localhost:3000/canvas/${this.props.userId.toString()}/${this.props.pageId}`
+        let link = `http://localhost:3000/canvas/${this.props.userId.toString()}/${this.props.pageId}`
         return (
             <div>
                 <Modal isOpen={this.props.modal.modal} toggle={this.props.toggle} >

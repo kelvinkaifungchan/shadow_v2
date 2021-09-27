@@ -211,13 +211,17 @@ submit(){
 render() {
     
     return (
+        <>
         <div>
             <div className="sketch" id="sketch">
                 <canvas style={{ position: "relative", width: 950, height: 480 }} className="board" id="board" ></canvas>
             </div>
-            <button onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()}> Clear </button>
-            <button onClick={() => this.submit()}> Submit </button>
         </div>
+        <div>
+        <button onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()}> Clear </button>
+        <button onClick={() => this.submit()}> Submit </button>
+        </div>
+</>
     )
 }
 
