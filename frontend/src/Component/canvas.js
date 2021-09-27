@@ -7,6 +7,7 @@ import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
 
 
+
 class PureCanvas extends React.Component{
 
     timeout;
