@@ -30,6 +30,7 @@ class ViewDictationQuestion extends React.Component {
             canvasUrl: "",
             base64ImageData: "",
             target: [],
+            submissions:[]
         
         }
     }
@@ -72,28 +73,28 @@ class ViewDictationQuestion extends React.Component {
         })
     }
 
-    // addSubmission(){
-    //     console.log("adding to submissions array")
-    //     if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
-    //     console.log("remove old submission")
-    //     this.setState((prevState, props) => {
-    //         console.log("PREV", prevState)
-    //         return{
-    //         ...prevState,   
-    //         submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
-    //         }
-    //     })
-    //     }
+    addSubmission(){
+        console.log("adding to submissions array")
+        if(this.state.submissions.filter((submission) => submission.question_id === this.state.questionId)){
+        console.log("remove old submission")
+        this.setState((prevState, props) => {
+            console.log("PREV", prevState)
+            return{
+            ...prevState,   
+            submissions: prevState.submissions.filter((submission) => submission.question_id !== prevState.questionId)
+            }
+        })
+        }
 
-    //     this.setState((prevState, props) => {
-    //         console.log("PREV", prevState)
-    //         return{
-    //         ...prevState,   
-    //         submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
-    //         }
-    //     })
+        this.setState((prevState, props) => {
+            console.log("PREV", prevState)
+            return{
+            ...prevState,   
+            submissions: [...prevState.submissions, {question_id: prevState.questionId, dictationcardSubmissionPath: prevState.canvasUrl, base64ImageData: prevState.base64ImageData}]
+            }
+        })
 
-    // }
+    }
   
    
     // submission(){
@@ -152,12 +153,12 @@ class ViewDictationQuestion extends React.Component {
                 </div>
                 <div>
 
-                    {/* {this.state.submissions.map((submission) => {
+                    {this.state.submissions.map((submission) => {
                         console.log("SRC", submission.dictationcardSubmissionPath)
                         return(
                             <img key={submission.dictationcardSubmissionPath} src={submission.base64ImageData} alt="canvasdata"/>
                         )
-                    }) } */}
+                    }) }
                 </div>
             </div>
         );
