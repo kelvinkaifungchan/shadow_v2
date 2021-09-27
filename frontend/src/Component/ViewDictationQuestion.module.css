@@ -31,6 +31,10 @@
     background-color: #F6CA4E;
     color: white;
 }
+.scrollicon p{
+    display: inline-block;
+    font-size: large;
+}
 
 .container{
     display: inline-flex;
