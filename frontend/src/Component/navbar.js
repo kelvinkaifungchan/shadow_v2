@@ -9,9 +9,16 @@ import { Menu } from '../Component/menu'
 // Require Css
 import classes from './navbar.module.css'
 import { SearchPopUp } from './searchmodal';
+import { withRouter } from "react-router";
+import PropTypes from "prop-types";
 
 
 class PureNavBar extends React.Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
+      };
     constructor(props) {
         super(props);
         this.state = {
@@ -32,19 +39,22 @@ class PureNavBar extends React.Component {
             searchModal: !this.state.searchModal
         })
     }
-
+    navigate(e){
+        this.props.history.push(`/viewclassroom/${e.target.attributes["data-key"].value}`)
+    }
     logout = (e) => {
         e.preventDefault();
         this.props.logout()
     }
     
     render() {
+        console.log('nav bar props',this.props)
         return (
             <div className={classes.header}>
                     <ul className={classes.menu}>
                         <li>
                             <button onClick={() => { this.menuToggle() }}><i className="fas fa-bars"></i></button>
-                            {this.state.menuModal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} toggle={()=>this.menuToggle()}/> : null}
+                            {this.state.menuModal ? <Menu classroom={this.props.classrooms} sets={this.props.sets} navigateMenu={(e)=>{this.navigate(e)}} toggle={()=>this.menuToggle()}/> : null}
                         </li>
                         <li>
                             {this.props.user.role === "teacher" ? <Link to='/' className={classes.logo}>shadow</Link> : <Link to='/' className={classes.logo} >shadow <span style={{fontWeight: "normal"}}>student</span></Link>}
@@ -85,5 +95,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 
+const PureNavBarNav = withRouter(PureNavBar);
 
-export const NavBar = connect(mapStateToProps, mapDispatchToProps)(PureNavBar)
+export const NavBar = connect(mapStateToProps, mapDispatchToProps)(PureNavBarNav)

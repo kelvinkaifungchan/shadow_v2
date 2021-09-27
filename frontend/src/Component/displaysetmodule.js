@@ -20,6 +20,11 @@ class PureDisplaySetModule extends React.Component {
     componentDidMount(){
         this.verify()
     }
+    componentWillReceiveProps(nextProps){
+        if(this.props.display === "addExist"){
+            this.verify()
+        }
+    }
     verify(){
         if(this.props.display === "addExist"){
             const shallowSets = this.props.sets

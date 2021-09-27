@@ -30,7 +30,11 @@ class PureDashboard extends React.Component {
     componentDidMount() {
         this.props.getdata({ email: localStorage.getItem('email') })
     }
-
+    componentDidUpdate(prevProps){
+        if(prevProps.location.pathname !== this.props.location.pathname){
+            this.props.getdata({ email: localStorage.getItem("email") });
+        }
+    }
     // for create
     toggle() {
         this.setState({
@@ -90,7 +94,6 @@ class PureDashboard extends React.Component {
     render() {
             return (
                 <div className="page">
-                    
                     <div className={classes.dashboard}>
     
                         <div className="row d-flex p-2">
