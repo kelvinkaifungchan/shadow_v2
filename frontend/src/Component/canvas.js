@@ -15,28 +15,21 @@ class PureCanvas extends React.Component {
         super(props);
 
         if (this.props.userId) {
-            console.log("USER ID", this.props.userId)
-            console.log("CANVASID", this.props.dictationId)
             this.room = this.props.userId + "-" + this.props.dictationId
         } else {
-            console.log("USER ID in params", this.props.match.params.userId)
-            console.log("CANVASID in params", this.props.match.params.canvasId)
             this.room = this.props.match.params.userId.toString() + "-" + this.props.match.params.canvasId.toString();
         }
 
-        console.log("ROOM ID", this.room)
 
         this.socket = io.connect("http://192.168.1.137:8080");
         this.socket.emit("newUser", this.room)
         this.socket.on("clear", () => {
-            console.log("Receiving clear event")
             var canvas = document.querySelector('#board');
             var ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
         this.socket.on("canvas-data", function (data) {
-            console.log("Receiving canvas data")
             var root = this;
             var interval = setInterval(function () {
                 if (root.isDrawing) return;
@@ -57,7 +50,6 @@ class PureCanvas extends React.Component {
     }
 
     // componentDidUpdate(){
-    //     console.log("UPDATE")
     //     this.socket.disconnect()
     //     this.socket = io.connect("http://localhost:8080");
     //     if(this.props.questionId === undefined){
@@ -66,7 +58,6 @@ class PureCanvas extends React.Component {
     //         this.room = this.props.userId + "-" + this.props.dictationId +"-" + this.props.questionId
     //     }
 
-    //     console.log("NEW ROOM ID", this.room)
     //     this.socket.emit("newUser", this.room)
     //     this.drawOnCanvas();
     // }
@@ -78,7 +69,6 @@ class PureCanvas extends React.Component {
 
 
     drawOnCanvas() {
-        console.log("NEW ROOM DRAW", this.room)
         var room = this.room;
         var canvas = document.querySelector('#board');
         this.ctx = canvas.getContext('2d');
@@ -104,7 +94,6 @@ class PureCanvas extends React.Component {
         canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
         function onMouseDown(e) {
-            console.log("FUCK YOUR MOM MOUSEDOWN")
             e.preventDefault();
             e.stopPropagation();
             drawing = true;
@@ -113,7 +102,6 @@ class PureCanvas extends React.Component {
         }
 
         function onMouseUp(e) {
-            console.log("YESSSSS MOUSEUP ")
             if (!drawing) { return; }
             drawing = false;
 
@@ -122,7 +110,6 @@ class PureCanvas extends React.Component {
 
 
         function onMouseMove(e) {
-            console.log('FUCK ME DADDY MOUSEMOVE')
             e.preventDefault();
             e.stopPropagation();
 
@@ -147,8 +134,6 @@ class PureCanvas extends React.Component {
         //onPaint
         var drawLine = function (x0, y0, x1, y1) {
 
-            console.log("FUCK YEA DRAWING")
-            console.log(x0, y0, x1, y1)
 
             ctx.beginPath();
             ctx.moveTo(x0, y0);
@@ -158,7 +143,6 @@ class PureCanvas extends React.Component {
 
 
             var base64ImageData = canvas.toDataURL("image/png");
-            // console.log(base64ImageData)
             root.socket.emit("canvas-data", room, base64ImageData);
 
         };
@@ -166,7 +150,6 @@ class PureCanvas extends React.Component {
 
     }
     clearcanvas() {
-        console.log("CLEAR ")
         var canvas = document.querySelector('#board');
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);

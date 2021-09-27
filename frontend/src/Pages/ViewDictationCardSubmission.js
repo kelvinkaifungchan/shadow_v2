@@ -93,7 +93,6 @@ class ViewDictationcardSubmission extends React.Component {
                                             <tr data-key={question.id} key={"submission" + i}>
                                                 <td className={classes.toprow}>{question.dictationBody}</td>
                                             { question.submission.length > 0 ? question.submission.map((sub) => {
-                                                console.log("wHAT", sub)
                                                 return <>
                                                 <td className={classes.mainrow}>
                                                     <img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>

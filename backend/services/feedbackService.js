@@ -46,15 +46,11 @@ class FeedbackService {
     async edit(body) {
         if (body.type === "dictationcard") {
             console.log("Editing feedback to dictationcard")
-            let user_id = await this.knex("user").where({
-                email: body.email
-            }).select("id");
             return this.knex("dictationFeedback")
             .where("id", body.dictationFeedbackId)
             .update({
                 dictationFeedbackBody: body.dictationFeedbackBody,
             })
-            .into("dictationFeedback")
             .returning("id");
         }
     }

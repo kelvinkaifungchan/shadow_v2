@@ -28,7 +28,6 @@ class UploadRouter {
 
   postAudio(req, res) {
     console.log("Requesting creating audio recording");
-    console.log(req.files.file)
     let recording = req.files.file;
     let fileName = recording.name;
     let fileData = recording.data;
@@ -44,7 +43,6 @@ class UploadRouter {
 
   postCanvas(req, res){
     console.log("Requesting to post canvas data");
-    console.log(req.files.file)
     return this.uploadService
         .addCanvas(req.files.file.name, req.files.file.data)
         .then(() => {
