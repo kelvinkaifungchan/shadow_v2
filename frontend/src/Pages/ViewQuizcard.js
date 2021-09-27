@@ -58,13 +58,18 @@ class ViewQuizcard extends React.Component {
         })
     }
     render() {
+
+
         return (
             <div>
                 <div className={classes.viewquizcard}>
                     {/* 1st row: Header */}
                     <div className="row d-flex p-4">
+                        <h1>{this.state.correctQuizcard.length > 0 ? this.state.correctQuizcard[0].quizcardTitle : null}</h1>
+                    </div>
+
+                    <div className="row d-flex p-4">
                         <div className="col-6">
-                            <h1>{this.state.correctQuizcard.length > 0 ? this.state.correctQuizcard[0].quizcardTitle : null}</h1>
                             {this.state.showQuizcardQuestion &&
                                 <div >
                                     <VideoPlayer src={this.state.correctQuestion.quizcardRecording} />
@@ -73,20 +78,20 @@ class ViewQuizcard extends React.Component {
                         </div>
                         {this.state.showQuizcardQuestion &&
                             <div className="col col-6">
-                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission, marking)} navigate={(e) => this.navigateSubmission(e)} />
+                                <ViewQuizcardQuestionModule question={this.state.correctQuestion} submissions={this.state.quizcardQuestionSubmission} addAnswer={(questionId, submission, marking) => this.addAnswer(questionId, submission, marking)} navigate={(e) => this.navigateSubmission(e)} />
                             </div>
                         }
                     </div>
-                    <div className="row d-flex p-4">
-                        {!this.state.showQuizcardQuestion &&
-                            <div className="col col-12 d-flex justify-content-center align-items-center">
-                                <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
-                                    <span className={classes.startbtn}> Start Quiz</span>
-                                </div>
-                            </div>}
-                    </div>
-
-
+                        <div className="row d-flex p-4">
+                            {!this.state.showQuizcardQuestion &&
+                                <div className="col col-12 d-flex justify-content-center align-items-center">
+                                    <div onClick={() => { this.onClickViewQuizcardQuestion() }} className={classes.startbtncontainer}>
+                                        <span className={classes.startbtn}> Start Quiz</span>
+                                    </div>
+                                </div>}
+                        </div>
+                 
+                 
                 </div>
             </div>
         )

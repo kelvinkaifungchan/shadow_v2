@@ -20,9 +20,9 @@ class PureViewQuizcardQuestionModule extends React.Component {
     }
 
     handleAnswer(e, questionId, submission, marking) {
-        if(this.state.tracking.indexOf(questionId) >= 0){
+        if (this.state.tracking.indexOf(questionId) >= 0) {
             return
-        } else{
+        } else {
 
             this.props.addAnswer(questionId, submission, marking)
             this.setState({
@@ -34,7 +34,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
             } else {
                 e.target.style.background = '#FCDDEC'
             }
-            if(this.state.questionNumId >= this.props.question.question.length - 1){
+            if (this.state.questionNumId >= this.props.question.question.length - 1) {
                 this.setState({
                     showSub: true,
                     hideNext: false,
@@ -43,8 +43,8 @@ class PureViewQuizcardQuestionModule extends React.Component {
         }
     }
 
-    forward(){
-        if(this.state.questionNumId === this.props.question.question.length -2){
+    forward() {
+        if (this.state.questionNumId === this.props.question.question.length - 2) {
 
             this.setState({
                 hideNext: false,
@@ -62,7 +62,7 @@ class PureViewQuizcardQuestionModule extends React.Component {
     render() {
         console.log('vquestion state', this.state)
         console.log('vquestion props', this.props)
-        const {showSub, hideNext} = this.state
+        const { showSub, hideNext } = this.state
         return (
             <>
                 <div className={classes.scrollicon} >
@@ -73,11 +73,23 @@ class PureViewQuizcardQuestionModule extends React.Component {
                                 (question, i) => {
                                     if (i === 0) {
                                         return (
-                                            <span key={i}>{i + 1}</span>
+                                            <span key={i}
+                                                style={{
+                                                    background: this.state.tracking && this.state.tracking[i]
+                                                        ? '#F6CA4E' : null,
+                                                    color: this.state.tracking && this.state.tracking[i]
+                                                        ? '#FFFFFF' : null
+                                                }}>{i + 1}</span>
                                         )
                                     } else {
                                         return (
-                                            <span key={i}>{i + 1}</span>
+                                            <span key={i}
+                                                style={{
+                                                    background: this.state.tracking && this.state.tracking[i]
+                                                        ? '#F6CA4E' : null,
+                                                    color: this.state.tracking && this.state.tracking[i]
+                                                        ? '#FFFFFF' : null
+                                                }} >{i + 1}</span>
                                         )
                                     }
                                 }
@@ -90,80 +102,80 @@ class PureViewQuizcardQuestionModule extends React.Component {
                 </div>
                 <div className={classes.viewquizcardquestion}>
 
-                <div>
-                    {/* List of words & recording */}
-                    <div className={classes.questionframe}>
-                        <div className="row d-flex ">
-                            <div className="col col-12">
-                                <div className="row">
-                                    <div className="col col-8">
-                                        <p>Question {this.state.questionNumId ? this.state.questionNumId + 1 : null}</p>
+                    <div>
+                        {/* List of words & recording */}
+                        <div className={classes.questionframe}>
+                            <div className="row d-flex ">
+                                <div className="col col-12">
+                                    <div className="row">
+                                        {/* <div className="col col-8">
+                                            <p>Question {this.state.questionNumId ? this.state.questionNumId + 1 : null}</p>
+                                        </div> */}
                                     </div>
-                                </div>
-                                {this.props.question.question &&
-                                    this.props.question.question.length > 0 ?
-                                    this.props.question.question.map((question, i) => {
-                                        if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
-                                            console.log("questionquestionquestion in lin 80", question.multipleChoiceAnswer === "a");
-                                            return (
-                                                <div key={i} className={classes.viewquizcardanswer}>
-                                                    <div key={i} className="row">
-                                                        <div className="col mt-2">
-                                                            <div style={{ width: "100%" }}>{question.questionBody}</div>
+                                    {this.props.question.question &&
+                                        this.props.question.question.length > 0 ?
+                                        this.props.question.question.map((question, i) => {
+                                            if (question.questionType === "multipleChoice" && i === this.state.questionNumId) {
+                                                console.log("questionquestionquestion in lin 80", question.multipleChoiceAnswer === "a");
+                                                return (
+                                                    <div key={i} className={classes.viewquizcardanswer}>
+                                                        <div key={i} className="row">
+                                                            <div className="col mt-2">
+                                                                <div style={{ width: "100%" }}>{question.questionBody}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row  pt-3">
+                                                            <div className="col col-6">
+                                                                <label htmlFor="A">Choice A</label>
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "a", question.multipleChoiceAnswer === "a") }} type="text" name="A" id="A" >{question.multipleChoiceA}</button>
+                                                            </div>
+                                                            <div className="col col-6">
+                                                                <label htmlFor="A">Choice B</label>
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "b", question.multipleChoiceAnswer === "b") }} type="text" name="B" id="B" >{question.multipleChoiceB}</button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row pt-5">
+                                                            <div className="col col-6">
+                                                                <label htmlFor="A">Choice C</label>
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "c", question.multipleChoiceAnswer === "c") }} type="text" name="C" id="C" >{question.multipleChoiceC}</button>
+                                                            </div>
+                                                            <div className="col col-6">
+                                                                <label htmlFor="A">Choice D</label>
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "d", question.multipleChoiceAnswer === "d") }} type="text" name="D" id="D" >{question.multipleChoiceD}</button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="row  pt-3">
-                                                        <div className="col col-6">
-                                                            <label htmlFor="A">Choice A</label>
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "a", question.multipleChoiceAnswer === "a") }} type="text" name="A" id="A" >{question.multipleChoiceA}</button>
+                                                )
+                                            } else if (question.questionType === "trueFalse" && i === this.state.questionNumId) {
+                                                return (
+                                                    <div key={i} className={classes.viewquizcardanswer}>
+                                                        <div key={i} className="row">
+                                                            <div style={{ width: "100%", margin: "20px" }} >{question.questionBody}</div>
                                                         </div>
-                                                        <div className="col col-6">
-                                                            <label htmlFor="A">Choice B</label>
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "b", question.multipleChoiceAnswer === "b") }} type="text" name="B" id="B" >{question.multipleChoiceB}</button>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row pt-5">
-                                                        <div className="col col-6">
-                                                            <label htmlFor="A">Choice C</label>
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "c", question.multipleChoiceAnswer === "c") }} type="text" name="C" id="C" >{question.multipleChoiceC}</button>
-                                                        </div>
-                                                        <div className="col col-6">
-                                                            <label htmlFor="A">Choice D</label>
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.background }} onClick={(e) => { this.handleAnswer(e, question.id, "d", question.multipleChoiceAnswer === "d") }} type="text" name="D" id="D" >{question.multipleChoiceD}</button>
+                                                        <div className="row pt-3">
+                                                            <div className="col col-6">
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "true", question.trueFalseAnswer === "true") }} > True </button>
+                                                            </div>
+                                                            <div className="col col-6">
+                                                                <button className={classes.quizcardoptbtn} style={{ background: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "false", question.trueFalseAnswer === "false") }} > False </button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        } else if (question.questionType === "trueFalse" && i === this.state.questionNumId) {
-                                            return (
-                                                <div key={i} className={classes.viewquizcardanswer}>
-                                                    <div key={i} className="row">
-                                                        <div style={{ width: "100%", margin: "20px" }} >{question.questionBody}</div>
-                                                    </div>
-                                                    <div className="row pt-3">
-                                                        <div className="col col-6">
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "true", question.trueFalseAnswer === "true") }} > True </button>
-                                                        </div>
-                                                        <div className="col col-6">
-                                                            <button className={classes.quizcardoptbtn} style={{ background: this.state.border }} onClick={(e) => { this.handleAnswer(e, question.id, "false", question.trueFalseAnswer === "false") }} > False </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
+                                                )
+                                            }
+                                            return false
                                         }
-                                        return false
+                                        )
+                                        : null
                                     }
-                                    )
-                                    : null
-                                }
+                                </div>
                             </div>
                         </div>
+                        <br />
+                        {hideNext ? <div className="col-12 p-4">
+                            <button className={classes.savebtn} onClick={(e) => { this.forward(e) }}>Save &amp; Next</button>
+                        </div> : null}
                     </div>
-                            <br/>
-                            {hideNext ? <div className="col-12 p-4">
-                                <button className={classes.savebtn} onClick={(e)=>{this.forward(e)}}>Save &amp; Next</button>
-                            </div> : null}
-                </div>
                 </div>
             </>
         )

@@ -10,13 +10,13 @@
 
 .scrollicon {
     display: flex;
-    padding: 20px;
+    padding: 10px;
     /* width: 6rem; */
     height: 8vh;
     /* border-radius: 50%; */
     background-color: transparent;
     /* margin: 2px; */
-    cursor: pointer;
+    /* cursor: pointer; */
     display: flex;
     justify-content: space-between;
 }
@@ -32,10 +32,10 @@
     align-items: center;
     padding-top: 10px;
 }
-.scrollicon span:hover {
+/* .scrollicon span:hover {
     background-color: #F6CA4E;
     color: white;
-}
+} */
 
 /* .viewquizcardanswer button {
     color: #3D4176;
