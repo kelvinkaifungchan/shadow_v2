@@ -227,12 +227,12 @@ class ViewDictationQuestion extends React.Component {
                     </>
                     : 
                     // <div className="col col-12 d-flex justify-content-center align-items-center">
-                            // <div className={classes.finishbtncontainer}>
+                        <div className={classes.finishbtncontainer}>
                             <button 
                             onClick={(e) => {this.props.navigateSubmission(e)}} 
                             cards={this.props.cards} 
                             className={classes.finishbtn}> Done </button>
-                            // </div>
+                            </div>
                         // </div>
                     
                      }
