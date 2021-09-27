@@ -46,6 +46,8 @@ class ViewClassroom extends React.Component {
     }
 
     async componentWillReceiveProps(nextProps) {
+        console.log('did receive', nextProps)
+
         await this.setState({
             correctClass: this.props.classrooms.filter(classroom => classroom.id === parseInt(this.props.match.params.id)),
         })
@@ -67,6 +69,7 @@ class ViewClassroom extends React.Component {
                 }
             }
         }
+        this.render()
     }
 
     getclassroom() {
@@ -160,7 +163,7 @@ class ViewClassroom extends React.Component {
     }
 
     render() {
-
+        console.log('view class mounted')
         return (
             <div className="page">
                 <div className={classes.viewclassroom}>
