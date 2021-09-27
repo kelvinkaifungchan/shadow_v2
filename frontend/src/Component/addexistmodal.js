@@ -34,7 +34,6 @@ class PureModel extends React.Component {
     }
 
     render() {
-        console.log('add exit', this.props.correctClass)
         return (
 
             <Modal size="lg" isOpen={this.props.create.modal} toggle={this.props.toggle}>
@@ -44,7 +43,7 @@ class PureModel extends React.Component {
                         {this.props.create.type === "class" ? 
                         <DisplaySetModule user={this.props.user} display="addExist" match={this.props.match} correctClass={this.props.correctClass} sets={this.props.sets} toggle={this.props.toggle}/> 
                         :
-                        <DisplayCardModule  user={this.props.user} match={this.props.match} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
+                        <DisplayCardModule  user={this.props.user} display="addExist" match={this.props.match} correctSet={this.props.correctSet} allCard={this.props.allCard} connect={(e)=>this.connect(e)} toggle={this.props.toggle}/>
                         }
                     </div>
                 </ModalBody>

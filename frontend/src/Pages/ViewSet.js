@@ -47,7 +47,7 @@ class ViewSet extends React.Component {
     
     async componentWillReceiveProps(nextProps) {
         await this.setState({
-            correctSet: this.props.sets.filter(set => set.id === parseInt(this.props.match.params.id))
+            correctSet: nextProps.sets.filter(set => set.id === parseInt(this.props.match.params.id))
         })
         // await this.getSet()
         console.log("nextProps",nextProps);
@@ -265,7 +265,8 @@ class ViewSet extends React.Component {
     }
 
     render() {
-        console.log("VS ", this.state);
+        console.log("VS state", this.state);
+        console.log("VS props", this.props);
 
 
         return (
@@ -301,10 +302,8 @@ class ViewSet extends React.Component {
                         <AddnewPopUp 
                         match={this.props.match} 
                         create={this.state} 
+                        correctSet={this.state.correctSet}
                         allCard={this.props.cards} 
-                        navigateNewFlashcard={(e) => { this.navigateNewFlashcard(e) }} 
-                        navigateNewQuizcard={(e) => { this.navigateNewQuizcard(e) }} 
-                        navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
                         toggle={() => this.toggle()} />
                         
                         {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>

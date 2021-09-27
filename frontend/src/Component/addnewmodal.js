@@ -50,7 +50,6 @@ class PureModel extends React.Component {
 
 
     render() {
-        console.log('addnew modal', this.props.correctClass)
         const isClass = this.props.create.type === "class";
         let button
         if (isClass) {
@@ -79,6 +78,7 @@ class PureModel extends React.Component {
                     <AddExistPopUp create={this.state} 
                     allCard={this.props.allCard} 
                     correctClass={this.props.correctClass} 
+                    correctSet={this.props.correctSet}
                     match={this.props.match} 
                     toggle={() => {this.toggle();this.props.toggle()}} />
 
