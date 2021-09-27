@@ -161,16 +161,13 @@ export function cardReducer(state = initialState, action) {
                 }
             }
         case ADD_SUBMISSION_DICTATIONCARD:
-
             return {
                 card:{
                     ...state.card,
                     dictationcard: state.card.dictationcard.map((dictationcard) => {
-                    
                         if(dictationcard.id === action.payload.dictationcard_id){
                             dictationcard.questions.map((question) => {
                             if(question.id === action.payload.dictation_id){
-                             
                             return {
                                 ...question,
                                 submission:[...question.submission, action.payload]
@@ -204,22 +201,6 @@ export function cardReducer(state = initialState, action) {
                     })
                 }
             }
-
-        // case ADD_SUBMISSION_TRUEFALSE:
-        //     return {
-        //         card:{
-        //             ...state.card,
-        //             trueFalse: state.card.quizcard.trueFalse.map((trueFalse) => {
-        //                 if(trueFalse.trueFalse_id === action.payload.trueFalse_id){
-        //                     return {
-        //                         ...trueFalse,
-        //                         submission:[...trueFalse.submission, action.payload]
-        //                     }
-        //                 }
-        //                 return trueFalse
-        //             })
-        //         }
-        //     }
     
         case DELETE_SUBMISSION_FLASHCARD:
             return {
@@ -344,17 +325,25 @@ export function cardReducer(state = initialState, action) {
                     card:{
                         ...state.card,
                         dictationcard: state.card.dictationcard.map((dictationcard) => {
-                            if(dictationcard.dictationcard_id === action.payload.dictationcard_id){
+                            if(dictationcard.id === action.payload.dictationcard_id){
                                 return {
                                     ...dictationcard,
-                                    submission: dictationcard.submission.map((submission) => {
-                                        if(submission.dictationcardSubmission_id === action.payload.dictationcardSubmission_id){
+                                    questions: dictationcard.questions.map((question) => {
+                                        if(question.id === action.payload.dictation_id) {
                                             return {
-                                                ...submission, 
-                                                feedback: [action.payload]
+                                                ...question,
+                                                submission: question.submission.map((submission) => {
+                                                    if(submission.id === action.payload.dictationSubmission_id){
+                                                        return {
+                                                            ...submission, 
+                                                            feedback: [action.payload]
+                                                        }
+                                                    }
+                                                  return submission
+                                                })
                                             }
                                         }
-                                      return submission
+                                        return question
                                     })
                                 }
                             }
