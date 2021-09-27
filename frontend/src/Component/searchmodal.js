@@ -35,7 +35,7 @@ class PureSearchModal extends React.Component{
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                    <Link to={'/search/'+ this.state.criteria} className="w-100 mb-2"><button onClick={() => {this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Search</button></Link>
+                    <Link to={'/search/'+ this.state.criteria} className="w-100 mb-2"><button onClick={() => { this.clearInput();this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Search</button></Link>
 
                         <button onClick={()=>{this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>

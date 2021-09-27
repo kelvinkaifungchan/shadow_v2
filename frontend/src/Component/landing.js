@@ -35,7 +35,7 @@ class PureLanding extends React.Component {
                 <Route render={({ location }) => (
                     <>
                         <div className="nav">
-                            {location.pathname !== '/login' && location.pathname !== '/signup'  && <NavBar history={this.props.history} />}
+                            {location.pathname !== '/login' && location.pathname !== '/signup'  && <NavBar/>}
                         </div>
                             <Switch>
                                 <Route path="/login" component={Login} />
