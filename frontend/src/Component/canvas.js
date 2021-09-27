@@ -23,7 +23,7 @@ class PureCanvas extends React.Component {
         }
 
 
-        this.socket = io.connect("http://localhost:8080");
+        this.socket = io.connect("http://192.168.1.137:8080");
         this.socket.emit("newUser", this.room)
         this.socket.on("clear", () => {
             var canvas = document.querySelector('#board');
@@ -161,25 +161,32 @@ class PureCanvas extends React.Component {
         this.socket.emit("clear", this.room, base64ImageData);
     }
 
-   
 
-render() {
-    
-    return (
-        <div className="container">
-        <div className="row">
-            {/* <div className="sketch" id="sketch"> */}
-                <canvas className={classes.responsivecanvas} id="board" ></canvas>
-            {/* </div> */}
-        </div>
-        {/* <div className="row m-4">
-        <button onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()}> Clear </button>
-        <button onClick={() => this.submit()}> Submit </button>
-        </div> */}
 
-</div>
-    )
-}
+    render() {
+
+        return (
+            <div className="container">
+                <div className="row">
+                    
+                    {/* <div className="sketch" id="sketch"> */}
+                    <canvas className={classes.responsivecanvas} id="board" ></canvas>
+                    {/* </div> */}
+                </div>
+                <div className="row d-flex justify-content-end mt-2">
+                    {/* <div className="col"> */}
+                    {/* <div className={classes.clearbtn}> */}
+                    <button className={classes.clearbtn} onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()} > Clear </button>
+                    {/* </div> */}
+                    {/* </div> */}
+
+
+                    {/* <button onClick={() => this.submit()}> Submit </button> */}
+                </div>
+
+            </div>
+        )
+    }
 
 }
 
