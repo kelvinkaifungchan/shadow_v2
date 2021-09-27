@@ -5,7 +5,6 @@ class SubmissionService {
 
     //Method to add submission
     async add(body) {
-        console.log("submissionService body");
         if (body.type === "flashcard") {
             console.log("Adding submission to flashcard");
             let user_id = await this.knex("user").where({
@@ -22,7 +21,6 @@ class SubmissionService {
                 .returning("id");
         }
         else if (body.type === "dictation") {
-            console.log("OISGIO", body)
             console.log("Adding submission to dictation");
             let user_id = await this.knex("user").where({
                 email: body.email
@@ -38,7 +36,7 @@ class SubmissionService {
                 .returning("id");
         }
         else if (body.type === "quizcard") {
-            console.log("Adding submission to quizcard", body);
+            console.log("Adding submission to quizcard");
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
@@ -136,7 +134,6 @@ class SubmissionService {
                 .where("quizcardQuestionSubmission.id", body.quizcardSubmissionId)
                 .select("user.id as user_id", "user.displayName", "user.picture", "quizcardQuestionSubmission.quizcardQuestion_id", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
                 .then((submission) => {
-                        console.log("submisiions", submission)
                         return ({
                         user_id:submission[0].user_id,
                         displayName:submission[0].displayName,

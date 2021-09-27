@@ -126,7 +126,7 @@ class TagService{
 
     //Delete tag
     delete(body){
-        console.log("Removing tag",body)
+        console.log("Removing tag", body)
         if(body.type == "set"){
             return this.knex("tag_set")
                 .where("tag_set.tag_id", body.tagId)
