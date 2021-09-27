@@ -54,7 +54,6 @@ class AuthRouter {
                     // passwordHash: hashedPassword
                 })
                 .then((data) => {
-                    console.log(data,"data");
                     if (data[0]) {
                         console.log("User already exists")
                     } else {

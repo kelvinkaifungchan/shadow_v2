@@ -70,10 +70,8 @@ export const addCard = (card) => async (dispatch) => {
     }
 
     if(card.type === "quizcard"){
-        console.log('in action')
         await axios.post("http://localhost:8080/api/card", card)
         .then((data) => {
-        console.log('data', data)
         let newId = data.data;
         return newId
     }).then((newId) =>{
@@ -99,7 +97,6 @@ export const addCard = (card) => async (dispatch) => {
 }
 
 export const editCard = (card) => async (dispatch) => {
-    console.log("editing card" , card)
     await axios.put("http://localhost:8080/api/card", card)
             if (card.type === "dictationcard") {
                 dispatch({

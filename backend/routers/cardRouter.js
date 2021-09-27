@@ -75,7 +75,6 @@ class CardRouter {
                 if(body.type === "quizcard"){body.quizcardSubmissionId = data[0]};
             })
             .then(() => {
-                console.log('cd router ln 80')
                 return this.submissionService
                 .submission(body)
             })

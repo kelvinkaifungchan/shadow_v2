@@ -302,6 +302,9 @@ class ViewSet extends React.Component {
                         <AddnewPopUp 
                         match={this.props.match} 
                         create={this.state} 
+                        navigateNewFlashcard={(e) => { this.navigateNewFlashcard(e) }} 
+                        navigateNewQuizcard={(e) => { this.navigateNewQuizcard(e) }} 
+                        navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
                         correctSet={this.state.correctSet}
                         allCard={this.props.cards} 
                         toggle={() => this.toggle()} />

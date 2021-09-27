@@ -164,6 +164,7 @@ class ViewClassroom extends React.Component {
 
     editHeading() {
         this.props.editClassroom({
+            email: this.props.user.email,
             title: this.state.title,
             description: this.state.description,
             classroomId: this.state.correctClass[0].id
