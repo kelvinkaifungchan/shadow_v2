@@ -142,7 +142,7 @@ class ClassroomService {
     .join("classroom_user", 'classroom.id', 'classroom_user.classroom_id')
     .where("classroom.user_id", user_id[0].id)
     .orWhere('classroom_user.sharedUser_id', user_id[0].id)
-    .where("classroom.classroomStatus", "=" , true)
+    .where("classroom.classroomStatus", true)
     .select("classroom.id", "classroom.classroomStatus")
     .groupBy('classroom.id')
     .then(async (classrooms) => {

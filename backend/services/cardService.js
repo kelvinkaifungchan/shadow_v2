@@ -79,7 +79,6 @@ class Card {
                                     dictationRecording: dicData.dictationRecording,
                                     dictationStatus: true
                                 })
-                                .returning("id")
                                 .catch((err) => {
                                     console.log(err)
                                 })

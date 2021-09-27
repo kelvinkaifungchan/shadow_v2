@@ -21,7 +21,7 @@ import { ViewDictationcardSubmission } from '../Pages/ViewDictationCardSubmissio
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PrivateRoute from './PrivateRoute'
 import './landing.module.css'
 class PureLanding extends React.Component {
@@ -33,14 +33,10 @@ class PureLanding extends React.Component {
             <BrowserRouter>
                 {/* Empty Route for getting the location key */}
                 <Route render={({ location }) => (
-                    <TransitionGroup>
+                    <>
                         <div className="nav">
                             {location.pathname !== '/login' && location.pathname !== '/signup'  && <NavBar history={this.props.history} />}
                         </div>
-                        <CSSTransition
-                            key={location.key}
-                            timeout={3000}
-                            className="fade">
                             <Switch>
                                 <Route path="/login" component={Login} />
                                 <Route path="/canvas/:userId/:canvasId" component={Canvas} />
@@ -59,8 +55,7 @@ class PureLanding extends React.Component {
                                 <PrivateRoute path="/viewdictationcard/:id" component={ViewDictationcard} />
                                 <PrivateRoute path="/viewdictationCardSubmission/:id" component={ViewDictationcardSubmission} />
                             </Switch>
-                        </CSSTransition>
-                    </TransitionGroup>
+                    </>
                 )}/>
 
             </BrowserRouter >

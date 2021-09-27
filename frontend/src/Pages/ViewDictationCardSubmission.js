@@ -68,6 +68,7 @@ class ViewDictationcardSubmission extends React.Component {
                         <div className="row d-flex p-4">
                             <div className="col">
                             <table>
+                                <tbody>
                                 <tr>
                                 <td className={classes.toprow}>Question</td>
 
@@ -98,6 +99,7 @@ class ViewDictationcardSubmission extends React.Component {
                                             </tr>
                                         )
                                     }) : null}
+                                </tbody>
                                 </table>
                                 </div>
                         </div>
