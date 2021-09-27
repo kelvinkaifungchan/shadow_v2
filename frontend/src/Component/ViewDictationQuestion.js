@@ -226,7 +226,17 @@ class ViewDictationQuestion extends React.Component {
                     className="mt-4 float-right"> Save &amp; Next</button> 
                     </>
                     : 
-                    // <div className="col col-12 d-flex justify-content-center align-items-center">
+                    <>
+                    <div style={{display: "none"}}>
+                    <Canvas  submission={() => {this.submission(); this.addFeedback()}} 
+                    submit={(canvas)=>{this.submit(canvas)}} 
+                    clearcanvas={() => this.clearcanvas()} 
+                    addSubmission={() => this.addSubmission()} 
+                    handleCanvas={(fileName, base64ImageData) => this.handleCanvas(fileName, base64ImageData)} 
+                    dictationId={this.props.dictation[0].id} userId={this.props.user.id.toString()} /> 
+                
+                    </div>
+                    
                         <div className={classes.finishbtncontainer}>
                             <span
                             onClick={(e) => {this.props.navigateSubmission(e)}} 
@@ -234,7 +244,7 @@ class ViewDictationQuestion extends React.Component {
                             className={classes.finishbtn}
                             > Done </span>
                             </div>
-                        // </div>
+                        </>
                     
                      }
                 

@@ -76,12 +76,12 @@ class PureCanvas extends React.Component {
         this.ctx = canvas.getContext('2d');
         var ctx = this.ctx;
 
-        // var sketch = document.querySelector('#sketch');
-        // var sketch_style = getComputedStyle(sketch);
-        // canvas.width = parseInt(sketch_style.getPropertyValue('width'));
-        // canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        var widthRatio = 5
-        canvas.width = canvas.height * widthRatio;
+        var sketch = document.querySelector('#board');
+        var sketch_style = getComputedStyle(sketch);
+        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        // var widthRatio = 5
+        // canvas.width = canvas.height * widthRatio;
         var drawing = false;
         var current = {}
 
@@ -170,13 +170,13 @@ class PureCanvas extends React.Component {
                 <div className="row">
                     
                     {/* <div className="sketch" id="sketch"> */}
-                    <canvas className={classes.responsivecanvas} id="board" ></canvas>
+                    <canvas className={classes.responsivecanvas }style={{width: 950 ,  height: 480}} id="board" ></canvas>
                     {/* </div> */}
                 </div>
                 <div className="row d-flex justify-content-end mt-2">
                     {/* <div className="col"> */}
                     {/* <div className={classes.clearbtn}> */}
-                    <button className={classes.clearbtn} onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()} > Clear </button>
+                    <button className={classes.clearbtn}  onClick={() => this.props.clearcanvas ? this.props.clearcanvas() : this.clearcanvas()} > Clear </button>
                     {/* </div> */}
                     {/* </div> */}
 
