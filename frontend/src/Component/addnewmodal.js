@@ -70,7 +70,7 @@ class PureModel extends React.Component {
                         <CreatePopUp create={this.state} toggle={() => { this.setCreatePopUp();this.props.toggle() }} match={this.props.match} navigate={(e) => this.navigateSet(e)} /> :
                         <SelectCardPopUp 
                         selectCard={this.state} 
-                        // navigate={(e) => { this.props.navigate(e) }} 
+                        navigate={(e) => { this.props.navigate(e) }} 
                         navigateNewFlashcard={(e) => { this.props.navigateNewFlashcard(e) }} 
                         navigateNewQuizcard={(e) => { this.props.navigateNewQuizcard(e) }} 
                         navigateNewDictationcard={(e) => { this.props.navigateNewDictationcard(e) }} 

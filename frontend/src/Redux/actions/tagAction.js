@@ -9,7 +9,6 @@ export const DELETE_TAG_CLASSROOM = "DELETE_TAG_CLASSROOM";
 export const DELETE_TAG_SET = "DELETE_TAG_SET";
 
 export const addTag = (tag) => async (dispatch) => {
-    console.log("adding tag")
 
     const { data } = await axios.post(`http://localhost:8080/api/tag/`, tag)
 

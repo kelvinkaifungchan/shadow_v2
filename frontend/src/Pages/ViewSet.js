@@ -301,16 +301,16 @@ class ViewSet extends React.Component {
                     </div>
 
                     <div className="row d-flex mt-4 m-3">
-                        <AddnewPopUp
-                            match={this.props.match}
-                            create={this.state}
-                            correctSet={this.state.correctSet}
-                            navigateNewFlashcard={(e) => { this.navigateNewFlashcard(e) }}
-                            navigateNewQuizcard={(e) => { this.navigateNewQuizcard(e) }}
-                            navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }}
-                            allCard={this.props.cards}
-                            toggle={() => this.toggle()} />
-
+                        <AddnewPopUp 
+                        match={this.props.match} 
+                        create={this.state} 
+                        navigateNewFlashcard={(e) => { this.navigateNewFlashcard(e) }} 
+                        navigateNewQuizcard={(e) => { this.navigateNewQuizcard(e) }} 
+                        navigateNewDictationcard={(e) => { this.navigateNewDictationcard(e) }} 
+                        correctSet={this.state.correctSet}
+                        allCard={this.props.cards} 
+                        toggle={() => this.toggle()} />
+                        
                         {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeSet(); this.toggle(); }} className={classes.card}>
                             <div className={classes.addbtn}>
                                 <i className="fas fa-plus" />

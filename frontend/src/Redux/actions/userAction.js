@@ -35,7 +35,6 @@ export const editUserDisplayNameThunk = (user) => async (dispatch) => {
 export const editUserEmailThunk = (user) => async (dispatch) => {
     return axios.put("http://localhost:8080/api/user/email", user)
     .then(response => {
-            console.log("updating user email")
             dispatch({
                 type: EDIT_USER_EMAIL,
                 payload: {email: user.email}
