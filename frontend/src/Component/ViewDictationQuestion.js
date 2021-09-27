@@ -111,7 +111,7 @@ class ViewDictationQuestion extends React.Component {
     //     })
     // }
     submit(canvas) {
-        var canvas = document.querySelector('#board');
+        // var canvas = document.querySelector('#board');
         var base64ImageData = canvas.toDataURL("image/png")
         var imageData = base64ImageData.split(';base64,')[1];
         console.log(imageData)

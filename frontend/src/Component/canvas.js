@@ -1,11 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
-import FormData from 'form-data';
 
-import { v4 as uuidv4 } from 'uuid';
 import { submitCanvas } from "../Redux/actions/canvasAction";
 import { connect } from "react-redux";
-import MediaQuery from 'react-responsive';
 
 class PureCanvas extends React.Component {
 
