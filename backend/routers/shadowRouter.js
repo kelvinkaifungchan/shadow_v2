@@ -39,7 +39,7 @@ class ShadowRouter {
                 .list(req.body)
             })
             .then((classrooms) => {
-                console.log("ShadowRouter classroom.list")
+                console.log("ShadowRouter classroom.list", classrooms)
                 return data.classrooms = classrooms
             })
             .then(() => {

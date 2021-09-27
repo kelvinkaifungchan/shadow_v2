@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,  Button, Form, Label, Input } from 'reactstrap';
 import classes from './createquizcardQuestion.module.css'
 
 class PureCreateQuiz extends React.Component{

@@ -39,6 +39,7 @@ class PureLanding extends React.Component {
                         </div>
                         <CSSTransition
                             key={location.key}
+                            timeout={3000}
                             className="fade">
                             <Switch>
                                 <Route path="/login" component={Login} />

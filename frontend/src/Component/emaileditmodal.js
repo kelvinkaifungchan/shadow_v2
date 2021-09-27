@@ -33,7 +33,7 @@ render(){
                 <input type="text" placeholder="Change Email" value={this.state.email} onChange={this.onChangeField.bind(this, 'email')} className="form-control mb-4"/>
                 </Form>
                 <ModalFooter>
-                        {this.state.email != "" && this.state.email.includes("@") && this.state.email.includes(".") ? <button onClick={(e)=>{this.update(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Update</button> : <button type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2" disabled>Update</button>}
+                        {this.state.email !== "" && this.state.email.includes("@") && this.state.email.includes(".") ? <button onClick={(e)=>{this.update(e); this.props.toggle()}} type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2">Update</button> : <button type="submit" className="btn btn-outline-dark waves-effect w-100 mb-2" disabled>Update</button>}
                         <button onClick={()=>{this.props.toggle()}} type="submit" className="btn btn-outline-danger waves-effect w-100 mb-2">Cancel</button>
                     </ModalFooter>
       
