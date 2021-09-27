@@ -31,7 +31,7 @@ class FeedbackService {
             return this.knex
             .insert({
                 user_id: user_id[0].id,
-                dictationSubmission_id: body.submissionId,
+                dictationSubmission_id: body.dictationSubmissionId,
                 dictationFeedbackBody: body.body,
                 dictationFeedbackStatus: true
             })
@@ -108,22 +108,23 @@ class FeedbackService {
         
         } 
         else if (body.type === "dictationcard"){
-            console.log("Listing details of dictationFeedback");
+            console.log("Listing details of dictationFeedback", body);
             return this.knex("dictationFeedback")
             .join("user", "dictationFeedback.user_id", "=", "user.id")
             .where("dictationFeedback.id", body.dictationFeedbackId)
-            .select("user.id as user_id", "user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody", "dictationFeedback.dictationFeedbackTime")
+            .select("user.id as user_id", "user.displayName","user.picture",  "dictationFeedback.id", "dictationFeedback.dictationSubmission_id", "dictationFeedback.dictationFeedbackBody")
             .then((feedback) => {
+                console.log("FEEDNACL", feedback)
                     return ({
                         user_id: feedback[0].user_id,
                         displayName: feedback[0].displayName,
                         picture: feedback[0].picture,
                         dictationSubmissionId: feedback[0].dictationSubmission_id,
-                        dictationFeedbackId: feedback[0].id,
+                        dictationFeedbackId: body.dictationFeedbackId,
                         dictationFeedbackBody: feedback[0].dictationFeedbackBody,
-                        dictationFeedbackTime: feedback[0].dictationFeedbackTime,
                     });
             })
+            .catch((err) => console.log(err))
         
         } 
 
