@@ -24,14 +24,14 @@ class ViewDictationQuestion extends React.Component {
     
     constructor(props) {
         super(props);
-        this.socket = io.connect("http://192.168.1.137:8080");
+        this.socket = io.connect("http://localhost:8080");
         this.state = {
             type: "dictation",
             questionId: this.props.question.questions[0].id,
             fakequestionId: 1,
             canvasUrl: "",
             base64ImageData: "",
-            target: [],
+            target: this.props.question.questions[0],
             submissions:[],
         
         }
@@ -159,7 +159,7 @@ class ViewDictationQuestion extends React.Component {
 
             <div className={classes.ViewDictationQuestion} >
                 <div className={classes.container}>
-                <div className="row d-flex" >
+                <div className="row d-flex pb-2" >
                     <div className="col">
                     <div className={classes.scrollicon} >
                             {this.props.question.questions &&
@@ -227,12 +227,13 @@ class ViewDictationQuestion extends React.Component {
                     </>
                     : 
                     // <div className="col col-12 d-flex justify-content-center align-items-center">
-                            // <div className={classes.finishbtncontainer}>
-                            <button 
+                        <div className={classes.finishbtncontainer}>
+                            <span
                             onClick={(e) => {this.props.navigateSubmission(e)}} 
                             cards={this.props.cards} 
-                            className={classes.finishbtn}> Done </button>
-                            // </div>
+                            className={classes.finishbtn}
+                            > Done </span>
+                            </div>
                         // </div>
                     
                      }

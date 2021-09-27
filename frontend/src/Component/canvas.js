@@ -23,7 +23,7 @@ class PureCanvas extends React.Component {
         }
 
 
-        this.socket = io.connect("http://192.168.1.137:8080");
+        this.socket = io.connect("http://localhost:8080");
         this.socket.emit("newUser", this.room)
         this.socket.on("clear", () => {
             var canvas = document.querySelector('#board');
