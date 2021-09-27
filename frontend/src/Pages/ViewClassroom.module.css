@@ -1,5 +1,5 @@
 .viewclassroom {
-    margin: 4vh 4vw
+    margin: 1% 4%;
 }
 
 h1 {
@@ -65,14 +65,14 @@ h1 {
     font-size: 15px;
 }
 
-/* .tagbutton :hover{
+.tagbutton:hover{
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    } */
+    }
 
 .addtagbutton {
     height: 1.5rem;
     padding: 0px 10px;
-    margin: 6px;
+    margin: 4px;
     border-radius: 15px;
     background-color: #FFFFFF;
     border: 1px solid #707070;
@@ -83,8 +83,10 @@ h1 {
     font-size: 15px;
 }
 
-.viewclassroom button:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+
+.addtagbutton:hover {
+    border: 1px solid #858585;
+    color: #858585;
 }
 
 
@@ -119,6 +121,7 @@ h1 {
     overflow: visible;
     outline: none;
     background-color: transparent;
+    padding: 10px 0px 0px 20px
 }
 
 .editDescription{
@@ -130,4 +133,13 @@ h1 {
     overflow: visible;
     outline: none;
     background-color: transparent;
+    padding: 20px 0px 0px 20px
+}
+
+.viewclassroom h1{
+    padding: 10px 0px 0px 20px
+}
+
+.viewclassroom h6 {
+    padding: 10px 0px 0px 20px
 }

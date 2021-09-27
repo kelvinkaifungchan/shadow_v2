@@ -79,7 +79,6 @@ class Card {
                                     dictationRecording: dicData.dictationRecording,
                                     dictationStatus: true
                                 })
-                                .returning("id")
                                 .catch((err) => {
                                     console.log(err)
                                 })
@@ -528,7 +527,7 @@ class Card {
                                     data.questions.submission = await Promise.all(data.questions.map((dicSub) => {
                                         return this.knex("dictationSubmission")
                                             .join("user", "user.id", "dictationSubmission.user_id")
-                                            .where("dictationSubmission.dictation_id", id.id)
+                                            .where("dictationSubmission.dictation_id", dicSub.id)
                                             .select("user.displayName", "user.picture", "dictationSubmission.id", "dictationSubmission.user_id", "dictationSubmission.dictationSubmissionPath")
                                             .then((dsubs) => {
                                                 dicSub.submission = dsubs.map((dsub) => {

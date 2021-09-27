@@ -143,11 +143,7 @@ class Set {
                 sets.map((set) => {
                     setArray.push(set)
                 })
-                console.log("setArray", setArray);
-
             })
-
-
 
         await this.knex("set")
             .join('classroom_set', 'set.id', 'classroom_set.set_id')
@@ -163,7 +159,6 @@ class Set {
                 sets.map((set) => {
                     bridgeArray.push(set)
                 })
-                console.log("bridgeArray", bridgeArray);
             })
 
 

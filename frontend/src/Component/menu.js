@@ -14,17 +14,17 @@ class PureMenu extends React.Component {
     render() {
         return (
             <div className={classes.dropdown}>
-                <ListGroup variant="flush" className={classes.dropdowncontent}>
-                    <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-archive"></i> Classroom</strong></ListGroupItem>
+                <ListGroup className={classes.dropdowncontent}>
+                    <ListGroupItem tag="a" href="#" action ><div className={classes.classroommenu}><i className="fas fa-archive"></i> Classroom</div></ListGroupItem>
                     {this.props.classrooms.map((classroom, i) => {
                         return (
-                    <ListGroupItem data-key={classroom.id} tag="a" action onClick={()=>this.props.toggle()}><Link to={'/viewclassroom/'+classroom.id} >{classroom.title}</Link></ListGroupItem>
+                    <ListGroupItem data-key={classroom.id} tag="a" action onClick={()=>this.props.toggle()} ><Link to={'/viewclassroom/'+classroom.id} ><div className={classes.classroomlink}>{classroom.title}</div></Link></ListGroupItem>
                         )
                     })}
-                    <ListGroupItem tag="a" href="#" action><strong><i className="fas fa-layer-group"></i> Set</strong></ListGroupItem>
+                    <ListGroupItem tag="a" href="#" action><div className={classes.setmenu}><i className="fas fa-layer-group" ></i> Set</div></ListGroupItem>
                     {this.props.sets.map((set, i) => {
                         return (
-                    <ListGroupItem data-key={set.id} tag="a" action onClick={()=>this.props.toggle()}><Link to={'/viewset/'+set.id} >{set.title}</Link></ListGroupItem>
+                    <ListGroupItem data-key={set.id} tag="a" action onClick={()=>this.props.toggle()} ><Link to={'/viewset/'+set.id} ><div className={classes.setlink}>{set.title}</div></Link></ListGroupItem>
                         )
                     })}
                 </ListGroup>

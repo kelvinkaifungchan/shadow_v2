@@ -6,9 +6,11 @@ export const DELETE_SHARING = "DELETE_SHARING";
 export const addSharingThunk = (sharing) => async (dispatch) => {
     return axios.post("http://localhost:8080/api/sharing", sharing)
     .then((response) => {
+    console.log("sharing response",response);
+
         dispatch({
                 type: ADD_SHARING,
-                payload: {id: {classroom_id: sharing.classroomId}, content:{id: response.data.user_id, email: response.data.email, displayName: response.data.displayName, picture: response.data.picture}}
+                payload: response.data
             })
     })
     .catch(err => console.log("Error: ", err))

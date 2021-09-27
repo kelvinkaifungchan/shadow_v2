@@ -85,6 +85,7 @@ class Account extends React.Component {
 
                     <div className="col-8">
                         <table>
+                            <tbody>
                             <tr>
                                 <th>Role</th>
                                 <td>{this.props.user.role}</td>
@@ -118,6 +119,7 @@ class Account extends React.Component {
                             <td></td>
                             <td></td>
                             </tr>
+                            </tbody>
                         </table>    
                     </div>
                 </div>

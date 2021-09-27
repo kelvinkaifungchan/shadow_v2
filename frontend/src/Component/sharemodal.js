@@ -23,10 +23,11 @@ class PureShareModal extends React.Component{
 
     submit = (e) => {
         e.preventDefault();
-        this.props.createShareMDP(this.state.email, this.props.location.id)
+        this.props.createShareMDP(this.state.email, this.props.match.params.id)
     }
 
     render() {
+        console.log("sharing modal state",this.state);
         return (
             <div>
                 <Modal isOpen={this.props.share.shareModal} toggle={this.props.toggle}>

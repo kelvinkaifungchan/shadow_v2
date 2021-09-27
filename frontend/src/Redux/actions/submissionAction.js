@@ -5,6 +5,8 @@ export const ADD_SUBMISSION_FLASHCARD = "ADD_SUBMISSION_FLASHCARD";
 export const ADD_SUBMISSION_QUIZCARD = "ADD_SUBMISSION_QUIZCARD";
 export const ADD_SUBMISSION_TRUEFALSE = "ADD_SUBMISSION_TRUEFALSE";
 
+export const ADD_FEEDBACK_DICTATIONCARD = "ADD_FEEDBACK_DICTATIONCARD";
+
 export const DELETE_SUBMISSION_DICTATIONCARD = "DELETE_SUBMISSION_DICTATIONCARD";
 export const DELETE_SUBMISSION_FLASHCARD = "DELETE_SUBMISSION_FLASHCARD";
 export const DELETE_SUBMISSION_MULTIPLECHOICE = "DELETE_SUBMISSION_MULTIPLECHOICE";
@@ -17,8 +19,9 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
             if (submission.type === "dictation") {
                 dispatch({
                     type: ADD_SUBMISSION_DICTATIONCARD,
-                    payload: { user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture, dictationcard_id: submission.dictationcardId, id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true }
+                    payload: { user_id: data.data.userId, displayName: data.data.displayName, picture: data.data.picture,dictationcard_id: submission.dictationcardId,  dictation_id: submission.dictationId, id: data.data.dictationSubmissionId, dictationcardSubmissionPath: submission.dictationcardSubmissionPath, dictationcardSubmissionStatus: true }
                 })
+                submission.feedback.dictationSubmissionId = data.data.dictationSubmissionId;
             } else if (submission.type === "flashcard") {
                 dispatch({
                     type: ADD_SUBMISSION_FLASHCARD,
@@ -28,9 +31,31 @@ export const addSubmissionThunk = (submission) => async (dispatch) => {
                 console.log(data,">>!!!!!!data in submission");
                 dispatch({
                     type: ADD_SUBMISSION_QUIZCARD,
-                    payload: { user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, quizcardQuestionSubmission: data.data.quizcardSubmission, quizcard_id: submission.quizcardId, question_id: submission.quizcardQuestionSubmission.questionId, quizcardQuestionMarking: data.data.quizcardQuestionMarking }
+                    payload: { 
+                        user_id: data.data.user_id, 
+                        displayName: data.data.displayName, 
+                        picture: data.data.picture, 
+                        quizcardQuestionSubmission: submission.quizcardQuestionSubmission, 
+                        quizcard_id: submission.quizcardId, 
+                        question_id: submission.quizcardQuestionSubmission.questionId, 
+                        quizcardQuestionMarking: data.data.quizcardQuestionMarking 
+                    }
                 })
             }
+        })
+        .then(() => {
+            console.log("ADDING FEEDBACK", submission.feedback)
+            
+            return axios.post("http://localhost:8080/api/card/submission/feedback", submission.feedback)
+        })
+        .then((data) => {
+            if (submission.type === "dictation") {
+            console.log("FEEDBACK", data)
+            dispatch({
+                type: ADD_FEEDBACK_DICTATIONCARD,
+                payload: {user_id: data.data.user_id, displayName: data.data.displayName, picture: data.data.picture, dictation_id: submission.dictationId, dictationcard_id: submission.dictationcardId, dictationcardSubmission_id: data.data.dictationSubmissionId, dictationcardFeedback_id: data.data.dictationFeedbackId, dictationcardFeedbackBody: data.data.dictationFeedbackBody}
+            })
+        }
         })
         .catch(err => console.log("Error: ", err))
 }

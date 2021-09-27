@@ -181,20 +181,8 @@ class ViewClassroom extends React.Component {
                         {/* </div> */}
                     </div>
 
-                    <div className="row d-flex pl-4 pr-4 m-2">
-
-                        {/* Share User */}
-                        <DisplayShareUser shared={this.state.correctShare} deleteShare={(sharedId) => { this.deleteShare(sharedId) }} />
-                        {/* share user add button */}
-                        <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
-                        <span className={classes.sharingusericon}>
-                            {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
-                        </span>
-                    </div>
-
-
                     {/* diaplay Tags */}
-                    <div className="row d-flex pl-4 pr-4 m-2">
+                    <div className="row d-flex pl-4 pr-4 ml-3">
                         <DisplayClassroomTag tags={this.state.correctTag} deleteTag={(tagId) => { this.deleteTag(tagId) }} />
                         <NewTagPopUp addTag={this.state} location={this.state.correctClass[0]} toggle={() => this.tagToggle()} />
                         <span className="d-inline-flex ">
@@ -203,8 +191,22 @@ class ViewClassroom extends React.Component {
                     </div>
 
 
+                    <div className="row d-flex pl-4 pr-4 mt-3 ml-3">
+                        {/* Share User */}
+                        <DisplayShareUser shared={this.state.correctShare} deleteShare={(sharedId) => { this.deleteShare(sharedId) }} />
+                        {/* share user add button */}
+                        <NewSharePopUp match={this.props.match} share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
+                        <span className={classes.sharingusericon}>
+                            {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
+                        </span>
+                    </div>
+
+
+
+
+
                     {/* Add button */}
-                    <div className="row d-flex m-3">
+                    <div className="row d-flex mt-4 m-3">
                         <AddnewPopUp match={this.props.match} correctClass={this.state.correctClass} create={this.state} toggle={() => { this.changeTypeClass(); this.toggle() }} navigate={(e) => this.navigateSet(e)} />
                         {this.props.user.role === "teacher" ? <div onClick={() => { this.changeTypeClass(); this.toggle(); }} className={classes.set}>
                             <div className={classes.addbtn}>

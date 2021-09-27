@@ -62,7 +62,7 @@ app.use("/api/set", new SetRouter(setService).router());
 const ShadowRouter = require("./routers/shadowRouter");
 app.use("/api/shadow", new ShadowRouter(userService, tagService, classroomService, setService, cardService).router());
 const SharingRouter = require("./routers/sharingRouter");
-app.use("/api/sharing", new SharingRouter(sharingService).router());
+app.use("/api/sharing", new SharingRouter(sharingService, classroomService).router());
 const tagRouter = require("./routers/tagRouter");
 app.use("/api/tag", new tagRouter(tagService).router());
 const UserRouter = require("./routers/userRouter");

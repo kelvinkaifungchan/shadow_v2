@@ -9,7 +9,7 @@ import { DisplaySetModule } from '../Component/displaysetmodule'
 
 // Require Css
 import classes from './Dashboard.module.css'
-import '../Component/main.css'
+// import '../Component/main.css'
 
 
 class ViewSearch extends React.Component {
@@ -33,7 +33,7 @@ class ViewSearch extends React.Component {
                 if (tag.body === this.props.match.params.search) {
                     return tag.body
                 } else {
-                    return
+                    return false
                 }
             }).includes(this.props.match.params.search) === true)
         })
@@ -45,7 +45,7 @@ class ViewSearch extends React.Component {
                 if (tag.body === this.props.match.params.search) {
                     return tag.body
                 } else {
-                    return
+                    return false
                 }
             }).includes(this.props.match.params.search) === true)
         })

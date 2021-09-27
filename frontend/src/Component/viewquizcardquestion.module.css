@@ -1,21 +1,13 @@
-
-
-/* .listframe {
-    border: 1px solid #3D4176;
-    background-color: #FFFFFF;
-    margin-top: 30px;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    height: 40vh;
-    justify-content: center;
-} */
-
-.questionframe{
+.viewquizcardquestion {
+    margin: 2% 1%;
     background-color: #FFFBE7;
+}
+
+.questionframe {
     padding: 20px;
     border-radius: 4px;
 }
+
 .scrollicon {
     display: flex;
     padding: 20px;
@@ -28,8 +20,6 @@
     display: flex;
     justify-content: space-between;
 }
-
-
 .scrollicon span {
     width: 50px;
     height: 50px;
@@ -41,16 +31,64 @@
     text-align: center;
     align-items: center;
     padding-top: 10px;
-
 }
-
 .scrollicon span:hover {
     background-color: #F6CA4E;
     color: white;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-.quizcardoptbtn {
+/* .viewquizcardanswer button {
+    color: #3D4176;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    justify-content: start;
+    align-items: center;
+    font-size: 15px;
+    border: 3px solid #3D4176;
+    cursor: pointer;
+} */
+
+.savebtn {
+    color: #3D4176;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    border: 3px solid #3D4176;
+    cursor: pointer;
+    text-align: center;
+}
+
+.viewsubmit {
+    cursor: pointer;
+    float: right;
+    width:150px;
+    height:40px;
+    text-align: center;
+    font-size: 15px;
+    color: #FFFFFF;
+    border: 1px solid #5D5FEF;
+    background-color: #5D5FEF;
+    border-radius: 4px;
+    margin: 4px
+}
+
+.viewsubmit:hover,
+.viewsubmit:active {
+    background-color: #7879F1;
+  }
+
+
+  .quizcardoptbtn {
     color: #3D4176;
     background-color: #FFFFFF;
     border-radius: 15px;
@@ -65,26 +103,3 @@
     cursor: pointer;
     margin: auto;
 }
-
-.savebtn{
-    cursor: pointer;
-    /* float: right; */
-    width:8vw;
-    height:5vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 15px;
-    /* font-weight: bold; */
-    color: #EF5DA8;
-    border: 2px solid #EF5DA8;
-    border-radius: 4px;
-    margin: 4px
-}
-
-.savebtn:hover {
-    border: 2px solid #EF5DA8;
-    box-shadow: 0 1px 2px 0 #EF5DA8;
-  }

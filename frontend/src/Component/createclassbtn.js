@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // import { Link } from 'react-router-dom';
-import '../Component/main.css'
+// import '../Component/main.css'
 import classes from './createclassbtn.module.css'
 
 import { CreatePopUp } from '../Component/createmodal'

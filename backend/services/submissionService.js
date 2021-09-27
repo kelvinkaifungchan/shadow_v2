@@ -5,7 +5,6 @@ class SubmissionService {
 
     //Method to add submission
     async add(body) {
-        console.log("submissionService body");
         if (body.type === "flashcard") {
             console.log("Adding submission to flashcard");
             let user_id = await this.knex("user").where({
@@ -29,15 +28,15 @@ class SubmissionService {
             return this.knex
                 .insert({
                     user_id: user_id[0].id,
-                    dictation_id: body.dictationcardId,
-                    dictationSubmissionPath: body.dictationSubmissionPath,
+                    dictation_id: body.dictationId,
+                    dictationSubmissionPath: body.dictationcardSubmissionPath,
                     dictationSubmissionStatus: true
                 })
                 .into("dictationSubmission")
                 .returning("id");
         }
         else if (body.type === "quizcard") {
-            console.log("Adding submission to quizcard",body);
+            console.log("Adding submission to quizcard");
             let user_id = await this.knex("user").where({
                 email: body.email
             }).select("id");
@@ -49,7 +48,10 @@ class SubmissionService {
                         quizcardQuestionMarking: body.quizcardQuestionMarking
                     })
                     .into("quizcardQuestionSubmission")
-                    .returning("id");
+                    .returning("id")
+                    .catch((err)=>{
+                        console.log(err)
+                    })
         }
         else {
             return "card type not recognized";
@@ -86,7 +88,6 @@ class SubmissionService {
             else {
                 return "card type not recognized";
             }
-
         }
 
         //Method to list details of a submission
@@ -114,9 +115,10 @@ class SubmissionService {
                 return this.knex("dictationSubmission")
                     .join("user", "dictationSubmission.user_id", "=", "user.id")
                     .where("dictationSubmission.id", body.dictationSubmissionId)
-                    .select("user.displayName", "user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
+                    .select("user.displayName", "user.id as user_id", "user.picture", "dictationSubmission.dictation_id", "dictationSubmission.id", "dictationSubmission.dictationSubmissionPath")
                     .then((submission) => {
                         return ({
+                            userId: submission[0].user_id,
                             displayName: submission[0].displayName,
                             picture: submission[0].picture,
                             dictationId: submission[0].dictation_id,
@@ -135,7 +137,6 @@ class SubmissionService {
                 .where("quizcardQuestionSubmission.id", body.quizcardSubmissionId)
                 .select("user.id as user_id", "user.displayName", "user.picture", "quizcardQuestionSubmission.quizcardQuestion_id", "quizcardQuestionSubmission.id", "quizcardQuestionSubmission.quizcardQuestionSubmission", "quizcardQuestionSubmission.quizcardQuestionMarking")
                 .then((submission) => {
-                        console.log("submisiions", submission)
                         return ({
                         user_id:submission[0].user_id,
                         displayName:submission[0].displayName,

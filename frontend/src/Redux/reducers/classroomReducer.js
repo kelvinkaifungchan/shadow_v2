@@ -68,14 +68,7 @@ export function classroomReducer(state = initialState, action){
             }
         case ADD_SHARING:
             return {
-                classrooms: state.classrooms.map((classroom) => {
-                    if(action.payload.id.classroom_id === classroom.id){
-                        return {
-                            ...classroom, shared:[...classroom.shared, action.payload.content]
-                        }
-                    }
-                    return classroom
-                })
+                classrooms: action.payload
             }
 
         case DELETE_SHARING:

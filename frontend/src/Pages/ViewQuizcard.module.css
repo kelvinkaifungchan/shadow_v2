@@ -1,7 +1,10 @@
 .viewquizcard{
-    margin: 2% 5%
+    margin: 2% 5%;
 }
 
+.viewquizcard h1{
+  padding: 20px 0px 10px 20px
+}
 
   .startbtn{
     cursor: pointer;

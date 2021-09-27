@@ -1,8 +1,6 @@
 .viewset {
-    margin: 2% 5%
+    margin: 1% 4%
 }
-
-
 
 .card {
     width: 30%;
@@ -58,26 +56,30 @@
     /* width: auto; */
     box-shadow: none;
     text-align: center;
+    cursor: pointer;
     font-size: 15px;
 }
 
+.tagbutton:hover{
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    }
 
-.addtagbutton {
-    height: 1.5rem;
-    margin: 10px;
-    padding: 0px 10px;
-    border-radius: 15px;
-    background-color: #FFFFFF;
-    border: 1px solid #707070;
-    color: #707070;
-    /* width: auto; */
-    box-shadow: none;
-    text-align: center;
-    font-size: 15px;
-}
+    .addtagbutton {
+        height: 1.5rem;
+        padding: 0px 10px;
+        margin: 4px;
+        border-radius: 15px;
+        background-color: #FFFFFF;
+        border: 1px solid #707070;
+        color: #707070;
+        /* width: auto; */
+        box-shadow: none;
+        text-align: center;
+        font-size: 15px;
+    }
 
 
-.viewset button:hover {
+    .addtagbutton:hover {
     border: 1px solid #858585;
     color: #858585;
     /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); */
@@ -123,6 +125,7 @@
     overflow: visible;
     outline: none;
     background-color: transparent;
+    padding: 10px 0px 0px 20px
 }
 
 .editDescription {
@@ -134,4 +137,13 @@
     overflow: visible;
     outline: none;
     background-color: transparent;
+    padding: 20px 0px 0px 20px
+}
+
+.viewset h1{
+    padding: 10px 0px 0px 20px
+}
+
+.viewset h6 {
+    padding: 10px 0px 0px 20px
 }

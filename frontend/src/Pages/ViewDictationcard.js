@@ -53,7 +53,7 @@ class ViewDictationcard extends React.Component {
             showCanvas: true,
         })
     }
-
+    
     render() {
         console.log("state in VDC", this.state);
         console.log("Props in VDC", this.props);
@@ -61,7 +61,7 @@ class ViewDictationcard extends React.Component {
         return (
             <div className="page">
 
-                <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)} />
+                {this.props.user && this.props.user.id !== undefined ? <QRModal userId={this.props.user.id} pageId={this.props.match.params.id} modal={this.state} toggle={() => this.toggle()} navigate={(e) => this.navigateCanvas(e)} />:null}
                 <div className={classes.viewdictationcard}>
                     <div className="row d-flex p-4">
                         <div className="col-8">
@@ -76,7 +76,7 @@ class ViewDictationcard extends React.Component {
                     {!this.state.showCanvas && <div className="row d-flex p-4">
                         <div className="col col-12 d-flex justify-content-center align-items-center">
                             <div className={classes.startbtncontainer}>
-                                <span onClick={() => this.toggle()} className={classes.startbtn}> Start Dictation</span>
+                                <span onClick={() => this.toggle()} className={classes.startbtn}>Start Dictation</span>
                             </div>
                         </div>
                     </div>}

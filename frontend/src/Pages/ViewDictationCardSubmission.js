@@ -1,8 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-// Require Action
+// Actions
 import { getdataThunk } from '../Redux/actions/action'
+
+//Components
+import { FeedbackPopUp } from '../Component/feedbackmodal'
 
 import classes from './ViewDictationCardSubmission.module.css'
 
@@ -18,6 +21,9 @@ class ViewDictationcardSubmission extends React.Component {
             submissionId: "",
             correctSubmission:[],
             correctDictationcard: [],
+            feedbackId: "",
+            feedbackBody: "",
+            feedbackModal: false,
         }
     }
 
@@ -26,28 +32,31 @@ class ViewDictationcardSubmission extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.cards.dictationcard.length > 0 ){
+        if(nextProps.cards.dictationcard.length > 0 ){
+            let dictationcard = nextProps.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
             this.setState({
-                correctDictationcard: this.props.cards.dictationcard.filter(dict => dict.id === parseInt(this.props.match.params.id))
+                correctDictationcard: dictationcard
             })
-            const correctProps = nextProps.cards.dictationcard.filter(filter => filter.id === parseInt(this.props.match.params.id))
-
-            // const correctSub = this.state.correctQuizcard[0] && 
-            //     this.state.correctQuizcard[0].question.length > 0
-            //     ? this.state.correctQuizcard[0].question.map((question,i) => {
-            //         return (
-            //             question.submission.filter(sub => sub.user_id === question)
-            //         )
-            //     }) : null
-            
-            this.setState({
-                // correctSubmission: correctProps[0].submission,
-            });
         }
+        
     }
+
+    feedbackModal(e) {
+        this.setState({
+            feedbackId: e.target.getAttribute('data-key'),
+            feedbackBody: e.currentTarget.value,
+        }, () => {
+            this.feedbackToggle()
+        })
+    }
+
+    feedbackToggle() {
+        this.setState({
+            feedbackModal: !this.state.feedbackModal
+        })
+    }
+
     render() {
-console.log("STATE IN VIEW DICTATION SUB", this.state)
-console.log("PROPS IN VIEW DICTATION SUB", this.props)
         return (
             <div className="page">
 
@@ -58,44 +67,46 @@ console.log("PROPS IN VIEW DICTATION SUB", this.props)
                                 <h1>{this.state.correctDictationcard.length > 0 && this.state.correctDictationcard[0].dictationcardTitle}</h1>
                             </div>
                             <div className="col-4">
-                            <button >Update Feedback</button>
+                            {/* <button >Update Feedback</button> */}
                             </div>
                         </div>
 
                         <div className="row d-flex p-4">
                             <div className="col">
                             <table>
+                                <tbody>
                                 <tr>
                                 <td className={classes.toprow}>Question</td>
 
-                                {this.state.correctDictationcard[0] &&
-                                            this.state.correctDictationcard[0].questions.length > 0 
-                                            ? this.state.correctDictationcard[0].questions[0].submission.map((sub,index) => {
+                                {this.state.correctDictationcard[0] && this.state.correctDictationcard[0].questions.length > 0 ? this.state.correctDictationcard[0].questions[0].submission.map((sub,index) => {
                                                         return (
-                                                            <><td data-key={index} className={classes.mainrow}>{sub.displayName}</td>
-                                                            <td data-key={index} className={classes.commentrow}>Comments</td> </>
-                                                            
+                                                            <><td data-key={index} key={index} className={classes.mainrow}>{sub.displayName}</td>
+                                                            <td data-key={index} key={"comment" + index} className={classes.commentrow}>Comments</td></>
                                                         )
                                             }) : null
                             }                                 
-                            </tr>
-
+                                </tr>
                                 {this.state.correctDictationcard.length > 0 &&
                                     this.state.correctDictationcard[0].questions.length > 0
                                     ? this.state.correctDictationcard[0].questions.map((question, i) => {
                                         return(
-                                            <tr data-key={i}>
+                                            <tr data-key={question.id} key={"submission" + i}>
                                                 <td className={classes.toprow}>{question.dictationBody}</td>
-                                            {question.submission.map((sub, index) => {
-                                                return <><td className={classes.mainrow}><img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>
-                                                </td><td data-key={index} className={classes.commentrow}>
-                                                    <input type="text" placeholder="New Feedback"  /> </td></>
+                                            {question.submission.map((sub) => {
+                                                return <>
+                                                <td className={classes.mainrow}>
+                                                    <img src={sub.dictationSubmissionPath} alt="submission" width="auto" height="90"></img>
+                                                </td>
+                                                <td data-key={sub.id} className={classes.commentrow}>
+                                                    <input data-key={sub.feedback[0].id} type="text" placeholder="Add Feedback" value={sub.feedback[0].dictationFeedbackBody} onClick={(e) => this.feedbackModal(e)} readonly/>
+                                                </td>
+                                                </>
                                             })}
-
-                                                </tr>
+                                            </tr>
                                         )
                                     }) : null}
-
+                                    <FeedbackPopUp user={this.props.user} feedback={this.state} toggle={() => this.feedbackToggle()}/>
+                                </tbody>
                                 </table>
                                 </div>
                         </div>
@@ -117,11 +128,12 @@ const mapStateToProps = (state) => {
         tags: state.tagStore.tags,
     }
 }
+
 const mapDispatchToProps  = dispatch => {
     return {
         getdata: (email) => {
             dispatch(getdataThunk(email))
-        },
+        }
     }
 }
 

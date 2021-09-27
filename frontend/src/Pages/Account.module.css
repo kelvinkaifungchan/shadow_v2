@@ -8,6 +8,10 @@ h1 {
     color: #3D4176;
 }
 
+.account h1{
+    padding: 10px 0px 0px 20px
+}
+
 .icon{
     display: flex;
     flex-direction: column;

@@ -47,3 +47,21 @@
     margin-right: 5px; 
     color: #ffc7c3;
 }
+
+/* .dropdown{
+    height: 1rem;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdownToggle {
+
+} */
+
+.dropdown span:hover{
+    /* color: black; */
+    /* align-self: top; */
+    color: #f7ea8a
+}
