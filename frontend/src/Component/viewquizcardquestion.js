@@ -20,21 +20,26 @@ class PureViewQuizcardQuestionModule extends React.Component {
     }
 
     handleAnswer(e, questionId, submission, marking) {
-        this.props.addAnswer(questionId, submission, marking)
-        this.setState({
-            tracking: this.state.tracking.concat(questionId),
-            hideNext: true
-        })
-        if (marking) {
-            e.target.style.background = "#F4FFB4"
-        } else {
-            e.target.style.background = '#FCDDEC'
-        }
-        if(this.state.questionNumId >= this.props.question.question.length - 1){
+        if(this.state.tracking.indexOf(questionId) >= 0){
+            return
+        } else{
+
+            this.props.addAnswer(questionId, submission, marking)
             this.setState({
-                showSub: true,
-                hideNext: false,
+                tracking: this.state.tracking.concat(questionId),
+                hideNext: true
             })
+            if (marking) {
+                e.target.style.background = "#F4FFB4"
+            } else {
+                e.target.style.background = '#FCDDEC'
+            }
+            if(this.state.questionNumId >= this.props.question.question.length - 1){
+                this.setState({
+                    showSub: true,
+                    hideNext: false,
+                })
+            }
         }
     }
 

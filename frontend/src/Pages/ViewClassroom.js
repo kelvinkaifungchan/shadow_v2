@@ -195,7 +195,7 @@ class ViewClassroom extends React.Component {
                         {/* Share User */}
                         <DisplayShareUser shared={this.state.correctShare} deleteShare={(sharedId) => { this.deleteShare(sharedId) }} />
                         {/* share user add button */}
-                        <NewSharePopUp share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
+                        <NewSharePopUp match={this.props.match} share={this.state} location={this.state.correctClass[0]} toggle={() => this.shareToggle()} />
                         <span className={classes.sharingusericon}>
                             {this.props.user.role === "teacher" ? <button onClick={() => this.shareToggle()} className={classes.addusericon}><i className="fas fa-plus"></i></button> : null}
                         </span>
