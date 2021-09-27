@@ -25,7 +25,7 @@ class PurePasswordEditModal extends React.Component {
 
     update = (e) => {
         e.preventDefault();
-        this.props.updatePassword(this.props.user.id, this.state.password)
+        this.props.editPassword(this.props.user.id, this.state.password)
     }
 
 render(){
