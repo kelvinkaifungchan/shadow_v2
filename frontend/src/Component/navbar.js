@@ -48,7 +48,6 @@ class PureNavBar extends React.Component {
     }
     
     render() {
-        console.log('nav bar props',this.props)
         return (
             <div className={classes.header}>
                     <ul className={classes.menu}>

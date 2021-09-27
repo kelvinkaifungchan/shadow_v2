@@ -23,13 +23,13 @@ class PureDisplayCardModule extends React.Component {
             const shallowCard = this.props.allCard
             const shallowBridge = this.props.correctSet[0]
             const onlyCard = {}
-            if(shallowCard.flashcard.length > 0 ){
+            if(shallowCard.flashcard.length > 0 && shallowBridge.bridge_flashcard.length > 0){
                 onlyCard.onlyFlash = shallowCard.flashcard.filter(this.flashCompare(shallowBridge.bridge_flashcard))
             }
-            if(shallowCard.quizcard.length > 0 ){
+            if(shallowCard.quizcard.length > 0 && shallowBridge.bridge_quizcard.length > 0){
                 onlyCard.onlyQuiz = shallowCard.quizcard.filter(this.quizCompare(shallowBridge.bridge_quizcard))
             }
-            if(shallowCard.dictationcard.length > 0 ){
+            if(shallowCard.dictationcard.length > 0 && shallowBridge.bridge_dictationcard.length > 0){
                 onlyCard.onlyDict = shallowCard.dictationcard.filter(this.dictCompare(shallowBridge.bridge_dictationcard))
             }
             this.setState({
@@ -185,7 +185,7 @@ class PureDisplayCardModule extends React.Component {
                 }
 
                 {/* quizcard */}
-                {this.props.allCard && this.props.allCard.quizcard.length > 0 && this.state.correctExist.length > 0 && this.state.correctExist[0].onlyQuiz !== undefined ? this.state.correctExist[0].onlyQuiz.map((card, i) => {
+                {this.props.allCard && this.props.allCard.quizcard.length > 0 && this.state.correctExist.length > 0 ? this.state.correctExist[0].onlyQuiz.map((card, i) => {
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} </h4>
@@ -211,7 +211,7 @@ class PureDisplayCardModule extends React.Component {
                 }) : null
                 }
                 {/* dictationcard */}
-                {this.props.allCard && this.props.allCard.dictationcard.length > 0 && this.state.correctExist.length > 0 && this.state.correctExist[0].onlyDict !== undefined ? this.state.correctExist[0].onlyDict.map((card, i) => {
+                {this.props.allCard && this.props.allCard.dictationcard.length > 0 && this.state.correctExist.length > 0 ? this.state.correctExist[0].onlyDict.map((card, i) => {
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="dictationcard" className={classes.dictationcard} onClick={(e)=>{ this.addDictationcardConnect(e);this.props.toggle(e) }}>
                             <h4 data-key={card.id} data-del="" data-type="dictationcard">{card.dictationcardTitle} Add Exist Dictation Crd</h4>

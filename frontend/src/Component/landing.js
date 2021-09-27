@@ -26,8 +26,6 @@ import PrivateRoute from './PrivateRoute'
 import './landing.module.css'
 class PureLanding extends React.Component {
     render() {
-        console.log('landing.fuckingjs', this.props);
-        
         return (
 
             <BrowserRouter>

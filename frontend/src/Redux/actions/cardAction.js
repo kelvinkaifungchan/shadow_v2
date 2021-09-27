@@ -52,7 +52,7 @@ export const addCard = (card) => async (dispatch) => {
     }).then((newId) =>{
         return axios.post("http://localhost:8080/api/bridge", {
             type: "set_flashcard",
-            setId: card.setId,
+            setId: parseInt(card.setId),
             flashcardId: newId
         })
 

@@ -6,8 +6,6 @@ const PurePrivateRoute = ({ component, isAuthenticated, ...rest }) => {
     const Component = component;
 
     if (Component != null) {
-        console.log('rest', rest)
-        console.log('component', Component)
         return (
             <Route {...rest} render={(props) => (
                 isAuthenticated ? (
