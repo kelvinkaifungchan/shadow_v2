@@ -23,13 +23,13 @@ class PureDisplayCardModule extends React.Component {
             const shallowCard = this.props.allCard
             const shallowBridge = this.props.correctSet[0]
             const onlyCard = {}
-            if(shallowCard.flashcard.length > 0 && shallowBridge.bridge_flashcard.length > 0){
+            if(shallowCard.flashcard.length > 0){
                 onlyCard.onlyFlash = shallowCard.flashcard.filter(this.flashCompare(shallowBridge.bridge_flashcard))
             }
-            if(shallowCard.quizcard.length > 0 && shallowBridge.bridge_quizcard.length > 0){
+            if(shallowCard.quizcard.length > 0){
                 onlyCard.onlyQuiz = shallowCard.quizcard.filter(this.quizCompare(shallowBridge.bridge_quizcard))
             }
-            if(shallowCard.dictationcard.length > 0 && shallowBridge.bridge_dictationcard.length > 0){
+            if(shallowCard.dictationcard.length > 0){
                 onlyCard.onlyDict = shallowCard.dictationcard.filter(this.dictCompare(shallowBridge.bridge_dictationcard))
             }
             this.setState({
