@@ -99,20 +99,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export const DisplayClassModule = connect(null, mapDispatchToProps)(PureDisplayClassModule)
-
-{/* <div data-key="dropdown" className="col-2">
-                                <><UncontrolledDropdown data-key="dropdown"  className={classes.dropdown}>
-                                        <DropdownToggle data-key="dropdown" style={{backgroundColor:'transparent', border: '0px'}}>
-                                            <span data-key="dropdown" className={classes.detebtn}><i data-key="dropdown"  className="fas fa-ellipsis-h"></i></span>
-                                        </DropdownToggle>
-                                        <DropdownMenu right data-key="dropdown">
-                                            <DropdownItem data-key="delete" onClick={() => this.deleteClassroom(classroom.id)}><div data-key="delete" >Delete Classroom<i data-key="delete" className="fas fa-trash ml-2"></i></div></DropdownItem>
-                                            <DropdownItem data-key="edit" 
-                                                onClick={() => { 
-                                                this.changeTypeClass(); 
-                                                this.editToggle()}} >
-                                                    <div data-key="edit">Edit Classroom<i data-key="edit" className="fa fa-pencil ml-2" ></i></div>
-                                                    </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown></> 
-                                    </div> */}

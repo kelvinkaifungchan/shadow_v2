@@ -133,8 +133,7 @@ class PureDisplayCardModule extends React.Component {
                 {this.props.allCard && this.props.allCard.quizcard.length > 0 ? this.props.allCard.quizcard.map((card, i) => {
                     return (
                         <div key={i} data-key={card.id} data-del="" data-type="quizcard" className={classes.quizcard} onClick={(e)=>{ this.addQuizConnect(e);this.props.toggle(e) }}>
-                            <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} Add Exist Quizcard</h4>
-                            <p data-key={card.id} data-del="" data-type="quizcard">{card.quizcardRecording}</p>
+                            <h4 data-key={card.id} data-del="" data-type="quizcard">{card.quizcardTitle} </h4>
                         </div>
                     )
                 }): 
