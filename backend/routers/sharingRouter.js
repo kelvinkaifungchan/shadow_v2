@@ -1,8 +1,9 @@
 const express = require("express");
 
 class SharingRouter {
-    constructor(sharingService){
+    constructor(sharingService, classroomService){
         this.sharingService = sharingService;
+        this.classroomService = classroomService;
     }
 
     router(){
@@ -18,6 +19,10 @@ class SharingRouter {
         console.log("Post request to add user to classroom");
 
         return this.sharingService.add(req.body)
+        .then(() => {
+           return this.classroomService
+           .list(req.body)
+        })
         .then((data) => {
             return res.json(data)
         })
