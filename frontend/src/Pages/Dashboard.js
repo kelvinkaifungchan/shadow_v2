@@ -7,7 +7,6 @@ import { getdataThunk } from '../Redux/actions/action'
 import { DisplayClassModule } from '../Component/displayclassmodule'
 import { DisplaySetModule } from '../Component/displaysetmodule'
 import { DisplayCardModule } from '../Component/displaycardmodule';
-import { NavBar } from '../Component/navbar';
 
 // Require Modal Component
 import { CreatePopUp } from '../Component/createmodal'
