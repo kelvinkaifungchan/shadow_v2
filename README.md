@@ -32,3 +32,5 @@ Link to spec sheet: https://docs.google.com/spreadsheets/d/1dp9mFAXfm4P6EAPLw1dx
 - AWS S3
 - Sockets.io
 
+*shadow was developed by Kelvin Kaifung Chan, Gabriel Li, Ivan Hong, Shandy Law and Brian Cheng
+
